@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1042624080224",
+    "project_id": "flutter-boilerplate-609cc",
+    "storage_bucket": "flutter-boilerplate-609cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042624080224:android:2a6c13cac03e798acd9605",
+        "android_client_info": {
+          "package_name": "com.example.flutterBoilerplate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042624080224-gdaqd9vsvo49k0t835r1gku2dsu0svtq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeSEY62eNWh968THlFy1xTikodJpZrHe0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042624080224-gdaqd9vsvo49k0t835r1gku2dsu0svtq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1042624080224-0pl5r8jjbuaj4vna4tiqj2q939hhc218.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterBoilerplate"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
