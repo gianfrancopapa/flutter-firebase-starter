@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "cuti-1.png",
+      "filename" : "somnio_logo.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "cuti-2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "cuti-3.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

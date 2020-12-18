@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/utils/strings.dart';
+import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/create_account_form.dart';
 
 class CreateAccountScreen extends StatelessWidget {

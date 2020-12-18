@@ -4,7 +4,7 @@ import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
 import 'package:flutterBoilerplate/screens/create_account_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
-import 'package:flutterBoilerplate/utils/strings.dart';
+import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

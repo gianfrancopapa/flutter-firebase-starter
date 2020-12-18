@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
-import 'package:flutterBoilerplate/utils/strings.dart';
+import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
