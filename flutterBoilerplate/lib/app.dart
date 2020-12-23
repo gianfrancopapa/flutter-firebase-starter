@@ -5,6 +5,7 @@ import 'package:flutterBoilerplate/bloc/login/login_state.dart';
 import 'package:flutterBoilerplate/screens/login_screen.dart';
 import 'package:flutterBoilerplate/screens/main_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterBoilerplate/constants/themes/app_theme.dart';
 
 class App extends StatefulWidget {
   @override
@@ -22,8 +23,8 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
         home: BlocBuilder<LoginBloc, LoginState>(
           cubit: _bloc,
           builder: (context, state) {
