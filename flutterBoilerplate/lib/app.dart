@@ -22,6 +22,8 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
         home: BlocBuilder<LoginBloc, LoginState>(
           cubit: _bloc,
           builder: (context, state) {
