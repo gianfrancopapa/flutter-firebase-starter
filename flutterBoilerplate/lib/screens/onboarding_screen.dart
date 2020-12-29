@@ -13,28 +13,6 @@ class OnBoardingScreen extends StatefulWidget {
 
 class OnBoardingScreenState extends State<OnBoardingScreen>
     with TickerProviderStateMixin {
-  final GlobalKey<ScaffoldState> _globalKey = new GlobalKey<ScaffoldState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: _globalKey,
-      body: SKOnboardingScreen(
-        bgColor: Colors.white,
-        themeColor: const Color(0xFFf74269),
-        pages: pages,
-        skipClicked: (value) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginScreen()));
-        },
-        getStartedClicked: (value) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LoginScreen()));
-        },
-      ),
-    );
-  }
-
   final pages = [
     SkOnboardingModel(
         title: 'Welcome to Flutter Boilerplate',
@@ -58,4 +36,23 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
         descripColor: const Color(0xFF929794),
         imagePath: Assets.onboarding3),
   ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SKOnboardingScreen(
+        bgColor: Colors.white,
+        themeColor: const Color(0xFFf74269),
+        pages: pages,
+        skipClicked: (value) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        },
+        getStartedClicked: (value) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        },
+      ),
+    );
+  }
 }
