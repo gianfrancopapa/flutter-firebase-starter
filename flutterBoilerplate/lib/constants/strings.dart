@@ -22,4 +22,9 @@ class AppString {
   static final appName = 'App Name';
   static final buildNumber = 'Build Number';
   static final packageName = 'Package Name';
+
+  //User Profile
+  static final myProfile = 'My Profile';
+  static const fstName = 'First Name';
+  static const lstName = 'Last Name';
 }

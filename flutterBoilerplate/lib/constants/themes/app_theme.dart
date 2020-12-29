@@ -5,7 +5,7 @@ class AppTheme {
 
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: Colors.teal,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: Colors.teal,
       iconTheme: IconThemeData(
         color: Colors.white,
@@ -18,21 +18,21 @@ class AppTheme {
       secondary: Colors.red,
       secondaryVariant: Colors.red[50],
       onSecondary: Colors.red,
-      background: null,
-      onBackground: null,
-      error: null,
-      onError: null,
-      brightness: null,
-      surface: null,
-      onSurface: null,
+      background: Colors.teal[100],
+      onBackground: Colors.teal[300],
+      error: Colors.red,
+      onError: Colors.red[100],
+      brightness: Brightness.light,
+      surface: Colors.teal,
+      onSurface: Colors.teal[100],
     ),
-    cardTheme: CardTheme(
+    cardTheme: const CardTheme(
       color: Colors.teal,
     ),
-    iconTheme: IconThemeData(
+    iconTheme: const IconThemeData(
       color: Colors.white54,
     ),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       headline6: TextStyle(
         color: Colors.white,
         fontSize: 18.0,
@@ -46,7 +46,7 @@ class AppTheme {
 
   static final ThemeData darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.teal,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       color: Colors.black,
       iconTheme: IconThemeData(
         color: Colors.white,
@@ -59,21 +59,21 @@ class AppTheme {
       secondary: Colors.red,
       secondaryVariant: Colors.red[50],
       onSecondary: Colors.red,
-      background: null,
-      onBackground: null,
-      error: null,
-      onError: null,
-      brightness: null,
-      surface: null,
-      onSurface: null,
+      background: Colors.white24,
+      onBackground: Colors.white,
+      error: Colors.red,
+      onError: Colors.red[100],
+      brightness: Brightness.light,
+      surface: Colors.white30,
+      onSurface: Colors.white,
     ),
-    cardTheme: CardTheme(
+    cardTheme: const CardTheme(
       color: Colors.black,
     ),
-    iconTheme: IconThemeData(
+    iconTheme: const IconThemeData(
       color: Colors.white54,
     ),
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       headline6: TextStyle(
         color: Colors.white,
         fontSize: 18.0,

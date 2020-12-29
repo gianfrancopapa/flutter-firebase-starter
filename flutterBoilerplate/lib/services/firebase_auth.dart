@@ -115,6 +115,17 @@ class FirebaseAuthService implements IAuth {
     }
   }
 
+  @override
+  Future<User> getCurrentUser() async {
+    try {
+      final firebaseUser = await _auth.currentUser();
+      final user = _mapFirebaseUserToUser(firebaseUser);
+      return user;
+    } catch (e) {
+      throw e;
+    }
+  }
+
   User _mapFirebaseUserToUser(FirebaseUser user) {
     try {
       final splitName = user.displayName.split(" ");

@@ -4,6 +4,7 @@ import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/screens/configuration_screen.dart';
+import 'package:flutterBoilerplate/screens/user_profile_screen.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,14 +27,22 @@ class MainScreen extends StatelessWidget {
           title: Text(AppString.welcome),
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.miscellaneous_services_rounded),
-                tooltip: AppString.configuration,
-                onPressed: () {
-                  Navigator.push(
+              icon: Icon(Icons.miscellaneous_services_rounded),
+              tooltip: AppString.configuration,
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ConfigurationScreen()));
+              },
+            ),
+            IconButton(
+                icon: Icon(Icons.supervised_user_circle),
+                tooltip: AppString.myProfile,
+                onPressed: () => Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => ConfigurationScreen()));
-                })
+                      MaterialPageRoute(builder: (context) => ProfileScreen()),
+                    )),
           ],
         ),
         body: Container(
