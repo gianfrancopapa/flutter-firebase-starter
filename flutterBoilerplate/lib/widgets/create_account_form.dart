@@ -3,6 +3,7 @@ import 'package:flutterBoilerplate/bloc/create_account/create_account_bloc.dart'
 import 'package:flutterBoilerplate/bloc/create_account/create_account_event.dart';
 import 'package:flutterBoilerplate/bloc/create_account/create_account_state.dart';
 import 'package:flutterBoilerplate/screens/main_screen.dart';
+import 'package:flutterBoilerplate/screens/onboarding_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
@@ -50,7 +51,7 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => MainScreen(),
+          builder: (context) => OnBoardingScreen(),
         ),
       );
     }
