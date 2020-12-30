@@ -9,6 +9,7 @@ import 'package:flutterBoilerplate/screens/login_screen.dart';
 import 'package:flutterBoilerplate/screens/main_screen.dart';
 import 'package:flutterBoilerplate/screens/onboarding_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterBoilerplate/constants/themes/app_theme.dart';
 
 class App extends StatefulWidget {
   @override
@@ -47,6 +48,8 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
         home: BlocBuilder<InitAppBloc, FirstTimeInAppState>(
           cubit: _initAppBloc,
           builder: (context, initAppState) {

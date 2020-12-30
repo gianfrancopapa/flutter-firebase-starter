@@ -15,4 +15,11 @@ class AppString {
   //Main Screen
   static final welcome = 'Welcome';
   static final logout = 'Logout';
+
+  //Configuration Screen
+  static final configuration = 'Configuration';
+  static final version = 'Version';
+  static final appName = 'App Name';
+  static final buildNumber = 'Build Number';
+  static final packageName = 'Package Name';
 }
