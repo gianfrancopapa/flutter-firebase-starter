@@ -42,57 +42,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return Container(
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          const Card(
-                            child: Text(
-                              AppString.fstName,
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            user.firstName,
-                            style: const TextStyle(fontSize: 18.0),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          const Card(
-                            child: Text(
-                              AppString.lstName,
-                              style: TextStyle(
-                                fontSize: 20.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            user.lastName,
-                            style: const TextStyle(fontSize: 18.0),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Card(
-                            child: Text(
-                              AppString.email,
-                              style: const TextStyle(
-                                fontSize: 20.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            user.email,
-                            style: const TextStyle(fontSize: 18.0),
-                          ),
-                        ],
-                      ),
+                      CustomRow(AppString.fstName, user.firstName),
+                      CustomRow(AppString.lstName, user.lastName),
+                      CustomRow(AppString.email, user.email),
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -105,6 +57,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 );
             }
           }),
+    );
+  }
+
+  Widget CustomRow(String cardText, String text) {
+    return Row(
+      children: [
+        Card(
+          child: Text(
+            cardText,
+            style: const TextStyle(
+              fontSize: 20.0,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        Text(
+          text,
+          style: const TextStyle(fontSize: 18.0),
+        ),
+      ],
     );
   }
 }

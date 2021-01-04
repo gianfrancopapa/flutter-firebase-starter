@@ -21,40 +21,37 @@ class MainScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          leading: SizedBox(),
+          leading: const SizedBox(),
           automaticallyImplyLeading: false,
           backgroundColor: Colors.blueGrey,
           title: Text(AppString.welcome),
           actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.miscellaneous_services_rounded),
-              tooltip: AppString.configuration,
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ConfigurationScreen()));
-              },
-            ),
-            IconButton(
-                icon: Icon(Icons.supervised_user_circle),
-                tooltip: AppString.myProfile,
-                onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ProfileScreen()),
-                    )),
+            CustomButton(const Icon(Icons.miscellaneous_services_rounded),
+                AppString.configuration, context, const ConfigurationScreen()),
+            CustomButton(const Icon(Icons.supervised_user_circle),
+                AppString.myProfile, context, ProfileScreen()),
           ],
         ),
-        body: Container(
-          child: Center(
-            child: Button(
-              text: AppString.logout,
-              onTap: () => _bloc.add(
-                const StartLogout(),
-              ),
+        body: Center(
+          child: Button(
+            text: AppString.logout,
+            onTap: () => _bloc.add(
+              const StartLogout(),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget CustomButton(
+      Icon icon, String tooltip, BuildContext context, Widget screen) {
+    return IconButton(
+      icon: icon,
+      tooltip: tooltip,
+      onPressed: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => screen),
       ),
     );
   }
