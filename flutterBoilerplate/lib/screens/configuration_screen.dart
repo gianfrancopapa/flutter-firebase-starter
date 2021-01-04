@@ -11,7 +11,7 @@ class ConfigurationScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           AppString.configuration,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
@@ -26,7 +26,7 @@ class ConfigurationScreen extends StatelessWidget {
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
                 Text(
               snapshot.hasData ? snapshot.data : 'Loading ...',
-              style: TextStyle(color: Colors.black38),
+              style: const TextStyle(color: Colors.black38),
             ),
           ),
         ),

@@ -3,6 +3,7 @@ import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
 import 'package:flutterBoilerplate/screens/create_account_screen.dart';
+import 'package:flutterBoilerplate/screens/forgot_password_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
@@ -37,6 +38,13 @@ class _LoginFormState extends State<LoginForm> {
         ),
       );
 
+  void _goToForgotPasswordScreen() => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ForgotPasswordScreen(),
+        ),
+      );
+
   void _determineAction(LoginState state) {
     if (state.runtimeType == ErrorLogin) {
       DialogHelper.showAlertDialog(
@@ -55,7 +63,8 @@ class _LoginFormState extends State<LoginForm> {
         builder: (context, state) => ModalProgressHUD(
           inAsyncCall: state.runtimeType == Loading,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             child: Column(
               children: [
                 Container(
@@ -78,6 +87,10 @@ class _LoginFormState extends State<LoginForm> {
                         onChanged: _onPasswordChanged,
                         isPassword: true,
                       ),
+                      TextButton(
+                        onPressed: _goToForgotPasswordScreen,
+                        child: const Text('Did you forgot your password?'),
+                      )
                     ],
                   ),
                 ),

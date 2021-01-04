@@ -22,4 +22,9 @@ class AppString {
   static final appName = 'App Name';
   static final buildNumber = 'Build Number';
   static final packageName = 'Package Name';
+
+  //Forgot password
+  static final forgotPassword = 'Forgot Password';
+  static final send = 'Send';
+  static final emailSended = 'Email Sended';
 }
