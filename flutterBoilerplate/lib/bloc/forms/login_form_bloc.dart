@@ -23,8 +23,8 @@ abstract class LoginFormBloc extends Bloc<LoginEvent, LoginState>
         (email, password) => true,
       );
 
-  get onEmailChanged => emailController.sink.add;
-  get onPasswordChanged => passwordController.sink.add;
+  Function(void) get onEmailChanged => emailController.sink.add;
+  Function(void) get onPasswordChanged => passwordController.sink.add;
 
   Stream<LoginState> login();
   Stream<LoginState> logout();

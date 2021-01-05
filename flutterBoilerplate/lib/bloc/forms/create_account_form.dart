@@ -34,15 +34,16 @@ abstract class CreateAccountFormBloc
   Stream<String> get passwordConfirmation =>
       passwordConfirmationController.transform(passwordTransfomer);
 
-  get onFirstNameChanged => firstNameController.sink.add;
+  Function(void) get onFirstNameChanged => firstNameController.sink.add;
 
-  get onLastNameChanged => lastNameController.sink.add;
+  Function(void) get onLastNameChanged => lastNameController.sink.add;
 
-  get onEmailChanged => emailController.sink.add;
+  Function(void) get onEmailChanged => emailController.sink.add;
 
-  get onPasswordChanged => passwordController.sink.add;
+  Function(void) get onPasswordChanged => passwordController.sink.add;
 
-  get onPasswordConfirmationChanged => passwordConfirmationController.sink.add;
+  Function(void) get onPasswordConfirmationChanged =>
+      passwordConfirmationController.sink.add;
 
   Stream<bool> get activateButton => Rx.combineLatest2<String, String, bool>(
         email,
