@@ -81,12 +81,15 @@ PODS:
   - package_info (0.0.1):
     - Flutter
   - PromisesObjC (1.2.10)
+  - shared_preferences (0.0.1):
+    - Flutter
 
 DEPENDENCIES:
   - Firebase/Analytics
   - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
+  - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - package_info (from `.symlinks/plugins/package_info/ios`)
 
 SPEC REPOS:
@@ -111,8 +114,13 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
+<<<<<<< HEAD
+  shared_preferences:
+    :path: ".symlinks/plugins/shared_preferences/ios"
+=======
   package_info:
     :path: ".symlinks/plugins/package_info/ios"
+>>>>>>> develop
 
 SPEC CHECKSUMS:
   Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
@@ -131,6 +139,7 @@ SPEC CHECKSUMS:
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
 
 PODFILE CHECKSUM: a6c27590f93091b974d3ce84292ea5fe4a23d807
 
