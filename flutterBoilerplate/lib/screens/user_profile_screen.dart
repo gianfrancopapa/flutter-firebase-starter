@@ -1,8 +1,12 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/user/user_bloc.dart';
 import 'package:flutterBoilerplate/bloc/user/user_event.dart';
 import 'package:flutterBoilerplate/bloc/user/user_state.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutterBoilerplate/services/firebase_auth.dart';
+import 'package:flutterBoilerplate/services/firebase_storage.dart';
+import 'package:flutterBoilerplate/widgets/profile_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -12,10 +16,12 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   UserBloc _bloc;
+
   @override
   void initState() {
     _bloc = UserBloc();
     _bloc.add(const GetUser());
+
     super.initState();
   }
 
@@ -39,9 +45,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 );
               case CurrentUser:
                 final user = (state as CurrentUser).user;
+                final image = (state as CurrentUser).avatar;
                 return Container(
                   child: Column(
                     children: [
+                      ProfileImage(image: image),
                       CustomRow(AppString.fstName, user.firstName),
                       CustomRow(AppString.lstName, user.lastName),
                       CustomRow(AppString.email, user.email),

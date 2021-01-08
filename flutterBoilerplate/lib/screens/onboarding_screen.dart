@@ -20,21 +20,21 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
             'A Somnios\'s applications to to be reused when creating a new app',
         titleColor: Colors.black,
         descripColor: const Color(0xFF929794),
-        imagePath: Assets.somnioLogo),
+        imagePath: AppAsset.somnioLogo),
     SkOnboardingModel(
         title: 'Options',
         description:
             'Explore and reuse generic functions to let you start coding, as soon as possible',
         titleColor: Colors.black,
         descripColor: const Color(0xFF929794),
-        imagePath: Assets.onboarding2),
+        imagePath: AppAsset.onboarding2),
     SkOnboardingModel(
         title: 'Documentation on Confluence',
         description:
             'You can find some documentation on Confluence in order to find information about this app',
         titleColor: Colors.black,
         descripColor: const Color(0xFF929794),
-        imagePath: Assets.onboarding3),
+        imagePath: AppAsset.onboarding3),
   ];
 
   @override

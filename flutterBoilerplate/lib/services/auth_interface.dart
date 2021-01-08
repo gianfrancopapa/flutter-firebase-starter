@@ -18,5 +18,5 @@ abstract class IAuth {
 
   Future<bool> deleteAccount();
 
-  Future<User> getCurrentUser();
+  User getCurrentUser();
 }

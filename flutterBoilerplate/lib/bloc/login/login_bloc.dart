@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutterBoilerplate/bloc/forms/login_form_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
@@ -29,13 +30,14 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> login() async* {
     yield const Loading();
     try {
-      final user = await _firebaseAuth.loginWithEmail(
+      await _firebaseAuth.loginWithEmail(
         emailController.value,
         passwordController.value,
       );
       yield const LoggedIn();
     } catch (e) {
-      yield ErrorLogin(e);
+      print(e.runtimeType);
+      yield ErrorLogin((e as PlatformException).message);
     }
   }
 
