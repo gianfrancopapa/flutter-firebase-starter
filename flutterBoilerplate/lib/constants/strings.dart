@@ -1,6 +1,9 @@
 class AppString {
+  //General
+  static const ok = 'Ok';
+
   //Login Screen
-  static final email = 'Email';
+  static const email = 'Email';
   static final password = 'Password';
   static final login = 'Login';
   static final dontYouHaveAccount = 'Don\'t you have an account?';
@@ -27,4 +30,5 @@ class AppString {
   static final forgotPassword = 'Forgot Password';
   static final send = 'Send';
   static final emailSended = 'Email Sended';
+  static const checkInbox = 'Check your email inbox';
 }

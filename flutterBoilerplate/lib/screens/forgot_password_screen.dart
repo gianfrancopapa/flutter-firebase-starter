@@ -79,11 +79,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             AppString.emailSended,
             style: const TextStyle(color: Colors.black),
           ),
-          content: const Text('Check your email inbox',
+          content: const Text(AppString.checkInbox,
               style: TextStyle(color: Colors.black)),
           actions: <Widget>[
             FlatButton(
-              child: const Text('OK', style: TextStyle(color: Colors.black)),
+              child: const Text(AppString.ok,
+                  style: TextStyle(color: Colors.black)),
               onPressed: () {
                 _dispatchForgotPasswordEvent();
                 _goToLoginScreen();

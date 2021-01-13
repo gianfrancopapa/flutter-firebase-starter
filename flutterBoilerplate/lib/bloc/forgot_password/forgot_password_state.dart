@@ -2,10 +2,6 @@ abstract class ForgotPasswordState {
   const ForgotPasswordState();
 }
 
-class SendEmail extends ForgotPasswordState {
-  const SendEmail();
-}
-
 class EmailSended extends ForgotPasswordState {
   const EmailSended();
 }
