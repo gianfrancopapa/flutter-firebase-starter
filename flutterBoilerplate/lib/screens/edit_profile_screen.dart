@@ -5,23 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_bloc.dart';
 
 import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_state.dart';
+import 'package:flutterBoilerplate/constants/assets.dart';
+import 'package:flutterBoilerplate/constants/strings.dart';
 
 import 'package:flutterBoilerplate/services/firebase_storage.dart';
 
 import 'package:flutterBoilerplate/widgets/common/image_picker_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfileImage extends StatefulWidget {
-  const ProfileImage({Key key}) : super(key: key);
+class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({Key key}) : super(key: key);
 
   @override
-  _ProfileImageState createState() => _ProfileImageState();
+  _EditProfileScreenState createState() => _EditProfileScreenState();
 }
 
-class _ProfileImageState extends State<ProfileImage> {
+class _EditProfileScreenState extends State<EditProfileScreen> {
   FirebaseAuthApi.User _user;
   EditProfileBloc _bloc;
-  File _image;
+  AssetImage _image;
   @override
   void initState() {
     _bloc = EditProfileBloc();
@@ -32,57 +34,49 @@ class _ProfileImageState extends State<ProfileImage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ImagePickerButton(
-        dispatchImageFromCamera: _bloc.pickImageFromCamera,
-        dispatchImageFromGallery: _bloc.pickImageFromGallery,
-        child: CircleAvatar(
-          radius: 55,
-          backgroundColor: const Color(0xffFDCF09),
-          child: BlocBuilder<EditProfileBloc, EditProfileState>(
-              cubit: _bloc,
-              builder: (context, state) {
-                switch (state.runtimeType) {
-                  case Loading:
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  case Error:
-                    return Center(
-                      child: Text((state as Error).message.toString()),
-                    );
-                  case ProfileEdited:
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.file(
-                        (state as ProfileEdited).file,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.fitHeight,
-                      ),
-                    );
-
-                  default:
-                    loadProfilePhoto();
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.file(
-                        _image,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.fitHeight,
-                      ),
-                    );
-                }
-              }),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(AppString.editProfile),
       ),
-    ]);
-  }
-
-  Future<File> loadProfilePhoto() async {
-    final path = await FirebaseStorageService()
-        .downloadFile('user/profile/${_user.uid}');
-    return _image = File(path);
+      body: Column(children: [
+        Center(
+          child: ImagePickerButton(
+            dispatchImageFromCamera: _bloc.pickImageFromCamera,
+            dispatchImageFromGallery: _bloc.pickImageFromGallery,
+            child: CircleAvatar(
+              radius: 55,
+              backgroundColor: const Color(0xffFDCF09),
+              child: BlocBuilder<EditProfileBloc, EditProfileState>(
+                cubit: _bloc,
+                builder: (context, state) {
+                  switch (state.runtimeType) {
+                    case Loading:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    case Error:
+                      return Center(
+                        child: Text((state as Error).message.toString()),
+                      );
+                    case ProfileEdited:
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+                          _user.photoURL,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      );
+                    default:
+                      return const Image(image: AssetImage(AppAsset.anonUser));
+                  }
+                },
+              ),
+            ),
+          ),
+        ),
+      ]),
+    );
   }
 }

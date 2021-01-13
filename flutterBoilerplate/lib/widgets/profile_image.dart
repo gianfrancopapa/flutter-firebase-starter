@@ -1,8 +1,7 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 class ProfileImage extends StatelessWidget {
-  final File image;
+  final String image;
   const ProfileImage({this.image});
 
   @override
@@ -10,7 +9,7 @@ class ProfileImage extends StatelessWidget {
     return Column(children: [
       ClipRRect(
         borderRadius: BorderRadius.circular(50),
-        child: Image.file(
+        child: Image.network(
           image,
           width: 100,
           height: 100,

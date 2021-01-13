@@ -1,17 +1,13 @@
-import 'dart:io';
+import 'package:flutter/material.dart';
 
 abstract class EditProfileState {
   const EditProfileState();
 }
 
-class AvatarChanged extends EditProfileState {
-  final File file;
-  const AvatarChanged(this.file);
+class ProfileEdited extends EditProfileState {
+  final AssetImage image;
+  const ProfileEdited(this.image);
 }
-
-/*class LoggedOut extends EditProfileState {
-  const LoggedOut();
-}*/
 
 class NotDetermined extends EditProfileState {
   const NotDetermined();

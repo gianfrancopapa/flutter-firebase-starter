@@ -1,12 +1,16 @@
 import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuthApi;
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutterBoilerplate/models/user.dart';
 import 'package:flutterBoilerplate/services/auth_interface.dart';
+import 'package:flutterBoilerplate/services/firebase_storage.dart';
 
 class FirebaseAuthService implements IAuth {
   final _auth = FirebaseAuthApi.FirebaseAuth.instance;
+  final _storage = FirebaseStorageService();
 
   @override
   Future<User> createAccountWithEmail({
@@ -20,10 +24,11 @@ class FirebaseAuthService implements IAuth {
         email: email,
         password: password,
       );
-
+      await _storage.uploadFile(File(AppAsset.anonUser), AppAsset.anonUser);
+      final imageURL = await _storage.downloadURL(AppAsset.anonUser);
       await _auth.currentUser.updateProfile(
-        displayName: '$firstName $lastName',
-      );
+          displayName: '$firstName $lastName', photoURL: imageURL);
+
       return _mapFirebaseUserToUser(_auth.currentUser);
     } catch (e) {
       print(e.toString());
@@ -132,8 +137,7 @@ class FirebaseAuthService implements IAuth {
       map['firstName'] = splitName[0];
       map['lastName'] = splitName[1];
       map['email'] = user.email;
-      map['avatar'] =
-          user.photoURL != null ? File(user.photoURL) : File(AppAsset.anonUser);
+      map['avatarAsset'] = user.photoURL;
       return User.fromJson(map);
     } catch (e) {
       print(e.toString());

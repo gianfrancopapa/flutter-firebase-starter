@@ -55,7 +55,8 @@ class _LoginFormState extends State<LoginForm> {
         builder: (context, state) => ModalProgressHUD(
           inAsyncCall: state.runtimeType == Loading,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             child: Column(
               children: [
                 Container(
@@ -90,7 +91,7 @@ class _LoginFormState extends State<LoginForm> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           AppString.dontYouHaveAccount + ' ',
                         ),
                         Text(

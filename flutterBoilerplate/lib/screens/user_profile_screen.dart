@@ -1,11 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/user/user_bloc.dart';
 import 'package:flutterBoilerplate/bloc/user/user_event.dart';
 import 'package:flutterBoilerplate/bloc/user/user_state.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/services/firebase_auth.dart';
-import 'package:flutterBoilerplate/services/firebase_storage.dart';
+import 'package:flutterBoilerplate/screens/edit_profile_screen.dart';
 import 'package:flutterBoilerplate/widgets/profile_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,6 +28,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Profile'),
+        actions: [
+          CustomButton(const Icon(Icons.app_settings_alt_outlined),
+              AppString.editProfile, context, const EditProfileScreen())
+        ],
       ),
       body: BlocBuilder<UserBloc, UserState>(
           cubit: _bloc,
@@ -45,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 );
               case CurrentUser:
                 final user = (state as CurrentUser).user;
-                final image = (state as CurrentUser).avatar;
+                final image = user.avatarAsset;
                 return Container(
                   child: Column(
                     children: [
@@ -85,6 +87,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
           style: const TextStyle(fontSize: 18.0),
         ),
       ],
+    );
+  }
+
+  Widget CustomButton(
+      Icon icon, String tooltip, BuildContext context, Widget screen) {
+    return IconButton(
+      icon: icon,
+      tooltip: tooltip,
+      onPressed: () => Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => screen),
+      ),
     );
   }
 }

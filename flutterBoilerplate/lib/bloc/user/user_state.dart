@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/models/user.dart';
 
 abstract class UserState {
@@ -7,8 +7,8 @@ abstract class UserState {
 
 class CurrentUser extends UserState {
   final User user;
-  final File avatar;
-  const CurrentUser(this.user, this.avatar);
+  final String avatarAsset;
+  const CurrentUser(this.user, this.avatarAsset);
 }
 
 class NotDetermined extends UserState {

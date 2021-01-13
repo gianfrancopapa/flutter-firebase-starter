@@ -9,9 +9,9 @@ class ConfigurationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           AppString.configuration,
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.black,
           ),
         ),
@@ -20,7 +20,7 @@ class ConfigurationScreen extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         child: ListTile(
           enabled: false,
-          title: Text(AppString.version),
+          title: const Text(AppString.version),
           trailing: FutureBuilder(
             future: AppData().getVersionNumber(),
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>

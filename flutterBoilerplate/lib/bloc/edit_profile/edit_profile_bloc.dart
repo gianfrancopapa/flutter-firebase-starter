@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+
+import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_state.dart';
+import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutterBoilerplate/services/firebase_storage.dart';
 import 'package:flutterBoilerplate/services/image_picker_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,12 +41,13 @@ class EditProfileBloc extends Cubit<EditProfileState> {
     }
     try {
       final user = _firebaseAuth.currentUser;
-      await _firebaseStorage.uploadFile(
-          File(_image.path), 'user/profile/${user.uid}');
+      await _firebaseStorage.uploadFile(File(_image.path), _image.path);
+      final imageURL = await _firebaseStorage.downloadURL(_image.path);
+      await user.updateProfile(photoURL: imageURL);
 
-      emit(AvatarChanged(File(_image.path)));
+      emit(ProfileEdited(AssetImage(_image.path)));
     } catch (e) {
-      emit(Error(e));
+      emit(Error(e.toString()));
     }
   }
 
@@ -60,8 +63,8 @@ class EditProfileBloc extends Cubit<EditProfileState> {
           File(_image.path), 'user/profile/${user.uid}');
       await user.updateProfile(
           photoURL:
-              await _firebaseStorage.downloadFile('user/profile/${user.uid}'));
-      emit(AvatarChanged(File(_image.path)));
+              await _firebaseStorage.downloadURL('user/profile/${user.uid}'));
+      emit(ProfileEdited(AssetImage(_image.path)));
     } catch (e) {
       emit(Error(e));
     }
