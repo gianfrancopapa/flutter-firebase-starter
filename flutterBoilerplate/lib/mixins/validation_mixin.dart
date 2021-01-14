@@ -1,7 +1,7 @@
 import 'dart:async';
 
 class ValidationMixin {
-  static final passwordLength = 6;
+  static const passwordLength = 6;
   static final _uppercaseRegExp = RegExp(r'[A-Z]');
   static final _digitsRegExp = RegExp(r'[0-9]');
   static final _lowercaseRegExp = RegExp(r'[a-z]');

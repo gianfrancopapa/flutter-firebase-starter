@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/app_data.dart';
+import 'package:flutterBoilerplate/utils/app_data.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 
 class ConfigurationScreen extends StatelessWidget {
@@ -9,7 +9,7 @@ class ConfigurationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           AppString.configuration,
           style: TextStyle(
             color: Colors.black,
@@ -20,13 +20,13 @@ class ConfigurationScreen extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         child: ListTile(
           enabled: false,
-          title: Text(AppString.version),
+          title: const Text(AppString.version),
           trailing: FutureBuilder(
             future: AppData().getVersionNumber(),
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
                 Text(
               snapshot.hasData ? snapshot.data : 'Loading ...',
-              style: TextStyle(color: Colors.black38),
+              style: const TextStyle(color: Colors.black38),
             ),
           ),
         ),
