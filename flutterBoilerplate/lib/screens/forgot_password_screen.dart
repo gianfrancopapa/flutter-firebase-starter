@@ -4,6 +4,7 @@ import 'package:flutterBoilerplate/bloc/forgot_password/forgot_password_event.da
 import 'package:flutterBoilerplate/bloc/forgot_password/forgot_password_state.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/screens/login_screen.dart';
+import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,12 +21,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   void _dispatchForgotPasswordEvent() => _bloc.add(const ForgotPassword());
 
-  void _goToLoginScreen() => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginScreen(),
-        ),
+  void _goToLoginScreen() => Navigator.pop(context);
+
+  void _determineAction(ForgotPasswordState state) {
+    if (state.runtimeType == ForgotPassword) {
+      DialogHelper.showAlertDialog(
+        context: context,
+        story: AppString.emailSended,
+        btnText: AppString.ok,
+        btnAction: () => _goToLoginScreen(),
       );
+    }
+  }
 
   @override
   void initState() {
@@ -38,8 +45,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         appBar: AppBar(
           title: Text(AppString.forgotPassword),
         ),
-        body: BlocBuilder<ForgotPasswordBloc, ForgotPasswordState>(
+        body: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
           cubit: _bloc,
+          listener: (context, state) => _determineAction(state),
           builder: (BuildContext context, state) => Container(
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -62,37 +70,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ],
                   ),
                 ),
-                Button(text: AppString.send, onTap: () => _showMyDialog()),
+                Button(
+                    text: AppString.send,
+                    onTap: () => _dispatchForgotPasswordEvent),
               ],
             ),
           ),
         ),
       );
-
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            AppString.emailSended,
-            style: const TextStyle(color: Colors.black),
-          ),
-          content: const Text(AppString.checkInbox,
-              style: TextStyle(color: Colors.black)),
-          actions: <Widget>[
-            FlatButton(
-              child: const Text(AppString.ok,
-                  style: TextStyle(color: Colors.black)),
-              onPressed: () {
-                _dispatchForgotPasswordEvent();
-                _goToLoginScreen();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 }
