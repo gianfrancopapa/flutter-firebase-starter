@@ -24,7 +24,7 @@ class MainScreen extends StatelessWidget {
           leading: const SizedBox(),
           automaticallyImplyLeading: false,
           backgroundColor: Colors.blueGrey,
-          title: Text(AppString.welcome),
+          title: const Text(AppString.welcome),
           actions: <Widget>[
             CustomButton(const Icon(Icons.miscellaneous_services_rounded),
                 AppString.configuration, context, const ConfigurationScreen()),

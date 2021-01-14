@@ -6,7 +6,7 @@ class CreateAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(AppString.createAccount),
+          title: const Text(AppString.createAccount),
           backgroundColor: Colors.blueGrey,
         ),
         body: CreateAccountForm(),

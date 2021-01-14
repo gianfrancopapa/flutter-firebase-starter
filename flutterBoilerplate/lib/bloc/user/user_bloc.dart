@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   final _firebaseAuth = FirebaseAuthService();
+
   UserBloc() : super(const NotDetermined());
 
   @override
