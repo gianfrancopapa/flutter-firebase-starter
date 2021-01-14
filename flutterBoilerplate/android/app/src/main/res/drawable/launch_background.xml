@@ -7,6 +7,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/somnio_logo24px" />
+            android:src= "@drawable/somnio_logo24px" />
     </item> 
 </layer-list>
