@@ -30,7 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: const Text('My Profile'),
         actions: [
           CustomButton(const Icon(Icons.app_settings_alt_outlined),
-              AppString.editProfile, context, const EditProfileScreen())
+              AppString.editProfile, context, EditProfileScreen())
         ],
       ),
       body: BlocBuilder<UserBloc, UserState>(

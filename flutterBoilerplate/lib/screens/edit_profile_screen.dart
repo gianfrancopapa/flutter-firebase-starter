@@ -8,12 +8,22 @@ import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_state.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 
-import 'package:flutterBoilerplate/services/firebase_storage.dart';
-
 import 'package:flutterBoilerplate/widgets/common/image_picker_button.dart';
+import 'package:flutterBoilerplate/widgets/edit_profile_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class EditProfileScreen extends StatefulWidget {
+class EditProfileScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          title: Text(AppString.editProfile),
+          backgroundColor: Colors.blueGrey,
+        ),
+        body: EditProfileForm(),
+      );
+}
+
+/*class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key key}) : super(key: key);
 
   @override
@@ -23,7 +33,7 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
   FirebaseAuthApi.User _user;
   EditProfileBloc _bloc;
-  AssetImage _image;
+
   @override
   void initState() {
     _bloc = EditProfileBloc();
@@ -58,7 +68,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       return Center(
                         child: Text((state as Error).message.toString()),
                       );
-                    case ProfileEdited:
+                    case AvatarChanged:
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: Image.network(
@@ -79,4 +89,4 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ]),
     );
   }
-}
+}*/

@@ -124,6 +124,18 @@ class FirebaseAuthService implements IAuth {
     }
   }
 
+  Future<bool> changeProfile(
+      {String firstName, String lastName, String photoURL}) async {
+    try {
+      final user = _auth.currentUser;
+      await user.updateProfile(
+          displayName: '$firstName $lastName', photoURL: photoURL);
+      return true;
+    } catch (e) {
+      throw e;
+    }
+  }
+
   @override
   User getCurrentUser() => _mapFirebaseUserToUser(_auth.currentUser);
 

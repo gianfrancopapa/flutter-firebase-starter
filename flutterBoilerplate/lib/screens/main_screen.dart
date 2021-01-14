@@ -26,8 +26,8 @@ class MainScreen extends StatelessWidget {
           backgroundColor: Colors.blueGrey,
           title: const Text(AppString.welcome),
           actions: <Widget>[
-            CustomButton(const Icon(Icons.miscellaneous_services_rounded),
-                AppString.configuration, context, const ConfigurationScreen()),
+            CustomButton(const Icon(Icons.more_vert), AppString.configuration,
+                context, const ConfigurationScreen()),
             CustomButton(const Icon(Icons.supervised_user_circle),
                 AppString.myProfile, context, ProfileScreen()),
           ],

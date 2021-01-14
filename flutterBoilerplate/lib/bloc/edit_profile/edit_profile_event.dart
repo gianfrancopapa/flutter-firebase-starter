@@ -2,6 +2,6 @@ abstract class EditProfileEvent {
   const EditProfileEvent();
 }
 
-class EditProfile extends EditProfileEvent {
-  const EditProfile();
+class EditAvatar extends EditProfileEvent {
+  const EditAvatar();
 }

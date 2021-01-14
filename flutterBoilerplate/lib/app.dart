@@ -59,9 +59,11 @@ class _AppState extends State<App> {
               case NoFirstTime:
                 return _checkIfUserIsLoggedIn();
               default:
-                return const Scaffold(
-                  body: Center(
-                    child: CircularProgressIndicator(),
+                return Scaffold(
+                  body: Container(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
                 );
             }

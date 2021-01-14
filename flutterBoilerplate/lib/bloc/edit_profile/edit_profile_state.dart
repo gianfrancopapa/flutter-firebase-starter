@@ -4,9 +4,13 @@ abstract class EditProfileState {
   const EditProfileState();
 }
 
-class ProfileEdited extends EditProfileState {
+class AvatarChanged extends EditProfileState {
   final AssetImage image;
-  const ProfileEdited(this.image);
+  const AvatarChanged(this.image);
+}
+
+class ProfileEdited extends EditProfileState {
+  const ProfileEdited();
 }
 
 class NotDetermined extends EditProfileState {
