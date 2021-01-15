@@ -1,10 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as AuthService;
 import 'package:flutter/services.dart';
+import 'package:flutterBoilerplate/models/admin.dart';
 import 'package:flutterBoilerplate/models/user.dart';
+import 'package:flutterBoilerplate/repository/repository.dart';
 import 'package:flutterBoilerplate/services/auth_interface.dart';
 
 class FirebaseAuthService implements IAuth {
-  final _auth = FirebaseAuth.instance;
+  final _auth = AuthService.FirebaseAuth.instance;
 
   @override
   Future<User> createAccountWithEmail({
@@ -18,11 +21,10 @@ class FirebaseAuthService implements IAuth {
         email: email,
         password: password,
       );
-      final userInfo = UserUpdateInfo();
-      userInfo.displayName = '$firstName $lastName';
-      await authResult.user.updateProfile(userInfo);
-      final firebaseUserUpdated = await _auth.currentUser();
-      return _mapFirebaseUserToUser(firebaseUserUpdated);
+      final displayName = '$firstName $lastName';
+      await authResult.user.updateProfile(displayName: displayName);
+      final firebaseUserUpdated = _auth.currentUser;
+      return _determineUserRole(firebaseUserUpdated);
     } catch (e) {
       switch ((e as PlatformException).code) {
         case 'ERROR_WEAK_PASSWORD':
@@ -47,7 +49,7 @@ class FirebaseAuthService implements IAuth {
         email: email,
         password: password,
       );
-      return _mapFirebaseUserToUser(authResult.user);
+      return _determineUserRole(authResult.user);
     } catch (e) {
       switch ((e as PlatformException).code) {
         case 'ERROR_INVALID_EMAIL':
@@ -84,8 +86,8 @@ class FirebaseAuthService implements IAuth {
         codeSent: null,
         codeAutoRetrievalTimeout: null,
       );
-      final firebaseUser = await _auth.currentUser();
-      return _mapFirebaseUserToUser(firebaseUser);
+      final firebaseUser = _auth.currentUser;
+      return _determineUserRole(firebaseUser);
     } catch (e) {
       throw e;
     }
@@ -94,9 +96,9 @@ class FirebaseAuthService implements IAuth {
   @override
   Future<User> checkIfUserIsLoggedIn() async {
     try {
-      final firebaseUser = await _auth.currentUser();
+      final firebaseUser = _auth.currentUser;
       if (firebaseUser != null) {
-        return _mapFirebaseUserToUser(firebaseUser);
+        return _determineUserRole(firebaseUser);
       } else
         return null;
     } catch (e) {
@@ -107,7 +109,7 @@ class FirebaseAuthService implements IAuth {
   @override
   Future<bool> deleteAccount() async {
     try {
-      final user = await _auth.currentUser();
+      final user = _auth.currentUser;
       await user.delete();
       return true;
     } catch (e) {
@@ -115,15 +117,40 @@ class FirebaseAuthService implements IAuth {
     }
   }
 
-  User _mapFirebaseUserToUser(FirebaseUser user) {
+  @override
+  Future<User> getCurrentUser() async {
     try {
-      final splitName = user.displayName.split(" ");
+      final firebaseUser = _auth.currentUser;
+      return _determineUserRole(firebaseUser);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<User> _determineUserRole(AuthService.User firebaseUser) async {
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .get();
+    var role = 'user';
+    if (userData.data() != null) {
+      role = userData.data()['role'];
+    }
+    return _mapFirebaseUserToUser(
+      firebaseUser,
+      role == 'admin' ? Admin.fromJson : User.fromJson,
+    );
+  }
+
+  User _mapFirebaseUserToUser(AuthService.User user, Constructor constructor) {
+    try {
+      final splitName = user.displayName.split(' ');
       final map = Map<String, dynamic>();
       map['id'] = user.uid;
       map['firstName'] = splitName[0];
       map['lastName'] = splitName[1];
       map['email'] = user.email;
-      return User.fromJson(map);
+      return constructor(map);
     } catch (e) {
       throw e;
     }

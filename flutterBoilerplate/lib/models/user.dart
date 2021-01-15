@@ -11,7 +11,7 @@ class User {
     this.email,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  static User fromJson(Map<String, dynamic> json) => User(
         id: json['id'],
         firstName: json['firstName'],
         lastName: json['lastName'],

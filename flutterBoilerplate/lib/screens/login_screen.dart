@@ -6,7 +6,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(AppString.login),
+          title: const Text(AppString.login),
           backgroundColor: Colors.blueGrey,
         ),
         body: LoginForm(),

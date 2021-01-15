@@ -1,0 +1,3 @@
+class Cache {
+  const Cache();
+}

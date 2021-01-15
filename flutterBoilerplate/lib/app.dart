@@ -1,15 +1,9 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/init_app/init_app_bloc.dart';
-import 'package:flutterBoilerplate/bloc/init_app/init_app_event.dart';
-import 'package:flutterBoilerplate/bloc/init_app/init_app_state.dart';
 import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
-import 'package:flutterBoilerplate/bloc/login/login_event.dart';
-import 'package:flutterBoilerplate/bloc/login/login_state.dart';
-import 'package:flutterBoilerplate/screens/login_screen.dart';
-import 'package:flutterBoilerplate/screens/main_screen.dart';
-import 'package:flutterBoilerplate/screens/onboarding_screen.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterBoilerplate/constants/themes/app_theme.dart';
+import 'package:flutterBoilerplate/determine_access.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class App extends StatefulWidget {
   @override
@@ -17,56 +11,40 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  LoginBloc _bloc;
-  InitAppBloc _initAppBloc;
-
   @override
   void initState() {
+    WidgetsFlutterBinding.ensureInitialized();
     super.initState();
-    _initAppBloc = InitAppBloc();
-    _initAppBloc.add(const IsFirstTime());
   }
 
-  @override
-  void didChangeDependencies() {
-    _bloc = BlocProvider.of<LoginBloc>(context);
-    _bloc.add(const CheckIfUserIsLoggedIn());
-    super.didChangeDependencies();
-  }
+  Widget _loading() => const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
 
-  Widget _checkIfUserIsLoggedIn() => BlocBuilder<LoginBloc, LoginState>(
-        cubit: _bloc,
-        builder: (context, loginState) {
-          switch (loginState.runtimeType) {
-            case LoggedIn:
-              return MainScreen();
-            default:
-              return LoginScreen();
-          }
-        },
+  Widget _error() => const Scaffold(
+        body: Center(
+          child: Text('Something went wrong'),
+        ),
       );
 
   @override
   Widget build(BuildContext context) => MaterialApp(
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-        home: BlocBuilder<InitAppBloc, FirstTimeInAppState>(
-          cubit: _initAppBloc,
-          builder: (context, initAppState) {
-            switch (initAppState.runtimeType) {
-              case FirstTime:
-                return OnBoardingScreen();
-              case NoFirstTime:
-                return _checkIfUserIsLoggedIn();
-              default:
-                return Scaffold(
-                  body: Container(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
-                );
-            }
+        home: FutureBuilder<FirebaseApp>(
+          future: Firebase.initializeApp(),
+          builder: (BuildContext context, AsyncSnapshot<FirebaseApp> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return BlocProvider(
+                create: (context) => LoginBloc(),
+                child: DetermineAccess(),
+              );
+            } else if (snapshot.hasError) {
+              return _error();
+            } else
+              return _loading();
           },
         ),
       );

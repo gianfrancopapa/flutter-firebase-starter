@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/create_account/create_account_bloc.dart';
 import 'package:flutterBoilerplate/bloc/create_account/create_account_event.dart';
 import 'package:flutterBoilerplate/bloc/create_account/create_account_state.dart';
-import 'package:flutterBoilerplate/screens/main_screen.dart';
 import 'package:flutterBoilerplate/screens/onboarding_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
@@ -66,11 +65,15 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
           inAsyncCall: state.runtimeType == Loading,
           child: Container(
             height: MediaQuery.of(context).size.height,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20.0,
+              vertical: 10.0,
+            ),
             child: ListView(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 40.0, horizontal: 0.0),
+              padding: const EdgeInsets.symmetric(
+                vertical: 40.0,
+                horizontal: 0.0,
+              ),
               children: [
                 TextFieldBuilder(
                   stream: _bloc.firstName,

@@ -4,31 +4,36 @@ class AppString {
 
   //Login Screen
   static const email = 'Email';
-  static final password = 'Password';
-  static final login = 'Login';
-  static final dontYouHaveAccount = 'Don\'t you have an account?';
-  static final createOne = 'Create one';
+  static const password = 'Password';
+  static const login = 'Login';
+  static const dontYouHaveAccount = 'Don\'t you have an account?';
+  static const createOne = 'Create one';
 
 //Create Account Screen
-  static final firstName = 'First Name';
-  static final lastName = 'Last Name';
-  static final passwordConfirmation = 'Confirm' + ' ' + password;
-  static final createAccount = 'Create Account';
+  static const firstName = 'First Name';
+  static const lastName = 'Last Name';
+  static const passwordConfirmation = 'Confirm' + ' ' + password;
+  static const createAccount = 'Create Account';
 
   //Main Screen
-  static final welcome = 'Welcome';
-  static final logout = 'Logout';
+  static const welcome = 'Welcome';
+  static const logout = 'Logout';
 
   //Configuration Screen
-  static final configuration = 'Configuration';
-  static final version = 'Version';
-  static final appName = 'App Name';
-  static final buildNumber = 'Build Number';
-  static final packageName = 'Package Name';
+  static const configuration = 'Configuration';
+  static const version = 'Version';
+  static const appName = 'App Name';
+  static const buildNumber = 'Build Number';
+  static const packageName = 'Package Name';
 
   //Forgot password
-  static final forgotPassword = 'Forgot Password';
-  static final send = 'Send';
-  static final emailSended = 'Email Sended';
+  static const forgotPassword = 'Forgot Password';
+  static const send = 'Send';
+  static const emailSended = 'Email Sended';
   static const checkInbox = 'Check your email inbox';
+
+  //User Profile
+  static const myProfile = 'My Profile';
+  static const fstName = 'First Name';
+  static const lstName = 'Last Name';
 }
