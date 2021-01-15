@@ -12,3 +12,13 @@ class GetUsers extends UsersEvent {
 class CreateUser extends UsersEvent {
   const CreateUser();
 }
+
+class UpdateUser extends UsersEvent {
+  final String id;
+  const UpdateUser(this.id);
+}
+
+class FetchUserToEdit extends UsersEvent {
+  final String id;
+  const FetchUserToEdit(this.id);
+}

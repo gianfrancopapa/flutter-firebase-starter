@@ -7,6 +7,8 @@ import 'package:flutterBoilerplate/widgets/user_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UsersList extends StatefulWidget {
+  final bool isAdmin;
+  const UsersList(this.isAdmin);
   @override
   _UsersListState createState() => _UsersListState();
 }
@@ -33,8 +35,10 @@ class _UsersListState extends State<UsersList> {
         );
       case Users:
         return WidgetsList(
-          children:
-              (state as Users).users.map((user) => UserCard(user)).toList(),
+          children: (state as Users)
+              .users
+              .map((user) => UserCard(user, widget.isAdmin))
+              .toList(),
         );
       default:
         return const Center(

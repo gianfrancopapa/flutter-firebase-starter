@@ -1,3 +1,5 @@
+import 'package:flutterBoilerplate/models/admin.dart';
+
 class User {
   final String id;
   final String firstName;
@@ -17,15 +19,17 @@ class User {
     this.address,
   });
 
-  static User fromJson(Map<String, dynamic> json) => User(
-        id: json['id'],
-        firstName: json['firstName'],
-        lastName: json['lastName'],
-        email: json['email'],
-        age: json['age'],
-        phoneNumber: json['phoneNumber'],
-        address: json['address'],
-      );
+  static User fromJson(Map<String, dynamic> json) => json['role'] == 'admin'
+      ? Admin.fromJson(json)
+      : User(
+          id: json['id'],
+          firstName: json['firstName'],
+          lastName: json['lastName'],
+          email: json['email'],
+          age: json['age'],
+          phoneNumber: json['phoneNumber'],
+          address: json['address'],
+        );
 
   Map<String, dynamic> toJson() => {
         'firstName': firstName,
@@ -34,6 +38,6 @@ class User {
         'role': 'user',
         'age': age,
         'address': address,
-        'phoneNumber': '+598 ' + phoneNumber,
+        'phoneNumber': phoneNumber,
       };
 }

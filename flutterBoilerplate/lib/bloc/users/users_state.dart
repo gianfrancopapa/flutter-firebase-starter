@@ -22,6 +22,15 @@ class Users extends UsersState {
   const Users(this.users);
 }
 
+class SingleUser extends UsersState {
+  final User user;
+  const SingleUser(this.user);
+}
+
 class UserCreated extends UsersState {
   const UserCreated();
+}
+
+class UserUpdated extends UsersState {
+  const UserUpdated();
 }
