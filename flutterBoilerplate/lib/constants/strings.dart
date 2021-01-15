@@ -1,4 +1,7 @@
 class AppString {
+  //General
+  static const ok = 'Ok';
+
   //Login Screen
   static const email = 'Email';
   static const password = 'Password';
@@ -23,6 +26,12 @@ class AppString {
   static const appName = 'App Name';
   static const buildNumber = 'Build Number';
   static const packageName = 'Package Name';
+
+  //Forgot password
+  static const forgotPassword = 'Forgot Password';
+  static const send = 'Send';
+  static const emailSended = 'Email Sended';
+  static const checkInbox = 'Check your email inbox';
 
   //User Profile
   static const myProfile = 'My Profile';
