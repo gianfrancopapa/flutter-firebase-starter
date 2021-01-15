@@ -16,11 +16,12 @@ class AppString {
   static const createAccount = 'Create Account';
 
   //Main Screen
-  static const welcome = 'Welcome';
+  static const users = 'Users';
   static const logout = 'Logout';
 
   //Configuration Screen
   static const configuration = 'Configuration';
+
   static const version = 'Version';
   static const appName = 'App Name';
   static const buildNumber = 'Build Number';

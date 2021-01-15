@@ -14,12 +14,17 @@ class FirebaseAPI implements IApi {
   @override
   Future<List<Map<String, dynamic>>> getAll(Filter filter) async {
     try {
-      final query = filter.createQuery();
-      final res = await query.concatQueries(reference: _ref).getDocuments();
+      QuerySnapshot res;
+      if (filter != null) {
+        final query = filter.createQuery();
+        res = await query.concatQueries(reference: _ref).getDocuments();
+      } else {
+        res = await _ref.get();
+      }
       final list = List<Map<String, dynamic>>();
-      for (final document in res.documents) {
-        final map = document.data;
-        map['id'] = document.documentID;
+      for (final document in res.docs) {
+        final map = document.data();
+        map['id'] = document.id;
         list.add(map);
       }
       return list;
