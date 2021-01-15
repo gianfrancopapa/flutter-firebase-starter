@@ -22,3 +22,8 @@ class FetchUserToEdit extends UsersEvent {
   final String id;
   const FetchUserToEdit(this.id);
 }
+
+class DeleteUser extends UsersEvent {
+  final String id;
+  const DeleteUser(this.id);
+}

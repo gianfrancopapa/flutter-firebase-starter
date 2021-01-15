@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutterBoilerplate/bloc/users/users_bloc.dart';
+import 'package:flutterBoilerplate/bloc/users/users_event.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
+import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/models/user.dart';
 import 'package:flutterBoilerplate/screens/edit_user_scren.dart';
+import 'package:flutterBoilerplate/utils/dialog.dart';
 
 class UserCard extends StatelessWidget {
-  final bool showAdminControls;
   final User user;
+  final UsersBloc bloc;
+  final bool showAdminControls;
 
-  const UserCard(this.user, this.showAdminControls);
+  const UserCard({
+    this.user,
+    this.showAdminControls,
+    this.bloc,
+  });
 
   SizedBox _adminControls(BuildContext context) => SizedBox(
         width: MediaQuery.of(context).size.width -
@@ -35,7 +44,16 @@ class UserCard extends StatelessWidget {
                 Icons.delete,
                 color: Colors.redAccent,
               ),
-              onPressed: () {},
+              onPressed: () => DialogHelper.showAlertDialog(
+                  context: context,
+                  story: AppString.doYouWantToDeleteThisUser,
+                  btnText: AppString.yes,
+                  btnText2: AppString.no,
+                  btnAction2: () => Navigator.pop(context),
+                  btnAction: () {
+                    bloc.add(DeleteUser(user.id));
+                    Navigator.pop(context);
+                  }),
             ),
           ],
         ),

@@ -34,3 +34,7 @@ class UserCreated extends UsersState {
 class UserUpdated extends UsersState {
   const UserUpdated();
 }
+
+class UserDeleted extends UsersState {
+  const UserDeleted();
+}

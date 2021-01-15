@@ -51,4 +51,12 @@ class UsersRepository extends Repository<User> {
       throw 'Error: $err in [usersRepository.addUser]';
     }
   }
+
+  Future<void> deleteUser(String id) async {
+    try {
+      await delete(id);
+    } catch (err) {
+      throw 'Error: $err in [usersRepository.deleteUser]';
+    }
+  }
 }

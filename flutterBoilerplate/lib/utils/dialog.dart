@@ -6,6 +6,8 @@ abstract class DialogHelper {
     String story,
     String btnText,
     Function btnAction,
+    String btnText2,
+    Function btnAction2,
   }) =>
       showDialog<T>(
         context: context,
@@ -27,7 +29,20 @@ abstract class DialogHelper {
                 style: const TextStyle(color: Colors.white),
               ),
               onPressed: btnAction,
-            )
+            ),
+            btnText2 != null
+                ? FlatButton(
+                    color: Colors.blueGrey,
+                    child: Text(
+                      btnText2,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    onPressed: btnAction2,
+                  )
+                : const SizedBox(
+                    height: 0.0,
+                    width: 0.0,
+                  )
           ],
         ),
       );
