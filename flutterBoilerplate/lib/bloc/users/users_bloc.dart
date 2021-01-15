@@ -26,6 +26,9 @@ class UsersBloc extends UserFormBloc<UsersEvent, UsersState> {
       case UpdateUser:
         yield* _updateUser((event as UpdateUser).id);
         break;
+      case DeleteUser:
+        yield* _deleteUser((event as DeleteUser).id);
+        break;
       default:
         yield const Error('Error: Invalid event.');
     }
@@ -112,6 +115,16 @@ class UsersBloc extends UserFormBloc<UsersEvent, UsersState> {
       isAdminController.sink.add(user.runtimeType == Admin);
       phoneController.sink.add(user.phoneNumber);
       yield SingleUser(user);
+    } catch (err) {
+      yield Error(err.toString());
+    }
+  }
+
+  Stream<UsersState> _deleteUser(String id) async* {
+    try {
+      yield const Loading();
+      await _usersRepository.deleteUser(id);
+      yield const UserDeleted();
     } catch (err) {
       yield Error(err.toString());
     }

@@ -61,4 +61,9 @@ class AppString {
   static const age = 'Age';
   static const admin = 'Admin:';
   static const create = 'Create';
+
+  //User Card
+  static const doYouWantToDeleteThisUser = 'Do you want to delete this user?';
+  static const yes = 'Yes';
+  static const no = 'No';
 }

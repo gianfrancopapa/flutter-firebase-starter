@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/users/users_bloc.dart';
 import 'package:flutterBoilerplate/bloc/users/users_event.dart';
 import 'package:flutterBoilerplate/bloc/users/users_state.dart';
+import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/widgets/common/widgets_list.dart';
 import 'package:flutterBoilerplate/widgets/user_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +38,13 @@ class _UsersListState extends State<UsersList> {
         return WidgetsList(
           children: (state as Users)
               .users
-              .map((user) => UserCard(user, widget.isAdmin))
+              .map(
+                (user) => UserCard(
+                  user: user,
+                  bloc: _bloc,
+                  showAdminControls: widget.isAdmin,
+                ),
+              )
               .toList(),
         );
       default:
@@ -48,7 +55,12 @@ class _UsersListState extends State<UsersList> {
   }
 
   @override
-  Widget build(BuildContext context) => BlocBuilder<UsersBloc, UsersState>(
+  Widget build(BuildContext context) => BlocConsumer<UsersBloc, UsersState>(
+        listener: (BuildContext context, UsersState state) {
+          if (state.runtimeType == UserDeleted) {
+            _bloc.add(const GetUsers(null));
+          }
+        },
         cubit: _bloc,
         builder: _presentData,
       );
