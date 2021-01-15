@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/app_data.dart';
+import 'package:flutterBoilerplate/utils/app_data.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 
 class ConfigurationScreen extends StatelessWidget {

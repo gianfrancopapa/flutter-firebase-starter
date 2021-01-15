@@ -1,0 +1,65 @@
+import 'package:flutter/material.dart';
+import 'package:flutterBoilerplate/data_source/api_interface.dart';
+import 'package:flutterBoilerplate/models/filter.dart';
+
+typedef T Constructor<T>(Map<String, dynamic> map);
+
+abstract class Repository<T> {
+  final IApi _apiProvider;
+  final Constructor<T> _constructor;
+  // final _cache = const Cache();
+
+  const Repository(this._apiProvider, this._constructor);
+
+  @protected
+  Future<List<T>> getAll(Filter filter) async {
+    try {
+      final res = await _apiProvider.getAll(filter);
+      if (res.isEmpty) return [];
+      final listOfT = List<T>();
+      for (final item in res) {
+        listOfT.add(_constructor(item));
+      }
+      return listOfT;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @protected
+  Future<T> getById(String id) async {
+    try {
+      final res = await _apiProvider.getById(id);
+      return _constructor(res);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @protected
+  Future<void> post(Map<String, dynamic> data) async {
+    try {
+      await _apiProvider.post(data);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @protected
+  Future<void> update(String id, Map<String, dynamic> data) async {
+    try {
+      await _apiProvider.put(id, data);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @protected
+  Future<void> delete(String id) async {
+    try {
+      await _apiProvider.delete(id);
+    } catch (e) {
+      throw e;
+    }
+  }
+}

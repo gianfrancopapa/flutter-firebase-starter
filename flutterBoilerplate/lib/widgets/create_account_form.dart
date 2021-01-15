@@ -65,11 +65,15 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
           inAsyncCall: state.runtimeType == Loading,
           child: Container(
             height: MediaQuery.of(context).size.height,
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20.0,
+              vertical: 10.0,
+            ),
             child: ListView(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 40.0, horizontal: 0.0),
+              padding: const EdgeInsets.symmetric(
+                vertical: 40.0,
+                horizontal: 0.0,
+              ),
               children: [
                 TextFieldBuilder(
                   stream: _bloc.firstName,

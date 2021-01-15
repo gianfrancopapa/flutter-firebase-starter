@@ -1,15 +1,17 @@
 import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuthApi;
 import 'package:flutter/services.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' as AuthService;
+import 'package:flutterBoilerplate/models/admin.dart';
 import 'package:flutterBoilerplate/models/user.dart';
+import 'package:flutterBoilerplate/repository/repository.dart';
 import 'package:flutterBoilerplate/services/auth_interface.dart';
 import 'package:flutterBoilerplate/services/firebase_storage.dart';
 
 class FirebaseAuthService implements IAuth {
-  final _auth = FirebaseAuthApi.FirebaseAuth.instance;
   final _storage = FirebaseStorageService();
+  final _auth = AuthService.FirebaseAuth.instance;
 
   @override
   Future<User> createAccountWithEmail({
@@ -27,8 +29,8 @@ class FirebaseAuthService implements IAuth {
       final imageURL = await _storage.downloadURL(AppAsset.anonUser);
       await _auth.currentUser.updateProfile(
           displayName: '$firstName $lastName', photoURL: imageURL);
-
-      return _mapFirebaseUserToUser(_auth.currentUser);
+      final firebaseUserUpdated = _auth.currentUser;
+      return _determineUserRole(firebaseUserUpdated);
     } catch (e) {
       print(e.toString());
       switch ((e as PlatformException).code) {
@@ -54,8 +56,7 @@ class FirebaseAuthService implements IAuth {
         email: email,
         password: password,
       );
-      print(authResult.user);
-      return _mapFirebaseUserToUser(authResult.user);
+      return _determineUserRole(authResult.user);
     } catch (e) {
       switch ((e as PlatformException).code) {
         case 'ERROR_INVALID_EMAIL':
@@ -93,7 +94,7 @@ class FirebaseAuthService implements IAuth {
         codeAutoRetrievalTimeout: null,
       );
       final firebaseUser = _auth.currentUser;
-      return _mapFirebaseUserToUser(firebaseUser);
+      return _determineUserRole(firebaseUser);
     } catch (e) {
       throw e;
     }
@@ -104,7 +105,7 @@ class FirebaseAuthService implements IAuth {
     try {
       final firebaseUser = _auth.currentUser;
       if (firebaseUser != null) {
-        return _mapFirebaseUserToUser(firebaseUser);
+        return _determineUserRole(firebaseUser);
       } else
         return null;
     } catch (e) {
@@ -135,21 +136,31 @@ class FirebaseAuthService implements IAuth {
     }
   }
 
-  @override
-  User getCurrentUser() => _mapFirebaseUserToUser(_auth.currentUser);
+  Future<User> _determineUserRole(AuthService.User firebaseUser) async {
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(firebaseUser.uid)
+        .get();
+    var role = 'user';
+    if (userData.data() != null) {
+      role = userData.data()['role'];
+    }
+    return _mapFirebaseUserToUser(
+      firebaseUser,
+      role == 'admin' ? Admin.fromJson : User.fromJson,
+    );
+  }
 
-  User _mapFirebaseUserToUser(FirebaseAuthApi.User user) {
+  User _mapFirebaseUserToUser(AuthService.User user, Constructor constructor) {
     try {
-      final splitName = user.displayName != null
-          ? user.displayName.split(' ')
-          : ['Name', 'LastName'];
+      final splitName = user.displayName.split(' ');
       final map = Map<String, dynamic>();
       map['id'] = user.uid;
       map['firstName'] = splitName[0];
       map['lastName'] = splitName[1];
       map['email'] = user.email;
       map['avatarAsset'] = user.photoURL;
-      return User.fromJson(map);
+      return constructor(map);
     } catch (e) {
       print(e.toString());
       throw e;
