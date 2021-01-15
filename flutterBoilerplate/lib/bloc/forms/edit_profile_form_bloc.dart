@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_event.dart';
 import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_state.dart';
 import 'package:flutterBoilerplate/mixins/validation_mixin.dart';
 import 'package:rxdart/rxdart.dart';
@@ -44,6 +43,4 @@ abstract class EditProfileFormBloc extends Cubit<EditProfileState>
         lastName,
         (firstName, lastName) => true,
       );
-
-  //Stream<EditProfileState> editProfile();
 }

@@ -14,7 +14,7 @@ class Button extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(BuildContext context) => SizedBox(
         width: width ?? MediaQuery.of(context).size.width / 1.5,
         height: height,
         child: RaisedButton(

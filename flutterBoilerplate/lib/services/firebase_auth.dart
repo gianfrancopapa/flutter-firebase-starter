@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuthApi;
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutterBoilerplate/models/user.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/models/user.dart';
 
 abstract class UserState {
