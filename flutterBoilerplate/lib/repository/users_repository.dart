@@ -1,4 +1,5 @@
 import 'package:flutterBoilerplate/data_source/firebase_api.dart';
+import 'package:flutterBoilerplate/models/admin.dart';
 import 'package:flutterBoilerplate/models/filter.dart';
 import 'package:flutterBoilerplate/models/firebase_filter.dart';
 import 'package:flutterBoilerplate/models/user.dart';
@@ -15,6 +16,18 @@ class UsersRepository extends Repository<User> {
       return users;
     } catch (err) {
       throw ('Error: $err while fetching users in [UsersRepository.getUsers]');
+    }
+  }
+
+  Future<void> addUser(User user) async {
+    try {
+      final map = user.toJson();
+      if (user.runtimeType == Admin) {
+        map['role'] = 'admin';
+      }
+      await post(map);
+    } catch (err) {
+      throw 'Error: $err in [usersRepository.addUser]';
     }
   }
 }

@@ -8,3 +8,7 @@ class GetUsers extends UsersEvent {
   final Filter filter;
   const GetUsers(this.filter);
 }
+
+class CreateUser extends UsersEvent {
+  const CreateUser();
+}

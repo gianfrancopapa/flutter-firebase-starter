@@ -21,3 +21,7 @@ class Users extends UsersState {
   final List<User> users;
   const Users(this.users);
 }
+
+class UserCreated extends UsersState {
+  const UserCreated();
+}

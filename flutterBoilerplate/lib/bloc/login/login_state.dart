@@ -1,9 +1,12 @@
+import 'package:flutterBoilerplate/models/user.dart';
+
 abstract class LoginState {
   const LoginState();
 }
 
 class LoggedIn extends LoginState {
-  const LoggedIn();
+  final User currentUser;
+  const LoggedIn(this.currentUser);
 }
 
 class LoggedOut extends LoginState {

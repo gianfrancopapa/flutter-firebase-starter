@@ -14,6 +14,7 @@ abstract class DialogHelper {
           title: Text(
             story,
             style: const TextStyle(
+              color: Colors.black,
               fontSize: 14,
             ),
           ),
@@ -21,7 +22,10 @@ abstract class DialogHelper {
           actions: [
             FlatButton(
               color: Colors.blueGrey,
-              child: Text(btnText),
+              child: Text(
+                btnText,
+                style: const TextStyle(color: Colors.white),
+              ),
               onPressed: btnAction,
             )
           ],
