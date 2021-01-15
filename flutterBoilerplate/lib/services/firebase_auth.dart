@@ -136,6 +136,16 @@ class FirebaseAuthService implements IAuth {
     }
   }
 
+  @override
+  Future<User> getCurrentUser() async {
+    try {
+      final firebaseUser = _auth.currentUser;
+      return _determineUserRole(firebaseUser);
+    } catch (e) {
+      throw e;
+    }
+  }
+
   Future<User> _determineUserRole(AuthService.User firebaseUser) async {
     final userData = await FirebaseFirestore.instance
         .collection('users')
