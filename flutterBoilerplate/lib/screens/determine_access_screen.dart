@@ -35,10 +35,10 @@ class _DetermineAccessScreenState extends State<DetermineAccessScreen> {
 
   Widget _checkIfUserIsLoggedIn() => BlocBuilder<LoginBloc, LoginState>(
         cubit: _bloc,
-        builder: (context, loginState) {
-          switch (loginState.runtimeType) {
+        builder: (context, state) {
+          switch (state.runtimeType) {
             case LoggedIn:
-              return MainScreen();
+              return MainScreen((state as LoggedIn).currentUser);
             default:
               return LoginScreen();
           }

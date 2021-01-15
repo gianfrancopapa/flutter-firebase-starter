@@ -29,11 +29,11 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> login() async* {
     yield const Loading();
     try {
-      await _firebaseAuth.loginWithEmail(
+      final user = await _firebaseAuth.loginWithEmail(
         emailController.value,
         passwordController.value,
       );
-      yield const LoggedIn();
+      yield LoggedIn(user);
     } catch (e) {
       yield ErrorLogin(e);
     }
@@ -56,7 +56,7 @@ class LoginBloc extends LoginFormBloc {
     try {
       final user = await _firebaseAuth.checkIfUserIsLoggedIn();
       if (user != null) {
-        yield const LoggedIn();
+        yield LoggedIn(user);
       } else {
         yield const LoggedOut();
       }

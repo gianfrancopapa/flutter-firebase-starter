@@ -1,9 +1,10 @@
 class AppString {
-  //General
-  static const ok = 'Ok';
+  //Multiple Screens
+  static const lastName = 'Last Name';
+  static const email = 'Email';
+  static const settings = 'Settings';
 
   //Login Screen
-  static const email = 'Email';
   static const password = 'Password';
   static const login = 'Login';
   static const dontYouHaveAccount = 'Don\'t you have an account?';
@@ -11,7 +12,6 @@ class AppString {
 
 //Create Account Screen
   static const firstName = 'First Name';
-  static const lastName = 'Last Name';
   static const passwordConfirmation = 'Confirm' + ' ' + password;
   static const createAccount = 'Create Account';
 
@@ -37,4 +37,24 @@ class AppString {
   static const myProfile = 'My Profile';
   static const fstName = 'First Name';
   static const lstName = 'Last Name';
+
+  //Add User Screen
+  static const userAddedSuccessfully = 'User has been created successfully.';
+  static const ok = 'Ok';
+  static const addNewUser = 'Add new user';
+
+  //Bottom Navigation Bar
+  static const home = 'Home';
+
+  //Menu Button
+  static const addUser = 'Add User';
+  static const editUser = 'Edit User';
+
+  //User Form
+  static const name = 'Name';
+  static const phone = 'Phone';
+  static const address = 'Address';
+  static const age = 'Age';
+  static const admin = 'Admin:';
+  static const create = 'Create';
 }

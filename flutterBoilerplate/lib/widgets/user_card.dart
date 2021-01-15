@@ -11,13 +11,14 @@ class UserCard extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.2,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16.0),
-            border: Border.all(
-              color: Colors.blueGrey,
-              width: 10.0,
-              style: BorderStyle.solid,
-            )),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16.0),
+          border: Border.all(
+            color: Colors.blueGrey,
+            width: 10.0,
+            style: BorderStyle.solid,
+          ),
+        ),
         padding: const EdgeInsets.all(5.0),
         margin: EdgeInsets.only(
           top: MediaQuery.of(context).size.height * 0.03,

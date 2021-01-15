@@ -5,12 +5,16 @@ class Button extends StatelessWidget {
   final double height;
   final double width;
   final Function onTap;
+  final Color backgroundColor;
+  final Color textColor;
 
   const Button({
     this.text,
     this.onTap,
     this.height = 40.0,
     this.width,
+    this.backgroundColor,
+    this.textColor,
   });
 
   @override
@@ -18,12 +22,12 @@ class Button extends StatelessWidget {
         width: width ?? MediaQuery.of(context).size.width / 1.5,
         height: height,
         child: RaisedButton(
-          color: Colors.blueGrey,
+          color: backgroundColor ?? Colors.blueGrey,
           onPressed: onTap,
           child: Text(
             text,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: textColor ?? Colors.white,
             ),
           ),
         ),
