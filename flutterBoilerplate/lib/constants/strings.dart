@@ -27,6 +27,12 @@ class AppString {
   static const buildNumber = 'Build Number';
   static const packageName = 'Package Name';
 
+  //Forgot password
+  static const forgotPassword = 'Forgot Password';
+  static const send = 'Send';
+  static const emailSended = 'Email Sended';
+  static const checkInbox = 'Check your email inbox';
+
   //User Profile
   static const myProfile = 'My Profile';
   static const fstName = 'First Name';

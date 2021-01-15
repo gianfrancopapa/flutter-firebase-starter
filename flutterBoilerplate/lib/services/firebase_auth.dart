@@ -155,4 +155,14 @@ class FirebaseAuthService implements IAuth {
       throw e;
     }
   }
+
+  @override
+  Future<bool> forgotPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      throw e;
+    }
+  }
 }

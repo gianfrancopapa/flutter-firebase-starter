@@ -18,5 +18,6 @@ abstract class IAuth {
 
   Future<bool> deleteAccount();
 
+  Future<bool> forgotPassword(String email);
   Future<User> getCurrentUser();
 }

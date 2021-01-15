@@ -3,6 +3,7 @@ import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
 import 'package:flutterBoilerplate/screens/create_account_screen.dart';
+import 'package:flutterBoilerplate/screens/forgot_password_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
@@ -34,6 +35,13 @@ class _LoginFormState extends State<LoginForm> {
         context,
         MaterialPageRoute(
           builder: (context) => CreateAccountScreen(),
+        ),
+      );
+
+  void _goToForgotPasswordScreen() => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ForgotPasswordScreen(),
         ),
       );
 
@@ -81,6 +89,10 @@ class _LoginFormState extends State<LoginForm> {
                         onChanged: _onPasswordChanged,
                         isPassword: true,
                       ),
+                      TextButton(
+                        onPressed: _goToForgotPasswordScreen,
+                        child: const Text('Did you forgot your password?'),
+                      )
                     ],
                   ),
                 ),
