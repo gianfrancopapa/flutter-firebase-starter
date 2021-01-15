@@ -29,7 +29,7 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> login() async* {
     yield const Loading();
     try {
-      final user = await _firebaseAuth.loginWithEmail(
+      await _firebaseAuth.loginWithEmail(
         emailController.value,
         passwordController.value,
       );
