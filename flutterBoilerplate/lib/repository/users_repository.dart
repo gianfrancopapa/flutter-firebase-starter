@@ -19,6 +19,15 @@ class UsersRepository extends Repository<User> {
     }
   }
 
+  Future<User> getUser(String id) async {
+    try {
+      final user = await getById(id);
+      return user as Admin;
+    } catch (err) {
+      throw ('Error: $err while fetching users in [UsersRepository.getUser]');
+    }
+  }
+
   Future<void> addUser(User user) async {
     try {
       final map = user.toJson();
@@ -26,6 +35,18 @@ class UsersRepository extends Repository<User> {
         map['role'] = 'admin';
       }
       await post(map);
+    } catch (err) {
+      throw 'Error: $err in [usersRepository.addUser]';
+    }
+  }
+
+  Future<void> updateUser(User user) async {
+    try {
+      final map = user.toJson();
+      if (user.runtimeType == Admin) {
+        map['role'] = 'admin';
+      }
+      await update(user.id, map);
     } catch (err) {
       throw 'Error: $err in [usersRepository.addUser]';
     }

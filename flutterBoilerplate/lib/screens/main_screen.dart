@@ -18,17 +18,20 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   static const _screen = 'screen';
   static const _title = 'title';
-
   int _index;
 
-  final _embbededScreensData = [
-    {_screen: UsersList(), _title: AppString.users},
-    {_screen: Settings(), _title: AppString.settings},
-  ];
+  List<Map<String, dynamic>> _embbededScreensData;
 
   @override
   void initState() {
     _index = 0;
+    _embbededScreensData = [
+      {
+        _screen: UsersList(widget.user.runtimeType == Admin),
+        _title: AppString.users
+      },
+      {_screen: Settings(), _title: AppString.settings},
+    ];
     super.initState();
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/users/users_bloc.dart';
-import 'package:flutterBoilerplate/bloc/users/users_event.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/responsive_button.dart';
 import 'package:flutterBoilerplate/widgets/common/responsive_checkbox.dart';
@@ -8,9 +7,15 @@ import 'package:flutterBoilerplate/widgets/common/slider.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
 
 class UserForm extends StatelessWidget {
+  final bool editUser;
+  final VoidCallback execute;
   final UsersBloc bloc;
 
-  const UserForm(this.bloc);
+  const UserForm({
+    this.bloc,
+    this.editUser,
+    this.execute,
+  });
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
@@ -22,6 +27,7 @@ class UserForm extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             TextFieldBuilder(
+              withInitialValue: editUser,
               labelText: AppString.name,
               stream: bloc.firstName,
               onChanged: bloc.onFirstNameChanged,
@@ -30,6 +36,7 @@ class UserForm extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             TextFieldBuilder(
+              withInitialValue: editUser,
               labelText: AppString.lastName,
               stream: bloc.lastName,
               onChanged: bloc.onLastNameChanged,
@@ -38,12 +45,14 @@ class UserForm extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             TextFieldBuilder(
+              withInitialValue: editUser,
               labelText: AppString.email,
               stream: bloc.email,
               onChanged: bloc.onEmailChanged,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             TextFieldBuilder(
+              withInitialValue: editUser,
               prefix: '+598 ',
               labelText: AppString.phone,
               stream: bloc.phone,
@@ -51,6 +60,7 @@ class UserForm extends StatelessWidget {
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             TextFieldBuilder(
+              withInitialValue: editUser,
               labelText: AppString.address,
               stream: bloc.address,
               onChanged: bloc.onAddressChanged,
@@ -77,8 +87,8 @@ class UserForm extends StatelessWidget {
               activeColorText: Colors.teal,
               disabledColorText: Colors.white,
               stream: bloc.activateButton,
-              action: () => bloc.add(const CreateUser()),
-              title: AppString.create,
+              action: execute,
+              title: editUser ? AppString.update : AppString.create,
             )
           ],
         ),

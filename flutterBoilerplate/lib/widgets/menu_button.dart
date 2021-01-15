@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/screens/add_user_screen.dart';
-import 'package:flutterBoilerplate/screens/edit_user_screen.dart';
 import 'package:flutterBoilerplate/widgets/floating_action_button_item.dart';
 
 class MenuButton extends StatelessWidget {
@@ -43,7 +42,14 @@ class MenuButton extends StatelessWidget {
                       icon: Icons.add,
                     ),
                     ItemMenuButton(
-                      onTap: () => _goTo(context, EditUserScreen()),
+                      onTap: () => _goTo(
+                        context,
+                        Scaffold(
+                          body: Container(
+                            color: Colors.blueGrey,
+                          ),
+                        ),
+                      ),
                       title: AppString.editUser,
                       icon: Icons.edit,
                     )

@@ -3,6 +3,7 @@ class AppString {
   static const lastName = 'Last Name';
   static const email = 'Email';
   static const settings = 'Settings';
+  static const editUser = 'Edit User';
 
   //Login Screen
   static const password = 'Password';
@@ -43,12 +44,15 @@ class AppString {
   static const ok = 'Ok';
   static const addNewUser = 'Add new user';
 
+  //Edit User Screen
+  static const userUpdatedSuccessfully = 'User has been updated successfully.';
+  static const update = 'Update';
+
   //Bottom Navigation Bar
   static const home = 'Home';
 
   //Menu Button
   static const addUser = 'Add User';
-  static const editUser = 'Edit User';
 
   //User Form
   static const name = 'Name';

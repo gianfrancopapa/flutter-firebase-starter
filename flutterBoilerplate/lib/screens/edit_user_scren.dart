@@ -8,35 +8,49 @@ import 'package:flutterBoilerplate/widgets/user_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-class AddUserScreen extends StatefulWidget {
+class EditUserScreen extends StatefulWidget {
+  final String userId;
+  const EditUserScreen(this.userId);
   @override
-  _AddUserScreenState createState() => _AddUserScreenState();
+  _EditUserScreenState createState() => _EditUserScreenState();
 }
 
-class _AddUserScreenState extends State<AddUserScreen> {
+class _EditUserScreenState extends State<EditUserScreen> {
   UsersBloc _bloc;
   @override
   void initState() {
     _bloc = UsersBloc();
+    _bloc.add(FetchUserToEdit(widget.userId));
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) => BlocConsumer(
         cubit: _bloc,
         listener: (context, state) {
-          if (state.runtimeType == UserCreated) {
-            return DialogHelper.showAlertDialog(
-                context: context,
-                story: AppString.userAddedSuccessfully,
-                btnText: AppString.ok,
-                btnAction: () => Navigator.pop(context));
-          } else if (state.runtimeType == Error) {
-            return DialogHelper.showAlertDialog(
+          switch (state.runtimeType) {
+            case UserUpdated:
+              return DialogHelper.showAlertDialog(
+                  context: context,
+                  story: AppString.userUpdatedSuccessfully,
+                  btnText: AppString.ok,
+                  btnAction: () => Navigator.pop(context));
+              break;
+            case Error:
+              return DialogHelper.showAlertDialog(
                 context: context,
                 story: (state as Error).message,
                 btnText: AppString.ok,
-                btnAction: () => Navigator.pop(context));
+                btnAction: () => Navigator.pop(context),
+              );
+              break;
+            default:
+              break;
           }
         },
         builder: (context, state) => ModalProgressHUD(
@@ -44,15 +58,15 @@ class _AddUserScreenState extends State<AddUserScreen> {
           child: Scaffold(
             backgroundColor: Colors.teal,
             appBar: AppBar(
-              title: const Text(AppString.addNewUser),
+              title: const Text(AppString.editUser),
             ),
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: UserForm(
                   bloc: _bloc,
-                  editUser: false,
-                  execute: () => _bloc.add(const CreateUser()),
+                  editUser: true,
+                  execute: () => _bloc.add(UpdateUser(widget.userId)),
                 ),
               ),
             ),
