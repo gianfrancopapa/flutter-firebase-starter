@@ -6,16 +6,14 @@ class ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(50),
-        child: Image.network(
-          image,
-          width: 100,
-          height: 100,
-          fit: BoxFit.fitHeight,
-        ),
-      )
-    ]);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(50),
+      child: Image.network(
+        image,
+        width: 100,
+        height: 100,
+        fit: BoxFit.fitHeight,
+      ),
+    );
   }
 }

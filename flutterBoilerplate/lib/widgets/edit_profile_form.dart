@@ -15,14 +15,12 @@ class EditProfileForm extends StatefulWidget {
 }
 
 class _EditProfileFormState extends State<EditProfileForm> {
-  FirebaseAuthApi.User _user;
   EditProfileBloc _bloc;
+  String imageURL;
 
   @override
   void initState() {
     _bloc = EditProfileBloc();
-    _user = FirebaseAuthApi.FirebaseAuth.instance.currentUser;
-
     super.initState();
   }
 
@@ -31,7 +29,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
 
   void _onLastNameChanged(String lastName) => _bloc.onLastNameChanged(lastName);
 
-  void _changesSaved(EditProfileState state) {
+  void _changesSaved(EditProfileState state) async {
     if (state.runtimeType == ProfileEdited) {
       Navigator.push(
         context,
@@ -39,6 +37,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
           builder: (context) => ProfileScreen(),
         ),
       );
+    } else if (state.runtimeType == AvatarChanged) {
+      imageURL = await _bloc.getURL();
     }
   }
 
@@ -57,7 +57,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(50),
                       child: Image.network(
-                        _user.photoURL,
+                        imageURL,
                         width: 100,
                         height: 100,
                         fit: BoxFit.fitHeight,

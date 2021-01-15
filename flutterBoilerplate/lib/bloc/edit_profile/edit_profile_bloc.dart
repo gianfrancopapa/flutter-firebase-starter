@@ -13,8 +13,6 @@ class EditProfileBloc extends EditProfileFormBloc {
   final _firebaseStorage = FirebaseStorageService();
   PickedFile _image;
 
-  //EditProfileBloc() : super(const NotDetermined());
-
   Future<void> pickImageFromCamera() async {
     emit(const Loading());
     _image = await PickImageService.imgFromCamera();
@@ -30,6 +28,12 @@ class EditProfileBloc extends EditProfileFormBloc {
     } catch (e) {
       emit(Error(e.toString()));
     }
+  }
+
+  Future<String> getURL() async {
+    final user = await _firebaseAuth.getCurrentUser();
+    final url = user.avatarAsset;
+    return url;
   }
 
   Future<void> pickImageFromGallery() async {
