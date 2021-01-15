@@ -11,7 +11,7 @@ class ConfigurationScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           AppString.configuration,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
           ),
         ),
