@@ -1,58 +1,81 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
-import 'package:flutterBoilerplate/bloc/login/login_event.dart';
-import 'package:flutterBoilerplate/bloc/login/login_state.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/screens/configuration_screen.dart';
+import 'package:flutterBoilerplate/models/admin.dart';
+import 'package:flutterBoilerplate/models/user.dart';
+import 'package:flutterBoilerplate/widgets/settings.dart';
 import 'package:flutterBoilerplate/screens/user_profile_screen.dart';
-import 'package:flutterBoilerplate/widgets/common/button.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterBoilerplate/widgets/bottom_navigation_bar.dart';
+import 'package:flutterBoilerplate/widgets/menu_button.dart';
+import 'package:flutterBoilerplate/widgets/users_list.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+  final User user;
+  const MainScreen(this.user);
   @override
-  Widget build(BuildContext context) {
-    final _bloc = BlocProvider.of<LoginBloc>(context);
-    return BlocListener(
-      cubit: _bloc,
-      listener: (context, state) {
-        if (state.runtimeType == LoggedOut) {
-          Navigator.popUntil(context, (route) => route.isFirst);
-        }
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  static const _screen = 'screen';
+  static const _title = 'title';
+  int _index;
+
+  List<Map<String, dynamic>> _embbededScreensData;
+
+  @override
+  void initState() {
+    _index = 0;
+    _embbededScreensData = [
+      {
+        _screen: UsersList(widget.user.runtimeType == Admin),
+        _title: AppString.users
       },
-      child: Scaffold(
+      {_screen: Settings(), _title: AppString.settings},
+    ];
+    super.initState();
+  }
+
+  void _changeScreen(int index) => setState(() => _index = index);
+
+  Widget _showAdminButton() => widget.user.runtimeType == Admin
+      ? FloatingActionButton(
+          backgroundColor: Colors.blueGrey,
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          onPressed: () => showDialog(
+            context: context,
+            barrierDismissible: true,
+            builder: (context) => MenuButton(),
+          ),
+        )
+      : const SizedBox(
+          height: 0,
+          width: 0,
+        );
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           leading: const SizedBox(),
           automaticallyImplyLeading: false,
           backgroundColor: Colors.blueGrey,
-          title: const Text(AppString.welcome),
+          title: Text(_embbededScreensData[_index][_title]),
           actions: <Widget>[
-            CustomButton(const Icon(Icons.more_vert), AppString.configuration,
-                context, const ConfigurationScreen()),
-            CustomButton(const Icon(Icons.supervised_user_circle),
-                AppString.myProfile, context, ProfileScreen()),
+            IconButton(
+              icon: const Icon(Icons.supervised_user_circle),
+              tooltip: AppString.myProfile,
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()),
+              ),
+            )
           ],
         ),
-        body: Center(
-          child: Button(
-            text: AppString.logout,
-            onTap: () => _bloc.add(
-              const StartLogout(),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget CustomButton(
-      Icon icon, String tooltip, BuildContext context, Widget screen) {
-    return IconButton(
-      icon: icon,
-      tooltip: tooltip,
-      onPressed: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => screen),
-      ),
-    );
-  }
+        body: _embbededScreensData[_index][_screen],
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: _showAdminButton(),
+        bottomNavigationBar: BottomNavBar(_index, _changeScreen),
+      );
 }

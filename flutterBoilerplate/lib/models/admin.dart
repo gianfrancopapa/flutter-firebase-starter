@@ -6,11 +6,17 @@ class Admin extends User {
     String firstName,
     String lastName,
     String email,
+    int age,
+    String phoneNumber,
+    String address,
   }) : super(
           id: id,
           firstName: firstName,
           lastName: lastName,
           email: email,
+          age: age,
+          address: address,
+          phoneNumber: phoneNumber,
         );
 
   static Admin fromJson(Map<String, dynamic> json) => Admin(
@@ -18,5 +24,8 @@ class Admin extends User {
         firstName: json['firstName'],
         lastName: json['lastName'],
         email: json['email'],
+        age: json['age'],
+        phoneNumber: json['phoneNumber'],
+        address: json['address'],
       );
 }

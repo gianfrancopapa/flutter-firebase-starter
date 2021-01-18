@@ -10,12 +10,12 @@ import 'package:flutterBoilerplate/screens/main_screen.dart';
 import 'package:flutterBoilerplate/screens/onboarding_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DetermineAccess extends StatefulWidget {
+class DetermineAccessScreen extends StatefulWidget {
   @override
-  _DetermineAccessState createState() => _DetermineAccessState();
+  _DetermineAccessScreenState createState() => _DetermineAccessScreenState();
 }
 
-class _DetermineAccessState extends State<DetermineAccess> {
+class _DetermineAccessScreenState extends State<DetermineAccessScreen> {
   LoginBloc _bloc;
   InitAppBloc _initAppBloc;
 
@@ -35,10 +35,10 @@ class _DetermineAccessState extends State<DetermineAccess> {
 
   Widget _checkIfUserIsLoggedIn() => BlocBuilder<LoginBloc, LoginState>(
         cubit: _bloc,
-        builder: (context, loginState) {
-          switch (loginState.runtimeType) {
+        builder: (context, state) {
+          switch (state.runtimeType) {
             case LoggedIn:
-              return MainScreen();
+              return MainScreen((state as LoggedIn).currentUser);
             default:
               return LoginScreen();
           }
