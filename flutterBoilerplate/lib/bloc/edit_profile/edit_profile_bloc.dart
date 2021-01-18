@@ -23,8 +23,7 @@ class EditProfileBloc extends EditProfileFormBloc {
       await _firebaseStorage.uploadFile(File(_image.path), _image.path);
       final imageURL = await _firebaseStorage.downloadURL(_image.path);
       await _firebaseAuth.changeProfile(photoURL: imageURL);
-
-      emit(AvatarChanged(AssetImage(_image.path)));
+      emit(AvatarChanged(imageURL));
     } catch (e) {
       emit(Error(e.toString()));
     }
@@ -46,7 +45,7 @@ class EditProfileBloc extends EditProfileFormBloc {
       await _firebaseStorage.uploadFile(File(_image.path), _image.path);
       final imageURL = await _firebaseStorage.downloadURL(_image.path);
       await _firebaseAuth.changeProfile(photoURL: imageURL);
-      emit(AvatarChanged(AssetImage(_image.path)));
+      emit(AvatarChanged(imageURL));
     } catch (e) {
       emit(Error(e));
     }

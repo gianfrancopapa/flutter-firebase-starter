@@ -6,8 +6,7 @@ abstract class UserState {
 
 class CurrentUser extends UserState {
   final User user;
-  final String avatarAsset;
-  const CurrentUser(this.user, this.avatarAsset);
+  const CurrentUser(this.user);
 }
 
 class NotDetermined extends UserState {

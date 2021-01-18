@@ -7,10 +7,8 @@ import 'package:flutterBoilerplate/models/admin.dart';
 import 'package:flutterBoilerplate/models/user.dart';
 import 'package:flutterBoilerplate/repository/repository.dart';
 import 'package:flutterBoilerplate/services/auth_interface.dart';
-import 'package:flutterBoilerplate/services/firebase_storage.dart';
 
 class FirebaseAuthService implements IAuth {
-  final _storage = FirebaseStorageService();
   final _auth = AuthService.FirebaseAuth.instance;
 
   @override
@@ -25,10 +23,8 @@ class FirebaseAuthService implements IAuth {
         email: email,
         password: password,
       );
-      await _storage.uploadFile(File(AppAsset.anonUser), AppAsset.anonUser);
-      final imageURL = await _storage.downloadURL(AppAsset.anonUser);
-      await _auth.currentUser.updateProfile(
-          displayName: '$firstName $lastName', photoURL: imageURL);
+      await _auth.currentUser
+          .updateProfile(displayName: '$firstName $lastName');
       final firebaseUserUpdated = _auth.currentUser;
       return _determineUserRole(firebaseUserUpdated);
     } catch (e) {

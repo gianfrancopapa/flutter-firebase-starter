@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-
 abstract class EditProfileState {
   const EditProfileState();
 }
 
 class AvatarChanged extends EditProfileState {
-  final AssetImage image;
+  final String image;
   const AvatarChanged(this.image);
 }
 

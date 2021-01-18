@@ -23,8 +23,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     yield const Loading();
     try {
       final user = await _firebaseAuth.getCurrentUser();
-      final avatarAsset = user.avatarAsset;
-      yield CurrentUser(user, avatarAsset);
+
+      yield CurrentUser(user);
     } catch (e) {
       yield const Error('Something went wrong');
     }
