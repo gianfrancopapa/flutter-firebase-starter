@@ -180,7 +180,9 @@ class FirebaseAuthService implements IAuth {
   @override
   Future<bool> forgotPassword(String email) async {
     try {
+      print(email);
       await _auth.sendPasswordResetEmail(email: email);
+      print('done');
       return true;
     } catch (e) {
       throw e;

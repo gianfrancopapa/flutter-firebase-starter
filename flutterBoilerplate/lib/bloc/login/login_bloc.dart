@@ -30,14 +30,14 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> login() async* {
     yield const Loading();
     try {
-      await _firebaseAuth.loginWithEmail(
+      final user = await _firebaseAuth.loginWithEmail(
         emailController.value,
         passwordController.value,
       );
       yield LoggedIn(user);
     } catch (e) {
-      print(e.runtimeType);
-      yield ErrorLogin((e as PlatformException).message);
+      print(e);
+      yield ErrorLogin(e.toString());
     }
   }
 

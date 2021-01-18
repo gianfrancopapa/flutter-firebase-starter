@@ -22,8 +22,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Stream<UserState> _mapGetUserToState() async* {
     yield const Loading();
     try {
-      final user = _firebaseAuth.getCurrentUser();
-      final avatarAsset = FirebaseAuthService().getCurrentUser().avatarAsset;
+      final user = await _firebaseAuth.getCurrentUser();
+      final avatarAsset = user.avatarAsset;
       yield CurrentUser(user, avatarAsset);
     } catch (e) {
       yield const Error('Something went wrong');
