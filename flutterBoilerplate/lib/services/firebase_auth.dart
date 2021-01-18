@@ -1,15 +1,20 @@
-import 'dart:io';
 import 'package:flutter/services.dart';
-import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as AuthService;
-import 'package:flutterBoilerplate/models/admin.dart';
-import 'package:flutterBoilerplate/models/user.dart';
+import 'package:flutterBoilerplate/models/domain/admin.dart';
+import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/repository/repository.dart';
 import 'package:flutterBoilerplate/services/auth_interface.dart';
 
+//Singleton
 class FirebaseAuthService implements IAuth {
   final _auth = AuthService.FirebaseAuth.instance;
+
+  static final FirebaseAuthService _instance = FirebaseAuthService._internal();
+
+  factory FirebaseAuthService() => _instance;
+
+  FirebaseAuthService._internal();
 
   @override
   Future<User> createAccountWithEmail({

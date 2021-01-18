@@ -3,7 +3,7 @@ import 'package:flutterBoilerplate/bloc/users/users_bloc.dart';
 import 'package:flutterBoilerplate/bloc/users/users_event.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/models/user.dart';
+import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/screens/edit_user_scren.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 

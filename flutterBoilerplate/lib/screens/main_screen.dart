@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/models/admin.dart';
-import 'package:flutterBoilerplate/models/user.dart';
+import 'package:flutterBoilerplate/models/domain/admin.dart';
+import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/widgets/settings.dart';
 import 'package:flutterBoilerplate/screens/user_profile_screen.dart';
 import 'package:flutterBoilerplate/widgets/bottom_navigation_bar.dart';

@@ -1,4 +1,4 @@
-import 'package:flutterBoilerplate/models/admin.dart';
+import 'package:flutterBoilerplate/models/domain/admin.dart';
 
 class User {
   final String id;

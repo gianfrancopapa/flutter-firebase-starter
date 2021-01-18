@@ -1,14 +1,23 @@
-import 'package:flutterBoilerplate/data_source/firebase_api.dart';
-import 'package:flutterBoilerplate/models/admin.dart';
+import 'package:flutterBoilerplate/models/datatypes/persistance_service_type.dart';
+import 'package:flutterBoilerplate/models/service_factory.dart';
+import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/filter.dart';
 import 'package:flutterBoilerplate/models/firebase_filter.dart';
-import 'package:flutterBoilerplate/models/user.dart';
+import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/repository/repository.dart';
 
 class UsersRepository extends Repository<User> {
+  static final _serviceFactory = ServiceFactory();
   static const _path = 'users';
 
-  UsersRepository() : super(FirebaseAPI(_path), User.fromJson);
+  UsersRepository()
+      : super(
+          _serviceFactory.getPersistanceService(
+            PersistanceServiceType.Firebase,
+            _path,
+          ),
+          User.fromJson,
+        );
 
   Future<List<User>> getUsers(Filter<FirebaseFilter> filter) async {
     try {
