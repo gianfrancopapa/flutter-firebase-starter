@@ -1,6 +1,6 @@
+import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as AuthService;
-import 'package:flutter/services.dart';
 import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/repository/repository.dart';
@@ -24,15 +24,16 @@ class FirebaseAuthService implements IAuth {
     String password,
   }) async {
     try {
-      final authResult = await _auth.createUserWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-      final displayName = '$firstName $lastName';
-      await authResult.user.updateProfile(displayName: displayName);
+      await _auth.currentUser
+          .updateProfile(displayName: '$firstName $lastName');
       final firebaseUserUpdated = _auth.currentUser;
       return _determineUserRole(firebaseUserUpdated);
     } catch (e) {
+      print(e.toString());
       switch ((e as PlatformException).code) {
         case 'ERROR_WEAK_PASSWORD':
           throw 'ERROR: Weak password';
@@ -124,6 +125,18 @@ class FirebaseAuthService implements IAuth {
     }
   }
 
+  Future<bool> changeProfile(
+      {String firstName, String lastName, String photoURL}) async {
+    try {
+      final user = _auth.currentUser;
+      await user.updateProfile(
+          displayName: '$firstName $lastName', photoURL: photoURL);
+      return true;
+    } catch (e) {
+      throw e;
+    }
+  }
+
   @override
   Future<User> getCurrentUser() async {
     try {
@@ -157,8 +170,10 @@ class FirebaseAuthService implements IAuth {
       map['firstName'] = splitName[0];
       map['lastName'] = splitName[1];
       map['email'] = user.email;
+      map['avatarAsset'] = user.photoURL;
       return constructor(map);
     } catch (e) {
+      print(e.toString());
       throw e;
     }
   }
@@ -166,7 +181,9 @@ class FirebaseAuthService implements IAuth {
   @override
   Future<bool> forgotPassword(String email) async {
     try {
+      print(email);
       await _auth.sendPasswordResetEmail(email: email);
+      print('done');
       return true;
     } catch (e) {
       throw e;

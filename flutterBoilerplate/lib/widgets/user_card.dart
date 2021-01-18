@@ -81,7 +81,7 @@ class UserCard extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width / 2.5,
-              child: Image.asset(Assets.somnioLogo),
+              child: Image.asset(AppAsset.somnioLogo),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0),

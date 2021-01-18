@@ -5,6 +5,7 @@ class User {
   final String firstName;
   final String lastName;
   final String email;
+  final String avatarAsset;
   final int age;
   final String phoneNumber;
   final String address;
@@ -14,6 +15,7 @@ class User {
     this.firstName,
     this.lastName,
     this.email,
+    this.avatarAsset,
     this.age,
     this.phoneNumber,
     this.address,
@@ -26,6 +28,7 @@ class User {
           firstName: json['firstName'],
           lastName: json['lastName'],
           email: json['email'],
+          avatarAsset: json['avatarAsset'],
           age: json['age'],
           phoneNumber: json['phoneNumber'],
           address: json['address'],
@@ -35,6 +38,7 @@ class User {
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
+        'avatarAsset': avatarAsset,
         'role': 'user',
         'age': age,
         'address': address,

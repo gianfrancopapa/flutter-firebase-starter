@@ -34,11 +34,11 @@ class AppTheme {
     ),
     textTheme: const TextTheme(
       headline6: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
         fontSize: 18.0,
       ),
       subtitle2: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
         fontSize: 16.0,
       ),
     ),

@@ -3,7 +3,6 @@ import 'package:flutterBoilerplate/bloc/forgot_password/forgot_password_bloc.dar
 import 'package:flutterBoilerplate/bloc/forgot_password/forgot_password_event.dart';
 import 'package:flutterBoilerplate/bloc/forgot_password/forgot_password_state.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/screens/login_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
@@ -24,7 +23,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   void _goToLoginScreen() => Navigator.pop(context);
 
   void _determineAction(ForgotPasswordState state) {
-    if (state.runtimeType == ForgotPassword) {
+    if (state.runtimeType == EmailSent) {
       DialogHelper.showAlertDialog(
         context: context,
         story: AppString.emailSended,
@@ -43,7 +42,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(AppString.forgotPassword),
+          title: const Text(AppString.forgotPassword),
         ),
         body: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
           cubit: _bloc,
@@ -71,11 +70,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                 ),
                 Button(
-                    text: AppString.send,
-                    onTap: () => _dispatchForgotPasswordEvent),
+                    text: AppString.send, onTap: _dispatchForgotPasswordEvent),
               ],
             ),
           ),
         ),
       );
+  @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
 }

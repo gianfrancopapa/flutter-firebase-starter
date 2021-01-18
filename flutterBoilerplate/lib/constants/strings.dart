@@ -39,6 +39,8 @@ class AppString {
   static const fstName = 'First Name';
   static const lstName = 'Last Name';
 
+  //Edit profile
+  static const editProfile = 'Edit profile';
   //Add User Screen
   static const userAddedSuccessfully = 'User has been created successfully.';
   static const ok = 'Ok';

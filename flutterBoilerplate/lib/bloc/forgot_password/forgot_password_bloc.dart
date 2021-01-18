@@ -22,7 +22,7 @@ class ForgotPasswordBloc extends ForgotPasswordFormBloc {
     yield const Loading();
     try {
       await _firebaseAuth.forgotPassword(emailController.value);
-      yield const EmailSended();
+      yield const EmailSent();
     } catch (e) {
       yield const Error('Something went wrong');
     }

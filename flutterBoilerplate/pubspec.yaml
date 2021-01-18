@@ -16,12 +16,13 @@ dependencies:
   firebase_core: ^0.7.0
   firebase_analytics: ^7.0.1
   firebase_auth: ^0.20.0+1
+  firebase_storage: ^7.0.0
   cloud_firestore: ^0.16.0
   modal_progress_hud: ^0.1.3
   sk_onboarding_screen: ^1.0.1
   shared_preferences: ^0.5.12+4
   package_info: ^0.4.3+2
-
+  image_picker: ^0.6.7+17
 
   cupertino_icons: ^0.1.3
 
@@ -31,11 +32,10 @@ dev_dependencies:
 
 
 flutter:
-
-
   uses-material-design: true
 
   assets:
     - assets/
+
 
   
