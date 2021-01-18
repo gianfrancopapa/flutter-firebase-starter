@@ -1,9 +1,9 @@
 import 'package:flutterBoilerplate/bloc/forms/user_form_bloc.dart';
 import 'package:flutterBoilerplate/bloc/users/users_event.dart';
 import 'package:flutterBoilerplate/bloc/users/users_state.dart';
-import 'package:flutterBoilerplate/models/admin.dart';
+import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/filter.dart';
-import 'package:flutterBoilerplate/models/user.dart';
+import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/repository/users_repository.dart';
 
 class UsersBloc extends UserFormBloc<UsersEvent, UsersState> {
@@ -106,7 +106,6 @@ class UsersBloc extends UserFormBloc<UsersEvent, UsersState> {
     try {
       yield const Loading();
       final user = await _usersRepository.getUser(id);
-      print(user.phoneNumber);
       firstNameController.sink.add(user.firstName);
       lastNameController.sink.add(user.lastName);
       emailController.sink.add(user.email);

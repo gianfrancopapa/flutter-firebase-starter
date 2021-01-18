@@ -1,6 +1,8 @@
 import 'package:flutterBoilerplate/models/filter.dart';
 
-abstract class IApi {
+abstract class IPersistanceService {
+  IPersistanceService(String path);
+
   Future<List<Map<String, dynamic>>> getAll(Filter filter);
 
   Future<Map<String, dynamic>> getById(String id);

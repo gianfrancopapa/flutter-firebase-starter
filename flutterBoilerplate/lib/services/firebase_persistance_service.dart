@@ -1,14 +1,14 @@
-import 'package:flutterBoilerplate/data_source/api_interface.dart';
+import 'package:flutterBoilerplate/services/persistance_service_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutterBoilerplate/models/filter.dart';
 
-class FirebaseAPI implements IApi {
+class FirebasePersistanceService implements IPersistanceService {
   final _db = FirebaseFirestore.instance;
-  final String _path;
+  final String path;
   CollectionReference _ref;
 
-  FirebaseAPI(this._path) {
-    _ref = _db.collection(_path);
+  FirebasePersistanceService({this.path}) {
+    _ref = _db.collection(path);
   }
 
   @override

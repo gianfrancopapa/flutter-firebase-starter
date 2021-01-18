@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/data_source/api_interface.dart';
+import 'package:flutterBoilerplate/services/persistance_service_interface.dart';
 import 'package:flutterBoilerplate/models/filter.dart';
 
 typedef T Constructor<T>(Map<String, dynamic> map);
 
 abstract class Repository<T> {
-  final IApi _apiProvider;
+  final IPersistanceService _apiProvider;
   final Constructor<T> _constructor;
   // final _cache = const Cache();
 
