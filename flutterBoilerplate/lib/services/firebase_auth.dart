@@ -121,10 +121,6 @@ class FirebaseAuthService implements IAuth {
     return emailVerified;
   }
 
-  Future<void> sendEmailVerification() async {
-    return _auth.currentUser.sendEmailVerification();
-  }
-
   @override
   Future<bool> deleteAccount() async {
     try {
