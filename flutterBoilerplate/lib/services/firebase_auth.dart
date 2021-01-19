@@ -31,6 +31,7 @@ class FirebaseAuthService implements IAuth {
       await _auth.currentUser
           .updateProfile(displayName: '$firstName $lastName');
       final firebaseUserUpdated = _auth.currentUser;
+      await firebaseUserUpdated.sendEmailVerification();
       return _determineUserRole(firebaseUserUpdated);
     } catch (e) {
       print(e.toString());
@@ -112,6 +113,16 @@ class FirebaseAuthService implements IAuth {
     } catch (e) {
       throw e;
     }
+  }
+
+  Future<bool> checkIfEmailIsVerified() async {
+    final emailVerified = _auth.currentUser.emailVerified;
+    await _auth.currentUser.reload();
+    return emailVerified;
+  }
+
+  Future<void> sendEmailVerification() async {
+    return _auth.currentUser.sendEmailVerification();
   }
 
   @override
