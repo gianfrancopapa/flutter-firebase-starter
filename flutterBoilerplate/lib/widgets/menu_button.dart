@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/screens/add_user_screen.dart';
+import 'package:flutterBoilerplate/screens/add_employee_screen.dart';
 import 'package:flutterBoilerplate/widgets/floating_action_button_item.dart';
 
 class MenuButton extends StatelessWidget {

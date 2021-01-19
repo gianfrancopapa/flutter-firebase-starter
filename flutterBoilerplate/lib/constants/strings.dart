@@ -17,7 +17,7 @@ class AppString {
   static const createAccount = 'Create Account';
 
   //Main Screen
-  static const users = 'Users';
+  static const employees = 'Employees';
   static const logout = 'Logout';
 
   //Configuration Screen

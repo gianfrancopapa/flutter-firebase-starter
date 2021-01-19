@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutterBoilerplate/bloc/forms/login_form_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
@@ -36,7 +35,6 @@ class LoginBloc extends LoginFormBloc {
       );
       yield LoggedIn(user);
     } catch (e) {
-      print(e);
       yield ErrorLogin(e.toString());
     }
   }
