@@ -14,21 +14,17 @@ class EmployeeList extends StatefulWidget {
 }
 
 class _EmployeeListState extends State<EmployeeList> {
-  final _bloc = EmployeesBloc();
+  EmployeesBloc _bloc;
 
   @override
-  void initState() {
+  void didChangeDependencies() {
+    _bloc = BlocProvider.of<EmployeesBloc>(context);
     _bloc.add(const GetEmployees(null));
-    super.initState();
+    super.didChangeDependencies();
   }
 
   Widget _presentData(BuildContext context, EmployeesState state) {
     switch (state.runtimeType) {
-      case NotDetermined:
-      case Loading:
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
       case Error:
         return Center(
           child: Text((state as Error).message),
@@ -48,7 +44,7 @@ class _EmployeeListState extends State<EmployeeList> {
         );
       default:
         return const Center(
-          child: Text('Error: Invalid state in [main_screen.dart]'),
+          child: CircularProgressIndicator(),
         );
     }
   }
@@ -64,10 +60,4 @@ class _EmployeeListState extends State<EmployeeList> {
         cubit: _bloc,
         builder: _presentData,
       );
-
-  @override
-  void dispose() {
-    _bloc.close();
-    super.dispose();
-  }
 }

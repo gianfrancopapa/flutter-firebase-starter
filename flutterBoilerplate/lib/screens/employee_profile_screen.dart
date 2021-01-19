@@ -54,27 +54,32 @@ class EmployeeProfileScreen extends StatelessWidget {
 
   List<Widget> _userData(BuildContext context) => [
         Text(
-          'Sector: ${employee.getWorkingArea()}',
+          '${AppString.sector}: ${employee.getWorkingArea()}',
           style: const TextStyle(color: Colors.white, fontSize: 18.0),
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Text(
-          'Email: ${employee.email}',
+          '${AppString.email}: ${employee.email}',
           style: const TextStyle(color: Colors.white, fontSize: 18.0),
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Text(
-          'Phone Number: ${employee.phoneNumber}',
+          '${AppString.phoneNumber}: ${employee.phoneNumber}',
           style: const TextStyle(color: Colors.white, fontSize: 18.0),
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Text(
-          'Address: ${employee.address}',
+          '${AppString.address}: ${employee.address}',
           style: const TextStyle(color: Colors.white, fontSize: 18.0),
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Text(
-          'Age: ${employee.age}',
+          '${AppString.age}: ${employee.age}',
+          style: const TextStyle(color: Colors.white, fontSize: 18.0),
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+        Text(
+          '${AppString.description}: ${employee.description}',
           style: const TextStyle(color: Colors.white, fontSize: 18.0),
         ),
       ];
@@ -83,13 +88,13 @@ class EmployeeProfileScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Button(
-            text: 'Update',
+            text: AppString.update,
             onTap: () => _goToEditEmployeeScreen(context),
             width: MediaQuery.of(context).size.width * 0.40,
             backgroundColor: Colors.blueAccent,
           ),
           Button(
-            text: 'Delete',
+            text: AppString.delete,
             onTap: () => _deleteEmployeePopUp(context),
             width: MediaQuery.of(context).size.width * 0.40,
             backgroundColor: Colors.blueAccent,

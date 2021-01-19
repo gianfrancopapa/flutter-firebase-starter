@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/employees/employees_bloc.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutterBoilerplate/widgets/common/dropdown_button.dart';
 import 'package:flutterBoilerplate/widgets/common/responsive_button.dart';
-import 'package:flutterBoilerplate/widgets/common/responsive_checkbox.dart';
 import 'package:flutterBoilerplate/widgets/common/slider.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
 
@@ -17,11 +17,35 @@ class EmployeeForm extends StatelessWidget {
     this.execute,
   });
 
+  Row _chargeInput(BuildContext context) => Row(
+        children: [
+          const Text(
+            'Charge: ',
+            style: TextStyle(color: Colors.white),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.05,
+          ),
+          ResponsiveDropDownButton<String>(
+            streamList: bloc.workingAreaList,
+            streamValue: bloc.workingArea,
+            onChanged: bloc.onWorkingAreaChanged,
+            mapper: (String text) => DropdownMenuItem<String>(
+              value: text,
+              child: Text(
+                text,
+                style: const TextStyle(color: Colors.black, fontSize: 16),
+              ),
+            ),
+          ),
+        ],
+      );
+
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
@@ -74,10 +98,14 @@ class EmployeeForm extends StatelessWidget {
               label: AppString.age,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-            ResponsiveCheckbox(
-              label: AppString.admin,
-              stream: bloc.isAdmin,
-              onChanged: bloc.onIsAdmingChanged,
+            _chargeInput(context),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+            TextFieldBuilder(
+              maxLines: 5,
+              withInitialValue: editEmployee,
+              labelText: AppString.description,
+              stream: bloc.description,
+              onChanged: bloc.onDescriptionChanged,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.06),
             ResponsiveButton(

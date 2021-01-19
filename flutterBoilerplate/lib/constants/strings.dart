@@ -41,12 +41,14 @@ class AppString {
 
   //Edit profile
   static const editProfile = 'Edit profile';
-  //Add User Screen
-  static const userAddedSuccessfully = 'User has been created successfully.';
+
+  //Add Employee Screen
+  static const employeeAddedSuccessfully =
+      'Employee has been created successfully.';
   static const ok = 'Ok';
   static const addNewUser = 'Add new user';
 
-  //Edit User Screen
+  //Edit Employee Screen
   static const userUpdatedSuccessfully = 'User has been updated successfully.';
   static const update = 'Update';
 
@@ -56,7 +58,7 @@ class AppString {
   //Menu Button
   static const addUser = 'Add User';
 
-  //User Form
+  //Employee Form
   static const name = 'Name';
   static const phone = 'Phone';
   static const address = 'Address';
@@ -64,8 +66,16 @@ class AppString {
   static const admin = 'Admin:';
   static const create = 'Create';
 
-  //User Card
+  //Employee Card
   static const doYouWantToDeleteThisUser = 'Do you want to delete this user?';
   static const yes = 'Yes';
   static const no = 'No';
+
+  static const description = 'Description';
+  static const addNewEmployee = 'Add new employee';
+  static const editEmployee = 'Edit employee';
+  static const delete = 'Delete';
+  static const sector = 'Sector';
+  static const phoneNumber = 'Phone Number';
+  static const charge = 'Charge: ';
 }

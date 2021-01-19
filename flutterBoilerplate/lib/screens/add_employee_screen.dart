@@ -15,10 +15,11 @@ class AddUserScreen extends StatefulWidget {
 
 class _AddUserScreenState extends State<AddUserScreen> {
   EmployeesBloc _bloc;
+
   @override
-  void initState() {
-    _bloc = EmployeesBloc();
-    super.initState();
+  void didChangeDependencies() {
+    _bloc = BlocProvider.of<EmployeesBloc>(context);
+    super.didChangeDependencies();
   }
 
   @override
@@ -27,16 +28,21 @@ class _AddUserScreenState extends State<AddUserScreen> {
         listener: (context, state) {
           if (state.runtimeType == EmployeeCreated) {
             return DialogHelper.showAlertDialog(
-                context: context,
-                story: AppString.userAddedSuccessfully,
-                btnText: AppString.ok,
-                btnAction: () => Navigator.pop(context));
+              context: context,
+              story: AppString.employeeAddedSuccessfully,
+              btnText: AppString.ok,
+              btnAction: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            );
           } else if (state.runtimeType == Error) {
             return DialogHelper.showAlertDialog(
-                context: context,
-                story: (state as Error).message,
-                btnText: AppString.ok,
-                btnAction: () => Navigator.pop(context));
+              context: context,
+              story: (state as Error).message,
+              btnText: AppString.ok,
+              btnAction: () => Navigator.pop(context),
+            );
           }
         },
         builder: (context, state) => ModalProgressHUD(
@@ -44,7 +50,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
           child: Scaffold(
             backgroundColor: Colors.teal,
             appBar: AppBar(
-              title: const Text(AppString.addNewUser),
+              title: const Text(AppString.addNewEmployee),
             ),
             body: SafeArea(
               child: Padding(
@@ -59,10 +65,9 @@ class _AddUserScreenState extends State<AddUserScreen> {
           ),
         ),
       );
-
   @override
   void dispose() {
-    _bloc.close();
+    _bloc.add(const GetEmployees(null));
     super.dispose();
   }
 }

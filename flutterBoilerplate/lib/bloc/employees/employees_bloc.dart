@@ -1,12 +1,11 @@
 import 'package:flutterBoilerplate/bloc/employees/employees_event.dart';
 import 'package:flutterBoilerplate/bloc/employees/employees_state.dart';
-import 'package:flutterBoilerplate/bloc/forms/user_form_bloc.dart';
-import 'package:flutterBoilerplate/models/domain/admin.dart';
+import 'package:flutterBoilerplate/bloc/forms/employee_form_bloc.dart';
 import 'package:flutterBoilerplate/models/domain/employee.dart';
 import 'package:flutterBoilerplate/models/filter.dart';
 import 'package:flutterBoilerplate/repository/employees_repository.dart';
 
-class EmployeesBloc extends UserFormBloc<EmployeesEvent, EmployeesState> {
+class EmployeesBloc extends EmployeeFormBloc<EmployeesEvent, EmployeesState> {
   final _employeesRepository = EmployeesRepository();
 
   EmployeesBloc() : super(const NotDetermined());
@@ -30,7 +29,9 @@ class EmployeesBloc extends UserFormBloc<EmployeesEvent, EmployeesState> {
         yield* _deleteEmployee((event as DeleteEmployee).id);
         break;
       default:
-        yield const Error('Error: Invalid event.');
+        yield const Error(
+          'Error: Invalid event [EmployeesBloc.mapEventToState].',
+        );
     }
   }
 
@@ -55,9 +56,14 @@ class EmployeesBloc extends UserFormBloc<EmployeesEvent, EmployeesState> {
           phoneNumber: phoneController.value,
           age: ageController.value.truncate(),
           address: addressController.value,
+          description: descriptionController.value,
+          workingArea: Employee.determineWorkingArea(
+            workingAreaController.value,
+          ),
         ),
       );
       yield const EmployeeCreated();
+      await super.clearFields();
     } catch (err) {
       yield Error(err.toString());
     }
@@ -75,9 +81,14 @@ class EmployeesBloc extends UserFormBloc<EmployeesEvent, EmployeesState> {
           phoneNumber: phoneController.value,
           age: ageController.value.truncate(),
           address: addressController.value,
+          description: descriptionController.value,
+          workingArea: Employee.determineWorkingArea(
+            workingAreaController.value,
+          ),
         ),
       );
       yield const EmployeeUpdated();
+      await super.clearFields();
     } catch (err) {
       yield Error(err.toString());
     }
@@ -92,8 +103,9 @@ class EmployeesBloc extends UserFormBloc<EmployeesEvent, EmployeesState> {
       emailController.sink.add(employee.email);
       addressController.sink.add(employee.address);
       ageController.sink.add(employee.age.toDouble());
-      isAdminController.sink.add(employee.runtimeType == Admin);
       phoneController.sink.add(employee.phoneNumber);
+      descriptionController.sink.add(employee.description);
+      workingAreaController.sink.add(employee.getWorkingArea());
       yield SingleEmployee(employee);
     } catch (err) {
       yield Error(err.toString());
@@ -108,5 +120,10 @@ class EmployeesBloc extends UserFormBloc<EmployeesEvent, EmployeesState> {
     } catch (err) {
       yield Error(err.toString());
     }
+  }
+
+  @override
+  Future<void> close() {
+    return super.close();
   }
 }

@@ -1,1 +1,1 @@
-enum WorkingArea { Marketing, Development, RRHH, CTO, CEO, COO }
+enum WorkingArea { Marketing, Development, RRHH, CTO, CEO, COO, Other }

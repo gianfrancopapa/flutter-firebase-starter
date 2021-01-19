@@ -22,17 +22,17 @@ class EmployeeCard extends StatelessWidget {
   void _dispatchDeleteEvent() => bloc.add(DeleteEmployee(employee.id));
 
   void _deleteEmployeePopUp(BuildContext context) =>
-      () => DialogHelper.showAlertDialog(
-            context: context,
-            story: AppString.doYouWantToDeleteThisUser,
-            btnText: AppString.yes,
-            btnText2: AppString.no,
-            btnAction2: () => Navigator.pop(context),
-            btnAction: () {
-              _dispatchDeleteEvent();
-              Navigator.pop(context);
-            },
-          );
+      DialogHelper.showAlertDialog(
+        context: context,
+        story: AppString.doYouWantToDeleteThisUser,
+        btnText: AppString.yes,
+        btnText2: AppString.no,
+        btnAction2: () => Navigator.pop(context),
+        btnAction: () {
+          _dispatchDeleteEvent();
+          Navigator.pop(context);
+        },
+      );
 
   void _goToEditEmployeeScreen(BuildContext context) => Navigator.push(
         context,

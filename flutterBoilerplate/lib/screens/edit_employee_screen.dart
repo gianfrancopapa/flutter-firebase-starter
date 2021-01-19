@@ -17,52 +17,55 @@ class EditEmployeeScreen extends StatefulWidget {
 
 class _EditUserScreenState extends State<EditEmployeeScreen> {
   EmployeesBloc _bloc;
-  @override
-  void initState() {
-    _bloc = EmployeesBloc();
-    _bloc.add(FetchEmployee(widget.employeeId));
-    super.initState();
-  }
 
   @override
   void didChangeDependencies() {
+    _bloc = BlocProvider.of<EmployeesBloc>(context);
+    _bloc.add(FetchEmployee(widget.employeeId));
     super.didChangeDependencies();
   }
 
+  void _listener(BuildContext context, EmployeesState state) {
+    switch (state.runtimeType) {
+      case EmployeeUpdated:
+        DialogHelper.showAlertDialog(
+          context: context,
+          story: AppString.userUpdatedSuccessfully,
+          btnText: AppString.ok,
+          btnAction: () {
+            Navigator.pop(context);
+            Navigator.pop(context);
+          },
+        );
+        break;
+      case Error:
+        DialogHelper.showAlertDialog(
+          context: context,
+          story: (state as Error).message,
+          btnText: AppString.ok,
+          btnAction: () => Navigator.pop(context),
+        );
+        break;
+      default:
+        break;
+    }
+  }
+
   @override
-  Widget build(BuildContext context) => BlocConsumer(
+  Widget build(BuildContext context) =>
+      BlocConsumer<EmployeesBloc, EmployeesState>(
         cubit: _bloc,
-        listener: (context, state) {
-          switch (state.runtimeType) {
-            case EmployeeUpdated:
-              return DialogHelper.showAlertDialog(
-                  context: context,
-                  story: AppString.userUpdatedSuccessfully,
-                  btnText: AppString.ok,
-                  btnAction: () => Navigator.pop(context));
-              break;
-            case Error:
-              return DialogHelper.showAlertDialog(
-                context: context,
-                story: (state as Error).message,
-                btnText: AppString.ok,
-                btnAction: () => Navigator.pop(context),
-              );
-              break;
-            default:
-              break;
-          }
-        },
+        listener: _listener,
         builder: (context, state) => ModalProgressHUD(
           inAsyncCall: state.runtimeType == Loading,
           child: Scaffold(
             backgroundColor: Colors.teal,
             appBar: AppBar(
-              title: const Text(AppString.editUser),
+              title: const Text(AppString.editEmployee),
             ),
             body: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: EmployeeForm(
                   bloc: _bloc,
                   editEmployee: true,
@@ -76,7 +79,7 @@ class _EditUserScreenState extends State<EditEmployeeScreen> {
 
   @override
   void dispose() {
-    _bloc.close();
+    _bloc.add(const GetEmployees(null));
     super.dispose();
   }
 }

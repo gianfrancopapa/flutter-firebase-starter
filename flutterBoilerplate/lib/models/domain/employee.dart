@@ -1,4 +1,5 @@
 import 'package:flutterBoilerplate/models/datatypes/working_area.dart';
+import 'package:flutterBoilerplate/utils/enum.dart';
 
 class Employee {
   final String id;
@@ -9,6 +10,7 @@ class Employee {
   final int age;
   final String phoneNumber;
   final String address;
+  final String description;
   final WorkingArea workingArea;
 
   const Employee({
@@ -21,19 +23,21 @@ class Employee {
     this.phoneNumber,
     this.address,
     this.workingArea,
+    this.description,
   });
 
   static Employee fromJson(Map<String, dynamic> json) => Employee(
         id: json['id'],
-        firstName: json['firstName'],
-        lastName: json['lastName'],
-        email: json['email'],
-        age: json['age'],
-        phoneNumber: json['phoneNumber'],
-        address: json['address'],
-        workingArea: _determineWorkingArea(
+        firstName: json['firstName'] ?? 'Gonzalo',
+        lastName: json['lastName'] ?? 'LastName',
+        email: json['email'] ?? 'employee@somnio.com',
+        age: json['age'] ?? 18,
+        phoneNumber: json['phoneNumber'] ?? '99999999',
+        address: json['address'] ?? 'Address',
+        workingArea: determineWorkingArea(
           json['workingArea'],
         ),
+        description: json['description'] ?? '-',
       );
 
   Map<String, dynamic> toJson() => {
@@ -46,9 +50,10 @@ class Employee {
         'address': address,
         'phoneNumber': phoneNumber,
         'workingArea': getWorkingArea(),
+        'description': description,
       };
 
-  static WorkingArea _determineWorkingArea(String workingArea) {
+  static WorkingArea determineWorkingArea(String workingArea) {
     switch (workingArea.toUpperCase()) {
       case 'CTO':
         return WorkingArea.CTO;
@@ -62,27 +67,12 @@ class Employee {
         return WorkingArea.Marketing;
       case 'RRHH':
         return WorkingArea.RRHH;
+      case 'OTHER':
+        return WorkingArea.Other;
       default:
         throw 'Error: Invalid working area. [Employee.fromJson]';
     }
   }
 
-  String getWorkingArea() {
-    switch (workingArea) {
-      case WorkingArea.CTO:
-        return 'CTO';
-      case WorkingArea.COO:
-        return 'COO';
-      case WorkingArea.CEO:
-        return 'CEO';
-      case WorkingArea.Development:
-        return 'Development';
-      case WorkingArea.Marketing:
-        return 'Marketing';
-      case WorkingArea.RRHH:
-        return 'RRHH';
-      default:
-        throw 'Error: Invalid working area. [Employee.getWorkingArea]';
-    }
-  }
+  String getWorkingArea() => Enum.getEnumValue(workingArea);
 }
