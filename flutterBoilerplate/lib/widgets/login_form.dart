@@ -105,9 +105,7 @@ class _LoginFormState extends State<LoginForm> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          AppString.dontYouHaveAccount + ' ',
-                        ),
+                        const Text(AppString.dontYouHaveAccount + ' '),
                         Text(
                           AppString.createOne,
                           style: TextStyle(

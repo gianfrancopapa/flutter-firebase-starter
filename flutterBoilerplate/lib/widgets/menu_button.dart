@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/screens/add_user_screen.dart';
+import 'package:flutterBoilerplate/screens/add_employee_screen.dart';
 import 'package:flutterBoilerplate/widgets/floating_action_button_item.dart';
 
 class MenuButton extends StatelessWidget {
-  void _goTo(BuildContext context, Widget screen) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => screen),
-      );
+  void _goTo(BuildContext context, Widget screen) {
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => screen),
+    );
+  }
 
   SizedBox _template(BuildContext context, List<Widget> children) => SizedBox(
         height: (MediaQuery.of(context).size.height * 0.4) / 2,
