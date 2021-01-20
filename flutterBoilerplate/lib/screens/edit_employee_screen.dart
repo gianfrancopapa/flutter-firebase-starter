@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_bloc.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_event.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_state.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_bloc.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_event.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_state.dart';
+import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_bloc.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/widgets/employee_form.dart';
@@ -16,16 +17,23 @@ class EditEmployeeScreen extends StatefulWidget {
 }
 
 class _EditUserScreenState extends State<EditEmployeeScreen> {
-  EmployeesBloc _bloc;
+  EmployeeBloc _employeeBloc;
+
+  @override
+  void initState() {
+    _employeeBloc = EmployeeBloc();
+    _employeeBloc.add(FetchEmployee(widget.employeeId));
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
-    _bloc = BlocProvider.of<EmployeesBloc>(context);
-    _bloc.add(FetchEmployee(widget.employeeId));
+    final _employeesBloc = BlocProvider.of<FilterEmployeesBloc>(context);
+    _employeeBloc.attach(_employeesBloc);
     super.didChangeDependencies();
   }
 
-  void _listener(BuildContext context, EmployeesState state) {
+  void _listener(BuildContext context, EmployeeState state) {
     switch (state.runtimeType) {
       case EmployeeUpdated:
         DialogHelper.showAlertDialog(
@@ -53,8 +61,8 @@ class _EditUserScreenState extends State<EditEmployeeScreen> {
 
   @override
   Widget build(BuildContext context) =>
-      BlocConsumer<EmployeesBloc, EmployeesState>(
-        cubit: _bloc,
+      BlocConsumer<EmployeeBloc, EmployeeState>(
+        cubit: _employeeBloc,
         listener: _listener,
         builder: (context, state) => ModalProgressHUD(
           inAsyncCall: state.runtimeType == Loading,
@@ -62,14 +70,22 @@ class _EditUserScreenState extends State<EditEmployeeScreen> {
             backgroundColor: Colors.teal,
             appBar: AppBar(
               title: const Text(AppString.editEmployee),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.pop<bool>(
+                  context,
+                  state.runtimeType == EmployeeUpdated,
+                ),
+              ),
             ),
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                 child: EmployeeForm(
-                  bloc: _bloc,
+                  bloc: _employeeBloc,
                   editEmployee: true,
-                  execute: () => _bloc.add(UpdateEmployee(widget.employeeId)),
+                  execute: () =>
+                      _employeeBloc.add(UpdateEmployee(widget.employeeId)),
                 ),
               ),
             ),
@@ -79,7 +95,7 @@ class _EditUserScreenState extends State<EditEmployeeScreen> {
 
   @override
   void dispose() {
-    _bloc.add(const GetEmployees(null));
+    _employeeBloc.close();
     super.dispose();
   }
 }

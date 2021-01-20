@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_bloc.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_event.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_state.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_bloc.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_event.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_state.dart';
+import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_bloc.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/widgets/employee_form.dart';
@@ -14,17 +15,24 @@ class AddUserScreen extends StatefulWidget {
 }
 
 class _AddUserScreenState extends State<AddUserScreen> {
-  EmployeesBloc _bloc;
+  EmployeeBloc _employeeBloc;
+
+  @override
+  void initState() {
+    _employeeBloc = EmployeeBloc();
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
-    _bloc = BlocProvider.of<EmployeesBloc>(context);
+    final _employeesBloc = BlocProvider.of<FilterEmployeesBloc>(context);
+    _employeeBloc.attach(_employeesBloc);
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) => BlocConsumer(
-        cubit: _bloc,
+        cubit: _employeeBloc,
         listener: (context, state) {
           if (state.runtimeType == EmployeeCreated) {
             return DialogHelper.showAlertDialog(
@@ -51,23 +59,31 @@ class _AddUserScreenState extends State<AddUserScreen> {
             backgroundColor: Colors.teal,
             appBar: AppBar(
               title: const Text(AppString.addNewEmployee),
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.pop<bool>(
+                  context,
+                  state.runtimeType == EmployeeCreated,
+                ),
+              ),
             ),
             body: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: EmployeeForm(
-                  bloc: _bloc,
+                  bloc: _employeeBloc,
                   editEmployee: false,
-                  execute: () => _bloc.add(const CreateEmployee()),
+                  execute: () => _employeeBloc.add(const CreateEmployee()),
                 ),
               ),
             ),
           ),
         ),
       );
+
   @override
   void dispose() {
-    _bloc.add(const GetEmployees(null));
+    _employeeBloc.close();
     super.dispose();
   }
 }

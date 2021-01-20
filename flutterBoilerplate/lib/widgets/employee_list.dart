@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_bloc.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_event.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_state.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_bloc.dart';
+import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_bloc.dart';
+import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_event.dart';
+import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_state.dart';
 import 'package:flutterBoilerplate/widgets/common/widgets_list.dart';
 import 'package:flutterBoilerplate/widgets/employee_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,16 +15,19 @@ class EmployeeList extends StatefulWidget {
 }
 
 class _EmployeeListState extends State<EmployeeList> {
-  EmployeesBloc _bloc;
+  FilterEmployeesBloc _employeesBloc;
+  EmployeeBloc _employeeBloc;
 
   @override
   void didChangeDependencies() {
-    _bloc = BlocProvider.of<EmployeesBloc>(context);
-    _bloc.add(const GetEmployees(null));
+    _employeeBloc = EmployeeBloc();
+    _employeesBloc = BlocProvider.of<FilterEmployeesBloc>(context);
+    _employeeBloc.attach(_employeesBloc);
+    _employeesBloc.add(const GetEmployees(null));
     super.didChangeDependencies();
   }
 
-  Widget _presentData(BuildContext context, EmployeesState state) {
+  Widget _presentData(BuildContext context, FilterEmployeesState state) {
     switch (state.runtimeType) {
       case Error:
         return Center(
@@ -36,7 +40,7 @@ class _EmployeeListState extends State<EmployeeList> {
               .map(
                 (user) => EmployeeCard(
                   employee: user,
-                  bloc: _bloc,
+                  bloc: _employeeBloc,
                   showAdminControls: widget.isAdmin,
                 ),
               )
@@ -51,13 +55,14 @@ class _EmployeeListState extends State<EmployeeList> {
 
   @override
   Widget build(BuildContext context) =>
-      BlocConsumer<EmployeesBloc, EmployeesState>(
-        listener: (BuildContext context, EmployeesState state) {
-          if (state.runtimeType == EmployeeDeleted) {
-            _bloc.add(const GetEmployees(null));
-          }
-        },
-        cubit: _bloc,
+      BlocBuilder<FilterEmployeesBloc, FilterEmployeesState>(
+        cubit: _employeesBloc,
         builder: _presentData,
       );
+
+  @override
+  void dispose() {
+    _employeeBloc.close();
+    super.dispose();
+  }
 }

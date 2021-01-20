@@ -1,21 +1,22 @@
-import 'package:flutterBoilerplate/bloc/employees/employees_event.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_state.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_event.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_state.dart';
 import 'package:flutterBoilerplate/bloc/forms/employee_form_bloc.dart';
+import 'package:flutterBoilerplate/models/IObserver.dart';
+import 'package:flutterBoilerplate/models/ISubject.dart';
 import 'package:flutterBoilerplate/models/domain/employee.dart';
-import 'package:flutterBoilerplate/models/filter.dart';
 import 'package:flutterBoilerplate/repository/employees_repository.dart';
 
-class EmployeesBloc extends EmployeeFormBloc<EmployeesEvent, EmployeesState> {
+class EmployeeBloc extends EmployeeFormBloc<EmployeeEvent, EmployeeState>
+    implements ISubject {
   final _employeesRepository = EmployeesRepository();
+  @override
+  final observers = List<IObserver>();
 
-  EmployeesBloc() : super(const NotDetermined());
+  EmployeeBloc() : super(const NotDetermined());
 
   @override
-  Stream<EmployeesState> mapEventToState(EmployeesEvent event) async* {
+  Stream<EmployeeState> mapEventToState(EmployeeEvent event) async* {
     switch (event.runtimeType) {
-      case GetEmployees:
-        yield* _getEmployees((event as GetEmployees).filter);
-        break;
       case CreateEmployee:
         yield* _postNewEmployee();
         break;
@@ -35,17 +36,19 @@ class EmployeesBloc extends EmployeeFormBloc<EmployeesEvent, EmployeesState> {
     }
   }
 
-  Stream<EmployeesState> _getEmployees(Filter filter) async* {
-    yield const Loading();
-    try {
-      final employees = await _employeesRepository.getEmployees(filter);
-      yield Employees(employees);
-    } catch (err) {
-      yield Error(err.toString());
+  @override
+  void notify() async {
+    for (final observer in observers) {
+      observer.update();
     }
   }
 
-  Stream<EmployeesState> _postNewEmployee() async* {
+  @override
+  void attach(IObserver observer) {
+    observers.add(observer);
+  }
+
+  Stream<EmployeeState> _postNewEmployee() async* {
     try {
       yield const Loading();
       await _employeesRepository.addEmployee(
@@ -63,13 +66,13 @@ class EmployeesBloc extends EmployeeFormBloc<EmployeesEvent, EmployeesState> {
         ),
       );
       yield const EmployeeCreated();
-      await super.clearFields();
+      notify();
     } catch (err) {
       yield Error(err.toString());
     }
   }
 
-  Stream<EmployeesState> _updateEmployee(String id) async* {
+  Stream<EmployeeState> _updateEmployee(String id) async* {
     try {
       yield const Loading();
       await _employeesRepository.updateEmployee(
@@ -88,13 +91,13 @@ class EmployeesBloc extends EmployeeFormBloc<EmployeesEvent, EmployeesState> {
         ),
       );
       yield const EmployeeUpdated();
-      await super.clearFields();
+      notify();
     } catch (err) {
       yield Error(err.toString());
     }
   }
 
-  Stream<EmployeesState> _getEmployee(String id) async* {
+  Stream<EmployeeState> _getEmployee(String id) async* {
     try {
       yield const Loading();
       final employee = await _employeesRepository.getEmployee(id);
@@ -112,11 +115,12 @@ class EmployeesBloc extends EmployeeFormBloc<EmployeesEvent, EmployeesState> {
     }
   }
 
-  Stream<EmployeesState> _deleteEmployee(String id) async* {
+  Stream<EmployeeState> _deleteEmployee(String id) async* {
     try {
       yield const Loading();
       await _employeesRepository.deleteEmployee(id);
       yield const EmployeeDeleted();
+      notify();
     } catch (err) {
       yield Error(err.toString());
     }

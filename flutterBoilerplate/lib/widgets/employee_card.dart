@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_bloc.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_event.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_bloc.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_event.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/models/domain/employee.dart';
@@ -10,7 +10,7 @@ import 'package:flutterBoilerplate/utils/dialog.dart';
 
 class EmployeeCard extends StatelessWidget {
   final Employee employee;
-  final EmployeesBloc bloc;
+  final EmployeeBloc bloc;
   final bool showAdminControls;
 
   const EmployeeCard({
@@ -34,7 +34,7 @@ class EmployeeCard extends StatelessWidget {
         },
       );
 
-  void _goToEditEmployeeScreen(BuildContext context) => Navigator.push(
+  void _goToEditEmployeeScreen(BuildContext context) => Navigator.push<bool>(
         context,
         MaterialPageRoute(
           builder: (context) => EditEmployeeScreen(employee.id),

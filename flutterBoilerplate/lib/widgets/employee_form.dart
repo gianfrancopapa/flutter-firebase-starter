@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/employees/employees_bloc.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_bloc.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/dropdown_button.dart';
 import 'package:flutterBoilerplate/widgets/common/responsive_button.dart';
@@ -9,7 +9,7 @@ import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
 class EmployeeForm extends StatelessWidget {
   final bool editEmployee;
   final VoidCallback execute;
-  final EmployeesBloc bloc;
+  final EmployeeBloc bloc;
 
   const EmployeeForm({
     this.bloc,
