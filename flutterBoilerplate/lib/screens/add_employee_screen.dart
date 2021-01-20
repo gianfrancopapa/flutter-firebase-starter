@@ -9,12 +9,12 @@ import 'package:flutterBoilerplate/widgets/employee_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-class AddUserScreen extends StatefulWidget {
+class AddEmployeeScreen extends StatefulWidget {
   @override
-  _AddUserScreenState createState() => _AddUserScreenState();
+  _AddEmployeeScreenState createState() => _AddEmployeeScreenState();
 }
 
-class _AddUserScreenState extends State<AddUserScreen> {
+class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
   EmployeeBloc _employeeBloc;
 
   @override

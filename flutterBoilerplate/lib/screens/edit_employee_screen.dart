@@ -38,7 +38,7 @@ class _EditUserScreenState extends State<EditEmployeeScreen> {
       case EmployeeUpdated:
         DialogHelper.showAlertDialog(
           context: context,
-          story: AppString.userUpdatedSuccessfully,
+          story: AppString.employeeUpdatedSuccessfully,
           btnText: AppString.ok,
           btnAction: () {
             Navigator.pop(context);
