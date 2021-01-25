@@ -65,6 +65,8 @@ class Employee {
         return WorkingArea.Development;
       case 'MARKETING':
         return WorkingArea.Marketing;
+      case 'DESIGN':
+        return WorkingArea.Design;
       case 'RRHH':
         return WorkingArea.RRHH;
       case 'OTHER':

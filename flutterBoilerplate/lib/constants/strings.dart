@@ -78,4 +78,7 @@ class AppString {
   static const sector = 'Sector';
   static const phoneNumber = 'Phone Number';
   static const charge = 'Charge: ';
+
+  //Google
+  static const googleSignIn = 'Sign In';
 }

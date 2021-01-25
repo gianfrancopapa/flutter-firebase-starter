@@ -5,6 +5,8 @@ import 'package:flutterBoilerplate/bloc/init_app/init_app_state.dart';
 import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
+import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
+import 'package:flutterBoilerplate/models/service_factory.dart';
 import 'package:flutterBoilerplate/screens/login_screen.dart';
 import 'package:flutterBoilerplate/screens/main_screen.dart';
 import 'package:flutterBoilerplate/screens/onboarding_screen.dart';
@@ -18,6 +20,7 @@ class DetermineAccessScreen extends StatefulWidget {
 class _DetermineAccessScreenState extends State<DetermineAccessScreen> {
   LoginBloc _bloc;
   InitAppBloc _initAppBloc;
+  AuthServiceType _currentAuthService;
 
   @override
   void initState() {
@@ -27,9 +30,10 @@ class _DetermineAccessScreenState extends State<DetermineAccessScreen> {
   }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
+    _currentAuthService = await ServiceFactory().getCurrentAuthService();
     _bloc = BlocProvider.of<LoginBloc>(context);
-    _bloc.add(const CheckIfUserIsLoggedIn());
+    _bloc.add(CheckIfUserIsLoggedIn(_currentAuthService));
     super.didChangeDependencies();
   }
 
@@ -46,22 +50,23 @@ class _DetermineAccessScreenState extends State<DetermineAccessScreen> {
       );
 
   @override
-  Widget build(BuildContext context) =>
-      BlocBuilder<InitAppBloc, FirstTimeInAppState>(
-        cubit: _initAppBloc,
-        builder: (context, initAppState) {
-          switch (initAppState.runtimeType) {
-            case FirstTime:
-              return OnBoardingScreen();
-            case NoFirstTime:
-              return _checkIfUserIsLoggedIn();
-            default:
-              return const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-          }
-        },
-      );
+  Widget build(BuildContext context) {
+    return BlocBuilder<InitAppBloc, FirstTimeInAppState>(
+      cubit: _initAppBloc,
+      builder: (context, initAppState) {
+        switch (initAppState.runtimeType) {
+          case FirstTime:
+            return OnBoardingScreen();
+          case NoFirstTime:
+            return _checkIfUserIsLoggedIn();
+          default:
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+        }
+      },
+    );
+  }
 }

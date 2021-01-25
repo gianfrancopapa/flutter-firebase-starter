@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
+import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
 import 'package:flutterBoilerplate/utils/app_data.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
@@ -11,6 +12,8 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _bloc = BlocProvider.of<LoginBloc>(context);
+    void _dispatchLogoutEvent(AuthServiceType type) =>
+        _bloc.add(StartLogout(type));
     return BlocListener(
       cubit: _bloc,
       listener: (context, state) {
@@ -28,7 +31,7 @@ class Settings extends StatelessWidget {
           children: [
             Button(
               text: AppString.logout,
-              onTap: () => _bloc.add(const StartLogout()),
+              onTap: () => _dispatchLogoutEvent(AuthServiceType.Google),
             ),
             ListTile(
               enabled: false,
