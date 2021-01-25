@@ -77,4 +77,9 @@ class AppString {
   static const sector = 'Sector';
   static const phoneNumber = 'Phone Number';
   static const charge = 'Charge: ';
+
+  //Filter Employees Screen
+  static const filters = 'Filters';
+  static const clear = 'Clear';
+  static const applyFilters = 'Apply Filters';
 }

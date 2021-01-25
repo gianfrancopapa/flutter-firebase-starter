@@ -3,6 +3,7 @@ import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/widgets/employee_list.dart';
+import 'package:flutterBoilerplate/widgets/filter_icon.dart';
 import 'package:flutterBoilerplate/widgets/settings.dart';
 import 'package:flutterBoilerplate/screens/user_profile_screen.dart';
 import 'package:flutterBoilerplate/widgets/bottom_navigation_bar.dart';
@@ -63,6 +64,7 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.blueGrey,
           title: Text(_embbededScreensData[_index][_title]),
           actions: <Widget>[
+            FilterIcon(),
             IconButton(
               icon: const Icon(Icons.supervised_user_circle),
               tooltip: AppString.myProfile,

@@ -3,9 +3,9 @@ import 'package:flutterBoilerplate/bloc/employee/employee_bloc.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_bloc.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_event.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_state.dart';
-import 'package:flutterBoilerplate/widgets/common/widgets_list.dart';
 import 'package:flutterBoilerplate/widgets/employee_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'common/widgets_list.dart';
 
 class EmployeeList extends StatefulWidget {
   final bool isAdmin;
@@ -23,7 +23,7 @@ class _EmployeeListState extends State<EmployeeList> {
     _employeeBloc = EmployeeBloc();
     _employeesBloc = BlocProvider.of<FilterEmployeesBloc>(context);
     _employeeBloc.attach(_employeesBloc);
-    _employeesBloc.add(const GetEmployees(null));
+    _employeesBloc.add(const GetEmployees(false));
     super.didChangeDependencies();
   }
 
@@ -47,9 +47,7 @@ class _EmployeeListState extends State<EmployeeList> {
               .toList(),
         );
       default:
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const Center(child: CircularProgressIndicator());
     }
   }
 
