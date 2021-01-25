@@ -41,8 +41,6 @@ class LoginBloc extends LoginFormBloc {
         throw Error;
       }
     } catch (e) {
-      print(e);
-      print(emailVerified.toString());
       yield ErrorLogin(e.toString());
     }
   }

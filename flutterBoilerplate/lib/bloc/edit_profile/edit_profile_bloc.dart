@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:flutterBoilerplate/services/firebase_auth.dart';
 import 'package:flutterBoilerplate/bloc/forms/edit_profile_form_bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_state.dart';
 import 'package:flutterBoilerplate/services/firebase_storage.dart';
 import 'package:flutterBoilerplate/services/image_picker_service.dart';

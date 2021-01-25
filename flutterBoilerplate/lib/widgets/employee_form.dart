@@ -1,33 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/users/users_bloc.dart';
+import 'package:flutterBoilerplate/bloc/employee/employee_bloc.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutterBoilerplate/widgets/common/dropdown_button.dart';
 import 'package:flutterBoilerplate/widgets/common/responsive_button.dart';
-import 'package:flutterBoilerplate/widgets/common/responsive_checkbox.dart';
 import 'package:flutterBoilerplate/widgets/common/slider.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
 
-class UserForm extends StatelessWidget {
-  final bool editUser;
+class EmployeeForm extends StatelessWidget {
+  final bool editEmployee;
   final VoidCallback execute;
-  final UsersBloc bloc;
+  final EmployeeBloc bloc;
 
-  const UserForm({
+  const EmployeeForm({
     this.bloc,
-    this.editUser,
+    this.editEmployee,
     this.execute,
   });
+
+  Row _chargeInput(BuildContext context) => Row(
+        children: [
+          const Text(
+            'Charge: ',
+            style: TextStyle(color: Colors.white),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.05,
+          ),
+          ResponsiveDropDownButton<String>(
+            streamList: bloc.workingAreaList,
+            streamValue: bloc.workingArea,
+            onChanged: bloc.onWorkingAreaChanged,
+            mapper: (String text) => DropdownMenuItem<String>(
+              value: text,
+              child: Text(
+                text,
+                style: const TextStyle(color: Colors.black, fontSize: 16),
+              ),
+            ),
+          ),
+        ],
+      );
 
   @override
   Widget build(BuildContext context) => SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             TextFieldBuilder(
-              withInitialValue: editUser,
+              withInitialValue: editEmployee,
               labelText: AppString.name,
               stream: bloc.firstName,
               onChanged: bloc.onFirstNameChanged,
@@ -36,7 +60,7 @@ class UserForm extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             TextFieldBuilder(
-              withInitialValue: editUser,
+              withInitialValue: editEmployee,
               labelText: AppString.lastName,
               stream: bloc.lastName,
               onChanged: bloc.onLastNameChanged,
@@ -45,14 +69,14 @@ class UserForm extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             TextFieldBuilder(
-              withInitialValue: editUser,
+              withInitialValue: editEmployee,
               labelText: AppString.email,
               stream: bloc.email,
               onChanged: bloc.onEmailChanged,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             TextFieldBuilder(
-              withInitialValue: editUser,
+              withInitialValue: editEmployee,
               prefix: '+598 ',
               labelText: AppString.phone,
               stream: bloc.phone,
@@ -60,7 +84,7 @@ class UserForm extends StatelessWidget {
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             TextFieldBuilder(
-              withInitialValue: editUser,
+              withInitialValue: editEmployee,
               labelText: AppString.address,
               stream: bloc.address,
               onChanged: bloc.onAddressChanged,
@@ -74,10 +98,14 @@ class UserForm extends StatelessWidget {
               label: AppString.age,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-            ResponsiveCheckbox(
-              label: AppString.admin,
-              stream: bloc.isAdmin,
-              onChanged: bloc.onIsAdmingChanged,
+            _chargeInput(context),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+            TextFieldBuilder(
+              maxLines: 5,
+              withInitialValue: editEmployee,
+              labelText: AppString.description,
+              stream: bloc.description,
+              onChanged: bloc.onDescriptionChanged,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.06),
             ResponsiveButton(
@@ -88,7 +116,7 @@ class UserForm extends StatelessWidget {
               disabledColorText: Colors.white,
               stream: bloc.activateButton,
               action: execute,
-              title: editUser ? AppString.update : AppString.create,
+              title: editEmployee ? AppString.update : AppString.create,
             )
           ],
         ),

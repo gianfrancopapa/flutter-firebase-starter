@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/domain/user.dart';
+import 'package:flutterBoilerplate/widgets/employee_list.dart';
+import 'package:flutterBoilerplate/widgets/filter_icon.dart';
 import 'package:flutterBoilerplate/widgets/settings.dart';
 import 'package:flutterBoilerplate/screens/user_profile_screen.dart';
 import 'package:flutterBoilerplate/widgets/bottom_navigation_bar.dart';
 import 'package:flutterBoilerplate/widgets/menu_button.dart';
-import 'package:flutterBoilerplate/widgets/users_list.dart';
 
 class MainScreen extends StatefulWidget {
   final User user;
@@ -27,8 +28,8 @@ class _MainScreenState extends State<MainScreen> {
     _index = 0;
     _embbededScreensData = [
       {
-        _screen: UsersList(widget.user.runtimeType == Admin),
-        _title: AppString.users
+        _screen: EmployeeList(widget.user.runtimeType == Admin),
+        _title: AppString.employees
       },
       {_screen: Settings(), _title: AppString.settings},
     ];
@@ -63,6 +64,7 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: Colors.blueGrey,
           title: Text(_embbededScreensData[_index][_title]),
           actions: <Widget>[
+            FilterIcon(),
             IconButton(
               icon: const Icon(Icons.supervised_user_circle),
               tooltip: AppString.myProfile,

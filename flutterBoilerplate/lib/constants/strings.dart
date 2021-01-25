@@ -3,7 +3,8 @@ class AppString {
   static const lastName = 'Last Name';
   static const email = 'Email';
   static const settings = 'Settings';
-  static const editUser = 'Edit User';
+  static const editEmployee = 'Edit Employee';
+  static const description = 'Description';
 
   //Login Screen
   static const password = 'Password';
@@ -17,12 +18,11 @@ class AppString {
   static const createAccount = 'Create Account';
 
   //Main Screen
-  static const users = 'Users';
+  static const employees = 'Employees';
   static const logout = 'Logout';
 
   //Configuration Screen
   static const configuration = 'Configuration';
-
   static const version = 'Version';
   static const appName = 'App Name';
   static const buildNumber = 'Build Number';
@@ -41,31 +41,45 @@ class AppString {
 
   //Edit profile
   static const editProfile = 'Edit profile';
-  //Add User Screen
-  static const userAddedSuccessfully = 'User has been created successfully.';
-  static const ok = 'Ok';
-  static const addNewUser = 'Add new user';
 
-  //Edit User Screen
-  static const userUpdatedSuccessfully = 'User has been updated successfully.';
+  //Create Employee Screen
+  static const employeeAddedSuccessfully =
+      'Employee has been created successfully.';
+  static const ok = 'Ok';
+
+  //Edit Employee Screen
+  static const employeeUpdatedSuccessfully =
+      'Employee has been updated successfully.';
   static const update = 'Update';
 
   //Bottom Navigation Bar
   static const home = 'Home';
 
   //Menu Button
-  static const addUser = 'Add User';
+  static const addEmployee = 'Add Employee';
 
-  //User Form
+  //Employee Form
   static const name = 'Name';
   static const phone = 'Phone';
   static const address = 'Address';
   static const age = 'Age';
   static const admin = 'Admin:';
   static const create = 'Create';
+  static const addNewEmployee = 'Add new employee';
 
-  //User Card
+  //Employee Card
   static const doYouWantToDeleteThisUser = 'Do you want to delete this user?';
   static const yes = 'Yes';
   static const no = 'No';
+
+  //Employee Profile Screen
+  static const delete = 'Delete';
+  static const sector = 'Sector';
+  static const phoneNumber = 'Phone Number';
+  static const charge = 'Charge: ';
+
+  //Filter Employees Screen
+  static const filters = 'Filters';
+  static const clear = 'Clear';
+  static const applyFilters = 'Apply Filters';
 }

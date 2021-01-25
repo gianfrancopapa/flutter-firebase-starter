@@ -22,6 +22,10 @@ class CreateAccountBloc extends CreateAccountFormBloc {
   @override
   Stream<CreateAccountState> createAccountWithEmail() async* {
     yield const Loading();
+    if (passwordConfirmationController.value != passwordController.value) {
+      yield const Error('Error: Passwords doesn\'t match.');
+      return;
+    }
     try {
       await _firebaseAuth.createAccountWithEmail(
         firstName: firstNameController.value,

@@ -34,7 +34,6 @@ class FirebaseAuthService implements IAuth {
       await firebaseUserUpdated.sendEmailVerification();
       return _determineUserRole(firebaseUserUpdated);
     } catch (e) {
-      print(e.toString());
       switch ((e as PlatformException).code) {
         case 'ERROR_WEAK_PASSWORD':
           throw 'ERROR: Weak password';
@@ -155,21 +154,24 @@ class FirebaseAuthService implements IAuth {
   }
 
   Future<User> _determineUserRole(AuthService.User firebaseUser) async {
+    Constructor constructor = User.fromJson;
     final userData = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(firebaseUser.uid)
+        .collection('administrators')
+        .where('user_id', isEqualTo: firebaseUser.uid)
         .get();
-    var role = 'user';
-    if (userData.data() != null) {
-      role = userData.data()['role'];
+    if (userData.docs.isNotEmpty) {
+      constructor = Admin.fromJson;
     }
     return _mapFirebaseUserToUser(
       firebaseUser,
-      role == 'admin' ? Admin.fromJson : User.fromJson,
+      constructor,
     );
   }
 
-  User _mapFirebaseUserToUser(AuthService.User user, Constructor constructor) {
+  User _mapFirebaseUserToUser(
+    AuthService.User user,
+    Constructor<User> constructor,
+  ) {
     try {
       final splitName = user.displayName.split(' ');
       final map = Map<String, dynamic>();
@@ -180,7 +182,6 @@ class FirebaseAuthService implements IAuth {
       map['avatarAsset'] = user.photoURL;
       return constructor(map);
     } catch (e) {
-      print(e.toString());
       throw e;
     }
   }
@@ -188,9 +189,7 @@ class FirebaseAuthService implements IAuth {
   @override
   Future<bool> forgotPassword(String email) async {
     try {
-      print(email);
       await _auth.sendPasswordResetEmail(email: email);
-      print('done');
       return true;
     } catch (e) {
       throw e;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterBoilerplate/models/query.dart';
 import 'package:flutterBoilerplate/services/persistance_service_interface.dart';
-import 'package:flutterBoilerplate/models/filter.dart';
 
 typedef T Constructor<T>(Map<String, dynamic> map);
 
@@ -12,9 +12,9 @@ abstract class Repository<T> {
   const Repository(this._apiProvider, this._constructor);
 
   @protected
-  Future<List<T>> getAll(Filter filter) async {
+  Future<List<T>> getAll(Query query) async {
     try {
-      final res = await _apiProvider.getAll(filter);
+      final res = await _apiProvider.getAll(query);
       if (res.isEmpty) return [];
       final listOfT = List<T>();
       for (final item in res) {
