@@ -8,6 +8,8 @@ import 'package:flutterBoilerplate/models/datatypes/persistance_service_type.dar
 //Singleton
 class ServiceFactory {
   static final ServiceFactory _instance = ServiceFactory._internal();
+  PersistanceServiceType _persistanceServiceType =
+      PersistanceServiceType.Firebase;
 
   ServiceFactory._internal();
 
@@ -28,9 +30,12 @@ class ServiceFactory {
   ) {
     switch (type) {
       case PersistanceServiceType.Firebase:
-        return FirebasePersistanceService(path: path);
+        _persistanceServiceType = PersistanceServiceType.Firebase;
+        return FirebasePersistanceService(path);
       default:
         throw 'Error: cannot find specified type in [ServiceFactory.getPersistanceService]';
     }
   }
+
+  PersistanceServiceType get persistanceServiceType => _persistanceServiceType;
 }

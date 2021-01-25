@@ -34,9 +34,7 @@ class Employee {
         age: json['age'] ?? 18,
         phoneNumber: json['phoneNumber'] ?? '99999999',
         address: json['address'] ?? 'Address',
-        workingArea: determineWorkingArea(
-          json['workingArea'],
-        ),
+        workingArea: determineWorkingArea(json['workingArea']),
         description: json['description'] ?? '-',
       );
 
@@ -69,6 +67,8 @@ class Employee {
         return WorkingArea.RRHH;
       case 'OTHER':
         return WorkingArea.Other;
+      case 'DESIGN':
+        return WorkingArea.Design;
       default:
         throw 'Error: Invalid working area. [Employee.fromJson]';
     }

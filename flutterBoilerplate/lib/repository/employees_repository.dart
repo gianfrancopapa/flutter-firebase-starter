@@ -1,8 +1,7 @@
 import 'package:flutterBoilerplate/models/datatypes/persistance_service_type.dart';
 import 'package:flutterBoilerplate/models/domain/employee.dart';
+import 'package:flutterBoilerplate/models/query.dart';
 import 'package:flutterBoilerplate/models/service_factory.dart';
-import 'package:flutterBoilerplate/models/filter.dart';
-import 'package:flutterBoilerplate/models/firebase_filter.dart';
 import 'package:flutterBoilerplate/repository/repository.dart';
 
 class EmployeesRepository extends Repository<Employee> {
@@ -18,12 +17,12 @@ class EmployeesRepository extends Repository<Employee> {
           Employee.fromJson,
         );
 
-  Future<List<Employee>> getEmployees(Filter<FirebaseFilter> filter) async {
+  Future<List<Employee>> getEmployees(Query query) async {
     try {
-      final employees = await getAll(filter);
+      final employees = await getAll(query);
       return employees;
     } catch (err) {
-      throw ('Error: $err while fetching users in [UsersRepository.getEmployees]');
+      throw ('Error: $err while fetching users in [EmployeesRepository.getEmployees]');
     }
   }
 
