@@ -3,7 +3,8 @@ class AppString {
   static const lastName = 'Last Name';
   static const email = 'Email';
   static const settings = 'Settings';
-  static const editUser = 'Edit User';
+  static const editEmployee = 'Edit Employee';
+  static const description = 'Description';
 
   //Login Screen
   static const password = 'Password';
@@ -22,7 +23,6 @@ class AppString {
 
   //Configuration Screen
   static const configuration = 'Configuration';
-
   static const version = 'Version';
   static const appName = 'App Name';
   static const buildNumber = 'Build Number';
@@ -42,21 +42,21 @@ class AppString {
   //Edit profile
   static const editProfile = 'Edit profile';
 
-  //Add Employee Screen
+  //Create Employee Screen
   static const employeeAddedSuccessfully =
       'Employee has been created successfully.';
   static const ok = 'Ok';
-  static const addNewUser = 'Add new user';
 
   //Edit Employee Screen
-  static const userUpdatedSuccessfully = 'User has been updated successfully.';
+  static const employeeUpdatedSuccessfully =
+      'Employee has been updated successfully.';
   static const update = 'Update';
 
   //Bottom Navigation Bar
   static const home = 'Home';
 
   //Menu Button
-  static const addUser = 'Add User';
+  static const addEmployee = 'Add Employee';
 
   //Employee Form
   static const name = 'Name';
@@ -65,15 +65,14 @@ class AppString {
   static const age = 'Age';
   static const admin = 'Admin:';
   static const create = 'Create';
+  static const addNewEmployee = 'Add new employee';
 
   //Employee Card
   static const doYouWantToDeleteThisUser = 'Do you want to delete this user?';
   static const yes = 'Yes';
   static const no = 'No';
 
-  static const description = 'Description';
-  static const addNewEmployee = 'Add new employee';
-  static const editEmployee = 'Edit employee';
+  //Employee Profile Screen
   static const delete = 'Delete';
   static const sector = 'Sector';
   static const phoneNumber = 'Phone Number';
@@ -81,4 +80,9 @@ class AppString {
 
   //Google
   static const googleSignIn = 'Sign In';
+
+  //Filter Employees Screen
+  static const filters = 'Filters';
+  static const clear = 'Clear';
+  static const applyFilters = 'Apply Filters';
 }

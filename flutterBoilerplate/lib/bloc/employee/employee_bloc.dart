@@ -1,8 +1,8 @@
 import 'package:flutterBoilerplate/bloc/employee/employee_event.dart';
 import 'package:flutterBoilerplate/bloc/employee/employee_state.dart';
 import 'package:flutterBoilerplate/bloc/forms/employee_form_bloc.dart';
-import 'package:flutterBoilerplate/models/IObserver.dart';
-import 'package:flutterBoilerplate/models/ISubject.dart';
+import 'package:flutterBoilerplate/models/observer_interface.dart';
+import 'package:flutterBoilerplate/models/subject_interface.dart';
 import 'package:flutterBoilerplate/models/domain/employee.dart';
 import 'package:flutterBoilerplate/repository/employees_repository.dart';
 

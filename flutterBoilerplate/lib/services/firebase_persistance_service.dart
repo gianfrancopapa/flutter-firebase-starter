@@ -1,23 +1,24 @@
+import 'package:flutterBoilerplate/models/firebase_query.dart';
+import 'package:flutterBoilerplate/models/query.dart' as model;
 import 'package:flutterBoilerplate/services/persistance_service_interface.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutterBoilerplate/models/filter.dart';
 
 class FirebasePersistanceService implements IPersistanceService {
   final _db = FirebaseFirestore.instance;
-  final String path;
+  final String _path;
   CollectionReference _ref;
 
-  FirebasePersistanceService({this.path}) {
-    _ref = _db.collection(path);
+  FirebasePersistanceService(this._path) {
+    _ref = _db.collection(_path);
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getAll(Filter filter) async {
+  Future<List<Map<String, dynamic>>> getAll(model.Query query) async {
     try {
       QuerySnapshot res;
-      if (filter != null) {
-        final query = filter.createQuery();
-        res = await query.concatQueries(reference: _ref).getDocuments();
+      if (query != null) {
+        (query as FirebaseQuery).reference = _ref;
+        res = await (query as FirebaseQuery).generate().get();
       } else {
         res = await _ref.get();
       }

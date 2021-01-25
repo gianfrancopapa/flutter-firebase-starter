@@ -60,12 +60,20 @@ class TextFieldBuilder extends StatelessWidget {
   TextFormField _textFieldWithInitialValue(AsyncSnapshot<String> snapshot) =>
       TextFormField(
         maxLines: maxLines,
+        controller: TextEditingController.fromValue(
+          TextEditingValue(
+            text: snapshot.data ?? '',
+            selection: TextSelection.fromPosition(
+              TextPosition(offset: snapshot.data?.length ?? 0),
+            ),
+          ),
+        ),
         keyboardType: maxLines > 1 ? TextInputType.multiline : null,
         style: const TextStyle(color: Colors.white),
-        initialValue: snapshot.data,
         onChanged: onChanged,
         obscureText: isPassword,
-        decoration: _decoration(snapshot),
+        decoration:
+            snapshot != null ? _decoration(snapshot) : const InputDecoration(),
       );
 
   @override
@@ -74,10 +82,8 @@ class TextFieldBuilder extends StatelessWidget {
         child: StreamBuilder<String>(
           stream: stream,
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
-              snapshot.hasData
-                  ? withInitialValue
-                      ? _textFieldWithInitialValue(snapshot)
-                      : _textFieldWithoutInitialValue(snapshot)
+              withInitialValue
+                  ? _textFieldWithInitialValue(snapshot)
                   : _textFieldWithoutInitialValue(snapshot),
         ),
       );

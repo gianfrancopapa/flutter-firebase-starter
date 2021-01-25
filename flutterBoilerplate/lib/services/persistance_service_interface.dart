@@ -1,9 +1,9 @@
-import 'package:flutterBoilerplate/models/filter.dart';
+import 'package:flutterBoilerplate/models/query.dart';
 
 abstract class IPersistanceService {
   IPersistanceService(String path);
 
-  Future<List<Map<String, dynamic>>> getAll(Filter filter);
+  Future<List<Map<String, dynamic>>> getAll(Query query);
 
   Future<Map<String, dynamic>> getById(String id);
 

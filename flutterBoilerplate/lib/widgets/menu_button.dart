@@ -40,8 +40,8 @@ class MenuButton extends StatelessWidget {
                   context,
                   [
                     ItemMenuButton(
-                      onTap: () => _goTo(context, AddUserScreen()),
-                      title: AppString.addUser,
+                      onTap: () => _goTo(context, AddEmployeeScreen()),
+                      title: AppString.addEmployee,
                       icon: Icons.add,
                     ),
                     ItemMenuButton(
@@ -53,7 +53,7 @@ class MenuButton extends StatelessWidget {
                           ),
                         ),
                       ),
-                      title: AppString.editUser,
+                      title: AppString.editEmployee,
                       icon: Icons.edit,
                     )
                   ],

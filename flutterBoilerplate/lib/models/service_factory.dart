@@ -12,6 +12,9 @@ class ServiceFactory {
   static final ServiceFactory _instance = ServiceFactory._internal();
   AuthServiceType _currentAuthServiceType;
   IAuth _currentAuthService;
+  PersistanceServiceType _persistanceServiceType =
+      PersistanceServiceType.Firebase;
+
   ServiceFactory._internal();
   final String _authService = 'auth_service';
 
@@ -69,9 +72,12 @@ class ServiceFactory {
   ) {
     switch (type) {
       case PersistanceServiceType.Firebase:
-        return FirebasePersistanceService(path: path);
+        _persistanceServiceType = PersistanceServiceType.Firebase;
+        return FirebasePersistanceService(path);
       default:
         throw 'Error: cannot find specified type in [ServiceFactory.getPersistanceService]';
     }
   }
+
+  PersistanceServiceType get persistanceServiceType => _persistanceServiceType;
 }
