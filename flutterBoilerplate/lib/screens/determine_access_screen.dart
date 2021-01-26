@@ -31,9 +31,8 @@ class _DetermineAccessScreenState extends State<DetermineAccessScreen> {
 
   @override
   void didChangeDependencies() async {
-    _currentAuthService = await ServiceFactory().getCurrentAuthService();
     _bloc = BlocProvider.of<LoginBloc>(context);
-    _bloc.add(CheckIfUserIsLoggedIn(_currentAuthService));
+    _bloc.add(const CheckIfUserIsLoggedIn());
     super.didChangeDependencies();
   }
 

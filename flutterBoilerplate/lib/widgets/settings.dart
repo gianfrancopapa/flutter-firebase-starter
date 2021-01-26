@@ -12,8 +12,7 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _bloc = BlocProvider.of<LoginBloc>(context);
-    void _dispatchLogoutEvent(AuthServiceType type) =>
-        _bloc.add(StartLogout(type));
+    void _dispatchLogoutEvent() => _bloc.add(const StartLogout());
     return BlocListener(
       cubit: _bloc,
       listener: (context, state) {
@@ -31,7 +30,7 @@ class Settings extends StatelessWidget {
           children: [
             Button(
               text: AppString.logout,
-              onTap: () => _dispatchLogoutEvent(AuthServiceType.Google),
+              onTap: () => _dispatchLogoutEvent,
             ),
             ListTile(
               enabled: false,
