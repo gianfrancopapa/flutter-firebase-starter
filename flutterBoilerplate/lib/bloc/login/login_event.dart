@@ -10,11 +10,9 @@ class StartLogin extends LoginEvent {
 }
 
 class StartLogout extends LoginEvent {
-  final AuthServiceType type;
-  const StartLogout(this.type);
+  const StartLogout();
 }
 
 class CheckIfUserIsLoggedIn extends LoginEvent {
-  final AuthServiceType type;
-  const CheckIfUserIsLoggedIn(this.type);
+  const CheckIfUserIsLoggedIn();
 }

@@ -31,6 +31,7 @@ class FirebaseAuthService implements IAuth {
       await _auth.currentUser
           .updateProfile(displayName: '$firstName $lastName');
       final firebaseUserUpdated = _auth.currentUser;
+      await firebaseUserUpdated.sendEmailVerification();
       return _determineUserRole(firebaseUserUpdated);
     } catch (e) {
       switch ((e as PlatformException).code) {
@@ -83,24 +84,6 @@ class FirebaseAuthService implements IAuth {
   }
 
   @override
-  Future<User> loginWithPhoneNumber(String phoneNumber) async {
-    try {
-      await _auth.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
-        timeout: null,
-        verificationCompleted: null,
-        verificationFailed: null,
-        codeSent: null,
-        codeAutoRetrievalTimeout: null,
-      );
-      final firebaseUser = _auth.currentUser;
-      return _determineUserRole(firebaseUser);
-    } catch (e) {
-      throw e;
-    }
-  }
-
-  @override
   Future<User> checkIfUserIsLoggedIn() async {
     try {
       final firebaseUser = _auth.currentUser;
@@ -111,6 +94,13 @@ class FirebaseAuthService implements IAuth {
     } catch (e) {
       throw e;
     }
+  }
+
+  @override
+  Future<bool> checkIfEmailIsVerified() async {
+    final emailVerified = _auth.currentUser.emailVerified;
+    await _auth.currentUser.reload();
+    return emailVerified;
   }
 
   @override

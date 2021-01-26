@@ -16,13 +16,14 @@ class GoogleAuthService implements IAuth {
       return _determineUserRole(user);
     } catch (e) {
       switch ((e as PlatformException).code) {
-        case 'ERROR_INVALID_EMAIL':
-        case 'ERROR_WRONG_PASSWORD':
-          throw 'ERROR: Invalid credentials.';
-        case 'ERROR_USER_DISABLED':
-          throw 'ERROR: User is disabled.';
-        case 'ERROR_TOO_MANY_REQUESTS':
-          throw 'ERROR: Too many requests. Try again in a few minutes.';
+        case 'network_error':
+          throw GoogleSignIn.kNetworkError;
+        case 'sign_in_canceled':
+          throw GoogleSignIn.kSignInCanceledError;
+        case 'sign_in_failed':
+          throw GoogleSignIn.kSignInFailedError;
+        case 'sig_in_required':
+          throw GoogleSignIn.kSignInRequiredError;
         default:
           throw 'ERROR: Invalid operation.';
       }
@@ -77,7 +78,6 @@ class GoogleAuthService implements IAuth {
     try {
       final googleUser = _googleSignIn.signInSilently();
       if (googleUser != null) {
-        //final googleUser = _googleSignIn.currentUser;
         return _determineUserRole(googleUser);
       } else
         return null;
@@ -116,8 +116,8 @@ class GoogleAuthService implements IAuth {
   }
 
   @override
-  Future<User> loginWithPhoneNumber(String smsCode) {
-    // TODO: implement loginWithPhoneNumber
+  Future<bool> checkIfEmailIsVerified() {
+    // TODO: implement checkIfEmailIsVerified
     throw UnimplementedError();
   }
 }
