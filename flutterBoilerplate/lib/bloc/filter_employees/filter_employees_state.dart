@@ -1,5 +1,4 @@
 import 'package:flutterBoilerplate/models/domain/employee.dart';
-import 'package:flutterBoilerplate/utils/working_area_chip.dart';
 
 abstract class FilterEmployeesState {
   const FilterEmployeesState();
@@ -21,9 +20,4 @@ class Error extends FilterEmployeesState {
 class Employees extends FilterEmployeesState {
   final List<Employee> employees;
   const Employees(this.employees);
-}
-
-class WorkingAreaFilterList extends FilterEmployeesState {
-  final List<WorkingAreaChip> list;
-  const WorkingAreaFilterList(this.list);
 }

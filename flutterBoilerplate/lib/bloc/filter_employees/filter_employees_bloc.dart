@@ -8,28 +8,44 @@ import 'package:flutterBoilerplate/models/observer_interface.dart';
 import 'package:flutterBoilerplate/models/datatypes/working_area.dart';
 import 'package:flutterBoilerplate/models/query_factory.dart';
 import 'package:flutterBoilerplate/repository/employees_repository.dart';
+import 'package:flutterBoilerplate/utils/chip.dart';
 import 'package:flutterBoilerplate/utils/enum.dart';
 import 'package:flutterBoilerplate/utils/working_area_chip.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/subjects.dart';
 
 class FilterEmployeesBloc
     extends Bloc<FilterEmployeesEvent, FilterEmployeesState>
     implements IObserver {
   static const _workingArea = 'workingArea';
-  final _employeesRepository = EmployeesRepository();
-  final _workingAreaChipList = List<WorkingAreaChip>();
-  final _queryFactory = QueryFactory();
   List<Employee> _filteredList;
+  final _employeesRepository = EmployeesRepository();
+  final _queryFactory = QueryFactory();
+  final _workingAreaChipList = List<WorkingAreaChip>();
+  final _enabledWorkingAreaChipsList = List<WorkingAreaChip>();
+  final _workingAreaChipController = BehaviorSubject<Chip>();
+  final _workingAreaChipListController =
+      BehaviorSubject<List<WorkingAreaChip>>();
+  final _enabledWorkingAreaChipListController =
+      BehaviorSubject<List<WorkingAreaChip>>();
+
+  Stream<List<WorkingAreaChip>> get workingAreaChipList =>
+      _workingAreaChipListController.stream;
+
+  Stream<List<WorkingAreaChip>> get enabledWorkingAreaChipList =>
+      _enabledWorkingAreaChipListController.stream;
+
+  void onWorkingAreaChipChanged(Chip chip) =>
+      _workingAreaChipController.sink.add(chip);
+
+  void Function(void) get _onWorkingAreaChipListChanged =>
+      _workingAreaChipListController.sink.add;
+
+  void Function(void) get _onEnabledWorkingAreaChipListChanged =>
+      _enabledWorkingAreaChipListController.sink.add;
 
   FilterEmployeesBloc() : super(const NotDetermined()) {
-    var id = 0;
-    WorkingArea.values.forEach(
-      (wA) {
-        final chip = WorkingAreaChip(id, Enum.getEnumValue(wA), false);
-        id++;
-        _workingAreaChipList.add(chip);
-      },
-    );
+    _init();
   }
 
   @override
@@ -37,23 +53,8 @@ class FilterEmployeesBloc
     FilterEmployeesEvent event,
   ) async* {
     switch (event.runtimeType) {
-      case GetFilters:
-        yield WorkingAreaFilterList(_workingAreaChipList);
-        break;
       case GetEmployees:
         yield* _getEmployees(event);
-        break;
-      case ClearFilters:
-        yield* _clearFilters();
-        break;
-      case ToggleChip:
-        switch ((event as ToggleChip).chip.runtimeType) {
-          case WorkingAreaChip:
-            yield* _toggleWorkingAreaChip((event as ToggleChip).chip.id);
-            break;
-          default:
-            return;
-        }
         break;
       default:
         yield const Error(
@@ -84,11 +85,7 @@ class FilterEmployeesBloc
   Stream<FilterEmployeesState> _applyFilters() async* {
     yield const Loading();
     try {
-      final enabledChips = List<String>();
-      _workingAreaChipList.forEach((wAChip) {
-        if (wAChip.enabled) enabledChips.add(wAChip.text);
-      });
-      if (enabledChips.length == 0) {
+      if (_enabledWorkingAreaChipsList.length == 0) {
         final employees = await _employeesRepository.getEmployees(null);
         _filteredList = employees;
         yield Employees(employees);
@@ -97,7 +94,11 @@ class FilterEmployeesBloc
       final criteria = Criteria<List<String>>(
         key: _workingArea,
         operator: QueryOperator.Match,
-        value: enabledChips,
+        value: _enabledWorkingAreaChipsList
+            .map(
+              (wAChip) => wAChip.text,
+            )
+            .toList(),
       );
       final query = _queryFactory.create();
       query.addCriteria(criteria);
@@ -109,26 +110,46 @@ class FilterEmployeesBloc
     }
   }
 
-  Stream<FilterEmployeesState> _toggleWorkingAreaChip(int id) async* {
-    yield const Loading();
-    _workingAreaChipList.forEach((chip) {
-      if (chip.id == id) {
-        chip.enabled = !(chip.enabled);
-      }
-    });
-    yield WorkingAreaFilterList(_workingAreaChipList);
-  }
-
-  Stream<FilterEmployeesState> _clearFilters() async* {
-    yield const Loading();
-    _workingAreaChipList.forEach((wAChip) {
-      wAChip.enabled = false;
-    });
-    yield WorkingAreaFilterList(_workingAreaChipList);
-  }
-
   @override
   void update() {
     add(const GetEmployees(false));
+  }
+
+  void _init() {
+    var id = 0;
+    WorkingArea.values.forEach(
+      (wA) {
+        final chip = WorkingAreaChip(id, Enum.getEnumValue(wA), false);
+        id++;
+        _workingAreaChipList.add(chip);
+      },
+    );
+    _onWorkingAreaChipListChanged(_workingAreaChipList);
+    _onEnabledWorkingAreaChipListChanged(_enabledWorkingAreaChipsList);
+    _workingAreaChipController.stream.listen(
+      (toggledChip) {
+        _workingAreaChipList.forEach(
+          (chip) {
+            if (chip.id == toggledChip.id) {
+              chip.enabled = !(chip.enabled);
+            }
+            if (chip.enabled && !_enabledWorkingAreaChipsList.contains(chip)) {
+              _enabledWorkingAreaChipsList.add(chip);
+            }
+          },
+        );
+        _enabledWorkingAreaChipsList.removeWhere((chip) => !(chip.enabled));
+        _onWorkingAreaChipListChanged(_workingAreaChipList);
+        _onEnabledWorkingAreaChipListChanged(_enabledWorkingAreaChipsList);
+      },
+    );
+  }
+
+  @override
+  Future<void> close() {
+    _workingAreaChipController.close();
+    _workingAreaChipListController.close();
+    _enabledWorkingAreaChipListController.close();
+    return super.close();
   }
 }

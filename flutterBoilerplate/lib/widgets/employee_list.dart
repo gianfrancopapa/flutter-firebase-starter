@@ -15,15 +15,15 @@ class EmployeeList extends StatefulWidget {
 }
 
 class _EmployeeListState extends State<EmployeeList> {
-  FilterEmployeesBloc _employeesBloc;
+  FilterEmployeesBloc _filterEmployeesBloc;
   EmployeeBloc _employeeBloc;
 
   @override
   void didChangeDependencies() {
     _employeeBloc = EmployeeBloc();
-    _employeesBloc = BlocProvider.of<FilterEmployeesBloc>(context);
-    _employeeBloc.attach(_employeesBloc);
-    _employeesBloc.add(const GetEmployees(false));
+    _filterEmployeesBloc = BlocProvider.of<FilterEmployeesBloc>(context);
+    _employeeBloc.attach(_filterEmployeesBloc);
+    _filterEmployeesBloc.add(const GetEmployees(false));
     super.didChangeDependencies();
   }
 
@@ -35,6 +35,8 @@ class _EmployeeListState extends State<EmployeeList> {
         );
       case Employees:
         return WidgetsList(
+          padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 20.0),
+          height: MediaQuery.of(context).size.height,
           children: (state as Employees)
               .employees
               .map(
@@ -54,7 +56,7 @@ class _EmployeeListState extends State<EmployeeList> {
   @override
   Widget build(BuildContext context) =>
       BlocBuilder<FilterEmployeesBloc, FilterEmployeesState>(
-        cubit: _employeesBloc,
+        cubit: _filterEmployeesBloc,
         builder: _presentData,
       );
 

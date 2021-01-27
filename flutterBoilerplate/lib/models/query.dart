@@ -6,7 +6,11 @@ abstract class Query<S> {
   final bool descendant;
   final criterias = List<Criteria>();
 
-  Query({this.limit, this.orderBy, this.descendant});
+  Query({
+    this.limit,
+    this.orderBy,
+    this.descendant,
+  });
 
   void addCriteria(Criteria criteria) {
     criterias.add(criteria);
