@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/domain/user.dart';
-import 'package:flutterBoilerplate/widgets/employee_list.dart';
+import 'package:flutterBoilerplate/widgets/employees_list_with_filters.dart';
 import 'package:flutterBoilerplate/widgets/filter_icon.dart';
 import 'package:flutterBoilerplate/widgets/settings.dart';
 import 'package:flutterBoilerplate/screens/user_profile_screen.dart';
@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
     _index = 0;
     _embbededScreensData = [
       {
-        _screen: EmployeeList(widget.user.runtimeType == Admin),
+        _screen: EmployeesListWithFilter(widget.user.runtimeType == Admin),
         _title: AppString.employees
       },
       {_screen: Settings(), _title: AppString.settings},

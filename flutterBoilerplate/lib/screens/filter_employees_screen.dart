@@ -4,6 +4,7 @@ import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_event.
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_state.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/utils/chip.dart' as my;
+import 'package:flutterBoilerplate/utils/working_area_chip.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutterBoilerplate/widgets/common/chip_section.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,10 +22,9 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _bloc = BlocProvider.of<FilterEmployeesBloc>(context);
-    _bloc.add(const GetFilters());
   }
 
-  Widget header() => Row(
+  Widget _header() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
@@ -36,7 +36,7 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
             ),
           ),
           GestureDetector(
-            onTap: () => _bloc.add(const ClearFilters()),
+            onTap: () => null,
             child: const Text(
               AppString.clear,
               style: TextStyle(
@@ -49,19 +49,22 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
         ],
       );
 
-  Widget filterEmployeesByCharge() =>
-      BlocBuilder<FilterEmployeesBloc, FilterEmployeesState>(
-        cubit: _bloc,
-        buildWhen: (previous, current) =>
-            current.runtimeType == WorkingAreaFilterList,
-        builder: (BuildContext context, FilterEmployeesState state) =>
-            state.runtimeType == WorkingAreaFilterList
+  Widget _filterEmployeesByCharge() => StreamBuilder<List<WorkingAreaChip>>(
+        stream: _bloc.workingAreaChipList,
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<List<WorkingAreaChip>> snapshot,
+        ) =>
+            snapshot.hasData
                 ? ChipSection(
+                    showDeleteIcon: false,
+                    height: 180.0,
                     activeChipColor: Colors.teal,
                     inactiveChipColor: Colors.grey,
-                    toggleChip: (my.Chip chip) => _bloc.add(ToggleChip(chip)),
+                    toggleChip: (my.Chip chip) =>
+                        _bloc.onWorkingAreaChipChanged(chip),
                     title: 'Working Area',
-                    chips: (state as WorkingAreaFilterList).list,
+                    chips: snapshot.data,
                   )
                 : const SizedBox(height: 0),
       );
@@ -108,8 +111,8 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          header(),
-                          filterEmployeesByCharge(),
+                          _header(),
+                          _filterEmployeesByCharge(),
                         ],
                       ),
                       Flexible(

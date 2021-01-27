@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/utils/chip.dart' as my;
-import 'package:flutterBoilerplate/widgets/common/chip_list.dart';
+import 'package:flutterBoilerplate/widgets/common/chip_wrapped_list.dart';
 
 class ChipSection extends StatelessWidget {
   final String title;
@@ -8,10 +8,12 @@ class ChipSection extends StatelessWidget {
   final double width;
   final Color activeChipColor;
   final Color inactiveChipColor;
+  final bool showDeleteIcon;
   final List<my.Chip> chips;
   final void Function(my.Chip chip) toggleChip;
 
   const ChipSection({
+    this.showDeleteIcon,
     this.chips,
     this.title,
     this.height,
@@ -39,7 +41,8 @@ class ChipSection extends StatelessWidget {
             const SizedBox(
               height: 10.0,
             ),
-            ChipList(
+            ChipWrappedList(
+              showDeleteIcon: showDeleteIcon,
               chips: chips,
               activeChipColor: activeChipColor,
               inactiveChipColor: inactiveChipColor,
