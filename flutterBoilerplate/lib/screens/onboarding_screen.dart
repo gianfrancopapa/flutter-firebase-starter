@@ -15,7 +15,11 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
     with TickerProviderStateMixin {
   Widget _buildImage(String assetName) {
     return Align(
-      child: Image.asset(assetName, width: 350.0),
+      child: Image.asset(
+        assetName,
+        width: 350.0,
+        height: 350.0,
+      ),
       alignment: Alignment.bottomCenter,
     );
   }
@@ -26,13 +30,16 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
       titleWidget: AutoSizeText(
         title,
         maxLines: 1,
-        style: const TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.black, fontSize: 18),
       ),
-      bodyWidget: AutoSizeText(
-        bodyText,
-        maxLines: 2,
-        style: const TextStyle(
-          color: Color(0xFF929794),
+      bodyWidget: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: AutoSizeText(
+          bodyText,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Color(0xFF929794),
+          ),
         ),
       ),
       image: _buildImage(asset),
