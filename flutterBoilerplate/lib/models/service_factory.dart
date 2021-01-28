@@ -5,10 +5,13 @@ import 'package:flutterBoilerplate/services/auth_interface.dart';
 import 'package:flutterBoilerplate/services/firebase_auth.dart';
 import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
 import 'package:flutterBoilerplate/models/datatypes/persistance_service_type.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //Singleton
 class ServiceFactory {
   static final ServiceFactory _instance = ServiceFactory._internal();
+
+  final String _authServiceKey = 'auth_service';
 
   PersistanceServiceType _persistanceServiceType =
       PersistanceServiceType.Firebase;
@@ -25,9 +28,23 @@ class ServiceFactory {
       case AuthServiceType.Google:
         return GoogleAuthService();
         break;
+      case AuthServiceType.CurrentAuth:
+        return _getCurrentAuthService();
+        break;
       default:
         throw 'Error: cannot find specified type in [ServiceFactory.getAuthService]';
     }
+  }
+
+  Future<IAuth> _getCurrentAuthService() async {
+    final prefs = await SharedPreferences.getInstance();
+    final currentAuth = prefs.getString(_authServiceKey);
+    if (currentAuth == null) {
+      return null;
+    } else if (currentAuth == FirebaseAuthService().toString()) {
+      return FirebaseAuthService();
+    }
+    return GoogleAuthService();
   }
 
   IPersistanceService getPersistanceService(

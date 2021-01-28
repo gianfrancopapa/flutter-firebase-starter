@@ -1,1 +1,1 @@
-enum AuthServiceType { Firebase, Google, AppleID, Facebook }
+enum AuthServiceType { Firebase, Google, AppleID, Facebook, CurrentAuth }

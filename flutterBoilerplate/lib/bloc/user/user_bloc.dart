@@ -1,15 +1,14 @@
 import 'package:flutterBoilerplate/bloc/user/user_event.dart';
 import 'package:flutterBoilerplate/bloc/user/user_state.dart';
+import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
+import 'package:flutterBoilerplate/models/service_factory.dart';
 import 'package:flutterBoilerplate/services/auth_interface.dart';
-import 'package:flutterBoilerplate/services/firebase_auth.dart';
-import 'package:flutterBoilerplate/services/google_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(const NotDetermined());
   IAuth _authService;
-  final String _authServiceKey = 'auth_service';
+  ServiceFactory _serviceFactory;
 
   @override
   Stream<UserState> mapEventToState(UserEvent event) async* {
@@ -23,24 +22,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   Stream<UserState> _mapGetUserToState() async* {
-    _getCurrentAuthService();
     yield const Loading();
     try {
+      _authService =
+          await _serviceFactory.getAuthService(AuthServiceType.CurrentAuth);
       final user = await _authService.getCurrentUser();
       yield CurrentUser(user);
     } catch (e) {
       yield const Error('Something went wrong');
     }
-  }
-
-  void _getCurrentAuthService() async {
-    final prefs = await SharedPreferences.getInstance();
-    final currentAuth = prefs.getString(_authServiceKey);
-    if (currentAuth == null) {
-      _authService = null;
-    } else if (currentAuth == FirebaseAuthService().toString()) {
-      _authService = FirebaseAuthService();
-    }
-    _authService = GoogleAuthService();
   }
 }

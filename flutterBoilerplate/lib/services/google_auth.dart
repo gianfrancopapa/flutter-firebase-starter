@@ -114,10 +114,4 @@ class GoogleAuthService implements IAuth {
       throw e;
     }
   }
-
-  @override
-  Future<bool> checkIfEmailIsVerified() {
-    // TODO: implement checkIfEmailIsVerified
-    throw UnimplementedError();
-  }
 }

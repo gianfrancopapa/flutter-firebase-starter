@@ -19,6 +19,4 @@ abstract class IAuth {
   Future<bool> forgotPassword(String email);
 
   Future<User> getCurrentUser();
-
-  Future<bool> checkIfEmailIsVerified();
 }

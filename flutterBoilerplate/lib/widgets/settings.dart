@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
-import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
 import 'package:flutterBoilerplate/utils/app_data.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
@@ -30,7 +29,7 @@ class Settings extends StatelessWidget {
           children: [
             Button(
               text: AppString.logout,
-              onTap: () => _dispatchLogoutEvent,
+              onTap: () => _dispatchLogoutEvent(),
             ),
             ListTile(
               enabled: false,

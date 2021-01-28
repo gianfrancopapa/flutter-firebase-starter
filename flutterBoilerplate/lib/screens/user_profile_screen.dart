@@ -3,8 +3,6 @@ import 'package:flutterBoilerplate/bloc/user/user_bloc.dart';
 import 'package:flutterBoilerplate/bloc/user/user_event.dart';
 import 'package:flutterBoilerplate/bloc/user/user_state.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
-import 'package:flutterBoilerplate/models/service_factory.dart';
 import 'package:flutterBoilerplate/screens/edit_profile_screen.dart';
 import 'package:flutterBoilerplate/widgets/profile_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

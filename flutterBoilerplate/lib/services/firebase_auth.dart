@@ -53,10 +53,16 @@ class FirebaseAuthService implements IAuth {
   @override
   Future<User> loginWithEmail(String email, String password) async {
     try {
+      final emailVerified = await _checkIfEmailIsVerified();
+
+      if (!emailVerified) {
+        throw Error;
+      }
       final authResult = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+
       return _determineUserRole(authResult.user);
     } catch (e) {
       switch ((e as PlatformException).code) {
@@ -96,8 +102,7 @@ class FirebaseAuthService implements IAuth {
     }
   }
 
-  @override
-  Future<bool> checkIfEmailIsVerified() async {
+  Future<bool> _checkIfEmailIsVerified() async {
     final emailVerified = _auth.currentUser.emailVerified;
     await _auth.currentUser.reload();
     return emailVerified;
