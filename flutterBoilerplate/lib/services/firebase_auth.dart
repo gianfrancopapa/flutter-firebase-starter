@@ -1,14 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as AuthService;
+import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/repository/repository.dart';
 import 'package:flutterBoilerplate/services/auth_interface.dart';
+import 'package:flutterBoilerplate/services/firebase_storage.dart';
 
 //Singleton
 class FirebaseAuthService implements IAuth {
   final _auth = AuthService.FirebaseAuth.instance;
+  final _storage = FirebaseStorageService();
 
   static final FirebaseAuthService _instance = FirebaseAuthService._internal();
 
@@ -28,8 +33,10 @@ class FirebaseAuthService implements IAuth {
         email: email,
         password: password,
       );
-      await _auth.currentUser
-          .updateProfile(displayName: '$firstName $lastName');
+      await _storage.uploadFile(File(AppAsset.anonUser), '$firstName');
+      final photoURL = await _storage.downloadURL('$firstName');
+      await _auth.currentUser.updateProfile(
+          displayName: '$firstName $lastName', photoURL: photoURL);
       final firebaseUserUpdated = _auth.currentUser;
       await firebaseUserUpdated.sendEmailVerification();
       return _determineUserRole(firebaseUserUpdated);

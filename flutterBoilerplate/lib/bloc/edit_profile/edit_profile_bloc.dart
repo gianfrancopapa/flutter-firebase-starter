@@ -18,8 +18,10 @@ class EditProfileBloc extends EditProfileFormBloc {
       return emit(const Error('Insert valid image'));
     }
     try {
-      await _firebaseStorage.uploadFile(File(_image.path), _image.path);
-      final imageURL = await _firebaseStorage.downloadURL(_image.path);
+      final user = await _firebaseAuth.getCurrentUser();
+      final userId = user.id;
+      await _firebaseStorage.uploadFile(File(_image.path), userId);
+      final imageURL = await _firebaseStorage.downloadURL(userId);
       await _firebaseAuth.changeProfile(photoURL: imageURL);
       emit(AvatarChanged(imageURL));
     } catch (e) {
@@ -40,9 +42,15 @@ class EditProfileBloc extends EditProfileFormBloc {
       return emit(const Error('Insert valid image'));
     }
     try {
-      await _firebaseStorage.uploadFile(File(_image.path), _image.path);
-      final imageURL = await _firebaseStorage.downloadURL(_image.path);
-      await _firebaseAuth.changeProfile(photoURL: imageURL);
+      final user = await _firebaseAuth.getCurrentUser();
+      final userId = user.id;
+      await _firebaseStorage.uploadFile(File(_image.path), userId);
+      final imageURL = await _firebaseStorage.downloadURL(userId);
+      await _firebaseAuth.changeProfile(
+          firstName: user.firstName,
+          lastName: user.lastName,
+          photoURL: imageURL);
+      user;
       emit(AvatarChanged(imageURL));
     } catch (e) {
       emit(Error(e));
