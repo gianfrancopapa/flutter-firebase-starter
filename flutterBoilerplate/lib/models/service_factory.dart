@@ -39,10 +39,11 @@ class ServiceFactory {
   Future<IAuth> _getCurrentAuthService() async {
     final prefs = await SharedPreferences.getInstance();
     final currentAuth = prefs.getString(_authServiceKey);
+    final firebaseAuth = FirebaseAuthService();
     if (currentAuth == null) {
       return null;
-    } else if (currentAuth == FirebaseAuthService().toString()) {
-      return FirebaseAuthService();
+    } else if (currentAuth == firebaseAuth.toString()) {
+      return firebaseAuth;
     }
     return GoogleAuthService();
   }
