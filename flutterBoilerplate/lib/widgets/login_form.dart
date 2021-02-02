@@ -18,6 +18,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   LoginBloc _bloc;
+  final _isPassword = true;
 
   @override
   void didChangeDependencies() {
@@ -87,7 +88,8 @@ class _LoginFormState extends State<LoginForm> {
                         stream: _bloc.password,
                         labelText: AppString.password,
                         onChanged: _onPasswordChanged,
-                        isPassword: true,
+                        isPassword: _isPassword,
+                        showPasswordButton: true,
                       ),
                       TextButton(
                         onPressed: _goToForgotPasswordScreen,
