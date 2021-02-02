@@ -35,7 +35,7 @@ class AppString {
   static const checkInbox = 'Check your email inbox';
 
   //User Profile
-  static const myProfile = 'My Profile';
+  static const myProfile = 'Profile';
   static const fstName = 'First Name';
   static const lstName = 'Last Name';
 
@@ -82,4 +82,5 @@ class AppString {
   static const filters = 'Filters';
   static const clear = 'Clear';
   static const applyFilters = 'Apply Filters';
+  static const workingArea = 'Working Area';
 }

@@ -10,7 +10,7 @@ class ChipSection extends StatelessWidget {
   final Color inactiveChipColor;
   final bool showDeleteIcon;
   final List<my.Chip> chips;
-  final void Function(my.Chip chip) toggleChip;
+  final void Function(int id) toggleChip;
 
   const ChipSection({
     this.showDeleteIcon,

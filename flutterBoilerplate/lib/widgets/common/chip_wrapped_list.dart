@@ -7,8 +7,8 @@ class ChipWrappedList extends StatelessWidget {
   final Color inactiveChipColor;
   final Color inActiveTextChipColor;
   final List<my.Chip> chips;
-  final void Function(my.Chip chip) toggleChip;
-  final void Function(my.Chip chip) onDeleted;
+  final void Function(int id) toggleChip;
+  final void Function(int id) onDeleted;
   final bool showDeleteIcon;
   final Axis scrollDirection;
 
@@ -25,7 +25,7 @@ class ChipWrappedList extends StatelessWidget {
   });
 
   Chip _chip(my.Chip chip) => Chip(
-        onDeleted: showDeleteIcon ? () => onDeleted(chip) : null,
+        onDeleted: showDeleteIcon ? () => onDeleted(chip.id) : null,
         deleteIcon: showDeleteIcon
             ? const Icon(
                 Icons.cancel,
@@ -51,7 +51,7 @@ class ChipWrappedList extends StatelessWidget {
                 child: showDeleteIcon
                     ? _chip(chip)
                     : InkWell(
-                        onTap: () => toggleChip(chip),
+                        onTap: () => toggleChip(chip.id),
                         child: _chip(chip),
                       ),
               ),

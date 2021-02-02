@@ -22,7 +22,7 @@ class WidgetsList extends StatelessWidget {
         padding: padding ?? const EdgeInsets.all(0.0),
         height: height ?? MediaQuery.of(context).size.height,
         width: width ?? MediaQuery.of(context).size.width,
-        margin: margin ?? const EdgeInsets.all(0),
+        margin: margin ?? const EdgeInsets.all(0.0),
         child: ListView.builder(
           scrollDirection: scrollDirection ?? Axis.vertical,
           padding: const EdgeInsets.all(10.0),
