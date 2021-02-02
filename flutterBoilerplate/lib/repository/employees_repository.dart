@@ -3,10 +3,12 @@ import 'package:flutterBoilerplate/models/domain/employee.dart';
 import 'package:flutterBoilerplate/models/query.dart';
 import 'package:flutterBoilerplate/models/service_factory.dart';
 import 'package:flutterBoilerplate/repository/repository.dart';
+import 'package:flutterBoilerplate/services/employees_cache.dart';
 
 class EmployeesRepository extends Repository<Employee> {
   static final _serviceFactory = ServiceFactory();
   static const _path = 'employees';
+  final _cache = EmployeesCache();
 
   EmployeesRepository()
       : super(
@@ -20,6 +22,9 @@ class EmployeesRepository extends Repository<Employee> {
   Future<List<Employee>> getEmployees(Query query) async {
     try {
       final employees = await getAll(query);
+      for (final employee in employees) {
+        _cache.add(employee);
+      }
       return employees;
     } catch (err) {
       throw ('Error: $err while fetching users in [EmployeesRepository.getEmployees]');
@@ -27,6 +32,10 @@ class EmployeesRepository extends Repository<Employee> {
   }
 
   Future<Employee> getEmployee(String id) async {
+    final employee = _cache.getById(id);
+    if (employee != null) {
+      return employee;
+    }
     try {
       final employee = await getById(id);
       return employee;
@@ -36,6 +45,7 @@ class EmployeesRepository extends Repository<Employee> {
   }
 
   Future<void> addEmployee(Employee employee) async {
+    _cache.add(employee);
     try {
       final map = employee.toJson();
       await post(map);
@@ -45,6 +55,7 @@ class EmployeesRepository extends Repository<Employee> {
   }
 
   Future<void> updateEmployee(Employee employee) async {
+    _cache.put(employee);
     try {
       final map = employee.toJson();
       await update(employee.id, map);
@@ -54,6 +65,7 @@ class EmployeesRepository extends Repository<Employee> {
   }
 
   Future<void> deleteEmployee(String id) async {
+    _cache.delete(id);
     try {
       await delete(id);
     } catch (err) {

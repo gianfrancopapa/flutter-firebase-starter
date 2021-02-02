@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/screens/add_employee_screen.dart';
-import 'package:flutterBoilerplate/widgets/floating_action_button_item.dart';
 
 class MenuButton extends StatelessWidget {
+  final itemHeightWithMargin = 60.0;
   void _goTo(BuildContext context, Widget screen) {
     Navigator.pop(context);
     Navigator.push(
@@ -12,68 +12,76 @@ class MenuButton extends StatelessWidget {
     );
   }
 
-  SizedBox _template(BuildContext context, List<Widget> children) => SizedBox(
-        height: (MediaQuery.of(context).size.height * 0.4) / 2,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: children,
+  Widget _menuItem(
+    BuildContext context,
+    VoidCallback action,
+    IconData icon,
+    String text,
+  ) =>
+      GestureDetector(
+        child: Container(
+          padding: const EdgeInsets.only(left: 10.0),
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.grey[800],
+                width: 1.5,
+              ),
+            ),
+          ),
+          margin: const EdgeInsets.all(10.0),
+          height: 40.0,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.08,
+              ),
+              Text(
+                text,
+                style: const TextStyle(color: Colors.white, fontSize: 18.0),
+              ),
+            ],
+          ),
         ),
+        onTap: action,
       );
 
   @override
-  Widget build(BuildContext context) => Dialog(
-        insetPadding: const EdgeInsets.only(left: 20, right: 20),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        backgroundColor: Colors.transparent,
-        child: Container(
-            alignment: Alignment.center,
-            height: MediaQuery.of(context).size.height * 0.4,
-            width: MediaQuery.of(context).size.width * 0.8,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(32),
+  Widget build(BuildContext context) => Container(
+        height: itemHeightWithMargin * 3 + 20.0,
+        decoration: BoxDecoration(
+          color: Colors.grey[850],
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8.0),
+            topRight: Radius.circular(8.0),
+          ),
+        ),
+        child: Wrap(
+          children: [
+            _menuItem(
+              context,
+              () => _goTo(context, AddEmployeeScreen()),
+              Icons.supervised_user_circle,
+              AppString.addEmployee,
             ),
-            child: Column(
-              children: [
-                _template(
-                  context,
-                  [
-                    ItemMenuButton(
-                      onTap: () => _goTo(context, AddEmployeeScreen()),
-                      title: AppString.addEmployee,
-                      icon: Icons.add,
-                    ),
-                    ItemMenuButton(
-                      onTap: () => _goTo(
-                        context,
-                        Scaffold(
-                          body: Container(
-                            color: Colors.blueGrey,
-                          ),
-                        ),
-                      ),
-                      title: AppString.editEmployee,
-                      icon: Icons.edit,
-                    )
-                  ],
-                ),
-                _template(
-                  context,
-                  [
-                    ItemMenuButton(
-                      onTap: () => {},
-                      title: 'Option 3',
-                      icon: Icons.verified_user_outlined,
-                    ),
-                    ItemMenuButton(
-                      onTap: () => {},
-                      title: 'Option 4',
-                      icon: Icons.verified_user_outlined,
-                    )
-                  ],
-                )
-              ],
-            )),
+            _menuItem(
+              context,
+              null,
+              Icons.info_outline,
+              'Option 2',
+            ),
+            _menuItem(
+              context,
+              null,
+              Icons.remove_circle,
+              'Option 3',
+            ),
+          ],
+        ),
       );
 }

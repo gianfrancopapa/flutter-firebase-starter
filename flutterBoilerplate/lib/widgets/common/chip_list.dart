@@ -8,8 +8,8 @@ class ChipList extends StatelessWidget {
   final Color inactiveChipColor;
   final Color inActiveTextChipColor;
   final List<my.Chip> chips;
-  final void Function(my.Chip chip) toggleChip;
-  final void Function(my.Chip chip) onDeleted;
+  final void Function(int id) toggleChip;
+  final void Function(int id) onDeleted;
   final bool showDeleteIcon;
   final Axis scrollDirection;
 
@@ -26,7 +26,7 @@ class ChipList extends StatelessWidget {
   });
 
   Chip _chip(my.Chip chip) => Chip(
-        onDeleted: showDeleteIcon ? () => onDeleted(chip) : null,
+        onDeleted: showDeleteIcon ? () => onDeleted(chip.id) : null,
         deleteIcon: showDeleteIcon
             ? const Icon(
                 Icons.cancel,
@@ -48,17 +48,17 @@ class ChipList extends StatelessWidget {
         children: chips
             .map(
               (chip) => Container(
-                margin: const EdgeInsets.all(4.0),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 4.0),
                 child: showDeleteIcon
                     ? _chip(chip)
                     : InkWell(
-                        onTap: () => toggleChip(chip),
+                        onTap: () => toggleChip(chip.id),
                         child: _chip(chip),
                       ),
               ),
             )
             .toList(),
-        height: 60.0,
         scrollDirection: scrollDirection ?? Axis.vertical,
         width: MediaQuery.of(context).size.width,
       );

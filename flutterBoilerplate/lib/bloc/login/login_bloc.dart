@@ -28,29 +28,14 @@ class LoginBloc extends LoginFormBloc {
   @override
   Stream<LoginState> login() async* {
     yield const Loading();
-    final emailVerified = await _verifyEmail();
-
     try {
-      if (emailVerified == true) {
-        final user = await _firebaseAuth.loginWithEmail(
-          emailController.value,
-          passwordController.value,
-        );
-        yield LoggedIn(user);
-      } else {
-        throw Error;
-      }
+      final user = await _firebaseAuth.loginWithEmail(
+        emailController.value,
+        passwordController.value,
+      );
+      yield LoggedIn(user);
     } catch (e) {
       yield ErrorLogin(e.toString());
-    }
-  }
-
-  Future<bool> _verifyEmail() async {
-    try {
-      final emailVerified = await _firebaseAuth.checkIfEmailIsVerified();
-      return emailVerified;
-    } catch (e) {
-      return true;
     }
   }
 
@@ -68,11 +53,9 @@ class LoginBloc extends LoginFormBloc {
 
   Stream<LoginState> _checkIfUserIsLoggedIn() async* {
     yield const Loading();
-
     try {
-      final emailVerified = await _verifyEmail();
       final user = await _firebaseAuth.checkIfUserIsLoggedIn();
-      if (user != null && emailVerified == true) {
+      if (user != null) {
         yield LoggedIn(user);
       } else {
         yield const LoggedOut();
