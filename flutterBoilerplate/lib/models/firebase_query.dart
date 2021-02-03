@@ -9,7 +9,11 @@ class FirebaseQuery extends my.Query<Query> {
     int limit,
     bool descendant,
     String orderBy,
-  });
+  }) : super(
+          limit: limit,
+          descendant: descendant,
+          orderBy: orderBy,
+        );
 
   set reference(CollectionReference ref) {
     _reference = ref;

@@ -12,6 +12,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     WidgetsFlutterBinding.ensureInitialized();
+
     super.initState();
   }
 

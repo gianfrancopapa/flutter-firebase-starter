@@ -1,21 +1,31 @@
-import 'package:flutterBoilerplate/utils/chip.dart';
-
 abstract class FilterEmployeesEvent {
   const FilterEmployeesEvent();
 }
 
 class GetEmployees extends FilterEmployeesEvent {
-  final bool filterEvent;
-  const GetEmployees(this.filterEvent);
+  const GetEmployees();
 }
 
-class ToggleChip extends FilterEmployeesEvent {
-  final Chip chip;
-  const ToggleChip(this.chip);
+class ApplyFilters extends FilterEmployeesEvent {
+  const ApplyFilters();
 }
 
 class GetFilters extends FilterEmployeesEvent {
   const GetFilters();
+}
+
+class GetAppliedFilters extends FilterEmployeesEvent {
+  const GetAppliedFilters();
+}
+
+class ToggleWorkingAreaFilter extends FilterEmployeesEvent {
+  final int id;
+  const ToggleWorkingAreaFilter(this.id);
+}
+
+class RemoveWorkingAreaFilter extends FilterEmployeesEvent {
+  final int id;
+  const RemoveWorkingAreaFilter(this.id);
 }
 
 class ClearFilters extends FilterEmployeesEvent {

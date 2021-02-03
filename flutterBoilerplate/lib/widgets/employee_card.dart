@@ -90,7 +90,7 @@ class EmployeeCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.0),
             border: Border.all(
               color: Colors.blueGrey,
-              width: 10.0,
+              width: 8.0,
               style: BorderStyle.solid,
             ),
           ),

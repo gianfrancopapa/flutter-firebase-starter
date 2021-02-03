@@ -12,6 +12,7 @@ class ServiceFactory {
   static final ServiceFactory _instance = ServiceFactory._internal();
 
   final String _authServiceKey = 'auth_service';
+  SharedPreferences _prefs;
 
   PersistanceServiceType _persistanceServiceType =
       PersistanceServiceType.Firebase;
@@ -20,12 +21,22 @@ class ServiceFactory {
 
   factory ServiceFactory() => _instance;
 
+  Future<SharedPreferences> _getSharedPreferencesInstance() async {
+    if (_prefs = null) {
+      return SharedPreferences.getInstance();
+    }
+    return _prefs;
+  }
+
   Future<IAuth> getAuthService(AuthServiceType type) async {
+    _prefs = await _getSharedPreferencesInstance();
     switch (type) {
       case AuthServiceType.Firebase:
+        await _prefs.setString(_authServiceKey, 'firebase');
         return FirebaseAuthService();
         break;
       case AuthServiceType.Google:
+        await _prefs.setString(_authServiceKey, 'google');
         return GoogleAuthService();
         break;
       case AuthServiceType.CurrentAuth:
@@ -37,13 +48,12 @@ class ServiceFactory {
   }
 
   Future<IAuth> _getCurrentAuthService() async {
-    final prefs = await SharedPreferences.getInstance();
-    final currentAuth = prefs.getString(_authServiceKey);
-    final firebaseAuth = FirebaseAuthService();
+    _prefs = await _getSharedPreferencesInstance();
+    final currentAuth = _prefs.getString(_authServiceKey);
     if (currentAuth == null) {
       return null;
-    } else if (currentAuth == firebaseAuth.toString()) {
-      return firebaseAuth;
+    } else if (currentAuth == 'firebase') {
+      return FirebaseAuthService();
     }
     return GoogleAuthService();
   }
@@ -59,6 +69,11 @@ class ServiceFactory {
       default:
         throw 'Error: cannot find specified type in [ServiceFactory.getPersistanceService]';
     }
+  }
+
+  Future<void> clearCurrentAuth() async {
+    _prefs = await _getSharedPreferencesInstance();
+    await _prefs.setString(_authServiceKey, null);
   }
 
   PersistanceServiceType get persistanceServiceType => _persistanceServiceType;

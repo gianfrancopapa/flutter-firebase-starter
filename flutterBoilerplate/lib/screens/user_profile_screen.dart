@@ -3,7 +3,7 @@ import 'package:flutterBoilerplate/bloc/user/user_bloc.dart';
 import 'package:flutterBoilerplate/bloc/user/user_event.dart';
 import 'package:flutterBoilerplate/bloc/user/user_state.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/screens/edit_profile_screen.dart';
+import 'package:flutterBoilerplate/screens/settings_screen.dart';
 import 'package:flutterBoilerplate/widgets/profile_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,16 +23,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Profile'),
-        actions: [
-          CustomButton(const Icon(Icons.app_settings_alt_outlined),
-              AppString.editProfile, context, EditProfileScreen())
-        ],
-      ),
-      body: BlocBuilder<UserBloc, UserState>(
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(
+          leading: const SizedBox(),
+          automaticallyImplyLeading: false,
+          title: const Text(AppString.myProfile),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SettingsScreen(),
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: BlocBuilder<UserBloc, UserState>(
           cubit: _bloc,
           builder: (context, state) {
             switch (state.runtimeType) {
@@ -46,16 +54,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 );
               case CurrentUser:
                 final user = (state as CurrentUser).user;
-                final image = user.avatarAsset;
                 return Container(
                   child: Column(
                     children: [
-                      ProfileImage(image: image),
-                      CustomRow(AppString.fstName, user.firstName),
-                      CustomRow(AppString.lstName, user.lastName),
-                      CustomRow(AppString.email, user.email),
+                      ProfileImage(image: user.avatarAsset),
+                      customRow(AppString.fstName + ': ', user.firstName),
+                      customRow(AppString.lstName + ': ', user.lastName),
+                      customRow(AppString.email + ': ', user.email),
                     ],
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                   ),
                   alignment: Alignment.centerRight,
@@ -65,39 +72,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: CircularProgressIndicator(),
                 );
             }
-          }),
-    );
-  }
+          },
+        ),
+      );
 
-  Widget CustomRow(String cardText, String text) {
-    return Row(
-      children: [
-        Card(
-          child: Text(
-            cardText,
-            style: const TextStyle(
-              fontSize: 20.0,
-              color: Colors.white,
+  Widget customRow(String cardText, String text) => Container(
+        padding: const EdgeInsets.all(15.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height * 0.01,
+        ),
+        child: Row(
+          children: [
+            Text(
+              cardText,
+              style: const TextStyle(
+                fontSize: 18.0,
+                color: Colors.white,
+              ),
             ),
-          ),
+            Text(
+              text,
+              style: const TextStyle(fontSize: 18.0, color: Colors.white),
+            ),
+          ],
         ),
-        Text(
-          text,
-          style: const TextStyle(fontSize: 18.0),
-        ),
-      ],
-    );
-  }
-
-  Widget CustomButton(
-      Icon icon, String tooltip, BuildContext context, Widget screen) {
-    return IconButton(
-      icon: icon,
-      tooltip: tooltip,
-      onPressed: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => screen),
-      ),
-    );
-  }
+      );
 }

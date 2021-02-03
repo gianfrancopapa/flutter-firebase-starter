@@ -1,4 +1,5 @@
 import 'package:flutterBoilerplate/models/domain/employee.dart';
+import 'package:flutterBoilerplate/utils/chip.dart';
 import 'package:flutterBoilerplate/utils/working_area_chip.dart';
 
 abstract class FilterEmployeesState {
@@ -23,7 +24,21 @@ class Employees extends FilterEmployeesState {
   const Employees(this.employees);
 }
 
-class WorkingAreaFilterList extends FilterEmployeesState {
-  final List<WorkingAreaChip> list;
-  const WorkingAreaFilterList(this.list);
+abstract class ChipsChanged extends FilterEmployeesState {
+  const ChipsChanged();
+}
+
+class WorkingAreaChipsChanged extends ChipsChanged {
+  final List<Chip> chips;
+  const WorkingAreaChipsChanged(this.chips);
+}
+
+class AppliedFilters extends ChipsChanged {
+  final List<WorkingAreaChip> chips;
+  const AppliedFilters(this.chips);
+}
+
+class Filters extends FilterEmployeesState {
+  final List<WorkingAreaChip> chips;
+  const Filters(this.chips);
 }

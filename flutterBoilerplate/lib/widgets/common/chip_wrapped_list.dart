@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/utils/chip.dart' as my;
-import 'package:flutterBoilerplate/widgets/common/widgets_list.dart';
 
-class ChipList extends StatelessWidget {
+class ChipWrappedList extends StatelessWidget {
   final Color activeChipColor;
   final Color activeTextChipColor;
   final Color inactiveChipColor;
@@ -13,7 +12,7 @@ class ChipList extends StatelessWidget {
   final bool showDeleteIcon;
   final Axis scrollDirection;
 
-  const ChipList({
+  const ChipWrappedList({
     this.onDeleted,
     this.showDeleteIcon = false,
     this.chips,
@@ -44,12 +43,11 @@ class ChipList extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) => WidgetsList(
+  Widget build(BuildContext context) => Wrap(
         children: chips
             .map(
               (chip) => Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 0.0, horizontal: 4.0),
+                margin: const EdgeInsets.all(4.0),
                 child: showDeleteIcon
                     ? _chip(chip)
                     : InkWell(
@@ -59,7 +57,5 @@ class ChipList extends StatelessWidget {
               ),
             )
             .toList(),
-        scrollDirection: scrollDirection ?? Axis.vertical,
-        width: MediaQuery.of(context).size.width,
       );
 }

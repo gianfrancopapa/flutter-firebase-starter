@@ -75,21 +75,18 @@ class EmployeeBloc extends EmployeeFormBloc<EmployeeEvent, EmployeeState>
   Stream<EmployeeState> _updateEmployee(String id) async* {
     try {
       yield const Loading();
-      await _employeesRepository.updateEmployee(
-        Employee(
-          id: id,
-          firstName: firstNameController.value,
-          lastName: lastNameController.value,
-          email: emailController.value,
-          phoneNumber: phoneController.value,
-          age: ageController.value.truncate(),
-          address: addressController.value,
-          description: descriptionController.value,
-          workingArea: Employee.determineWorkingArea(
-            workingAreaController.value,
-          ),
-        ),
+      final employee = await _employeesRepository.getEmployee(id);
+      employee.firstName = firstNameController.value;
+      employee.lastName = lastNameController.value;
+      employee.email = emailController.value;
+      employee.phoneNumber = phoneController.value;
+      employee.age = ageController.value.truncate();
+      employee.address = addressController.value;
+      employee.description = descriptionController.value;
+      employee.workingArea = Employee.determineWorkingArea(
+        workingAreaController.value,
       );
+      await _employeesRepository.updateEmployee(employee);
       yield const EmployeeUpdated();
       notify();
     } catch (err) {

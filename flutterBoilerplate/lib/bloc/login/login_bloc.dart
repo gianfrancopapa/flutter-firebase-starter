@@ -5,17 +5,10 @@ import 'package:flutterBoilerplate/bloc/login/login_state.dart';
 import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
 import 'package:flutterBoilerplate/models/service_factory.dart';
 import 'package:flutterBoilerplate/services/auth_interface.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends LoginFormBloc {
   IAuth _authService;
   final _serviceFactory = ServiceFactory();
-  final String _authServiceKey = 'auth_service';
-  SharedPreferences _prefs;
-
-  LoginBloc() : super() {
-    SharedPreferences.getInstance().then((value) => _prefs = value);
-  }
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
@@ -41,7 +34,6 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> login() async* {
     yield const Loading();
     try {
-      _prefs.setString(_authServiceKey, _authService.toString());
       final user = await _authService.loginWithEmail(
         emailController.value,
         passwordController.value,
@@ -57,7 +49,7 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> logout() async* {
     yield const Loading();
     try {
-      _prefs.setString(_authServiceKey, null);
+      _serviceFactory.clearCurrentAuth();
       await _authService.logout();
       yield const LoggedOut();
     } catch (e) {

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/domain/user.dart';
-import 'package:flutterBoilerplate/widgets/employee_list.dart';
-import 'package:flutterBoilerplate/widgets/filter_icon.dart';
-import 'package:flutterBoilerplate/widgets/settings.dart';
+import 'package:flutterBoilerplate/screens/employees_list_screen.dart';
 import 'package:flutterBoilerplate/screens/user_profile_screen.dart';
-import 'package:flutterBoilerplate/widgets/bottom_navigation_bar.dart';
 import 'package:flutterBoilerplate/widgets/menu_button.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class MainScreen extends StatefulWidget {
   final User user;
@@ -17,67 +14,60 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  static const _screen = 'screen';
-  static const _title = 'title';
   int _index;
-
-  List<Map<String, dynamic>> _embbededScreensData;
+  List<Widget> _screens;
+  final _bottomNavBarItems = [
+    const BottomNavigationBarItem(
+      label: '',
+      icon: Icon(Icons.home),
+    ),
+    const BottomNavigationBarItem(
+      label: '',
+      icon: Icon(Icons.settings),
+    ),
+  ];
 
   @override
   void initState() {
+    final isAdmin = widget.user is Admin;
     _index = 0;
-    _embbededScreensData = [
-      {
-        _screen: EmployeeList(widget.user.runtimeType == Admin),
-        _title: AppString.employees
-      },
-      {_screen: Settings(), _title: AppString.settings},
+    _screens = [
+      EmployeesListScreen(isAdmin),
+      ProfileScreen(),
     ];
+    if (isAdmin) {
+      _screens.insert(1, Container());
+      _bottomNavBarItems.insert(
+        1,
+        BottomNavigationBarItem(
+          label: '',
+          icon: IconButton(
+            icon: const Icon(Icons.add_rounded),
+            onPressed: () => showMaterialModalBottomSheet(
+              backgroundColor: Colors.transparent,
+              context: context,
+              builder: (context) => MenuButton(),
+            ),
+          ),
+        ),
+      );
+    }
     super.initState();
   }
 
   void _changeScreen(int index) => setState(() => _index = index);
 
-  Widget _showAdminButton() => widget.user.runtimeType == Admin
-      ? FloatingActionButton(
-          backgroundColor: Colors.blueGrey,
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-          onPressed: () => showDialog(
-            context: context,
-            barrierDismissible: true,
-            builder: (context) => MenuButton(),
-          ),
-        )
-      : const SizedBox(
-          height: 0,
-          width: 0,
-        );
-
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          leading: const SizedBox(),
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.blueGrey,
-          title: Text(_embbededScreensData[_index][_title]),
-          actions: <Widget>[
-            FilterIcon(),
-            IconButton(
-              icon: const Icon(Icons.supervised_user_circle),
-              tooltip: AppString.myProfile,
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfileScreen()),
-              ),
-            )
-          ],
+        body: _screens[_index],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _index,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          iconSize: 22.0,
+          selectedItemColor: Colors.teal,
+          onTap: _changeScreen,
+          items: _bottomNavBarItems,
         ),
-        body: _embbededScreensData[_index][_screen],
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: _showAdminButton(),
-        bottomNavigationBar: BottomNavBar(_index, _changeScreen),
       );
 }

@@ -3,17 +3,17 @@ import 'package:flutterBoilerplate/utils/enum.dart';
 
 class Employee {
   final String id;
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String avatarAsset;
-  final int age;
-  final String phoneNumber;
-  final String address;
-  final String description;
-  final WorkingArea workingArea;
+  String firstName;
+  String lastName;
+  String email;
+  String avatarAsset;
+  int age;
+  String phoneNumber;
+  String address;
+  String description;
+  WorkingArea workingArea;
 
-  const Employee({
+  Employee({
     this.id,
     this.firstName,
     this.lastName,
