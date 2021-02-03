@@ -10,8 +10,6 @@ abstract class IAuth {
 
   Future<User> loginWithEmail(String email, String password);
 
-  Future<User> loginWithPhoneNumber(String smsCode);
-
   Future<User> checkIfUserIsLoggedIn();
 
   Future<bool> logout();
@@ -21,4 +19,7 @@ abstract class IAuth {
   Future<bool> forgotPassword(String email);
 
   Future<User> getCurrentUser();
+
+  Future<bool> changeProfile(
+      {String firstName, String lastName, String photoURL});
 }

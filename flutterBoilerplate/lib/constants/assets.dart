@@ -11,4 +11,7 @@ class AppAsset {
   //User
   static const String anonUser = 'assets/anonymousUser.png';
   static const String userAvatar = 'avatar/userAvatar.jpg';
+
+  //Google
+  static const String googleLogo = 'assets/google_logo.png';
 }

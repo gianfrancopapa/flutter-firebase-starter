@@ -1,19 +1,14 @@
-import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as AuthService;
-import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/repository/repository.dart';
 import 'package:flutterBoilerplate/services/auth_interface.dart';
-import 'package:flutterBoilerplate/services/firebase_storage.dart';
 
 //Singleton
 class FirebaseAuthService implements IAuth {
   final _auth = AuthService.FirebaseAuth.instance;
-  final _storage = FirebaseStorageService();
 
   static final FirebaseAuthService _instance = FirebaseAuthService._internal();
 
@@ -33,10 +28,9 @@ class FirebaseAuthService implements IAuth {
         email: email,
         password: password,
       );
-      await _storage.uploadFile(File(AppAsset.anonUser), '$firstName');
-      final photoURL = await _storage.downloadURL('$firstName');
-      await _auth.currentUser.updateProfile(
-          displayName: '$firstName $lastName', photoURL: photoURL);
+
+      await _auth.currentUser
+          .updateProfile(displayName: '$firstName $lastName');
       final firebaseUserUpdated = _auth.currentUser;
       await firebaseUserUpdated.sendEmailVerification();
       return _determineUserRole(firebaseUserUpdated);
@@ -60,10 +54,16 @@ class FirebaseAuthService implements IAuth {
   @override
   Future<User> loginWithEmail(String email, String password) async {
     try {
+      final emailVerified = await _checkIfEmailIsVerified();
+
+      if (!emailVerified) {
+        throw Error;
+      }
       final authResult = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+
       return _determineUserRole(authResult.user);
     } catch (e) {
       switch ((e as PlatformException).code) {
@@ -91,24 +91,6 @@ class FirebaseAuthService implements IAuth {
   }
 
   @override
-  Future<User> loginWithPhoneNumber(String phoneNumber) async {
-    try {
-      await _auth.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
-        timeout: null,
-        verificationCompleted: null,
-        verificationFailed: null,
-        codeSent: null,
-        codeAutoRetrievalTimeout: null,
-      );
-      final firebaseUser = _auth.currentUser;
-      return _determineUserRole(firebaseUser);
-    } catch (e) {
-      throw e;
-    }
-  }
-
-  @override
   Future<User> checkIfUserIsLoggedIn() async {
     try {
       final firebaseUser = _auth.currentUser;
@@ -121,7 +103,7 @@ class FirebaseAuthService implements IAuth {
     }
   }
 
-  Future<bool> checkIfEmailIsVerified() async {
+  Future<bool> _checkIfEmailIsVerified() async {
     final emailVerified = _auth.currentUser.emailVerified;
     await _auth.currentUser.reload();
     return emailVerified;
@@ -138,6 +120,7 @@ class FirebaseAuthService implements IAuth {
     }
   }
 
+  @override
   Future<bool> changeProfile(
       {String firstName, String lastName, String photoURL}) async {
     try {
