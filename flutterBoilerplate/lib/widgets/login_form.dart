@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
+import 'package:flutterBoilerplate/constants/assets.dart';
+import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
 import 'package:flutterBoilerplate/screens/create_account_screen.dart';
 import 'package:flutterBoilerplate/screens/forgot_password_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutterBoilerplate/widgets/common/auth_service_button.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +28,7 @@ class _LoginFormState extends State<LoginForm> {
     super.didChangeDependencies();
   }
 
-  void _dispatchLoginEvent() => _bloc.add(const StartLogin());
+  void _dispatchLoginEvent(AuthServiceType type) => _bloc.add(StartLogin(type));
 
   void _onEmailChanged(String email) => _bloc.onEmailChanged(email);
 
@@ -116,9 +119,21 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AuthServiceButton(
+                      text: AppString.googleSignIn,
+                      backgroundColor: Colors.grey[50],
+                      textColor: Colors.grey,
+                      asset: AppAsset.googleLogo,
+                      onTap: () => _dispatchLoginEvent(AuthServiceType.Google),
+                    ),
+                  ],
+                ),
                 Button(
                   text: AppString.login,
-                  onTap: _dispatchLoginEvent,
+                  onTap: () => _dispatchLoginEvent(AuthServiceType.Firebase),
                 ),
               ],
             ),

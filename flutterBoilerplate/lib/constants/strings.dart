@@ -78,6 +78,9 @@ class AppString {
   static const phoneNumber = 'Phone Number';
   static const charge = 'Charge: ';
 
+  //Google
+  static const googleSignIn = 'Sign In';
+
   //Filter Employees Screen
   static const filters = 'Filters';
   static const clear = 'Clear';

@@ -27,7 +27,7 @@ class _DetermineAccessScreenState extends State<DetermineAccessScreen> {
   }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     _bloc = BlocProvider.of<LoginBloc>(context);
     _bloc.add(const CheckIfUserIsLoggedIn());
     super.didChangeDependencies();
@@ -46,22 +46,23 @@ class _DetermineAccessScreenState extends State<DetermineAccessScreen> {
       );
 
   @override
-  Widget build(BuildContext context) =>
-      BlocBuilder<InitAppBloc, FirstTimeInAppState>(
-        cubit: _initAppBloc,
-        builder: (context, initAppState) {
-          switch (initAppState.runtimeType) {
-            case FirstTime:
-              return OnBoardingScreen();
-            case NoFirstTime:
-              return _checkIfUserIsLoggedIn();
-            default:
-              return const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-          }
-        },
-      );
+  Widget build(BuildContext context) {
+    return BlocBuilder<InitAppBloc, FirstTimeInAppState>(
+      cubit: _initAppBloc,
+      builder: (context, initAppState) {
+        switch (initAppState.runtimeType) {
+          case FirstTime:
+            return OnBoardingScreen();
+          case NoFirstTime:
+            return _checkIfUserIsLoggedIn();
+          default:
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+        }
+      },
+    );
+  }
 }

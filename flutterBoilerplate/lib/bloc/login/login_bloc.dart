@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/forms/login_form_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
-import 'package:flutterBoilerplate/services/firebase_auth.dart';
+import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
+import 'package:flutterBoilerplate/models/service_factory.dart';
+import 'package:flutterBoilerplate/services/auth_interface.dart';
 
 class LoginBloc extends LoginFormBloc {
-  final _firebaseAuth = FirebaseAuthService();
+  IAuth _authService;
+  final _serviceFactory = ServiceFactory();
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     switch (event.runtimeType) {
       case StartLogin:
+        _authService =
+            await _serviceFactory.getAuthService((event as StartLogin).type);
         yield* login();
         break;
       case StartLogout:
@@ -29,7 +34,7 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> login() async* {
     yield const Loading();
     try {
-      final user = await _firebaseAuth.loginWithEmail(
+      final user = await _authService.loginWithEmail(
         emailController.value,
         passwordController.value,
       );
@@ -44,7 +49,8 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> logout() async* {
     yield const Loading();
     try {
-      await _firebaseAuth.logout();
+      _serviceFactory.clearCurrentAuth();
+      await _authService.logout();
       yield const LoggedOut();
     } catch (e) {
       yield const ErrorLogin('Error while trying to log out');
@@ -54,13 +60,20 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> _checkIfUserIsLoggedIn() async* {
     yield const Loading();
     try {
-      final user = await _firebaseAuth.checkIfUserIsLoggedIn();
+      _authService =
+          await _serviceFactory.getAuthService(AuthServiceType.CurrentAuth);
+      if (_authService == null) {
+        yield const Loading();
+        return;
+      }
+      final user = await _authService.checkIfUserIsLoggedIn();
       if (user != null) {
         yield LoggedIn(user);
       } else {
         yield const LoggedOut();
       }
     } catch (e) {
+      print(e.toString());
       yield const ErrorLogin(
           'Error while trying to verify if user is logged in');
     }

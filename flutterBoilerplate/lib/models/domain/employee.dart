@@ -63,12 +63,12 @@ class Employee {
         return WorkingArea.Development;
       case 'MARKETING':
         return WorkingArea.Marketing;
+      case 'DESIGN':
+        return WorkingArea.Design;
       case 'RRHH':
         return WorkingArea.RRHH;
       case 'OTHER':
         return WorkingArea.Other;
-      case 'DESIGN':
-        return WorkingArea.Design;
       default:
         throw 'Error: Invalid working area. [Employee.fromJson]';
     }
