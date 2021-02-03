@@ -91,13 +91,15 @@ class EmployeeProfileScreen extends StatelessWidget {
             text: AppString.update,
             onTap: () => _goToEditEmployeeScreen(context),
             width: MediaQuery.of(context).size.width * 0.40,
-            backgroundColor: Colors.blueAccent,
+            backgroundColor: Colors.white,
+            textColor: Colors.teal,
           ),
           Button(
             text: AppString.delete,
             onTap: () => _deleteEmployeePopUp(context),
             width: MediaQuery.of(context).size.width * 0.40,
-            backgroundColor: Colors.blueAccent,
+            backgroundColor: Colors.white,
+            textColor: Colors.teal,
           )
         ],
       );

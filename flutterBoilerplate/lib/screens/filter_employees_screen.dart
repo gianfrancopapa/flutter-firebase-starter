@@ -3,8 +3,6 @@ import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_bloc.d
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_event.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_state.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/utils/chip.dart' as my;
-import 'package:flutterBoilerplate/utils/working_area_chip.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutterBoilerplate/widgets/common/chip_section.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +20,11 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _bloc = BlocProvider.of<FilterEmployeesBloc>(context);
+    _bloc.add(const GetFilters());
+  }
+
+  void _toggleChip(int id) {
+    _bloc.add(ToggleWorkingAreaFilter(id));
   }
 
   Widget _header() => Row(
@@ -36,7 +39,7 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
             ),
           ),
           GestureDetector(
-            onTap: () => null,
+            onTap: () => _bloc.add(const ClearFilters()),
             child: const Text(
               AppString.clear,
               style: TextStyle(
@@ -49,22 +52,20 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
         ],
       );
 
-  Widget _filterEmployeesByCharge() => StreamBuilder<List<WorkingAreaChip>>(
-        stream: _bloc.workingAreaChipList,
-        builder: (
-          BuildContext context,
-          AsyncSnapshot<List<WorkingAreaChip>> snapshot,
-        ) =>
-            snapshot.hasData
+  Widget _filterEmployeesByCharge() =>
+      BlocBuilder<FilterEmployeesBloc, FilterEmployeesState>(
+        cubit: _bloc,
+        buildWhen: (previous, current) => current.runtimeType == Filters,
+        builder: (BuildContext context, FilterEmployeesState state) =>
+            state.runtimeType == Filters
                 ? ChipSection(
                     showDeleteIcon: false,
                     height: 180.0,
                     activeChipColor: Colors.teal,
                     inactiveChipColor: Colors.grey,
-                    toggleChip: (my.Chip chip) =>
-                        _bloc.onWorkingAreaChipChanged(chip),
-                    title: 'Working Area',
-                    chips: snapshot.data,
+                    toggleChip: _toggleChip,
+                    title: AppString.workingArea,
+                    chips: (state as Filters).chips,
                   )
                 : const SizedBox(height: 0),
       );
@@ -72,7 +73,7 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: GestureDetector(
-          onVerticalDragEnd: (details) => _bloc.add(const GetEmployees(false)),
+          onVerticalDragEnd: (details) => _bloc.add(const GetEmployees()),
           child: BlocConsumer<FilterEmployeesBloc, FilterEmployeesState>(
             cubit: _bloc,
             listener: (BuildContext context, FilterEmployeesState state) {
@@ -123,7 +124,7 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
                           text: AppString.applyFilters,
                           width: MediaQuery.of(context).size.width,
                           height: 50,
-                          onTap: () => _bloc.add(const GetEmployees(true)),
+                          onTap: () => _bloc.add(const ApplyFilters()),
                         ),
                       )
                     ],

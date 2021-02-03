@@ -23,7 +23,7 @@ class _EmployeeListState extends State<EmployeeList> {
     _employeeBloc = EmployeeBloc();
     _filterEmployeesBloc = BlocProvider.of<FilterEmployeesBloc>(context);
     _employeeBloc.attach(_filterEmployeesBloc);
-    _filterEmployeesBloc.add(const GetEmployees(false));
+    _filterEmployeesBloc.add(const GetEmployees());
     super.didChangeDependencies();
   }
 
@@ -35,7 +35,6 @@ class _EmployeeListState extends State<EmployeeList> {
         );
       case Employees:
         return WidgetsList(
-          padding: const EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 20.0),
           height: MediaQuery.of(context).size.height,
           children: (state as Employees)
               .employees

@@ -2,15 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/forms/login_form_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
-import 'package:flutterBoilerplate/services/firebase_auth.dart';
+import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
+import 'package:flutterBoilerplate/models/service_factory.dart';
+import 'package:flutterBoilerplate/services/auth_interface.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc extends LoginFormBloc {
-  final _firebaseAuth = FirebaseAuthService();
+  IAuth _authService;
+  final _serviceFactory = ServiceFactory();
+  final String _authServiceKey = 'auth_service';
+  SharedPreferences _prefs;
+
+  LoginBloc() : super() {
+    SharedPreferences.getInstance().then((value) => _prefs = value);
+  }
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     switch (event.runtimeType) {
       case StartLogin:
+        _authService =
+            await _serviceFactory.getAuthService((event as StartLogin).type);
         yield* login();
         break;
       case StartLogout:
@@ -28,29 +40,15 @@ class LoginBloc extends LoginFormBloc {
   @override
   Stream<LoginState> login() async* {
     yield const Loading();
-    final emailVerified = await _verifyEmail();
-
     try {
-      if (emailVerified == true) {
-        final user = await _firebaseAuth.loginWithEmail(
-          emailController.value,
-          passwordController.value,
-        );
-        yield LoggedIn(user);
-      } else {
-        throw Error;
-      }
+      _prefs.setString(_authServiceKey, _authService.toString());
+      final user = await _authService.loginWithEmail(
+        emailController.value,
+        passwordController.value,
+      );
+      yield LoggedIn(user);
     } catch (e) {
       yield ErrorLogin(e.toString());
-    }
-  }
-
-  Future<bool> _verifyEmail() async {
-    try {
-      final emailVerified = await _firebaseAuth.checkIfEmailIsVerified();
-      return emailVerified;
-    } catch (e) {
-      return true;
     }
   }
 
@@ -59,7 +57,8 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> logout() async* {
     yield const Loading();
     try {
-      await _firebaseAuth.logout();
+      _prefs.setString(_authServiceKey, null);
+      await _authService.logout();
       yield const LoggedOut();
     } catch (e) {
       yield const ErrorLogin('Error while trying to log out');
@@ -68,16 +67,21 @@ class LoginBloc extends LoginFormBloc {
 
   Stream<LoginState> _checkIfUserIsLoggedIn() async* {
     yield const Loading();
-
     try {
-      final emailVerified = await _verifyEmail();
-      final user = await _firebaseAuth.checkIfUserIsLoggedIn();
-      if (user != null && emailVerified == true) {
+      _authService =
+          await _serviceFactory.getAuthService(AuthServiceType.CurrentAuth);
+      if (_authService == null) {
+        yield const Loading();
+        return;
+      }
+      final user = await _authService.checkIfUserIsLoggedIn();
+      if (user != null) {
         yield LoggedIn(user);
       } else {
         yield const LoggedOut();
       }
     } catch (e) {
+      print(e.toString());
       yield const ErrorLogin(
           'Error while trying to verify if user is logged in');
     }
