@@ -29,6 +29,7 @@ dependencies:
   flutter_launcher_icons: ^0.8.1
   auto_size_text: ^2.1.0
   introduction_screen: ^1.0.9
+  flutter_feather_icons: ^1.0.3
 
 flutter_icons:
     android: true

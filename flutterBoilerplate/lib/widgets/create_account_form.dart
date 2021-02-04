@@ -95,6 +95,7 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                   labelText: AppString.password,
                   onChanged: _onPasswordChanged,
                   isPassword: true,
+                  showPasswordButton: true,
                 ),
                 TextFieldBuilder(
                   stream: _bloc.passwordConfirmation,
