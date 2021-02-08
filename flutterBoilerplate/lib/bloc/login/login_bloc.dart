@@ -64,7 +64,6 @@ class LoginBloc extends LoginFormBloc {
           await _serviceFactory.getAuthService(AuthServiceType.CurrentAuth);
       if (_authService == null) {
         yield const Loading();
-        return;
       }
       final user = await _authService.checkIfUserIsLoggedIn();
       if (user != null) {
@@ -73,7 +72,6 @@ class LoginBloc extends LoginFormBloc {
         yield const LoggedOut();
       }
     } catch (e) {
-      print(e.toString());
       yield const ErrorLogin(
           'Error while trying to verify if user is logged in');
     }

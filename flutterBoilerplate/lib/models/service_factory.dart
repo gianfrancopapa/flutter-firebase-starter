@@ -1,3 +1,4 @@
+import 'package:flutterBoilerplate/services/facebook_auth.dart';
 import 'package:flutterBoilerplate/services/firebase_persistance_service.dart';
 import 'package:flutterBoilerplate/services/google_auth.dart';
 import 'package:flutterBoilerplate/services/persistance_service_interface.dart';
@@ -22,7 +23,7 @@ class ServiceFactory {
   factory ServiceFactory() => _instance;
 
   Future<SharedPreferences> _getSharedPreferencesInstance() async {
-    if (_prefs = null) {
+    if (_prefs == null) {
       return SharedPreferences.getInstance();
     }
     return _prefs;
@@ -39,6 +40,10 @@ class ServiceFactory {
         await _prefs.setString(_authServiceKey, 'google');
         return GoogleAuthService();
         break;
+      case AuthServiceType.Facebook:
+        await _prefs.setString(_authServiceKey, 'facebook');
+        return FacebookAuthService();
+        break;
       case AuthServiceType.CurrentAuth:
         return _getCurrentAuthService();
         break;
@@ -54,8 +59,10 @@ class ServiceFactory {
       return null;
     } else if (currentAuth == 'firebase') {
       return FirebaseAuthService();
+    } else if (currentAuth == 'google') {
+      return GoogleAuthService();
     }
-    return GoogleAuthService();
+    return FacebookAuthService();
   }
 
   IPersistanceService getPersistanceService(
