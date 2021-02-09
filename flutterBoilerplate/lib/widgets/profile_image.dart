@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
 
@@ -12,8 +13,8 @@ class ProfileImage extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(50),
         child: image != null
-            ? Image.network(
-                image,
+            ? Image(
+                image: CachedNetworkImageProvider(image),
                 width: 100,
                 height: 100,
                 fit: BoxFit.fitHeight,
