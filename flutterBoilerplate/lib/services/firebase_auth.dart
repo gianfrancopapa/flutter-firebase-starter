@@ -28,6 +28,7 @@ class FirebaseAuthService implements IAuth {
         email: email,
         password: password,
       );
+
       await _auth.currentUser
           .updateProfile(displayName: '$firstName $lastName');
       final firebaseUserUpdated = _auth.currentUser;
@@ -119,6 +120,7 @@ class FirebaseAuthService implements IAuth {
     }
   }
 
+  @override
   Future<bool> changeProfile(
       {String firstName, String lastName, String photoURL}) async {
     try {

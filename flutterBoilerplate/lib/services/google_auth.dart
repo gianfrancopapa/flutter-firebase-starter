@@ -114,4 +114,11 @@ class GoogleAuthService implements IAuth {
       throw e;
     }
   }
+
+  @override
+  Future<bool> changeProfile(
+      {String firstName, String lastName, String photoURL}) {
+    // TODO: implement changeProfile
+    throw UnimplementedError();
+  }
 }
