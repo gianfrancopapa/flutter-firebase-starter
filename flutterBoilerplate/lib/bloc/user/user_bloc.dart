@@ -1,14 +1,11 @@
 import 'package:flutterBoilerplate/bloc/user/user_event.dart';
 import 'package:flutterBoilerplate/bloc/user/user_state.dart';
-import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
-import 'package:flutterBoilerplate/models/service_factory.dart';
-import 'package:flutterBoilerplate/services/auth_interface.dart';
+import 'package:flutterBoilerplate/services/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(const NotDetermined());
-  IAuth _authService;
-  ServiceFactory _serviceFactory;
+  final _authService = FirebaseAuthService();
 
   @override
   Stream<UserState> mapEventToState(UserEvent event) async* {
@@ -24,8 +21,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Stream<UserState> _mapGetUserToState() async* {
     yield const Loading();
     try {
-      _authService =
-          await _serviceFactory.getAuthService(AuthServiceType.CurrentAuth);
       final user = await _authService.getCurrentUser();
       yield CurrentUser(user);
     } catch (e) {

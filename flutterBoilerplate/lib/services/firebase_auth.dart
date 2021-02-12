@@ -1,3 +1,4 @@
+import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as AuthService;
@@ -5,6 +6,7 @@ import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/repository/repository.dart';
 import 'package:flutterBoilerplate/services/auth_interface.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 //Singleton
 class FirebaseAuthService implements IAuth {
@@ -63,7 +65,7 @@ class FirebaseAuthService implements IAuth {
         password: password,
       );
 
-      return _determineUserRole(authResult.user);
+      return await _determineUserRole(authResult.user);
     } catch (e) {
       switch ((e as PlatformException).code) {
         case 'ERROR_INVALID_EMAIL':
@@ -181,6 +183,81 @@ class FirebaseAuthService implements IAuth {
       return true;
     } catch (e) {
       throw e;
+    }
+  }
+
+  @override
+  Future<User> loginAnonymously() async {
+    try {
+      final userCredential = await _auth.signInAnonymously();
+      return await _determineUserRole(userCredential.user);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  @override
+  Future<User> loginWithApple({List<Scope> scopes}) async {
+    final result = await AppleSignIn.performRequests(
+        [AppleIdRequest(requestedScopes: scopes)]);
+    switch (result.status) {
+      case AuthorizationStatus.authorized:
+        final credentialApple = result.credential;
+        final oAuthProvider = AuthService.OAuthProvider('apple.com');
+        final credential = oAuthProvider.credential(
+            idToken: String.fromCharCodes(credentialApple.identityToken),
+            accessToken:
+                String.fromCharCodes(credentialApple.authorizationCode));
+        final authResult = await _auth.signInWithCredential(credential);
+        final user = authResult.user;
+        if (scopes.contains(Scope.fullName)) {
+          final displayName =
+              '${credentialApple.fullName.givenName} ${credentialApple.fullName.familyName}';
+          await authResult.user.updateProfile(displayName: displayName);
+        }
+        return _determineUserRole(user);
+      case AuthorizationStatus.error:
+        throw PlatformException(
+          code: 'ERROR_AUTHORIZATION_DENIED',
+          message: result.error.toString(),
+        );
+      case AuthorizationStatus.cancelled:
+        throw PlatformException(
+          code: 'ERROR_ABORTED_BY_USER',
+          message: 'Sign in aborted by user',
+        );
+    }
+    return null;
+  }
+
+  @override
+  Future<User> loginWithFacebook() {
+    // TODO: implement loginWithFacebook
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<User> loginWithGoogle() async {
+    final googleSignIn = GoogleSignIn();
+    final googleUser = await googleSignIn.signIn();
+
+    if (googleUser != null) {
+      final googleAuth = await googleUser.authentication;
+      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+        final userCredential = await _auth
+            .signInWithCredential(AuthService.GoogleAuthProvider.credential(
+          idToken: googleAuth.idToken,
+          accessToken: googleAuth.accessToken,
+        ));
+        return _determineUserRole(userCredential.user);
+      } else {
+        throw PlatformException(
+            code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
+            message: 'Missing Google Auth Token');
+      }
+    } else {
+      throw PlatformException(
+          code: 'ERROR_ABORTED_BY_USER', message: 'Sign in aborted by user');
     }
   }
 }

@@ -1,9 +1,9 @@
+import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
-import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
 import 'package:flutterBoilerplate/screens/create_account_screen.dart';
 import 'package:flutterBoilerplate/screens/forgot_password_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
@@ -28,7 +28,11 @@ class _LoginFormState extends State<LoginForm> {
     super.didChangeDependencies();
   }
 
-  void _dispatchLoginEvent(AuthServiceType type) => _bloc.add(StartLogin(type));
+  void _dispatchLoginEvent() => _bloc.add(const StartLogin());
+
+  void _dispatchGoogleLoginEvent() => _bloc.add(const StartGoogleLogin());
+
+  void _dispatchAppleLoginEvent() => _bloc.add(const StartAppleLogin());
 
   void _onEmailChanged(String email) => _bloc.onEmailChanged(email);
 
@@ -99,6 +103,10 @@ class _LoginFormState extends State<LoginForm> {
                     ],
                   ),
                 ),
+                Button(
+                  text: AppString.login,
+                  onTap: () => _dispatchLoginEvent(),
+                ),
                 Container(
                   margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height / 5,
@@ -127,13 +135,19 @@ class _LoginFormState extends State<LoginForm> {
                       backgroundColor: Colors.grey[50],
                       textColor: Colors.grey,
                       asset: AppAsset.googleLogo,
-                      onTap: () => _dispatchLoginEvent(AuthServiceType.Google),
+                      onTap: () => _dispatchGoogleLoginEvent(),
                     ),
+                    /*AuthServiceButton(
+                      text: AppString.settings,
+                      backgroundColor: Colors.grey[50],
+                      textColor: Colors.grey,
+                      asset: AppAsset.googleLogo,
+                      onTap: () => _dispatchAppleLoginEvent(),
+                    ),*/
+                    AppleSignInButton(
+                      onPressed: () => _dispatchAppleLoginEvent(),
+                    )
                   ],
-                ),
-                Button(
-                  text: AppString.login,
-                  onTap: () => _dispatchLoginEvent(AuthServiceType.Firebase),
                 ),
               ],
             ),

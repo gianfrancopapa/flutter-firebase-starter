@@ -1,12 +1,17 @@
-import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
-
 abstract class LoginEvent {
   const LoginEvent();
 }
 
 class StartLogin extends LoginEvent {
-  final AuthServiceType type;
-  const StartLogin(this.type);
+  const StartLogin();
+}
+
+class StartGoogleLogin extends LoginEvent {
+  const StartGoogleLogin();
+}
+
+class StartAppleLogin extends LoginEvent {
+  const StartAppleLogin();
 }
 
 class StartLogout extends LoginEvent {

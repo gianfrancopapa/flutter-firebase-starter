@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/forms/login_form_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
-import 'package:flutterBoilerplate/models/datatypes/auth_service_type.dart';
-import 'package:flutterBoilerplate/models/service_factory.dart';
-import 'package:flutterBoilerplate/services/auth_interface.dart';
+import 'package:flutterBoilerplate/services/firebase_auth.dart';
 
 class LoginBloc extends LoginFormBloc {
-  IAuth _authService;
-  final _serviceFactory = ServiceFactory();
+  final _auth = FirebaseAuthService();
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     switch (event.runtimeType) {
       case StartLogin:
-        _authService =
-            await _serviceFactory.getAuthService((event as StartLogin).type);
         yield* login();
+        break;
+      case StartGoogleLogin:
+        yield* googleLogin();
+        break;
+      case StartAppleLogin:
+        yield* appleLogin();
         break;
       case StartLogout:
         yield* logout();
@@ -34,10 +35,30 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> login() async* {
     yield const Loading();
     try {
-      final user = await _authService.loginWithEmail(
-        emailController.value,
-        passwordController.value,
-      );
+      final user = await _auth.loginWithEmail(
+          emailController.value, passwordController.value);
+      yield LoggedIn(user);
+    } catch (e) {
+      yield ErrorLogin(e.toString());
+    }
+  }
+
+  @protected
+  Stream<LoginState> googleLogin() async* {
+    yield const Loading();
+    try {
+      final user = await _auth.loginWithGoogle();
+      yield LoggedIn(user);
+    } catch (e) {
+      yield ErrorLogin(e.toString());
+    }
+  }
+
+  @protected
+  Stream<LoginState> appleLogin() async* {
+    yield const Loading();
+    try {
+      final user = await _auth.loginWithApple();
       yield LoggedIn(user);
     } catch (e) {
       yield ErrorLogin(e.toString());
@@ -49,8 +70,7 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> logout() async* {
     yield const Loading();
     try {
-      _serviceFactory.clearCurrentAuth();
-      await _authService.logout();
+      await _auth.logout();
       yield const LoggedOut();
     } catch (e) {
       yield const ErrorLogin('Error while trying to log out');
@@ -60,13 +80,7 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> _checkIfUserIsLoggedIn() async* {
     yield const Loading();
     try {
-      _authService =
-          await _serviceFactory.getAuthService(AuthServiceType.CurrentAuth);
-      if (_authService == null) {
-        yield const Loading();
-        return;
-      }
-      final user = await _authService.checkIfUserIsLoggedIn();
+      final user = await _auth.checkIfUserIsLoggedIn();
       if (user != null) {
         yield LoggedIn(user);
       } else {
