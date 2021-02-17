@@ -29,7 +29,7 @@ This project was developed by Somnio Software as an app to be used as a boilerpl
 - [x] Apple sign-in
 - [x] Google sign-in
 - [x] Facebook sign-in
-
+- [ ] Anonymous sing-in
 - [x] Custom submit button with loading state
 - [x] Disable all input widgets while authentication is in progress
 - [x] Email regex validation
@@ -42,6 +42,23 @@ This project was developed by Somnio Software as an app to be used as a boilerpl
 ### Email link page
 
 - [ ] Email input field, backed by secure storage
+
+### Services
+#### Authentication
+
+- [x] Abstract `AuthService` class, modeled after the `firebase_auth` API
+- [x] `FirebaseAuthService` implementation
+- [ ] `MockAuthService` for testing
+- [x] Firebase project configuration for iOS & Android
+- [ ] Toggle `FirebaseAuthService` and `MockAuthService` at runtime via developer menu
+#### Storage 
+
+-[x] Abstract `StorageService` class, modeled after `firebase_storage` API
+-[x] `FirebaseStorageService` implementation
+#### Persistence s
+
+-[x] Abstract `PersistenceService` class, modeled after `cloud_firestore` API
+-[x] `FirebasePersistenceService` implementation
 ### Architecture
 
 - [x] Logic inside models for better separation of concerns (using [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html))
@@ -56,21 +73,3 @@ This project was developed by Somnio Software as an app to be used as a boilerpl
 - [x] Use [`Image Picker`](https://pub.dev/packages/image_picker) for picking images from the library and taking photos
 - [x] Custom App light and dark theme
 - [x] 
-
-## Services
-
-### Authentication
-
-- [x] Abstract `AuthService` class, modeled after the `firebase_auth` API
-- [x] `FirebaseAuthService` implementation
-- [ ] `MockAuthService` for testing
-- [x] Firebase project configuration for iOS & Android
-- [ ] Toggle `FirebaseAuthService` and `MockAuthService` at runtime via developer menu
-### Storage 
-
--[x] Abstract `StorageService` class, modeled after `firebase_storage` API
--[x] `FirebaseStorageService` implementation
-### Persistence s
-
--[x] Abstract `PersistenceService` class, modeled after `cloud_firestore` API
--[x] `FirebasePersistenceService` implementation
