@@ -19,4 +19,7 @@ abstract class IAuth {
   Future<bool> forgotPassword(String email);
 
   Future<User> getCurrentUser();
+
+  Future<bool> changeProfile(
+      {String firstName, String lastName, String photoURL});
 }
