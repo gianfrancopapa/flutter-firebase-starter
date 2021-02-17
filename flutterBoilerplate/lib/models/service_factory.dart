@@ -1,3 +1,4 @@
+import 'package:flutterBoilerplate/services/facebook_auth.dart';
 import 'package:flutterBoilerplate/models/datatypes/storage_service_type.dart';
 import 'package:flutterBoilerplate/services/firebase_persistance_service.dart';
 import 'package:flutterBoilerplate/services/firebase_storage.dart';
@@ -26,7 +27,7 @@ class ServiceFactory {
   factory ServiceFactory() => _instance;
 
   Future<SharedPreferences> _getSharedPreferencesInstance() async {
-    if (_prefs = null) {
+    if (_prefs == null) {
       return SharedPreferences.getInstance();
     }
     return _prefs;
@@ -42,6 +43,10 @@ class ServiceFactory {
       case AuthServiceType.Google:
         await _prefs.setString(_authServiceKey, 'google');
         return GoogleAuthService();
+        break;
+      case AuthServiceType.Facebook:
+        await _prefs.setString(_authServiceKey, 'facebook');
+        return FacebookAuthService();
         break;
       case AuthServiceType.CurrentAuth:
         return _getCurrentAuthService();
@@ -73,8 +78,10 @@ class ServiceFactory {
       return null;
     } else if (currentAuth == 'firebase') {
       return FirebaseAuthService();
+    } else if (currentAuth == 'google') {
+      return GoogleAuthService();
     }
-    return GoogleAuthService();
+    return FacebookAuthService();
   }
 
   Future<IStorage> _getCurrentStorageService() async {

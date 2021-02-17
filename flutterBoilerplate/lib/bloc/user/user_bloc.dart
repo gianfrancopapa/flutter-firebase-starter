@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(const NotDetermined());
   IAuth _authService;
-  ServiceFactory _serviceFactory;
+  final _serviceFactory = ServiceFactory();
 
   @override
   Stream<UserState> mapEventToState(UserEvent event) async* {

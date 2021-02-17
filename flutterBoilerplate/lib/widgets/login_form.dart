@@ -131,6 +131,14 @@ class _LoginFormState extends State<LoginForm> {
                       asset: AppAsset.googleLogo,
                       onTap: () => _dispatchLoginEvent(AuthServiceType.Google),
                     ),
+                    AuthServiceButton(
+                      text: AppString.login,
+                      backgroundColor: Colors.white,
+                      textColor: Colors.grey,
+                      asset: AppAsset.facebookLogo,
+                      onTap: () =>
+                          _dispatchLoginEvent(AuthServiceType.Facebook),
+                    ),
                   ],
                 ),
                 Button(
