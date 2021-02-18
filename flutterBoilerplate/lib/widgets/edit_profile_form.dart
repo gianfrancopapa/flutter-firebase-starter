@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_state.dart';
@@ -35,15 +36,19 @@ class _EditProfileFormState extends State<EditProfileForm> {
     );
   }
 
-  Widget _determineImageSource(EditProfileState state) =>
-      state.runtimeType == AvatarChanged
-          ? Image.asset(AppAsset.anonUser)
-          : Image.network(
-              (state as AvatarChanged).image,
-              width: 100,
-              height: 100,
-              fit: BoxFit.fitHeight,
-            );
+  Widget _determineImageSource(EditProfileState state) {
+    if (state.runtimeType == AvatarChanged) {
+      return Image(
+        image: CachedNetworkImageProvider((state as AvatarChanged).image),
+        width: 100,
+        height: 100,
+        fit: BoxFit.fitHeight,
+      );
+    }
+    return Image.asset(AppAsset.anonUser,
+        width: 100, height: 100, fit: BoxFit.fitHeight);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [

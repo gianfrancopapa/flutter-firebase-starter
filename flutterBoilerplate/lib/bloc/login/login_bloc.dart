@@ -19,6 +19,9 @@ class LoginBloc extends LoginFormBloc {
       case StartAppleLogin:
         yield* appleLogin();
         break;
+      case StartFacebookLogin:
+        yield* facebookLogin();
+        break;
       case StartLogout:
         yield* logout();
         break;
@@ -66,6 +69,17 @@ class LoginBloc extends LoginFormBloc {
   }
 
   @protected
+  Stream<LoginState> facebookLogin() async* {
+    yield const Loading();
+    try {
+      final user = await _auth.loginWithFacebook();
+      yield LoggedIn(user);
+    } catch (e) {
+      yield ErrorLogin(e.toString());
+    }
+  }
+
+  @protected
   @override
   Stream<LoginState> logout() async* {
     yield const Loading();
@@ -87,7 +101,6 @@ class LoginBloc extends LoginFormBloc {
         yield const LoggedOut();
       }
     } catch (e) {
-      print(e.toString());
       yield const ErrorLogin(
           'Error while trying to verify if user is logged in');
     }

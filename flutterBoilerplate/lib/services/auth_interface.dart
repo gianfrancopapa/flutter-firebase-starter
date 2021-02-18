@@ -28,4 +28,7 @@ abstract class IAuth {
   Future<User> checkIfUserIsLoggedIn();
 
   Future<bool> deleteAccount();
+
+  Future<bool> changeProfile(
+      {String firstName, String lastName, String photoURL});
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
-class TextFieldBuilder extends StatelessWidget {
+class TextFieldBuilder extends StatefulWidget {
   final String labelText;
   final void Function(String) onChanged;
   final Stream<String> stream;
@@ -9,6 +10,7 @@ class TextFieldBuilder extends StatelessWidget {
   final String prefix;
   final bool withInitialValue;
   final int maxLines;
+  final bool showPasswordButton;
 
   const TextFieldBuilder({
     this.labelText,
@@ -19,15 +21,41 @@ class TextFieldBuilder extends StatelessWidget {
     this.prefix,
     this.withInitialValue = false,
     this.maxLines = 1,
+    this.showPasswordButton = false,
   });
+  @override
+  _TextFieldBuilderState createState() => _TextFieldBuilderState();
+}
+
+class _TextFieldBuilderState extends State<TextFieldBuilder> {
+  bool isPassword;
+
+  @override
+  void initState() {
+    isPassword = widget.isPassword;
+    super.initState();
+  }
+
+  Widget _showPasswordButton() {
+    if (widget.showPasswordButton) {
+      return IconButton(
+          icon: const Icon(FeatherIcons.eye), onPressed: () => _toggle());
+    }
+    return null;
+  }
+
+  void _toggle() {
+    isPassword = !isPassword;
+  }
 
   InputDecoration _decoration(AsyncSnapshot<String> snapshot) =>
       InputDecoration(
-        prefixText: prefix,
+        suffixIcon: _showPasswordButton(),
+        prefixText: widget.prefix,
         prefixStyle: const TextStyle(color: Colors.white, fontSize: 15.0),
         contentPadding: const EdgeInsets.only(bottom: -5, top: 2),
         errorStyle: const TextStyle(height: 0.6),
-        labelText: labelText,
+        labelText: widget.labelText,
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey[400]),
         ),
@@ -49,9 +77,9 @@ class TextFieldBuilder extends StatelessWidget {
 
   TextField _textFieldWithoutInitialValue(AsyncSnapshot<String> snapshot) =>
       TextField(
-        maxLines: maxLines,
-        keyboardType: maxLines > 1 ? TextInputType.multiline : null,
-        onChanged: onChanged,
+        maxLines: widget.maxLines,
+        keyboardType: widget.maxLines > 1 ? TextInputType.multiline : null,
+        onChanged: widget.onChanged,
         obscureText: isPassword,
         style: const TextStyle(color: Colors.white),
         decoration: _decoration(snapshot),
@@ -59,7 +87,7 @@ class TextFieldBuilder extends StatelessWidget {
 
   TextFormField _textFieldWithInitialValue(AsyncSnapshot<String> snapshot) =>
       TextFormField(
-        maxLines: maxLines,
+        maxLines: widget.maxLines,
         controller: TextEditingController.fromValue(
           TextEditingValue(
             text: snapshot.data ?? '',
@@ -68,9 +96,9 @@ class TextFieldBuilder extends StatelessWidget {
             ),
           ),
         ),
-        keyboardType: maxLines > 1 ? TextInputType.multiline : null,
+        keyboardType: widget.maxLines > 1 ? TextInputType.multiline : null,
         style: const TextStyle(color: Colors.white),
-        onChanged: onChanged,
+        onChanged: widget.onChanged,
         obscureText: isPassword,
         decoration:
             snapshot != null ? _decoration(snapshot) : const InputDecoration(),
@@ -80,9 +108,9 @@ class TextFieldBuilder extends StatelessWidget {
   Widget build(BuildContext context) => SizedBox(
         height: 75,
         child: StreamBuilder<String>(
-          stream: stream,
+          stream: widget.stream,
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
-              withInitialValue
+              widget.withInitialValue
                   ? _textFieldWithInitialValue(snapshot)
                   : _textFieldWithoutInitialValue(snapshot),
         ),

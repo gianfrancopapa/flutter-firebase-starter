@@ -21,6 +21,7 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   LoginBloc _bloc;
+  final _isPassword = true;
 
   @override
   void didChangeDependencies() {
@@ -33,6 +34,8 @@ class _LoginFormState extends State<LoginForm> {
   void _dispatchGoogleLoginEvent() => _bloc.add(const StartGoogleLogin());
 
   void _dispatchAppleLoginEvent() => _bloc.add(const StartAppleLogin());
+
+  void _dispatchFacebookLoginEvent() => _bloc.add(const StartFacebookLogin());
 
   void _onEmailChanged(String email) => _bloc.onEmailChanged(email);
 
@@ -94,7 +97,8 @@ class _LoginFormState extends State<LoginForm> {
                         stream: _bloc.password,
                         labelText: AppString.password,
                         onChanged: _onPasswordChanged,
-                        isPassword: true,
+                        isPassword: _isPassword,
+                        showPasswordButton: true,
                       ),
                       TextButton(
                         onPressed: _goToForgotPasswordScreen,
@@ -137,16 +141,16 @@ class _LoginFormState extends State<LoginForm> {
                       asset: AppAsset.googleLogo,
                       onTap: () => _dispatchGoogleLoginEvent(),
                     ),
-                    /*AuthServiceButton(
-                      text: AppString.settings,
-                      backgroundColor: Colors.grey[50],
-                      textColor: Colors.grey,
-                      asset: AppAsset.googleLogo,
-                      onTap: () => _dispatchAppleLoginEvent(),
-                    ),*/
                     AppleSignInButton(
                       onPressed: () => _dispatchAppleLoginEvent(),
-                    )
+                    ),
+                    AuthServiceButton(
+                      text: AppString.login,
+                      backgroundColor: Colors.white,
+                      textColor: Colors.grey,
+                      asset: AppAsset.facebookLogo,
+                      onTap: () => _dispatchFacebookLoginEvent(),
+                    ),
                   ],
                 ),
               ],

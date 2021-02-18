@@ -14,4 +14,7 @@ class AppAsset {
 
   //Google
   static const String googleLogo = 'assets/google_logo.png';
+
+  //Facebook
+  static const String facebookLogo = 'assets/facebook_logo.png';
 }

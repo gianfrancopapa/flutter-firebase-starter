@@ -14,6 +14,10 @@ class StartAppleLogin extends LoginEvent {
   const StartAppleLogin();
 }
 
+class StartFacebookLogin extends LoginEvent {
+  const StartFacebookLogin();
+}
+
 class StartLogout extends LoginEvent {
   const StartLogout();
 }
