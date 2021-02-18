@@ -131,28 +131,37 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AuthServiceButton(
-                      text: AppString.googleSignIn,
-                      backgroundColor: Colors.grey[50],
-                      textColor: Colors.grey,
-                      asset: AppAsset.googleLogo,
-                      onTap: () => _dispatchGoogleLoginEvent(),
-                    ),
-                    AppleSignInButton(
-                      onPressed: () => _dispatchAppleLoginEvent(),
-                    ),
-                    AuthServiceButton(
-                      text: AppString.login,
-                      backgroundColor: Colors.white,
-                      textColor: Colors.grey,
-                      asset: AppAsset.facebookLogo,
-                      onTap: () => _dispatchFacebookLoginEvent(),
-                    ),
-                  ],
-                ),
+                Expanded(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: AuthServiceButton(
+                          text: AppString.googleSignIn,
+                          backgroundColor: Colors.white,
+                          textColor: Colors.black,
+                          asset: AppAsset.googleLogo,
+                          onTap: () => _dispatchGoogleLoginEvent(),
+                        ),
+                      ),
+                      Expanded(
+                        child: AppleSignInButton(
+                          onPressed: () => _dispatchAppleLoginEvent(),
+                        ),
+                      ),
+                      Expanded(
+                        child: AuthServiceButton(
+                          text: AppString.login,
+                          backgroundColor: Colors.white,
+                          textColor: Colors.black,
+                          asset: AppAsset.facebookLogo,
+                          onTap: () => _dispatchFacebookLoginEvent(),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

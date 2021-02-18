@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 class AuthServiceButton extends StatelessWidget {
@@ -18,12 +19,31 @@ class AuthServiceButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => OutlineButton(
-        splashColor: backgroundColor,
+  Widget build(BuildContext context) => OutlinedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              return backgroundColor;
+            },
+          ),
+          shape: MaterialStateProperty.resolveWith<OutlinedBorder>(
+            (Set<MaterialState> states) {
+              return RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40));
+            },
+          ),
+          elevation: MaterialStateProperty.resolveWith<double>(
+            (Set<MaterialState> states) {
+              return 0;
+            },
+          ),
+          side: MaterialStateProperty.resolveWith<BorderSide>(
+            (Set<MaterialState> states) {
+              return const BorderSide(color: Colors.white);
+            },
+          ),
+        ),
         onPressed: onTap,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-        highlightElevation: 0,
-        borderSide: const BorderSide(color: Colors.grey),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: Row(
@@ -36,11 +56,12 @@ class AuthServiceButton extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
-                child: Text(
+                child: AutoSizeText(
                   text,
+                  maxFontSize: 20,
                   style: TextStyle(
-                    fontSize: 20,
                     color: textColor,
+                    backgroundColor: Colors.white,
                   ),
                 ),
               )

@@ -6,6 +6,7 @@ import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/repository/repository.dart';
 import 'package:flutterBoilerplate/services/auth_interface.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 //Singleton
@@ -233,9 +234,32 @@ class FirebaseAuthService implements IAuth {
   }
 
   @override
-  Future<User> loginWithFacebook() {
-    // TODO: implement loginWithFacebook
-    throw UnimplementedError();
+  Future<User> loginWithFacebook() async {
+    final facebookLogin = FacebookLogin();
+    final response = await facebookLogin.logIn(permissions: [
+      FacebookPermission.email,
+      FacebookPermission.publicProfile,
+    ]);
+    switch (response.status) {
+      case FacebookLoginStatus.success:
+        final accessToken = response.accessToken;
+        final userCredential = await _auth.signInWithCredential(
+          AuthService.FacebookAuthProvider.credential(accessToken.token),
+        );
+        return _determineUserRole(userCredential.user);
+      case FacebookLoginStatus.cancel:
+        throw AuthService.FirebaseAuthException(
+          code: 'ERROR_ABORTED_BY_USER',
+          message: 'Login cancelado pelo usuário.',
+        );
+      case FacebookLoginStatus.error:
+        throw AuthService.FirebaseAuthException(
+          code: 'ERROR_FACEBOOK_LOGIN_FAILED',
+          message: response.error.developerMessage,
+        );
+      default:
+        throw UnimplementedError();
+    }
   }
 
   @override
