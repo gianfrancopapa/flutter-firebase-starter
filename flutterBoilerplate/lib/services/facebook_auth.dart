@@ -112,4 +112,11 @@ class FacebookAuthService implements IAuth {
       constructor,
     );
   }
+
+  @override
+  Future<bool> changeProfile(
+      {String firstName, String lastName, String photoURL}) {
+    // TODO: implement changeProfile
+    throw UnimplementedError();
+  }
 }
