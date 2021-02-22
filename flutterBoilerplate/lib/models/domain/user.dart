@@ -6,6 +6,7 @@ class User {
   final String lastName;
   final String email;
   final String avatarAsset;
+  final bool isAnon;
   final int age;
   final String phoneNumber;
   final String address;
@@ -16,6 +17,7 @@ class User {
     this.lastName,
     this.email,
     this.avatarAsset,
+    this.isAnon,
     this.age,
     this.phoneNumber,
     this.address,
@@ -29,6 +31,7 @@ class User {
           lastName: json['lastName'],
           email: json['email'],
           avatarAsset: json['avatarAsset'],
+          isAnon: json['isAnon'],
           age: json['age'],
           phoneNumber: json['phoneNumber'],
           address: json['address'],

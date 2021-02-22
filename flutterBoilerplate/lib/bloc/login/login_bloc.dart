@@ -22,6 +22,9 @@ class LoginBloc extends LoginFormBloc {
       case StartFacebookLogin:
         yield* facebookLogin();
         break;
+      case StartAnonymousLogin:
+        yield* anonymousLogin();
+        break;
       case StartLogout:
         yield* logout();
         break;
@@ -73,6 +76,17 @@ class LoginBloc extends LoginFormBloc {
     yield const Loading();
     try {
       final user = await _auth.loginWithFacebook();
+      yield LoggedIn(user);
+    } catch (e) {
+      yield ErrorLogin(e.toString());
+    }
+  }
+
+  @protected
+  Stream<LoginState> anonymousLogin() async* {
+    yield const Loading();
+    try {
+      final user = await _auth.loginAnonymously();
       yield LoggedIn(user);
     } catch (e) {
       yield ErrorLogin(e.toString());

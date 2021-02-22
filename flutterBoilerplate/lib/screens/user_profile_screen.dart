@@ -3,9 +3,11 @@ import 'package:flutterBoilerplate/bloc/user/user_bloc.dart';
 import 'package:flutterBoilerplate/bloc/user/user_event.dart';
 import 'package:flutterBoilerplate/bloc/user/user_state.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutterBoilerplate/screens/edit_profile_screen.dart';
 import 'package:flutterBoilerplate/screens/settings_screen.dart';
 import 'package:flutterBoilerplate/widgets/profile_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -14,6 +16,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   UserBloc _bloc;
+  bool _isAnon;
 
   @override
   void initState() {
@@ -23,38 +26,65 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          leading: const SizedBox(),
-          automaticallyImplyLeading: false,
-          title: const Text(AppString.myProfile),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SettingsScreen(),
-                ),
-              ),
-            ),
-          ],
-        ),
-        body: BlocBuilder<UserBloc, UserState>(
-          cubit: _bloc,
-          builder: (context, state) {
-            switch (state.runtimeType) {
-              case Loading:
-                return const Center(
+  Widget build(BuildContext context) => BlocBuilder<UserBloc, UserState>(
+        cubit: _bloc,
+        builder: (context, state) {
+          switch (state.runtimeType) {
+            case Loading:
+              return const Scaffold(
+                body: Center(
                   child: CircularProgressIndicator(),
-                );
-              case Error:
-                return Center(
+                ),
+              );
+            case Error:
+              return Scaffold(
+                body: Center(
                   child: Text((state as Error).message.toString()),
-                );
-              case CurrentUser:
-                final user = (state as CurrentUser).user;
-                return Container(
+                ),
+              );
+            case CurrentUser:
+              final user = (state as CurrentUser).user;
+              _isAnon = user.isAnon;
+              return Scaffold(
+                appBar: AppBar(
+                    leading: const SizedBox(),
+                    automaticallyImplyLeading: false,
+                    title: const Text(AppString.myProfile),
+                    actions: _isAnon
+                        ? <Widget>[
+                            IconButton(
+                              icon: const Icon(Icons.settings),
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SettingsScreen(),
+                                ),
+                              ),
+                            ),
+                          ]
+                        : <Widget>[
+                            IconButton(
+                              icon: const Icon(Icons.settings),
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SettingsScreen(),
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                FeatherIcons.penTool,
+                                color: Colors.white,
+                              ),
+                              onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EditProfileScreen(),
+                                  )),
+                            )
+                          ]),
+                body: Container(
                   child: Column(
                     children: [
                       ProfileImage(image: user.avatarAsset),
@@ -66,14 +96,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                   ),
                   alignment: Alignment.centerRight,
-                );
-              default:
-                return const Center(
+                ),
+              );
+            default:
+              return const Scaffold(
+                body: Center(
                   child: CircularProgressIndicator(),
-                );
-            }
-          },
-        ),
+                ),
+              );
+          }
+        },
       );
 
   Widget customRow(String cardText, String text) => Container(

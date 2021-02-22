@@ -2,6 +2,7 @@ import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as AuthService;
+import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/domain/user.dart';
 import 'package:flutterBoilerplate/repository/repository.dart';
@@ -57,15 +58,15 @@ class FirebaseAuthService implements IAuth {
   @override
   Future<User> loginWithEmail(String email, String password) async {
     try {
+      final authResult = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       final emailVerified = await _checkIfEmailIsVerified();
 
       if (!emailVerified) {
         throw Error;
       }
-      final authResult = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
 
       return await _determineUserRole(authResult.user);
     } catch (e) {
@@ -107,7 +108,8 @@ class FirebaseAuthService implements IAuth {
   }
 
   Future<bool> _checkIfEmailIsVerified() async {
-    final emailVerified = _auth.currentUser.emailVerified;
+    final user = _auth.currentUser;
+    final emailVerified = user.emailVerified;
     await _auth.currentUser.reload();
     return emailVerified;
   }
@@ -155,6 +157,9 @@ class FirebaseAuthService implements IAuth {
     if (userData.docs.isNotEmpty) {
       constructor = Admin.fromJson;
     }
+    if (firebaseUser.isAnonymous) {
+      return _mapFirebaseAnonymousUserToUser(firebaseUser, constructor);
+    }
     return _mapFirebaseUserToUser(
       firebaseUser,
       constructor,
@@ -173,6 +178,25 @@ class FirebaseAuthService implements IAuth {
       map['lastName'] = splitName[1];
       map['email'] = user.email;
       map['avatarAsset'] = user.photoURL;
+      map['isAnon'] = user.isAnonymous;
+      return constructor(map);
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<User> _mapFirebaseAnonymousUserToUser(
+    AuthService.User user,
+    Constructor<User> constructor,
+  ) async {
+    try {
+      final map = Map<String, dynamic>();
+      map['id'] = user.uid;
+      map['firstName'] = 'Anonymous User';
+      map['lastName'] = 'Anonymous User';
+      map['email'] = 'Anonymous User';
+      map['avatarAsset'] = AppAsset.anonUser;
+      map['isAnon'] = user.isAnonymous;
       return constructor(map);
     } catch (e) {
       throw e;

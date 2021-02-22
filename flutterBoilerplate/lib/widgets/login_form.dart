@@ -1,4 +1,3 @@
-import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
@@ -36,6 +35,8 @@ class _LoginFormState extends State<LoginForm> {
   void _dispatchAppleLoginEvent() => _bloc.add(const StartAppleLogin());
 
   void _dispatchFacebookLoginEvent() => _bloc.add(const StartFacebookLogin());
+
+  void _dispatchAnonymousLoginEvent() => _bloc.add(const StartAnonymousLogin());
 
   void _onEmailChanged(String email) => _bloc.onEmailChanged(email);
 
@@ -113,7 +114,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 Container(
                   margin: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).size.height / 5,
+                    bottom: MediaQuery.of(context).size.height / 10,
                   ),
                   child: GestureDetector(
                     onTap: _goToCreateAccountScreen,
@@ -132,33 +133,73 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
                 Expanded(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
                     children: [
-                      Expanded(
-                        child: AuthServiceButton(
-                          text: AppString.googleSignIn,
-                          backgroundColor: Colors.white,
-                          textColor: Colors.black,
-                          asset: AppAsset.googleLogo,
-                          onTap: () => _dispatchGoogleLoginEvent(),
-                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: AuthServiceButton(
+                              text: AppString.googleSignIn,
+                              backgroundColor: Colors.white,
+                              textColor: Colors.black,
+                              asset: AppAsset.googleLogo,
+                              onTap: () => _dispatchGoogleLoginEvent(),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 5),
+                          ),
+                          Expanded(
+                            child: AuthServiceButton(
+                              text: AppString.login,
+                              backgroundColor: Colors.white,
+                              textColor: Colors.black,
+                              asset: AppAsset.facebookLogo,
+                              onTap: () => _dispatchFacebookLoginEvent(),
+                            ),
+                          ),
+                        ],
                       ),
-                      Expanded(
-                        child: AppleSignInButton(
-                          onPressed: () => _dispatchAppleLoginEvent(),
-                        ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 5),
                       ),
-                      Expanded(
-                        child: AuthServiceButton(
-                          text: AppString.login,
-                          backgroundColor: Colors.white,
-                          textColor: Colors.black,
-                          asset: AppAsset.facebookLogo,
-                          onTap: () => _dispatchFacebookLoginEvent(),
-                        ),
-                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          /*Expanded(
+                            child: AppleSignInButton(
+                              onPressed: () => _dispatchAppleLoginEvent(),
+                            ),
+                          ),*/
+                          Expanded(
+                            child: AuthServiceButton(
+                              text: AppString.login,
+                              backgroundColor: Colors.white,
+                              textColor: Colors.black,
+                              asset: AppAsset.appleLogo,
+                              onTap: () => _dispatchAppleLoginEvent(),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 5),
+                          ),
+                          Expanded(
+                            child: AuthServiceButton(
+                              text: AppString.login,
+                              backgroundColor: Colors.white,
+                              textColor: Colors.black,
+                              asset: AppAsset.anonLogin,
+                              onTap: () => _dispatchAnonymousLoginEvent(),
+                            ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
                 )

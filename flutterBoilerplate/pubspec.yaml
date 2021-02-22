@@ -33,6 +33,7 @@ dependencies:
   auto_size_text: ^2.1.0
   introduction_screen: ^1.0.9
   flutter_feather_icons: ^1.0.3
+  string_validator: ^0.1.4
 
 flutter_icons:
     android: true

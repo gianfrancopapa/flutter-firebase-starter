@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
+import 'package:string_validator/string_validator.dart';
 
 class ProfileImage extends StatelessWidget {
   final String image;
@@ -12,7 +13,7 @@ class ProfileImage extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(50),
-        child: image != null
+        child: image != null && isURL(image)
             ? Image(
                 image: CachedNetworkImageProvider(image),
                 width: 100,

@@ -28,12 +28,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
       _bloc.onFirstNameChanged(firstName);
   void _onLastNameChanged(String lastName) => _bloc.onLastNameChanged(lastName);
   void _navigateToProfileScreen() async {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ProfileScreen(),
-      ),
-    );
+    Navigator.pop(
+        context, MaterialPageRoute(builder: (context) => ProfileScreen()));
   }
 
   Widget _determineImageSource(EditProfileState state) {

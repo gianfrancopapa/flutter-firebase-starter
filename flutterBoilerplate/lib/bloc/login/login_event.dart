@@ -18,6 +18,10 @@ class StartFacebookLogin extends LoginEvent {
   const StartFacebookLogin();
 }
 
+class StartAnonymousLogin extends LoginEvent {
+  const StartAnonymousLogin();
+}
+
 class StartLogout extends LoginEvent {
   const StartLogout();
 }
