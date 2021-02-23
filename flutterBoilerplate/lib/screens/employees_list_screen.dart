@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_bloc.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_event.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_state.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/chip_list.dart';
 import 'package:flutterBoilerplate/widgets/employee_list.dart';
 import 'package:flutterBoilerplate/widgets/filter_icon.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmployeesListScreen extends StatefulWidget {
   final bool isAdmin;
@@ -38,8 +38,8 @@ class _EmployeesListScreenState extends State<EmployeesListScreen> {
         appBar: AppBar(
           leading: const SizedBox(),
           automaticallyImplyLeading: false,
-          title: const Text(
-            AppString.employees,
+          title: Text(
+            AppLocalizations.of(context).employees,
           ),
           actions: <Widget>[FilterIcon()],
         ),

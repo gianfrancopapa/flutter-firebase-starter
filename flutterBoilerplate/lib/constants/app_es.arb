@@ -1,0 +1,123 @@
+{
+    "lastName": "Apellido",
+    
+    "email": "Email",
+    
+    "settings": "Configuracion",
+    
+    "editEmployee": "Editar Empleado",
+
+    "description": "Descripcion",
+
+    "password": "Contraseña",
+
+    "login": "Login",
+
+    "dontYouHaveAccount": "¿No tienes una cuenta?",
+
+    "createOne": "Create una",
+
+    "firstName": "Nombre",
+
+    "passwordConfirmation": "Confirmar Contraseña",
+
+    "createAccount": "Crearse una cuenta",
+
+    "employees": "Empleados",
+
+    "logout": "Logout",
+
+    "configuration": "Configuracion",
+
+    "version": "Version",
+   
+    "appName": "Nombre de la aplicacion",
+    
+    "buildNumber": "Numero de build",
+
+    "packageName": "Nombre del paquete",
+
+    "forgotPassword": "Olvide mi contraseña",
+
+    "send": "Enviar",
+
+    "emailSended": "Email Enviado",
+
+    "checkInbox": "Revisa tu bandeja de entrada",
+
+    "myProfile": "Mi perfil",
+
+    "editProfile": "Editar perfil",
+
+    "employeeAddedSuccessfully": "Se ha creado un nuevo empleado satisfactoriamente",
+
+    "ok": "Aceptar",
+
+    "employeeUpdatedSuccessfully": "El empleado a sido actualizado",
+
+    "update": "Actualizar",
+
+    "home": "Inicio",
+
+    "addEmployee": "Agregar Empleado",
+
+    "name": "Nombre",
+
+    "phone": "Telefono",
+
+    "address": "Domicilio",
+
+    "age": "Edad",
+
+    "admin": "Administrador+",
+
+    "create": "Crear",
+
+    "addNewEmployee": "Agregar nuevo empleado",
+
+    "doYouWantToDeleteThisUser": "¿Desea eliminar este empleado?",
+
+    "yes": "Si",
+
+    "no": "No",
+
+    "delete": "Eliminar",
+
+    "sector": "Sector",
+
+    "phoneNumber": "Numero de telefono",
+
+    "charge": "Cargo: ",
+
+    "signIn": "Sign In",
+
+    "filters": "Filtros",
+
+    "clear": "Limpiar",
+
+    "applyFilters": "Aplicar Filtros",
+
+    "workingArea": "Area de trabajo",
+
+    "didYouForgotYourPassword" : "¿Has olvidado tu contraseña?",
+
+    "optionTwo": "Opcion 2",
+
+    "optionThree": "Opcion 3",
+
+    "welcome": "Bienvenido al Flutter Boilerplate",
+
+    "pageOne":"Una aplicacion de Somnio pensada para ser reusada al crear una nueva app",
+
+    "options":"Opciones",
+
+    "pageTwo":"Explora y reusa funcionalidades genericas que te permitiran empezar a codear lo antes posible",
+    
+    "documentationOnConfluence":"Documentacion en Confluence",
+
+    "pageThree":"Podras encontrar en Confluence toda la informacion que necesitas sobre la aplicacion",
+
+    "skip":"Saltar",
+
+    "done":"Listo"
+}

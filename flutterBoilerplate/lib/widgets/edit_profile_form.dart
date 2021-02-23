@@ -51,54 +51,57 @@ class _EditProfileFormState extends State<EditProfileForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Center(
-        child: ImagePickerButton(
-          dispatchImageFromCamera: _bloc.pickImageFromCamera,
-          dispatchImageFromGallery: _bloc.pickImageFromGallery,
-          child: CircleAvatar(
-            child: BlocConsumer<EditProfileBloc, EditProfileState>(
-              cubit: _bloc,
-              listener: (context, state) {
-                if (state.runtimeType == ProfileEdited) {
-                  _navigateToProfileScreen();
-                }
-              },
-              builder: (context, state) => _determineImageSource(state),
+    return Column(
+      children: [
+        Center(
+          child: ImagePickerButton(
+            dispatchImageFromCamera: _bloc.pickImageFromCamera,
+            dispatchImageFromGallery: _bloc.pickImageFromGallery,
+            child: CircleAvatar(
+              child: BlocConsumer<EditProfileBloc, EditProfileState>(
+                cubit: _bloc,
+                listener: (context, state) {
+                  if (state.runtimeType == ProfileEdited) {
+                    _navigateToProfileScreen();
+                  }
+                },
+                builder: (context, state) => _determineImageSource(state),
+              ),
+              radius: 55,
+              backgroundColor: const Color(0xffFDCF09),
             ),
-            radius: 55,
-            backgroundColor: const Color(0xffFDCF09),
           ),
         ),
-      ),
-      Container(
-        height: MediaQuery.of(context).size.height,
-        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-        child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 0.0),
-          children: [
-            TextFieldBuilder(
-              stream: _bloc.firstName,
-              labelText: AppString.firstName,
-              onChanged: _onFirstNameChanged,
-            ),
-            TextFieldBuilder(
-              stream: _bloc.lastName,
-              labelText: AppString.lastName,
-              onChanged: _onLastNameChanged,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(36.0),
-              child: Button(
-                width: MediaQuery.of(context).size.width / 2,
-                text: AppString.editProfile,
-                onTap: _bloc.editProfile,
+        Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          child: ListView(
+            padding:
+                const EdgeInsets.symmetric(vertical: 40.0, horizontal: 0.0),
+            children: [
+              TextFieldBuilder(
+                stream: _bloc.firstName,
+                labelText: AppString.firstName,
+                onChanged: _onFirstNameChanged,
               ),
-            ),
-          ],
-        ),
-      )
-    ]);
+              TextFieldBuilder(
+                stream: _bloc.lastName,
+                labelText: AppString.lastName,
+                onChanged: _onLastNameChanged,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(36.0),
+                child: Button(
+                  width: MediaQuery.of(context).size.width / 2,
+                  text: AppString.editProfile,
+                  onTap: _bloc.editProfile,
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
   }
 
   @override

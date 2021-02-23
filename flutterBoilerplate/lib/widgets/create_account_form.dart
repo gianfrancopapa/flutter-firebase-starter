@@ -4,7 +4,7 @@ import 'package:flutterBoilerplate/bloc/create_account/create_account_event.dart
 import 'package:flutterBoilerplate/bloc/create_account/create_account_state.dart';
 import 'package:flutterBoilerplate/screens/onboarding_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,29 +77,29 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
               children: [
                 TextFieldBuilder(
                   stream: _bloc.firstName,
-                  labelText: AppString.firstName,
+                  labelText: AppLocalizations.of(context).firstName,
                   onChanged: _onFirstNameChanged,
                 ),
                 TextFieldBuilder(
                   stream: _bloc.lastName,
-                  labelText: AppString.lastName,
+                  labelText: AppLocalizations.of(context).lastName,
                   onChanged: _onLastNameChanged,
                 ),
                 TextFieldBuilder(
                   stream: _bloc.email,
-                  labelText: AppString.email,
+                  labelText: AppLocalizations.of(context).email,
                   onChanged: _onEmailChanged,
                 ),
                 TextFieldBuilder(
                   stream: _bloc.password,
-                  labelText: AppString.password,
+                  labelText: AppLocalizations.of(context).password,
                   onChanged: _onPasswordChanged,
                   isPassword: true,
                   showPasswordButton: true,
                 ),
                 TextFieldBuilder(
                   stream: _bloc.passwordConfirmation,
-                  labelText: AppString.passwordConfirmation,
+                  labelText: AppLocalizations.of(context).passwordConfirmation,
                   onChanged: _onPasswordConfirmationChanged,
                   isPassword: true,
                 ),
@@ -107,7 +107,7 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                   padding: const EdgeInsets.all(36.0),
                   child: Button(
                     width: MediaQuery.of(context).size.width / 2,
-                    text: AppString.createAccount,
+                    text: AppLocalizations.of(context).createAccount,
                     onTap: _dispatchCreateAccountEvent,
                   ),
                 ),

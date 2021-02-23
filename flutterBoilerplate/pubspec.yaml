@@ -11,6 +11,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.16.1
+
   flutter_bloc: ^6.1.0
   rxdart: ^0.24.1
   firebase_core: ^0.7.0
@@ -50,5 +54,6 @@ flutter:
   assets:
     - assets/
 
+  generate: true
 
   

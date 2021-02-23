@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/user/user_bloc.dart';
 import 'package:flutterBoilerplate/bloc/user/user_event.dart';
 import 'package:flutterBoilerplate/bloc/user/user_state.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutterBoilerplate/screens/settings_screen.dart';
 import 'package:flutterBoilerplate/widgets/profile_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         appBar: AppBar(
           leading: const SizedBox(),
           automaticallyImplyLeading: false,
-          title: const Text(AppString.myProfile),
+          title: Text(AppLocalizations.of(context).myProfile),
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.settings),
@@ -58,9 +58,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     children: [
                       ProfileImage(image: user.avatarAsset),
-                      customRow(AppString.fstName + ': ', user.firstName),
-                      customRow(AppString.lstName + ': ', user.lastName),
-                      customRow(AppString.email + ': ', user.email),
+                      customRow(AppLocalizations.of(context).firstName + ': ',
+                          user.firstName),
+                      customRow(AppLocalizations.of(context).lastName + ': ',
+                          user.lastName),
+                      customRow(AppLocalizations.of(context).email + ': ',
+                          user.email),
                     ],
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,

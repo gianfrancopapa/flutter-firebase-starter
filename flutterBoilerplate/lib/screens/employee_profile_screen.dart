@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/models/domain/employee.dart';
 import 'package:flutterBoilerplate/screens/edit_employee_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmployeeProfileScreen extends StatelessWidget {
   final bool isAdmin;
@@ -27,9 +27,9 @@ class EmployeeProfileScreen extends StatelessWidget {
   void _deleteEmployeePopUp(BuildContext context) =>
       DialogHelper.showAlertDialog(
         context: context,
-        story: AppString.doYouWantToDeleteThisUser,
-        btnText: AppString.yes,
-        btnText2: AppString.no,
+        story: AppLocalizations.of(context).doYouWantToDeleteThisUser,
+        btnText: AppLocalizations.of(context).yes,
+        btnText2: AppLocalizations.of(context).no,
         btnAction2: () => Navigator.pop(context),
         btnAction: () {
           deleteEmployeeCb();
@@ -54,32 +54,32 @@ class EmployeeProfileScreen extends StatelessWidget {
 
   List<Widget> _userData(BuildContext context) => [
         Text(
-          '${AppString.sector}: ${employee.getWorkingArea()}',
+          '${AppLocalizations.of(context).sector}: ${employee.getWorkingArea()}',
           style: const TextStyle(color: Colors.white, fontSize: 18.0),
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Text(
-          '${AppString.email}: ${employee.email}',
+          '${AppLocalizations.of(context).email}: ${employee.email}',
           style: const TextStyle(color: Colors.white, fontSize: 18.0),
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Text(
-          '${AppString.phoneNumber}: ${employee.phoneNumber}',
+          '${AppLocalizations.of(context).phoneNumber}: ${employee.phoneNumber}',
           style: const TextStyle(color: Colors.white, fontSize: 18.0),
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Text(
-          '${AppString.address}: ${employee.address}',
+          '${AppLocalizations.of(context).address}: ${employee.address}',
           style: const TextStyle(color: Colors.white, fontSize: 18.0),
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Text(
-          '${AppString.age}: ${employee.age}',
+          '${AppLocalizations.of(context).age}: ${employee.age}',
           style: const TextStyle(color: Colors.white, fontSize: 18.0),
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
         Text(
-          '${AppString.description}: ${employee.description}',
+          '${AppLocalizations.of(context).description}: ${employee.description}',
           style: const TextStyle(color: Colors.white, fontSize: 18.0),
         ),
       ];
@@ -88,14 +88,14 @@ class EmployeeProfileScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Button(
-            text: AppString.update,
+            text: AppLocalizations.of(context).update,
             onTap: () => _goToEditEmployeeScreen(context),
             width: MediaQuery.of(context).size.width * 0.40,
             backgroundColor: Colors.white,
             textColor: Colors.teal,
           ),
           Button(
-            text: AppString.delete,
+            text: AppLocalizations.of(context).delete,
             onTap: () => _deleteEmployeePopUp(context),
             width: MediaQuery.of(context).size.width * 0.40,
             backgroundColor: Colors.white,
@@ -107,7 +107,8 @@ class EmployeeProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('${employee.firstName} ${employee.lastName}'),
+          title: Text(
+              '${AppLocalizations.of(context).firstName} ${AppLocalizations.of(context).lastName}'),
         ),
         body: SafeArea(
           child: Container(

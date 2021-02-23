@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_bloc.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_event.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_state.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutterBoilerplate/widgets/common/chip_section.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,9 +30,9 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
   Widget _header() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            AppString.filters,
-            style: TextStyle(
+          Text(
+            AppLocalizations.of(context).filters,
+            style: const TextStyle(
               color: Colors.teal,
               fontSize: 26,
               fontWeight: FontWeight.bold,
@@ -40,9 +40,9 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
           ),
           GestureDetector(
             onTap: () => _bloc.add(const ClearFilters()),
-            child: const Text(
-              AppString.clear,
-              style: TextStyle(
+            child: Text(
+              AppLocalizations.of(context).clear,
+              style: const TextStyle(
                 color: Colors.teal,
                 fontSize: 18,
                 fontWeight: FontWeight.normal,
@@ -64,7 +64,7 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
                     activeChipColor: Colors.teal,
                     inactiveChipColor: Colors.grey,
                     toggleChip: _toggleChip,
-                    title: AppString.workingArea,
+                    title: AppLocalizations.of(context).workingArea,
                     chips: (state as Filters).chips,
                   )
                 : const SizedBox(height: 0),
@@ -121,7 +121,7 @@ class _FilterEmployeesScreenState extends State<FilterEmployeesScreen> {
                         child: Button(
                           backgroundColor: Colors.teal,
                           textColor: Colors.white,
-                          text: AppString.applyFilters,
+                          text: AppLocalizations.of(context).applyFilters,
                           width: MediaQuery.of(context).size.width,
                           height: 50,
                           onTap: () => _bloc.add(const ApplyFilters()),
