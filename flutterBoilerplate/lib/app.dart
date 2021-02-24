@@ -40,6 +40,8 @@ class _AppState extends State<App> {
         supportedLocales: [
           const Locale('en', ''),
           const Locale('es', ''),
+          const Locale('fr', ''),
+          const Locale('it', '')
         ],
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,

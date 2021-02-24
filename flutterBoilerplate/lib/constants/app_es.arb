@@ -3,11 +3,11 @@
     
     "email": "Email",
     
-    "settings": "Configuracion",
+    "settings": "Configuración",
     
     "editEmployee": "Editar Empleado",
 
-    "description": "Descripcion",
+    "description": "Descripción",
 
     "password": "Contraseña",
 
@@ -27,17 +27,17 @@
 
     "logout": "Logout",
 
-    "configuration": "Configuracion",
+    "configuration": "Configuración",
 
-    "version": "Version",
+    "version": "Versión",
    
-    "appName": "Nombre de la aplicacion",
+    "appName": "Nombre de la aplicación",
     
-    "buildNumber": "Numero de build",
+    "buildNumber": "Número de build",
 
     "packageName": "Nombre del paquete",
 
-    "forgotPassword": "Olvide mi contraseña",
+    "forgotPassword": "Olvidé mi contraseña",
 
     "send": "Enviar",
 
@@ -63,13 +63,13 @@
 
     "name": "Nombre",
 
-    "phone": "Telefono",
+    "phone": "Teléfono",
 
     "address": "Domicilio",
 
     "age": "Edad",
 
-    "admin": "Administrador+",
+    "admin": "Administrador",
 
     "create": "Crear",
 
@@ -85,7 +85,7 @@
 
     "sector": "Sector",
 
-    "phoneNumber": "Numero de telefono",
+    "phoneNumber": "Número de telefono",
 
     "charge": "Cargo: ",
 
@@ -97,27 +97,27 @@
 
     "applyFilters": "Aplicar Filtros",
 
-    "workingArea": "Area de trabajo",
+    "workingArea": "Área de trabajo",
 
     "didYouForgotYourPassword" : "¿Has olvidado tu contraseña?",
 
-    "optionTwo": "Opcion 2",
+    "optionTwo": "Opción 2",
 
-    "optionThree": "Opcion 3",
+    "optionThree": "Opción 3",
 
     "welcome": "Bienvenido al Flutter Boilerplate",
 
-    "pageOne":"Una aplicacion de Somnio pensada para ser reusada al crear una nueva app",
+    "pageOne": "Una aplicación de Somnio pensada para ser reusada al crear una nueva app",
 
-    "options":"Opciones",
+    "options": "Opciones",
 
-    "pageTwo":"Explora y reusa funcionalidades genericas que te permitiran empezar a codear lo antes posible",
+    "pageTwo": "Explora y reusa funcionalidades genéricas que te permitiran empezar a codear lo antes posible",
     
-    "documentationOnConfluence":"Documentacion en Confluence",
+    "documentationOnConfluence": "Documentación en Confluence",
 
-    "pageThree":"Podras encontrar en Confluence toda la informacion que necesitas sobre la aplicacion",
+    "pageThree": "Podras encontrar en Confluence toda la información que necesitas sobre la aplicación",
 
-    "skip":"Saltar",
+    "skip": "Saltar",
 
-    "done":"Listo"
+    "done": "Listo"
 }
