@@ -3,11 +3,11 @@ import 'package:flutterBoilerplate/bloc/employee/employee_bloc.dart';
 import 'package:flutterBoilerplate/bloc/employee/employee_event.dart';
 import 'package:flutterBoilerplate/bloc/employee/employee_state.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_bloc.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/widgets/employee_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditEmployeeScreen extends StatefulWidget {
   final String employeeId;
@@ -38,8 +38,8 @@ class _EditUserScreenState extends State<EditEmployeeScreen> {
       case EmployeeUpdated:
         DialogHelper.showAlertDialog(
           context: context,
-          story: AppString.employeeUpdatedSuccessfully,
-          btnText: AppString.ok,
+          story: AppLocalizations.of(context).employeeUpdatedSuccessfully,
+          btnText: AppLocalizations.of(context).ok,
           btnAction: () {
             Navigator.pop(context);
             Navigator.pop(context);
@@ -50,7 +50,7 @@ class _EditUserScreenState extends State<EditEmployeeScreen> {
         DialogHelper.showAlertDialog(
           context: context,
           story: (state as Error).message,
-          btnText: AppString.ok,
+          btnText: AppLocalizations.of(context).ok,
           btnAction: () => Navigator.pop(context),
         );
         break;
@@ -69,7 +69,7 @@ class _EditUserScreenState extends State<EditEmployeeScreen> {
           child: Scaffold(
             backgroundColor: Colors.teal,
             appBar: AppBar(
-              title: const Text(AppString.editEmployee),
+              title: Text(AppLocalizations.of(context).editEmployee),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () => Navigator.pop<bool>(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:flutterBoilerplate/bloc/forgot_password/forgot_password_event.dart';
 import 'package:flutterBoilerplate/bloc/forgot_password/forgot_password_state.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
@@ -26,8 +26,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     if (state.runtimeType == EmailSent) {
       DialogHelper.showAlertDialog(
         context: context,
-        story: AppString.emailSended,
-        btnText: AppString.ok,
+        story: AppLocalizations.of(context).emailSended,
+        btnText: AppLocalizations.of(context).ok,
         btnAction: () => _goToLoginScreen(),
       );
     }
@@ -42,7 +42,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: const Text(AppString.forgotPassword),
+          title: Text(AppLocalizations.of(context).forgotPassword),
         ),
         body: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
           cubit: _bloc,
@@ -60,7 +60,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     children: [
                       TextFieldBuilder(
                         stream: _bloc.email,
-                        labelText: AppString.email,
+                        labelText: AppLocalizations.of(context).email,
                         onChanged: _onEmailChanged,
                         margin: EdgeInsets.only(
                           bottom: MediaQuery.of(context).size.height * 0.02,
@@ -70,7 +70,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                 ),
                 Button(
-                    text: AppString.send, onTap: _dispatchForgotPasswordEvent),
+                    text: AppLocalizations.of(context).send,
+                    onTap: _dispatchForgotPasswordEvent),
               ],
             ),
           ),

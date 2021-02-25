@@ -3,7 +3,7 @@ import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
 import 'package:flutterBoilerplate/utils/app_data.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,7 +19,7 @@ class SettingsScreen extends StatelessWidget {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: const Text(AppString.settings)),
+        appBar: AppBar(title: Text(AppLocalizations.of(context).settings)),
         body: Container(
           margin:
               EdgeInsets.only(top: MediaQuery.of(context).size.height / 2.5),
@@ -32,13 +32,13 @@ class SettingsScreen extends StatelessWidget {
               Button(
                 backgroundColor: Colors.white,
                 textColor: Colors.teal,
-                text: AppString.logout,
+                text: AppLocalizations.of(context).logout,
                 onTap: () => _bloc.add(const StartLogout()),
               ),
               ListTile(
                 enabled: false,
                 title: Text(
-                  AppString.version,
+                  AppLocalizations.of(context).version,
                   style: TextStyle(color: Colors.grey[200]),
                 ),
                 trailing: FutureBuilder(

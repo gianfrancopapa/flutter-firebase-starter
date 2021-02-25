@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/employee/employee_bloc.dart';
 import 'package:flutterBoilerplate/bloc/employee/employee_event.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutterBoilerplate/models/domain/employee.dart';
 import 'package:flutterBoilerplate/screens/edit_employee_screen.dart';
 import 'package:flutterBoilerplate/screens/employee_profile_screen.dart';
@@ -24,9 +24,9 @@ class EmployeeCard extends StatelessWidget {
   void _deleteEmployeePopUp(BuildContext context) =>
       DialogHelper.showAlertDialog(
         context: context,
-        story: AppString.doYouWantToDeleteThisUser,
-        btnText: AppString.yes,
-        btnText2: AppString.no,
+        story: AppLocalizations.of(context).doYouWantToDeleteThisUser,
+        btnText: AppLocalizations.of(context).yes,
+        btnText2: AppLocalizations.of(context).no,
         btnAction2: () => Navigator.pop(context),
         btnAction: () {
           _dispatchDeleteEvent();

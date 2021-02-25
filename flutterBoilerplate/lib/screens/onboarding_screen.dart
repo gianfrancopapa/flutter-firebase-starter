@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/screens/login_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -56,23 +57,20 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
       body: IntroductionScreen(
         pages: [
           _page(
-            title: 'Welcome to Flutter Boilerplate',
-            bodyText:
-                'A Somnios\'s applications to to be reused when creating a new app',
+            title: AppLocalizations.of(context).welcome,
+            bodyText: AppLocalizations.of(context).pageOne,
             asset: AppAsset.somnioLogo,
             color: Colors.white,
           ),
           _page(
-            title: 'Options',
-            bodyText:
-                'Explore and reuse generic functions to let you start coding, as soon as possible',
+            title: AppLocalizations.of(context).options,
+            bodyText: AppLocalizations.of(context).pageTwo,
             asset: AppAsset.onboarding2,
             color: Colors.white,
           ),
           _page(
-            title: 'Documentation on Confluence',
-            bodyText:
-                'You can find some documentation on Confluence in order to find information about this app',
+            title: AppLocalizations.of(context).documentationOnConfluence,
+            bodyText: AppLocalizations.of(context).pageThree,
             asset: AppAsset.onboarding3,
             color: Colors.white,
           ),
@@ -82,9 +80,10 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
         showSkipButton: true,
         skipFlex: 0,
         nextFlex: 0,
-        skip: const Text('Skip'),
+        skip: Text(AppLocalizations.of(context).skip),
         next: const Icon(Icons.arrow_forward),
-        done: const Text('Done', style: TextStyle(fontWeight: FontWeight.w600)),
+        done: Text(AppLocalizations.of(context).done,
+            style: const TextStyle(fontWeight: FontWeight.w600)),
         dotsDecorator: const DotsDecorator(
           size: Size(10.0, 10.0),
           color: Color(0xFFBDBDBD),

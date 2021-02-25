@@ -3,11 +3,11 @@ import 'package:flutterBoilerplate/bloc/employee/employee_bloc.dart';
 import 'package:flutterBoilerplate/bloc/employee/employee_event.dart';
 import 'package:flutterBoilerplate/bloc/employee/employee_state.dart';
 import 'package:flutterBoilerplate/bloc/filter_employees/filter_employees_bloc.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/widgets/employee_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddEmployeeScreen extends StatefulWidget {
   @override
@@ -37,8 +37,8 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
           if (state.runtimeType == EmployeeCreated) {
             return DialogHelper.showAlertDialog(
               context: context,
-              story: AppString.employeeAddedSuccessfully,
-              btnText: AppString.ok,
+              story: AppLocalizations.of(context).employeeAddedSuccessfully,
+              btnText: AppLocalizations.of(context).ok,
               btnAction: () {
                 Navigator.pop(context);
                 Navigator.pop(context);
@@ -48,7 +48,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
             return DialogHelper.showAlertDialog(
               context: context,
               story: (state as Error).message,
-              btnText: AppString.ok,
+              btnText: AppLocalizations.of(context).ok,
               btnAction: () => Navigator.pop(context),
             );
           }
@@ -58,7 +58,7 @@ class _AddEmployeeScreenState extends State<AddEmployeeScreen> {
           child: Scaffold(
             backgroundColor: Colors.teal,
             appBar: AppBar(
-              title: const Text(AppString.addNewEmployee),
+              title: Text(AppLocalizations.of(context).addNewEmployee),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () => Navigator.pop<bool>(

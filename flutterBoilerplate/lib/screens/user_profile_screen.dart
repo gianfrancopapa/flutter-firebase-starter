@@ -8,6 +8,7 @@ import 'package:flutterBoilerplate/screens/settings_screen.dart';
 import 'package:flutterBoilerplate/widgets/profile_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -88,9 +89,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     children: [
                       ProfileImage(image: user.avatarAsset),
-                      customRow(AppString.fstName + ': ', user.firstName),
-                      customRow(AppString.lstName + ': ', user.lastName),
-                      customRow(AppString.email + ': ', user.email),
+                      customRow(AppLocalizations.of(context).firstName + ': ',
+                          user.firstName),
+                      customRow(AppLocalizations.of(context).lastName + ': ',
+                          user.lastName),
+                      customRow(AppLocalizations.of(context).email + ': ',
+                          user.email),
                     ],
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.stretch,

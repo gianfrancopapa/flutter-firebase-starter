@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/bloc/employee/employee_bloc.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/dropdown_button.dart';
 import 'package:flutterBoilerplate/widgets/common/responsive_button.dart';
 import 'package:flutterBoilerplate/widgets/common/slider.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmployeeForm extends StatelessWidget {
   final bool editEmployee;
@@ -52,7 +52,7 @@ class EmployeeForm extends StatelessWidget {
             ),
             TextFieldBuilder(
               withInitialValue: editEmployee,
-              labelText: AppString.name,
+              labelText: AppLocalizations.of(context).name,
               stream: bloc.firstName,
               onChanged: bloc.onFirstNameChanged,
             ),
@@ -61,7 +61,7 @@ class EmployeeForm extends StatelessWidget {
             ),
             TextFieldBuilder(
               withInitialValue: editEmployee,
-              labelText: AppString.lastName,
+              labelText: AppLocalizations.of(context).lastName,
               stream: bloc.lastName,
               onChanged: bloc.onLastNameChanged,
             ),
@@ -70,7 +70,7 @@ class EmployeeForm extends StatelessWidget {
             ),
             TextFieldBuilder(
               withInitialValue: editEmployee,
-              labelText: AppString.email,
+              labelText: AppLocalizations.of(context).email,
               stream: bloc.email,
               onChanged: bloc.onEmailChanged,
             ),
@@ -78,14 +78,14 @@ class EmployeeForm extends StatelessWidget {
             TextFieldBuilder(
               withInitialValue: editEmployee,
               prefix: '+598 ',
-              labelText: AppString.phone,
+              labelText: AppLocalizations.of(context).phone,
               stream: bloc.phone,
               onChanged: bloc.onPhoneChanged,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             TextFieldBuilder(
               withInitialValue: editEmployee,
-              labelText: AppString.address,
+              labelText: AppLocalizations.of(context).address,
               stream: bloc.address,
               onChanged: bloc.onAddressChanged,
             ),
@@ -95,7 +95,7 @@ class EmployeeForm extends StatelessWidget {
               onChanged: bloc.onAgeChanged,
               max: 100,
               min: 1,
-              label: AppString.age,
+              label: AppLocalizations.of(context).age,
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.03),
             _chargeInput(context),
@@ -103,7 +103,7 @@ class EmployeeForm extends StatelessWidget {
             TextFieldBuilder(
               maxLines: 5,
               withInitialValue: editEmployee,
-              labelText: AppString.description,
+              labelText: AppLocalizations.of(context).description,
               stream: bloc.description,
               onChanged: bloc.onDescriptionChanged,
             ),
@@ -116,7 +116,9 @@ class EmployeeForm extends StatelessWidget {
               disabledColorText: Colors.white,
               stream: bloc.activateButton,
               action: execute,
-              title: editEmployee ? AppString.update : AppString.create,
+              title: editEmployee
+                  ? AppLocalizations.of(context).update
+                  : AppLocalizations.of(context).create,
             )
           ],
         ),

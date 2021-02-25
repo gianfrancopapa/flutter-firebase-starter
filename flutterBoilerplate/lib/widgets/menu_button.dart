@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutterBoilerplate/screens/add_employee_screen.dart';
 
 class MenuButton extends StatelessWidget {
@@ -67,19 +67,19 @@ class MenuButton extends StatelessWidget {
               context,
               () => _goTo(context, AddEmployeeScreen()),
               Icons.supervised_user_circle,
-              AppString.addEmployee,
+              AppLocalizations.of(context).addEmployee,
             ),
             _menuItem(
               context,
               null,
               Icons.info_outline,
-              'Option 2',
+              AppLocalizations.of(context).optionTwo,
             ),
             _menuItem(
               context,
               null,
               Icons.remove_circle,
-              'Option 3',
+              AppLocalizations.of(context).optionThree,
             ),
           ],
         ),

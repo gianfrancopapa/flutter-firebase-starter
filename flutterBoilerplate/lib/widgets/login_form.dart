@@ -3,15 +3,16 @@ import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
+import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/screens/create_account_screen.dart';
 import 'package:flutterBoilerplate/screens/forgot_password_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
 import 'package:flutterBoilerplate/widgets/common/auth_service_button.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -88,7 +89,7 @@ class _LoginFormState extends State<LoginForm> {
                     children: [
                       TextFieldBuilder(
                         stream: _bloc.email,
-                        labelText: AppString.email,
+                        labelText: AppLocalizations.of(context).email,
                         onChanged: _onEmailChanged,
                         margin: EdgeInsets.only(
                           bottom: MediaQuery.of(context).size.height * 0.02,
@@ -96,20 +97,21 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                       TextFieldBuilder(
                         stream: _bloc.password,
-                        labelText: AppString.password,
+                        labelText: AppLocalizations.of(context).password,
                         onChanged: _onPasswordChanged,
                         isPassword: _isPassword,
                         showPasswordButton: true,
                       ),
                       TextButton(
                         onPressed: _goToForgotPasswordScreen,
-                        child: const Text('Did you forgot your password?'),
+                        child: Text(AppLocalizations.of(context)
+                            .didYouForgotYourPassword),
                       )
                     ],
                   ),
                 ),
                 Button(
-                  text: AppString.login,
+                  text: AppLocalizations.of(context).login,
                   onTap: () => _dispatchLoginEvent(),
                 ),
                 Container(
@@ -121,9 +123,10 @@ class _LoginFormState extends State<LoginForm> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(AppString.dontYouHaveAccount + ' '),
+                        Text(AppLocalizations.of(context).dontYouHaveAccount +
+                            ' '),
                         Text(
-                          AppString.createOne,
+                          AppLocalizations.of(context).createOne,
                           style: TextStyle(
                             color: Colors.blue[900],
                           ),
