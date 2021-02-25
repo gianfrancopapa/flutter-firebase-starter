@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutterBoilerplate/models/domain/employee.dart';
-import 'package:flutterBoilerplate/screens/edit_employee_screen.dart';
+import 'package:flutterBoilerplate/screens/team/edit_employee_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

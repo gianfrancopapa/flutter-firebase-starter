@@ -4,7 +4,7 @@ import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_state.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/screens/user_profile_screen.dart';
+import 'package:flutterBoilerplate/screens/profile/user_profile_screen.dart';
 import 'package:flutterBoilerplate/widgets/common/button.dart';
 import 'package:flutterBoilerplate/widgets/common/image_picker_button.dart';
 import 'package:flutterBoilerplate/widgets/common/text_field_builder.dart';

@@ -4,8 +4,8 @@ import 'package:flutterBoilerplate/bloc/employee/employee_event.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutterBoilerplate/models/domain/employee.dart';
-import 'package:flutterBoilerplate/screens/edit_employee_screen.dart';
-import 'package:flutterBoilerplate/screens/employee_profile_screen.dart';
+import 'package:flutterBoilerplate/screens/team/edit_employee_screen.dart';
+import 'package:flutterBoilerplate/screens/team/employee_profile_screen.dart';
 import 'package:flutterBoilerplate/utils/dialog.dart';
 
 class EmployeeCard extends StatelessWidget {

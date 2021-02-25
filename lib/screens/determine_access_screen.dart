@@ -5,9 +5,9 @@ import 'package:flutterBoilerplate/bloc/init_app/init_app_state.dart';
 import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
 import 'package:flutterBoilerplate/bloc/login/login_event.dart';
 import 'package:flutterBoilerplate/bloc/login/login_state.dart';
-import 'package:flutterBoilerplate/screens/login_screen.dart';
+import 'package:flutterBoilerplate/screens/auth/login_screen.dart';
 import 'package:flutterBoilerplate/screens/main_screen.dart';
-import 'package:flutterBoilerplate/screens/onboarding_screen.dart';
+import 'package:flutterBoilerplate/screens/onboarding/onboarding_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetermineAccessScreen extends StatefulWidget {

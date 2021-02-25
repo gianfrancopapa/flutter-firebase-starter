@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/screens/filter_employees_screen.dart';
+import 'package:flutterBoilerplate/screens/team/filter_employees_screen.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class FilterIcon extends StatelessWidget {

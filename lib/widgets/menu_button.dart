@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutterBoilerplate/screens/add_employee_screen.dart';
+import 'package:flutterBoilerplate/screens/team/add_employee_screen.dart';
 
 class MenuButton extends StatelessWidget {
   final itemHeightWithMargin = 60.0;

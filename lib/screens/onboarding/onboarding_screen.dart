@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/screens/login_screen.dart';
+import 'package:flutterBoilerplate/screens/auth/login_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:flutterBoilerplate/constants/assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

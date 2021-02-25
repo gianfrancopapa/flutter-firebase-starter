@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterBoilerplate/models/domain/admin.dart';
 import 'package:flutterBoilerplate/models/domain/user.dart';
-import 'package:flutterBoilerplate/screens/employees_list_screen.dart';
-import 'package:flutterBoilerplate/screens/user_profile_screen.dart';
+import 'package:flutterBoilerplate/screens/team/employees_list_screen.dart';
+import 'package:flutterBoilerplate/screens/profile/user_profile_screen.dart';
 import 'package:flutterBoilerplate/widgets/menu_button.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
