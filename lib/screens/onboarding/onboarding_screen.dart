@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/screens/auth/login_screen.dart';
+import 'package:firebasestarter/screens/auth/login_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:flutterBoilerplate/constants/assets.dart';
+import 'package:firebasestarter/constants/assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -59,19 +59,19 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
           _page(
             title: AppLocalizations.of(context).welcome,
             bodyText: AppLocalizations.of(context).pageOne,
-            asset: AppAsset.somnioLogo,
+            asset: Assets.somnioLogo,
             color: Colors.white,
           ),
           _page(
             title: AppLocalizations.of(context).options,
             bodyText: AppLocalizations.of(context).pageTwo,
-            asset: AppAsset.onboarding2,
+            asset: Assets.onboarding2,
             color: Colors.white,
           ),
           _page(
             title: AppLocalizations.of(context).documentationOnConfluence,
             bodyText: AppLocalizations.of(context).pageThree,
-            asset: AppAsset.onboarding3,
+            asset: Assets.onboarding3,
             color: Colors.white,
           ),
         ],
@@ -83,7 +83,9 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
         skip: Text(AppLocalizations.of(context).skip),
         next: const Icon(Icons.arrow_forward),
         done: Text(AppLocalizations.of(context).done,
-            style: const TextStyle(fontWeight: FontWeight.w600)),
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+            )),
         dotsDecorator: const DotsDecorator(
           size: Size(10.0, 10.0),
           color: Color(0xFFBDBDBD),

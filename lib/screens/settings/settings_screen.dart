@@ -1,10 +1,10 @@
+import 'package:firebasestarter/services/app_info/package_info.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/login/login_bloc.dart';
-import 'package:flutterBoilerplate/bloc/login/login_event.dart';
-import 'package:flutterBoilerplate/bloc/login/login_state.dart';
-import 'package:flutterBoilerplate/utils/app_data.dart';
+import 'package:firebasestarter/bloc/login/login_bloc.dart';
+import 'package:firebasestarter/bloc/login/login_event.dart';
+import 'package:firebasestarter/bloc/login/login_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutterBoilerplate/widgets/common/button.dart';
+import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -42,7 +42,7 @@ class SettingsScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.grey[200]),
                 ),
                 trailing: FutureBuilder(
-                  future: AppData().getVersionNumber(),
+                  future: AppInfo().getVersionNumber(),
                   builder:
                       (BuildContext context, AsyncSnapshot<String> snapshot) =>
                           Text(

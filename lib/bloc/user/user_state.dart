@@ -1,4 +1,4 @@
-import 'package:flutterBoilerplate/models/domain/user.dart';
+import 'package:firebasestarter/models/user.dart';
 
 abstract class UserState {
   const UserState();

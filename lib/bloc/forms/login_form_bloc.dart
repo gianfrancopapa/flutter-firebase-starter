@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/login/login_event.dart';
-import 'package:flutterBoilerplate/bloc/login/login_state.dart';
-import 'package:flutterBoilerplate/mixins/validation_mixin.dart';
+import 'package:firebasestarter/bloc/login/login_event.dart';
+import 'package:firebasestarter/bloc/login/login_state.dart';
+import 'package:firebasestarter/mixins/validation_mixin.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

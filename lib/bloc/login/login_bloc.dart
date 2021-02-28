@@ -1,8 +1,8 @@
+import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/forms/login_form_bloc.dart';
-import 'package:flutterBoilerplate/bloc/login/login_event.dart';
-import 'package:flutterBoilerplate/bloc/login/login_state.dart';
-import 'package:flutterBoilerplate/services/firebase_auth.dart';
+import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
+import 'package:firebasestarter/bloc/login/login_event.dart';
+import 'package:firebasestarter/bloc/login/login_state.dart';
 
 class LoginBloc extends LoginFormBloc {
   final _auth = FirebaseAuthService();
@@ -41,8 +41,10 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> login() async* {
     yield const Loading();
     try {
-      final user = await _auth.loginWithEmail(
-          emailController.value, passwordController.value);
+      final user = await _auth.signInWithEmailAndPassword(
+        emailController.value,
+        passwordController.value,
+      );
       yield LoggedIn(user);
     } catch (e) {
       yield ErrorLogin(e.toString());
@@ -53,7 +55,7 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> googleLogin() async* {
     yield const Loading();
     try {
-      final user = await _auth.loginWithGoogle();
+      final user = await _auth.signInWithGoogle();
       yield LoggedIn(user);
     } catch (e) {
       yield ErrorLogin(e.toString());
@@ -64,7 +66,7 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> appleLogin() async* {
     yield const Loading();
     try {
-      final user = await _auth.loginWithApple();
+      final user = await _auth.signInWithApple();
       yield LoggedIn(user);
     } catch (e) {
       yield ErrorLogin(e.toString());
@@ -75,7 +77,7 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> facebookLogin() async* {
     yield const Loading();
     try {
-      final user = await _auth.loginWithFacebook();
+      final user = await _auth.signInWithFacebook();
       yield LoggedIn(user);
     } catch (e) {
       yield ErrorLogin(e.toString());
@@ -86,7 +88,7 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> anonymousLogin() async* {
     yield const Loading();
     try {
-      final user = await _auth.loginAnonymously();
+      final user = await _auth.signInAnonymously();
       yield LoggedIn(user);
     } catch (e) {
       yield ErrorLogin(e.toString());
@@ -98,7 +100,7 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> logout() async* {
     yield const Loading();
     try {
-      await _auth.logout();
+      await _auth.signOut();
       yield const LoggedOut();
     } catch (e) {
       yield const ErrorLogin('Error while trying to log out');
@@ -108,7 +110,7 @@ class LoginBloc extends LoginFormBloc {
   Stream<LoginState> _checkIfUserIsLoggedIn() async* {
     yield const Loading();
     try {
-      final user = await _auth.checkIfUserIsLoggedIn();
+      final user = await _auth.currentUser();
       if (user != null) {
         yield LoggedIn(user);
       } else {

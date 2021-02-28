@@ -1,5 +1,5 @@
-import 'package:flutterBoilerplate/bloc/init_app/init_app_event.dart';
-import 'package:flutterBoilerplate/bloc/init_app/init_app_state.dart';
+import 'package:firebasestarter/bloc/init_app/init_app_event.dart';
+import 'package:firebasestarter/bloc/init_app/init_app_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

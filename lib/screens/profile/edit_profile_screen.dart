@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/widgets/edit_profile_form.dart';
+import 'package:firebasestarter/widgets/profile/edit_profile_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfileScreen extends StatelessWidget {

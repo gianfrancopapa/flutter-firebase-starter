@@ -1,7 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebasestarter/bloc/login/login_bloc.dart';
+import 'package:firebasestarter/screens/init_app.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/constants/themes/app_theme.dart';
-import 'package:flutterBoilerplate/screens/determine_access_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -12,49 +12,27 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   @override
-  void initState() {
-    WidgetsFlutterBinding.ensureInitialized();
-
-    super.initState();
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginBloc>(create: (BuildContext context) => LoginBloc()),
+      ],
+      child: FirebaseStarter(),
+    );
   }
+}
 
-  Widget _loading() => const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-
-  Widget _error() => const Scaffold(
-        body: Center(
-          child: Text('Something went wrong'),
-        ),
-      );
-
+class FirebaseStarter extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: [
-          const Locale('en', ''),
-          const Locale('es', ''),
-          const Locale('fr', ''),
-          const Locale('it', '')
-        ],
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        home: FutureBuilder<FirebaseApp>(
-          future: Firebase.initializeApp(),
-          builder: (BuildContext context, AsyncSnapshot<FirebaseApp> snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return DetermineAccessScreen();
-            } else if (snapshot.hasError) {
-              return _error();
-            } else
-              return _loading();
-          },
-        ),
-      );
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
+      home: DetermineAccessScreen(),
+    );
+  }
 }

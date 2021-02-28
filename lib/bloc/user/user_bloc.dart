@@ -1,6 +1,6 @@
-import 'package:flutterBoilerplate/bloc/user/user_event.dart';
-import 'package:flutterBoilerplate/bloc/user/user_state.dart';
-import 'package:flutterBoilerplate/services/firebase_auth.dart';
+import 'package:firebasestarter/bloc/user/user_event.dart';
+import 'package:firebasestarter/bloc/user/user_state.dart';
+import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
@@ -21,7 +21,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Stream<UserState> _mapGetUserToState() async* {
     yield const Loading();
     try {
-      final user = await _authService.getCurrentUser();
+      final user = await _authService.currentUser();
       yield CurrentUser(user);
     } catch (e) {
       yield const Error('Something went wrong');

@@ -29,7 +29,7 @@ class AuthServiceButton extends StatelessWidget {
           shape: MaterialStateProperty.resolveWith<OutlinedBorder>(
             (Set<MaterialState> states) {
               return RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40));
+                  borderRadius: BorderRadius.circular(10));
             },
           ),
           elevation: MaterialStateProperty.resolveWith<double>(
@@ -47,7 +47,6 @@ class AuthServiceButton extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image(

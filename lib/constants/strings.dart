@@ -1,4 +1,6 @@
-class AppString {
+class Strings {
+  Strings._();
+
   //Multiple Screens
   static const lastName = 'Last Name';
   static const email = 'Email';
@@ -12,7 +14,7 @@ class AppString {
   static const dontYouHaveAccount = 'Don\'t you have an account?';
   static const createOne = 'Create one';
 
-//Create Account Screen
+  //Create Account Screen
   static const firstName = 'First Name';
   static const passwordConfirmation = 'Confirm' + ' ' + password;
   static const createAccount = 'Create Account';

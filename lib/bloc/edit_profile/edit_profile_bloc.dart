@@ -1,16 +1,16 @@
 import 'dart:io';
-import 'package:flutterBoilerplate/models/datatypes/storage_service_type.dart';
-import 'package:flutterBoilerplate/models/service_factory.dart';
-import 'package:flutterBoilerplate/bloc/forms/edit_profile_form_bloc.dart';
-import 'package:flutterBoilerplate/bloc/edit_profile/edit_profile_state.dart';
-import 'package:flutterBoilerplate/services/firebase_auth.dart';
-import 'package:flutterBoilerplate/services/image_picker_service.dart';
-import 'package:flutterBoilerplate/services/storage_interface.dart';
+import 'package:firebasestarter/bloc/forms/edit_profile_form.dart';
+import 'package:firebasestarter/models/datatypes/storage_service_type.dart';
+import 'package:firebasestarter/models/service_factory.dart';
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
+import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
+import 'package:firebasestarter/services/image_picker/image_picker_service.dart';
+import 'package:firebasestarter/services/storage/storage_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfileBloc extends EditProfileFormBloc {
   final _authService = FirebaseAuthService();
-  IStorage _storageService;
+  StorageService _storageService;
   final _serviceFactory = ServiceFactory();
   PickedFile _image;
 
@@ -27,7 +27,7 @@ class EditProfileBloc extends EditProfileFormBloc {
       return emit(const Error('Insert valid image'));
     }
     try {
-      final user = await _authService.getCurrentUser();
+      final user = await _authService.currentUser();
       final userId = user.id;
       await _storageService.uploadFile(File(_image.path), userId);
       final imageURL = await _storageService.downloadURL(userId);
@@ -39,8 +39,8 @@ class EditProfileBloc extends EditProfileFormBloc {
   }
 
   Future<String> getURL() async {
-    final user = await _authService.getCurrentUser();
-    final url = user.avatarAsset;
+    final user = await _authService.currentUser();
+    final url = user.imageUrl;
     return url;
   }
 
@@ -51,7 +51,7 @@ class EditProfileBloc extends EditProfileFormBloc {
       return emit(const Error('Insert valid image'));
     }
     try {
-      final user = await _authService.getCurrentUser();
+      final user = await _authService.currentUser();
       final userId = user.id;
       await _storageService.uploadFile(File(_image.path), userId);
       final imageURL = await _storageService.downloadURL(userId);

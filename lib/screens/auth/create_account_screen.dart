@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/widgets/create_account_form.dart';
+import 'package:firebasestarter/widgets/auth/create_account_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateAccountScreen extends StatelessWidget {

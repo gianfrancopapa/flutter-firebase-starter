@@ -1,7 +1,7 @@
+import 'package:firebasestarter/mixins/validation_mixin.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/create_account/create_account_event.dart';
-import 'package:flutterBoilerplate/bloc/create_account/create_account_state.dart';
-import 'package:flutterBoilerplate/mixins/validation_mixin.dart';
+import 'package:firebasestarter/bloc/create_account/create_account_event.dart';
+import 'package:firebasestarter/bloc/create_account/create_account_state.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

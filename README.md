@@ -2,7 +2,6 @@
 
 This project was developed by Somnio Software as an app to be used as a boilerplate, making easy to start developing new apps or projects and as a repository to reuse generic widgets, services, models, etc. previously implemented on a working project.
 
-
 ### Supported sign-in methods
 
 - [x] Anonymous
@@ -44,12 +43,14 @@ This project was developed by Somnio Software as an app to be used as a boilerpl
 - [x] First name and last name fields
 - [x] Email regex validation
 - [x] Password and Confirm Password validation
-- [x] Show/hide password 
+- [x] Show/hide password
+
 ### Email link page
 
 - [ ] Email input field, backed by secure storage
 
 ### Services
+
 #### Authentication
 
 - [x] Abstract `AuthService` class, modeled after the `firebase_auth` API
@@ -57,23 +58,28 @@ This project was developed by Somnio Software as an app to be used as a boilerpl
 - [ ] `MockAuthService` for testing
 - [x] Firebase project configuration for iOS & Android
 - [ ] Toggle `FirebaseAuthService` and `MockAuthService` at runtime via developer menu
-#### Storage 
+
+#### Storage
 
 - [x] Abstract `StorageService` class, modeled after `firebase_storage` API
 - [x] `FirebaseStorageService` implementation
+
 #### Persistence
 
 - [x] Abstract `PersistenceService` class, modeled after `cloud_firestore` API
 - [x] `FirebasePersistenceService` implementation
+
 ### Architecture
 
 - [x] Logic inside models for better separation of concerns (using [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html))
 - [x] Use [Provider package](https://pub.dev/packages/provider) for dependency injection
+
 ### User models
 
 - [x] On app custom User and Admin models
 - [x] Admin and User roles defined
-- [x] Admin with different capabilities from user 
+- [x] Admin with different capabilities from user
+
 ### Other
 
 - [x] Use [`Shared Preferences`](https://pub.dev/packages/shared_preferences), a providing persistent storage for simple data
@@ -82,6 +88,7 @@ This project was developed by Somnio Software as an app to be used as a boilerpl
 - [x] Custom `Splash Screen`
 - [x] Custom App light and dark theme
 - [x] Abstracted general widgets as buttons, text fields, lists, etc.
+
 ## Running the project with Firebase
 
 To use this project with Firebase authentication, some configuration steps are required.
@@ -93,10 +100,9 @@ To use this project with Firebase authentication, some configuration steps are r
 - On Android, define the package name as your preference, a good practice is to use as name the bundle ID defined on iOS (a SHA-1 certificate fingerprint is also needed for Google sign-in).
 - then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_android_app) `google-services.json` into `android/app`.
 
-
 See this document for full instructions:
 
-- [https://firebase.google.com/docs/flutter/setup](https://firebase.google.com/docs/flutter/setup) 
+- [https://firebase.google.com/docs/flutter/setup](https://firebase.google.com/docs/flutter/setup)
 
 Additional setup instructions for Google, Apple and Facebook sign-in:
 

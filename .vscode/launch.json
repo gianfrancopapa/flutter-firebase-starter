@@ -1,13 +1,17 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "flutter-boilerplate",
-            "request": "launch",
-            "type": "dart"
-        }
-    ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "firebase-starter-dev",
+			"request": "launch",
+			"type": "dart",
+			"args": ["-t", "lib/main_dev.dart"]
+		},
+		{
+			"name": "firebase-starter-production",
+			"request": "launch",
+			"type": "dart",
+            "args": ["-t", "lib/main.dart"]
+		}
+	]
 }

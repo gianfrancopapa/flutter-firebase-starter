@@ -1,4 +1,4 @@
-import 'package:flutterBoilerplate/models/criteria.dart';
+import 'package:firebasestarter/models/criteria.dart';
 
 abstract class Query<S> {
   final int limit;

@@ -1,40 +1,40 @@
 {
   "project_info": {
-    "project_number": "1042624080224",
-    "project_id": "flutter-boilerplate-609cc",
-    "storage_bucket": "flutter-boilerplate-609cc.appspot.com"
+    "project_number": "401997180113",
+    "project_id": "fir-starter-7c18f",
+    "storage_bucket": "fir-starter-7c18f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1042624080224:android:2a6c13cac03e798acd9605",
+        "mobilesdk_app_id": "1:401997180113:android:0e133ce10f9427c2c269f0",
         "android_client_info": {
-          "package_name": "com.example.flutterBoilerplate"
+          "package_name": "com.somniosoftware.firebasestarter"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1042624080224-gdaqd9vsvo49k0t835r1gku2dsu0svtq.apps.googleusercontent.com",
+          "client_id": "401997180113-bp0bva6j35q63gu88d240cgaq0pt902j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDeSEY62eNWh968THlFy1xTikodJpZrHe0"
+          "current_key": "AIzaSyByE9ocSrzKputaljibhL6Zcpl3v8nY5-4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1042624080224-gdaqd9vsvo49k0t835r1gku2dsu0svtq.apps.googleusercontent.com",
+              "client_id": "401997180113-bp0bva6j35q63gu88d240cgaq0pt902j.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1042624080224-0pl5r8jjbuaj4vna4tiqj2q939hhc218.apps.googleusercontent.com",
+              "client_id": "401997180113-2tgafrp1vs291g9nt56scj26ui5i6s32.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.flutterBoilerplate"
+                "bundle_id": "com.somniosoftware.firebasestarter"
               }
             }
           ]

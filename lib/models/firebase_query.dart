@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutterBoilerplate/models/criteria.dart';
-import 'package:flutterBoilerplate/models/query.dart' as my;
+import 'package:firebasestarter/models/criteria.dart';
+import 'package:firebasestarter/models/query.dart' as my;
 
 class FirebaseQuery extends my.Query<Query> {
   CollectionReference _reference;

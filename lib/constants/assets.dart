@@ -1,5 +1,5 @@
-class AppAsset {
-  AppAsset._();
+class Assets {
+  Assets._();
 
   //Splash Screen
   static const String somnioLogo = 'assets/somnio_logo.png';

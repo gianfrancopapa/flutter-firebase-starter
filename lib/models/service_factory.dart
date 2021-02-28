@@ -1,9 +1,9 @@
-import 'package:flutterBoilerplate/models/datatypes/storage_service_type.dart';
-import 'package:flutterBoilerplate/services/firebase_persistance_service.dart';
-import 'package:flutterBoilerplate/services/firebase_storage.dart';
-import 'package:flutterBoilerplate/services/persistance_service_interface.dart';
-import 'package:flutterBoilerplate/models/datatypes/persistance_service_type.dart';
-import 'package:flutterBoilerplate/services/storage_interface.dart';
+import 'package:firebasestarter/models/datatypes/storage_service_type.dart';
+import 'package:firebasestarter/services/persistence/firebase_persistance_service.dart';
+import 'package:firebasestarter/services/persistence/persistance_service_interface.dart';
+import 'package:firebasestarter/models/datatypes/persistance_service_type.dart';
+import 'package:firebasestarter/services/storage/storage_service.dart';
+import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
 
 //Singleton
 class ServiceFactory {
@@ -16,7 +16,7 @@ class ServiceFactory {
 
   factory ServiceFactory() => _instance;
 
-  Future<IStorage> getStorageService(StorageServiceType type) async {
+  Future<StorageService> getStorageService(StorageServiceType type) async {
     switch (type) {
       case StorageServiceType.Firebase:
         final _storageServiceType = FirebaseStorageService();

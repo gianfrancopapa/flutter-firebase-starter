@@ -1,7 +1,7 @@
-import 'package:flutterBoilerplate/bloc/forgot_password/forgot_password_event.dart';
-import 'package:flutterBoilerplate/bloc/forgot_password/forgot_password_state.dart';
-import 'package:flutterBoilerplate/services/firebase_auth.dart';
-import 'package:flutterBoilerplate/bloc/forms/forgot_password_form.dart';
+import 'package:firebasestarter/bloc/forgot_password/forgot_password_event.dart';
+import 'package:firebasestarter/bloc/forgot_password/forgot_password_state.dart';
+import 'package:firebasestarter/bloc/forms/forgot_password_form.dart';
+import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
 
 class ForgotPasswordBloc extends ForgotPasswordFormBloc {
   final _firebaseAuth = FirebaseAuthService();
@@ -21,7 +21,7 @@ class ForgotPasswordBloc extends ForgotPasswordFormBloc {
   Stream<ForgotPasswordState> forgotPassword() async* {
     yield const Loading();
     try {
-      await _firebaseAuth.forgotPassword(emailController.value);
+      await _firebaseAuth.sendPasswordResetEmail(emailController.value);
       yield const EmailSent();
     } catch (e) {
       yield const Error('Something went wrong');

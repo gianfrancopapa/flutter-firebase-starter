@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/models/query.dart';
-import 'package:flutterBoilerplate/services/persistance_service_interface.dart';
+import 'package:firebasestarter/models/query.dart';
+import 'package:firebasestarter/services/persistence/persistance_service_interface.dart';
 
 typedef T Constructor<T>(Map<String, dynamic> map);
 
 abstract class Repository<T> {
   final IPersistanceService _apiProvider;
   final Constructor<T> _constructor;
-  // final _cache = const Cache();
 
   const Repository(this._apiProvider, this._constructor);
 

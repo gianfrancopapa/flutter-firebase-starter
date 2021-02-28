@@ -1,123 +1,123 @@
 {
-    "lastName": "Apellido",
-    
-    "email": "Email",
-    
-    "settings": "Configuración",
-    
-    "editEmployee": "Editar Empleado",
+  "lastName": "Apellido",
+  
+  "email": "Email",
+  
+  "settings": "Configuración",
+  
+  "editEmployee": "Editar Empleado",
 
-    "description": "Descripción",
+  "description": "Descripción",
 
-    "password": "Contraseña",
+  "password": "Contraseña",
 
-    "login": "Login",
+  "login": "Login",
 
-    "dontYouHaveAccount": "¿No tienes una cuenta?",
+  "dontYouHaveAccount": "¿No tienes una cuenta?",
 
-    "createOne": "Create una",
+  "createOne": "Create una",
 
-    "firstName": "Nombre",
+  "firstName": "Nombre",
 
-    "passwordConfirmation": "Confirmar Contraseña",
+  "passwordConfirmation": "Confirmar Contraseña",
 
-    "createAccount": "Crearse una cuenta",
+  "createAccount": "Crearse una cuenta",
 
-    "employees": "Empleados",
+  "employees": "Empleados",
 
-    "logout": "Logout",
+  "logout": "Logout",
 
-    "configuration": "Configuración",
+  "configuration": "Configuración",
 
-    "version": "Versión",
-   
-    "appName": "Nombre de la aplicación",
-    
-    "buildNumber": "Número de build",
+  "version": "Versión",
+  
+  "appName": "Nombre de la aplicación",
+  
+  "buildNumber": "Número de build",
 
-    "packageName": "Nombre del paquete",
+  "packageName": "Nombre del paquete",
 
-    "forgotPassword": "Olvidé mi contraseña",
+  "forgotPassword": "Olvidé mi contraseña",
 
-    "send": "Enviar",
+  "send": "Enviar",
 
-    "emailSended": "Email Enviado",
+  "emailSended": "Email Enviado",
 
-    "checkInbox": "Revisa tu bandeja de entrada",
+  "checkInbox": "Revisa tu bandeja de entrada",
 
-    "myProfile": "Mi perfil",
+  "myProfile": "Mi perfil",
 
-    "editProfile": "Editar perfil",
+  "editProfile": "Editar perfil",
 
-    "employeeAddedSuccessfully": "Se ha creado un nuevo empleado satisfactoriamente",
+  "employeeAddedSuccessfully": "Se ha creado un nuevo empleado satisfactoriamente",
 
-    "ok": "Aceptar",
+  "ok": "Aceptar",
 
-    "employeeUpdatedSuccessfully": "El empleado a sido actualizado",
+  "employeeUpdatedSuccessfully": "El empleado a sido actualizado",
 
-    "update": "Actualizar",
+  "update": "Actualizar",
 
-    "home": "Inicio",
+  "home": "Inicio",
 
-    "addEmployee": "Agregar Empleado",
+  "addEmployee": "Agregar Empleado",
 
-    "name": "Nombre",
+  "name": "Nombre",
 
-    "phone": "Teléfono",
+  "phone": "Teléfono",
 
-    "address": "Domicilio",
+  "address": "Domicilio",
 
-    "age": "Edad",
+  "age": "Edad",
 
-    "admin": "Administrador",
+  "admin": "Administrador",
 
-    "create": "Crear",
+  "create": "Crear",
 
-    "addNewEmployee": "Agregar nuevo empleado",
+  "addNewEmployee": "Agregar nuevo empleado",
 
-    "doYouWantToDeleteThisUser": "¿Desea eliminar este empleado?",
+  "doYouWantToDeleteThisUser": "¿Desea eliminar este empleado?",
 
-    "yes": "Si",
+  "yes": "Si",
 
-    "no": "No",
+  "no": "No",
 
-    "delete": "Eliminar",
+  "delete": "Eliminar",
 
-    "sector": "Sector",
+  "sector": "Sector",
 
-    "phoneNumber": "Número de telefono",
+  "phoneNumber": "Número de telefono",
 
-    "charge": "Cargo: ",
+  "charge": "Cargo: ",
 
-    "signIn": "Sign In",
+  "signIn": "Sign In",
 
-    "filters": "Filtros",
+  "filters": "Filtros",
 
-    "clear": "Limpiar",
+  "clear": "Limpiar",
 
-    "applyFilters": "Aplicar Filtros",
+  "applyFilters": "Aplicar Filtros",
 
-    "workingArea": "Área de trabajo",
+  "workingArea": "Área de trabajo",
 
-    "didYouForgotYourPassword" : "¿Has olvidado tu contraseña?",
+  "didYouForgotYourPassword" : "¿Has olvidado tu contraseña?",
 
-    "optionTwo": "Opción 2",
+  "optionTwo": "Opción 2",
 
-    "optionThree": "Opción 3",
+  "optionThree": "Opción 3",
 
-    "welcome": "Bienvenido al Flutter Boilerplate",
+  "welcome": "Bienvenido al Flutter Boilerplate",
 
-    "pageOne": "Una aplicación de Somnio pensada para ser reusada al crear una nueva app",
+  "pageOne": "Una aplicación de Somnio pensada para ser reusada al crear una nueva app",
 
-    "options": "Opciones",
+  "options": "Opciones",
 
-    "pageTwo": "Explora y reusa funcionalidades genéricas que te permitiran empezar a codear lo antes posible",
-    
-    "documentationOnConfluence": "Documentación en Confluence",
+  "pageTwo": "Explora y reusa funcionalidades genéricas que te permitiran empezar a codear lo antes posible",
+  
+  "documentationOnConfluence": "Documentación en Confluence",
 
-    "pageThree": "Podras encontrar en Confluence toda la información que necesitas sobre la aplicación",
+  "pageThree": "Podras encontrar en Confluence toda la información que necesitas sobre la aplicación",
 
-    "skip": "Saltar",
+  "skip": "Saltar",
 
-    "done": "Listo"
+  "done": "Listo"
 }

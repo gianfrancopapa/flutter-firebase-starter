@@ -1,8 +1,8 @@
+import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutterBoilerplate/bloc/create_account/create_account_event.dart';
-import 'package:flutterBoilerplate/bloc/create_account/create_account_state.dart';
-import 'package:flutterBoilerplate/bloc/forms/create_account_form.dart';
-import 'package:flutterBoilerplate/services/firebase_auth.dart';
+import 'package:firebasestarter/bloc/create_account/create_account_event.dart';
+import 'package:firebasestarter/bloc/create_account/create_account_state.dart';
+import 'package:firebasestarter/bloc/forms/create_account_form.dart';
 
 class CreateAccountBloc extends CreateAccountFormBloc {
   final _firebaseAuth = FirebaseAuthService();
@@ -27,11 +27,9 @@ class CreateAccountBloc extends CreateAccountFormBloc {
       return;
     }
     try {
-      await _firebaseAuth.createAccountWithEmail(
-        firstName: firstNameController.value,
-        lastName: lastNameController.value,
-        email: emailController.value,
-        password: passwordController.value,
+      await _firebaseAuth.createUserWithEmailAndPassword(
+        emailController.value,
+        passwordController.value,
       );
       yield const AccountCreated();
     } catch (e) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutterBoilerplate/widgets/login_form.dart';
+import 'package:firebasestarter/widgets/auth/login_form.dart';
 
 class LoginScreen extends StatelessWidget {
   @override

@@ -1,11 +1,11 @@
+import 'package:firebasestarter/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterBoilerplate/bloc/user/user_bloc.dart';
-import 'package:flutterBoilerplate/bloc/user/user_event.dart';
-import 'package:flutterBoilerplate/bloc/user/user_state.dart';
-import 'package:flutterBoilerplate/constants/strings.dart';
-import 'package:flutterBoilerplate/screens/profile/edit_profile_screen.dart';
-import 'package:flutterBoilerplate/screens/settings/settings_screen.dart';
-import 'package:flutterBoilerplate/widgets/profile_image.dart';
+import 'package:firebasestarter/bloc/user/user_bloc.dart';
+import 'package:firebasestarter/bloc/user/user_event.dart';
+import 'package:firebasestarter/bloc/user/user_state.dart';
+import 'package:firebasestarter/constants/strings.dart';
+import 'package:firebasestarter/screens/profile/edit_profile_screen.dart';
+import 'package:firebasestarter/widgets/profile/profile_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -45,12 +45,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               );
             case CurrentUser:
               final user = (state as CurrentUser).user;
-              _isAnon = user.isAnon;
+              _isAnon = user.isAnonymous;
               return Scaffold(
                 appBar: AppBar(
                     leading: const SizedBox(),
                     automaticallyImplyLeading: false,
-                    title: const Text(AppString.myProfile),
+                    title: const Text(Strings.myProfile),
                     actions: _isAnon
                         ? <Widget>[
                             IconButton(
@@ -88,7 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 body: Container(
                   child: Column(
                     children: [
-                      ProfileImage(image: user.avatarAsset),
+                      ProfileImage(image: user.imageUrl),
                       customRow(AppLocalizations.of(context).firstName + ': ',
                           user.firstName),
                       customRow(AppLocalizations.of(context).lastName + ': ',

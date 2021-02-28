@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class ImagePickerButton extends StatelessWidget {
   final Function dispatchImageFromGallery;
   final Function dispatchImageFromCamera;
