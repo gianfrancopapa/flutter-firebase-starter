@@ -2,16 +2,16 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "firebase-starter-dev",
+			"name": "firebase starter dev",
 			"request": "launch",
 			"type": "dart",
-			"args": ["-t", "lib/main_dev.dart"]
+			"args": ["-t", "lib/main.dart"]
 		},
 		{
-			"name": "firebase-starter-production",
+			"name": "firebase starter production",
 			"request": "launch",
 			"type": "dart",
-            "args": ["-t", "lib/main.dart"]
+			"args": ["-t", "lib/main.dart"]
 		}
 	]
 }
