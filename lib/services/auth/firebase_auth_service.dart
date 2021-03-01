@@ -14,11 +14,16 @@ class FirebaseAuthService implements AuthService {
       return null;
     }
     final map = {
-      'id': user.uid,
-      'name': user.displayName,
-      'email': user.email,
-      'emailVerified': user.emailVerified,
-      'imageUrl': user.photoURL,
+      'id': user.uid ?? '',
+      'firstName': user.displayName ?? '',
+      'lastName': user.displayName ?? '',
+      'email': user.email ?? '',
+      'emailVerified': user.emailVerified ?? false,
+      'imageUrl': user.photoURL ?? '',
+      'isAnonymous': false,
+      'age': 0,
+      'phoneNumber': '',
+      'address': '',
     };
     return User.fromJson(map);
   }

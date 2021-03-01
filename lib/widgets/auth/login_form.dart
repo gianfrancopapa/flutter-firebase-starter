@@ -20,7 +20,6 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   LoginBloc _bloc;
-  final _isPassword = true;
 
   @override
   void didChangeDependencies() {
@@ -42,17 +41,6 @@ class _LoginFormState extends State<LoginForm> {
         ),
       );
 
-  void _determineAction(LoginState state) {
-    if (state.runtimeType == ErrorLogin) {
-      DialogHelper.showAlertDialog(
-        context: context,
-        story: (state as ErrorLogin).message,
-        btnText: 'Close',
-        btnAction: () => Navigator.pop(context),
-      );
-    }
-  }
-
   Widget _customLoginForm() => Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -68,7 +56,7 @@ class _LoginFormState extends State<LoginForm> {
             stream: _bloc.password,
             labelText: AppLocalizations.of(context).password,
             onChanged: (password) => _bloc.onPasswordChanged(password),
-            isPassword: _isPassword,
+            isPassword: true,
             showPasswordButton: true,
           ),
           TextButton(
@@ -143,12 +131,22 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) => BlocConsumer<LoginBloc, LoginState>(
         cubit: _bloc,
-        listener: (context, state) => _determineAction(state),
+        listener: (context, state) {
+          if (state.runtimeType == ErrorLogin) {
+            DialogHelper.showAlertDialog(
+              context: context,
+              story: (state as ErrorLogin).message,
+              btnText: 'Close',
+              btnAction: () => Navigator.pop(context),
+            );
+          }
+        },
         builder: (context, state) => ListView(
           shrinkWrap: true,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+              padding:
+                  const EdgeInsets.only(left: 30.0, right: 30.0, top: 20.0),
               child: Column(
                 children: [
                   _customLoginForm(),

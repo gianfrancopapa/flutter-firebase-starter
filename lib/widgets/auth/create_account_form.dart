@@ -86,6 +86,7 @@ class _CreateAccountFormState extends State<CreateAccountForm> {
                 onChanged: (passwordConf) =>
                     _bloc.onPasswordConfirmationChanged(passwordConf),
                 isPassword: true,
+                showPasswordButton: true,
               ),
               Padding(
                 padding: const EdgeInsets.all(36.0),

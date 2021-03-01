@@ -45,14 +45,16 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
   }
 
   void _toggle() {
-    isPassword = !isPassword;
+    setState(() {
+      isPassword = !isPassword;
+    });
   }
 
   InputDecoration _decoration(AsyncSnapshot<String> snapshot) =>
       InputDecoration(
         suffixIcon: _showPasswordButton(),
         prefixText: widget.prefix,
-        prefixStyle: const TextStyle(color: Colors.white, fontSize: 15.0),
+        prefixStyle: const TextStyle(color: Colors.black, fontSize: 15.0),
         contentPadding: const EdgeInsets.only(bottom: -5, top: 2),
         errorStyle: const TextStyle(height: 0.6),
         labelText: widget.labelText,
@@ -71,7 +73,7 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
         border: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
         ),
-        labelStyle: const TextStyle(fontSize: 15, color: Colors.white),
+        labelStyle: const TextStyle(fontSize: 15, color: Colors.black),
         errorText: snapshot.hasError ? snapshot.error : null,
       );
 
@@ -81,7 +83,7 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
         keyboardType: widget.maxLines > 1 ? TextInputType.multiline : null,
         onChanged: widget.onChanged,
         obscureText: isPassword,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.black),
         decoration: _decoration(snapshot),
       );
 
@@ -97,7 +99,7 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
           ),
         ),
         keyboardType: widget.maxLines > 1 ? TextInputType.multiline : null,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.black),
         onChanged: widget.onChanged,
         obscureText: isPassword,
         decoration:
