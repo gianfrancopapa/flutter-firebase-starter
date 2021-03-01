@@ -1,18 +1,91 @@
-# Somnio's Flutter Boilerplate
+# Flutter Firebase Starter
 
-This project was developed by Somnio Software as an app to be used as a boilerplate, making easy to start developing new apps or projects and as a repository to reuse generic widgets, services, models, etc. previously implemented on a working project.
+[![Somnio Software](assets/logo-somnio.jpg)][somnio_software_link]
+
+Developed by Somnio Software
+
+[![License: MIT][license_badge]][license_link]
+
+---
+
+### Firebase features out of the box
+
+✅&nbsp; Crashlytics - 
+
+✅&nbsp; Analytics -
+
+✅&nbsp; Cloud messaging - 
+
+✅&nbsp; Authentication - 
+
+✅&nbsp; Firestore
+
+✅&nbsp; Real time database -
+
+✅&nbsp; Storage -
+
+✅&nbsp;
+
+- [ ] Real time database 
+
+- [ ] Dynamic links
+
+- [ ] Remote Config
+
+- [ ] Performance
+
+---
 
 ### Supported sign-in methods
 
-- [x] Anonymous
-- [x] Email & Password
+&nbsp;✅&nbsp; Anonymous
+
+&nbsp;✅&nbsp; Email & Password
+
+&nbsp;✅&nbsp; Facebook
+
+&nbsp;✅&nbsp; Google
+
+&nbsp;✅&nbsp; Apple
+
 - [ ] Email link (passwordless)
-- [x] Facebook
+
 - [ ] GitHub
-- [x] Google
-- [x] Apple
+
 - [ ] Phone
+
 - [ ] Twitter
+
+---
+
+### Other Cool features
+
+✅&nbsp; Flavors - 
+
+✅&nbsp; Internationalization - 
+
+✅&nbsp; Contionous integration & Continous deployment -
+
+---
+
+
+---
+---
+---
+
+### Project Structure
+
+```bash
+├── bloc
+    └──
+├── constants
+├── models
+├── screens
+├── services
+├── widgets
+└── README.md
+```
+---
 
 ### Other authentication features
 
@@ -119,3 +192,9 @@ Firebase Crashlytics Testing
 - Crash reporting happens only when the app is restarted after a crash.
 - Goto Crashlytics in Firebase project. Wait for sometime as it can take a few minutes for crashes to appear.
 - Refer more here: https://firebase.flutter.dev/docs/crashlytics/overview/
+
+
+
+[somnio_software_link]: https://somniosoftware.com/
+[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[license_link]: https://opensource.org/licenses/MIT

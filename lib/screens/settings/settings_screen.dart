@@ -1,4 +1,4 @@
-import 'package:firebasestarter/services/app_info/package_info.dart';
+import 'package:firebasestarter/widgets/settings/app_version.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
@@ -35,22 +35,8 @@ class SettingsScreen extends StatelessWidget {
                 text: AppLocalizations.of(context).logout,
                 onTap: () => _bloc.add(const StartLogout()),
               ),
-              ListTile(
-                enabled: false,
-                title: Text(
-                  AppLocalizations.of(context).version,
-                  style: TextStyle(color: Colors.grey[200]),
-                ),
-                trailing: FutureBuilder(
-                  future: AppInfo().getVersionNumber(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<String> snapshot) =>
-                          Text(
-                    snapshot.hasData ? snapshot.data : 'Loading ...',
-                    style: TextStyle(color: Colors.grey[200]),
-                  ),
-                ),
-              ),
+              const SizedBox(height: 10),
+              AppVersion(),
             ],
           ),
         ),

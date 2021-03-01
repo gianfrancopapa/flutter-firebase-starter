@@ -24,9 +24,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
     super.initState();
   }
 
-  void _onFirstNameChanged(String firstName) =>
-      _bloc.onFirstNameChanged(firstName);
-  void _onLastNameChanged(String lastName) => _bloc.onLastNameChanged(lastName);
   void _navigateToProfileScreen() async {
     Navigator.pop(
         context, MaterialPageRoute(builder: (context) => ProfileScreen()));
@@ -47,56 +44,49 @@ class _EditProfileFormState extends State<EditProfileForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-          child: ImagePickerButton(
-            dispatchImageFromCamera: _bloc.pickImageFromCamera,
-            dispatchImageFromGallery: _bloc.pickImageFromGallery,
-            child: CircleAvatar(
-              child: BlocConsumer<EditProfileBloc, EditProfileState>(
-                cubit: _bloc,
-                listener: (context, state) {
-                  if (state.runtimeType == ProfileEdited) {
-                    _navigateToProfileScreen();
-                  }
-                },
-                builder: (context, state) => _determineImageSource(state),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      child: ListView(
+        children: [
+          Center(
+            child: ImagePickerButton(
+              dispatchImageFromCamera: _bloc.pickImageFromCamera,
+              dispatchImageFromGallery: _bloc.pickImageFromGallery,
+              child: CircleAvatar(
+                child: BlocConsumer<EditProfileBloc, EditProfileState>(
+                  cubit: _bloc,
+                  listener: (context, state) {
+                    if (state.runtimeType == ProfileEdited) {
+                      _navigateToProfileScreen();
+                    }
+                  },
+                  builder: (context, state) => _determineImageSource(state),
+                ),
+                radius: 55,
+                backgroundColor: Colors.white,
               ),
-              radius: 55,
-              backgroundColor: const Color(0xffFDCF09),
             ),
           ),
-        ),
-        Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          child: ListView(
-            padding:
-                const EdgeInsets.symmetric(vertical: 40.0, horizontal: 0.0),
-            children: [
-              TextFieldBuilder(
-                stream: _bloc.firstName,
-                labelText: Strings.firstName,
-                onChanged: _onFirstNameChanged,
-              ),
-              TextFieldBuilder(
-                stream: _bloc.lastName,
-                labelText: Strings.lastName,
-                onChanged: _onLastNameChanged,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(36.0),
-                child: Button(
-                  width: MediaQuery.of(context).size.width / 2,
-                  text: Strings.editProfile,
-                  onTap: _bloc.editProfile,
-                ),
-              ),
-            ],
+          TextFieldBuilder(
+            stream: _bloc.firstName,
+            labelText: Strings.firstName,
+            onChanged: (firstName) => _bloc.onFirstNameChanged(firstName),
           ),
-        )
-      ],
+          TextFieldBuilder(
+            stream: _bloc.lastName,
+            labelText: Strings.lastName,
+            onChanged: (lastName) => _bloc.onLastNameChanged(lastName),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(36.0),
+            child: Button(
+              width: MediaQuery.of(context).size.width / 2,
+              text: Strings.editProfile,
+              onTap: _bloc.editProfile,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
