@@ -111,3 +111,11 @@ Additional setup instructions for Google, Apple and Facebook sign-in:
 - Facebook Login for Android: [https://developers.facebook.com/docs/facebook-login/android](https://developers.facebook.com/docs/facebook-login/android)
 - Facebook Login for iOS: [https://developers.facebook.com/docs/facebook-login/ios](https://developers.facebook.com/docs/facebook-login/ios)
 - Apple Sign-in: [https://pub.dev/packages/sign_in_with_apple](https://pub.dev/packages/sign_in_with_apple)
+
+Firebase Crashlytics Testing
+- To test the crash reporting, the app be can forced crash using following line:
+     `FirebaseCrashlytics.instance.crash();`
+     Above line can be put anywhere where we want the crash to happen.
+- Crash reporting happens only when the app is restarted after a crash.
+- Goto Crashlytics in Firebase project. Wait for sometime as it can take a few minutes for crashes to appear.
+- Refer more here: https://firebase.flutter.dev/docs/crashlytics/overview/
