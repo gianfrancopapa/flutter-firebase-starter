@@ -1,5 +1,7 @@
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/screens/init_app.dart';
+import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/notifications/notifications_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,6 +47,9 @@ class _FirebaseStarterState extends State<FirebaseStarter> {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       home: DetermineAccessScreen(),
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: FirebaseAnalyticsService.instance),
+      ],
     );
   }
 }

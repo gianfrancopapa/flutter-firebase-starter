@@ -1,3 +1,4 @@
+import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebasestarter/bloc/create_account/create_account_event.dart';
@@ -21,6 +22,7 @@ class CreateAccountBloc extends CreateAccountFormBloc {
   @protected
   @override
   Stream<CreateAccountState> createAccountWithEmail() async* {
+    FirebaseAnalyticsService.instance.logSignUp(signUpMethod: 'email');
     yield const Loading();
     if (passwordConfirmationController.value != passwordController.value) {
       yield const Error('Error: Passwords doesn\'t match.');
