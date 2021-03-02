@@ -185,13 +185,20 @@ Additional setup instructions for Google, Apple and Facebook sign-in:
 - Facebook Login for iOS: [https://developers.facebook.com/docs/facebook-login/ios](https://developers.facebook.com/docs/facebook-login/ios)
 - Apple Sign-in: [https://pub.dev/packages/sign_in_with_apple](https://pub.dev/packages/sign_in_with_apple)
 
-Firebase Crashlytics Testing
+Firebase Crashlytics Testing:
 - To test the crash reporting, the app be can forced crash using following line:
      `FirebaseCrashlytics.instance.crash();`
      Above line can be put anywhere where we want the crash to happen.
 - Crash reporting happens only when the app is restarted after a crash.
 - Goto Crashlytics in Firebase project. Wait for sometime as it can take a few minutes for crashes to appear.
-- Refer more here: https://firebase.flutter.dev/docs/crashlytics/overview/
+- Flutter package: https://pub.dev/packages/firebase_crashlytics
+- Learn more: https://firebase.flutter.dev/docs/crashlytics/overview/
+
+Firebase Analytics:
+- To log an event, [predefined methods](https://pub.dev/documentation/firebase_analytics/latest/firebase_analytics/FirebaseAnalytics-class.html#instance-methods) can be used. There is also a method named `logEvent` which allows to log any custom event with custom values. 
+- After configuring Firebase Analytics correctly, it can take some minutes or some hours to show up the events in Analytics Dashboard of Firebase Console. To track the events nearly in rear-time, [DebugView](https://firebase.google.com/docs/analytics/debugview) can be used.
+- Flutter package: https://pub.dev/packages/firebase_analytics
+- Learn more: https://firebase.flutter.dev/docs/analytics/overview
 
 
 
