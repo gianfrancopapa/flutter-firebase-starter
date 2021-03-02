@@ -17,14 +17,62 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   UserBloc _bloc;
-  bool _isAnon;
-
   @override
   void initState() {
     _bloc = UserBloc();
     _bloc.add(const GetUser());
     super.initState();
   }
+
+  List<Widget> _appBarActions(bool isAnonymous) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.settings),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SettingsScreen(),
+          ),
+        ),
+      ),
+      if (!isAnonymous) ...[
+        IconButton(
+          icon: const Icon(
+            FeatherIcons.penTool,
+            color: Colors.white,
+          ),
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EditProfileScreen(),
+            ),
+          ),
+        )
+      ]
+    ];
+  }
+
+  Widget customRow(String cardText, String text) => Container(
+        padding: const EdgeInsets.all(15.0),
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height * 0.01,
+        ),
+        child: Row(
+          children: [
+            Text(
+              cardText,
+              style: const TextStyle(
+                fontSize: 18.0,
+                color: Colors.black,
+              ),
+            ),
+            Text(
+              text,
+              style: const TextStyle(fontSize: 18.0, color: Colors.black),
+            ),
+          ],
+        ),
+      );
 
   @override
   Widget build(BuildContext context) => BlocBuilder<UserBloc, UserState>(
@@ -45,46 +93,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               );
             case CurrentUser:
               final user = (state as CurrentUser).user;
-              _isAnon = user.isAnonymous;
               return Scaffold(
                 appBar: AppBar(
-                    leading: const SizedBox(),
-                    automaticallyImplyLeading: false,
-                    title: const Text(Strings.myProfile),
-                    actions: _isAnon
-                        ? <Widget>[
-                            IconButton(
-                              icon: const Icon(Icons.settings),
-                              onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SettingsScreen(),
-                                ),
-                              ),
-                            ),
-                          ]
-                        : <Widget>[
-                            IconButton(
-                              icon: const Icon(Icons.settings),
-                              onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SettingsScreen(),
-                                ),
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                FeatherIcons.penTool,
-                                color: Colors.white,
-                              ),
-                              onPressed: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => EditProfileScreen(),
-                                  )),
-                            )
-                          ]),
+                  leading: const SizedBox(),
+                  automaticallyImplyLeading: false,
+                  title: const Text(Strings.myProfile),
+                  actions: _appBarActions(user.isAnonymous),
+                ),
                 body: Container(
                   child: Column(
                     children: [
@@ -110,27 +125,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
               );
           }
         },
-      );
-
-  Widget customRow(String cardText, String text) => Container(
-        padding: const EdgeInsets.all(15.0),
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height * 0.01,
-        ),
-        child: Row(
-          children: [
-            Text(
-              cardText,
-              style: const TextStyle(
-                fontSize: 18.0,
-                color: Colors.white,
-              ),
-            ),
-            Text(
-              text,
-              style: const TextStyle(fontSize: 18.0, color: Colors.white),
-            ),
-          ],
-        ),
       );
 }

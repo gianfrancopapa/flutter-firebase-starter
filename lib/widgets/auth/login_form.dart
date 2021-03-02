@@ -1,3 +1,4 @@
+import 'package:firebasestarter/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
@@ -41,17 +42,6 @@ class _LoginFormState extends State<LoginForm> {
           builder: (context) => ForgotPasswordScreen(),
         ),
       );
-
-  void _determineAction(LoginState state) {
-    if (state.runtimeType == ErrorLogin) {
-      DialogHelper.showAlertDialog(
-        context: context,
-        story: (state as ErrorLogin).message,
-        btnText: 'Close',
-        btnAction: () => Navigator.pop(context),
-      );
-    }
-  }
 
   Widget _customLoginForm() => Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -143,7 +133,25 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) => BlocConsumer<LoginBloc, LoginState>(
         cubit: _bloc,
-        listener: (context, state) => _determineAction(state),
+        listener: (context, state) {
+          if (state.runtimeType == ErrorLogin) {
+            DialogHelper.showAlertDialog(
+              context: context,
+              story: (state as ErrorLogin).message,
+              btnText: 'Close',
+              btnAction: () => Navigator.pop(context),
+            );
+          }
+          if (state.runtimeType == LoggedIn) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    HomeScreen((state as LoggedIn).currentUser),
+              ),
+            );
+          }
+        },
         builder: (context, state) => ListView(
           shrinkWrap: true,
           children: [
