@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/bloc/login/login_state.dart';
+import 'package:get_it/get_it.dart';
 
 class LoginBloc extends LoginFormBloc {
   final _auth = FirebaseAuthService();
-
+  final GetIt _getIt = GetIt.instance;
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     switch (event.runtimeType) {
@@ -41,7 +42,7 @@ class LoginBloc extends LoginFormBloc {
   @protected
   @override
   Stream<LoginState> login() async* {
-    FirebaseAnalyticsService.instance.logLogin(loginMethod: 'email');
+    _getIt<AnalyticsService>().logLogin('email');
     yield const Loading();
     try {
       final user = await _auth.signInWithEmailAndPassword(
@@ -57,7 +58,7 @@ class LoginBloc extends LoginFormBloc {
   @protected
   Stream<LoginState> signIn(
       Future<User> Function() signInMethod, String loginMethod) async* {
-    FirebaseAnalyticsService.instance.logLogin(loginMethod: loginMethod);
+    _getIt<AnalyticsService>().logLogin(loginMethod);
     yield const Loading();
     try {
       final user = await signInMethod();
@@ -70,7 +71,7 @@ class LoginBloc extends LoginFormBloc {
   @protected
   @override
   Stream<LoginState> logout() async* {
-    FirebaseAnalyticsService.instance.logEvent(name: 'logout');
+    _getIt<AnalyticsService>().logLogout();
     yield const Loading();
     try {
       await _auth.signOut();

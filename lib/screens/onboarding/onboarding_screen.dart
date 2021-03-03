@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/screens/auth/login_screen.dart';
+import 'package:get_it/get_it.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:firebasestarter/constants/assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,9 +16,10 @@ class OnBoardingScreen extends StatefulWidget {
 
 class OnBoardingScreenState extends State<OnBoardingScreen>
     with TickerProviderStateMixin {
+  final GetIt _getIt = GetIt.instance;
   @override
   void initState() {
-    FirebaseAnalyticsService.instance.logTutorialBegin();
+    _getIt<AnalyticsService>().logTutorialBegin();
     super.initState();
   }
 
@@ -83,7 +85,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
           ),
         ],
         onDone: () {
-          FirebaseAnalyticsService.instance.logTutorialComplete();
+          _getIt<AnalyticsService>().logTutorialComplete();
           return Navigator.push(
               context, MaterialPageRoute(builder: (context) => LoginScreen()));
         },

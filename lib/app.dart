@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 
 class App extends StatefulWidget {
   @override
@@ -48,7 +49,8 @@ class _FirebaseStarterState extends State<FirebaseStarter> {
       supportedLocales: AppLocalizations.supportedLocales,
       home: DetermineAccessScreen(),
       navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: FirebaseAnalyticsService.instance),
+        FirebaseAnalyticsObserver(
+            analytics: GetIt.I.get<AnalyticsService>().firebaseAnalytics),
       ],
     );
   }
