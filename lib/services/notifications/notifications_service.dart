@@ -29,7 +29,7 @@ class NotificationService {
   void _configureService() {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
-        await _localNotificationService.showNotification();
+        await _localNotificationService.showNotification(message);
       },
       onLaunch: (Map<String, dynamic> message) async {
         _onNotificationChanged(message);

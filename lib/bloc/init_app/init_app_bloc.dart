@@ -22,6 +22,7 @@ class InitAppBloc extends Bloc<FirstTimeInAppEvent, FirstTimeInAppState> {
 
   Stream<FirstTimeInAppState> _checkIfFirstTime() async* {
     yield const Loading();
+    SharedPreferences.setMockInitialValues({});
     final prefs = await SharedPreferences.getInstance();
     final result = (prefs.getBool(_isFirstTime) ?? true);
     if (result) {
