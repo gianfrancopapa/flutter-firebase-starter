@@ -18,9 +18,7 @@ Developed by Somnio Software
 
 ✅&nbsp; Authentication - 
 
-✅&nbsp; Firestore
-
-✅&nbsp; Real time database -
+✅&nbsp; Firestore - 
 
 ✅&nbsp; Storage -
 

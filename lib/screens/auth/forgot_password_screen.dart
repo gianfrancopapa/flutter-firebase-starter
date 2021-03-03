@@ -16,67 +16,62 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   ForgotPasswordBloc _bloc;
 
-  void _onEmailChanged(String email) => _bloc.onEmailChanged(email);
-
-  void _dispatchForgotPasswordEvent() => _bloc.add(const ForgotPassword());
-
-  void _goToLoginScreen() => Navigator.pop(context);
-
-  void _determineAction(ForgotPasswordState state) {
-    if (state.runtimeType == EmailSent) {
-      DialogHelper.showAlertDialog(
-        context: context,
-        story: AppLocalizations.of(context).emailSended,
-        btnText: AppLocalizations.of(context).ok,
-        btnAction: () => _goToLoginScreen(),
-      );
-    }
-  }
-
   @override
   void initState() {
     _bloc = ForgotPasswordBloc();
     super.initState();
   }
 
+  Widget _body() => BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
+        cubit: _bloc,
+        listener: (context, state) {
+          if (state.runtimeType == EmailSent) {
+            DialogHelper.showAlertDialog(
+              context: context,
+              story: AppLocalizations.of(context).emailSended,
+              btnText: AppLocalizations.of(context).ok,
+              btnAction: () => Navigator.pop(context),
+            );
+          }
+        },
+        builder: (BuildContext context, state) => Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                height: MediaQuery.of(context).size.height / 2,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFieldBuilder(
+                      stream: _bloc.email,
+                      labelText: AppLocalizations.of(context).email,
+                      onChanged: (email) => _bloc.onEmailChanged(email),
+                      margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Button(
+                text: AppLocalizations.of(context).send,
+                onTap: () => _bloc.add(const ForgotPassword()),
+              ),
+            ],
+          ),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context).forgotPassword),
         ),
-        body: BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
-          cubit: _bloc,
-          listener: (context, state) => _determineAction(state),
-          builder: (BuildContext context, state) => Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-            child: Column(
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height / 2,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextFieldBuilder(
-                        stream: _bloc.email,
-                        labelText: AppLocalizations.of(context).email,
-                        onChanged: _onEmailChanged,
-                        margin: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).size.height * 0.02,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Button(
-                    text: AppLocalizations.of(context).send,
-                    onTap: _dispatchForgotPasswordEvent),
-              ],
-            ),
-          ),
-        ),
+        body: _body(),
       );
+
   @override
   void dispose() {
     _bloc.close();
