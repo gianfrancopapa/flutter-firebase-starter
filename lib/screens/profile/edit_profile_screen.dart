@@ -1,3 +1,4 @@
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -27,8 +28,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Widget _userImage() => Center(
         child: ImagePickerButton(
-          dispatchImageFromCamera: _bloc.pickImageFromCamera,
-          dispatchImageFromGallery: _bloc.pickImageFromGallery,
+          dispatchImageFromCamera: () => _bloc.add(UploadPhotoWithCamera()),
+          dispatchImageFromGallery: () => _bloc.add(UpdatePhotoWithLibrary()),
           child: CircleAvatar(
             child: BlocConsumer<EditProfileBloc, EditProfileState>(
               cubit: _bloc,
@@ -73,7 +74,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: Button(
           width: MediaQuery.of(context).size.width / 2,
           text: Strings.editProfile,
-          onTap: _bloc.editProfile,
+          onTap: () => _bloc.add(UpdateProfileInfo()),
         ),
       );
 

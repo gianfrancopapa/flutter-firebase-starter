@@ -160,6 +160,10 @@ Developed by Somnio Software
 - [x] Custom App light and dark theme
 - [x] Abstracted general widgets as buttons, text fields, lists, etc.
 
+
+### Coming soon
+- error management 
+
 ## Running the project with Firebase
 
 To use this project with Firebase authentication, some configuration steps are required.

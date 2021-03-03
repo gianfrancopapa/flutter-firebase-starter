@@ -1,11 +1,12 @@
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
 import 'package:firebasestarter/mixins/validation_mixin.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-abstract class EditProfileFormBloc extends Cubit<EditProfileState>
-    with ValidationMixin {
+abstract class EditProfileFormBloc
+    extends Bloc<EditProfileEvent, EditProfileState> with ValidationMixin {
   @protected
   final firstNameController = BehaviorSubject<String>.seeded('');
   @protected
