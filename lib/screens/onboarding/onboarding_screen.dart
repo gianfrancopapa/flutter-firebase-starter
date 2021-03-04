@@ -17,10 +17,11 @@ class OnBoardingScreen extends StatefulWidget {
 
 class OnBoardingScreenState extends State<OnBoardingScreen>
     with TickerProviderStateMixin {
-  final GetIt _getIt = GetIt.instance;
+  AnalyticsService _analyticsService;
   @override
   void initState() {
-    _getIt<AnalyticsService>().logTutorialBegin();
+    _analyticsService = GetIt.I.get<AnalyticsService>();
+    _analyticsService.logTutorialBegin();
     super.initState();
   }
 
@@ -91,10 +92,13 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
     return Scaffold(
       body: IntroductionScreen(
         pages: _pages(),
-        onDone: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => LoginScreen()),
-        ),
+        onDone: () {
+          _analyticsService.logTutorialComplete();
+          return Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+          );
+        },
         showSkipButton: true,
         skipFlex: 0,
         nextFlex: 0,

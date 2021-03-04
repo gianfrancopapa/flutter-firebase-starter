@@ -1,5 +1,5 @@
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
-import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
+import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebasestarter/bloc/create_account/create_account_event.dart';
 import 'package:firebasestarter/bloc/create_account/create_account_state.dart';
@@ -7,7 +7,11 @@ import 'package:firebasestarter/bloc/forms/create_account_form.dart';
 import 'package:get_it/get_it.dart';
 
 class CreateAccountBloc extends CreateAccountFormBloc {
-  final _firebaseAuth = FirebaseAuthService();
+  AuthService _authService;
+
+  CreateAccountBloc() {
+    _authService = GetIt.I.get<AuthService>();
+  }
 
   @override
   Stream<CreateAccountState> mapEventToState(CreateAccountEvent event) async* {
@@ -30,7 +34,7 @@ class CreateAccountBloc extends CreateAccountFormBloc {
       return;
     }
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
+      await _authService.createUserWithEmailAndPassword(
         emailController.value,
         passwordController.value,
       );
