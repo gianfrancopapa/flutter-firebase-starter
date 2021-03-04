@@ -1,4 +1,5 @@
 import 'package:firebasestarter/models/user.dart';
+import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
@@ -9,10 +10,12 @@ import 'package:get_it/get_it.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   static const _errEvent = 'Error: Invalid event in [login_bloc.dart]';
   AuthService _authService;
+  AnalyticsService _analyticsService;
   final form = LoginFormBloc();
 
   LoginBloc() : super(const NotDetermined()) {
     _authService = GetIt.I<AuthService>();
+    _analyticsService = GetIt.I<AnalyticsService>();
   }
 
   @override
@@ -58,7 +61,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Stream<LoginState> _signIn(
-      Future<User> Function() signInMethod, String provider) async* {
+      Future<User> Function() signInMethod, String loginMethod) async* {
+    _analyticsService.logLogin(loginMethod);
     yield const Loading();
     try {
       final user = await signInMethod();
@@ -69,6 +73,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Stream<LoginState> _logout() async* {
+    _analyticsService.logLogout();
     yield const Loading();
     try {
       await _authService.signOut();

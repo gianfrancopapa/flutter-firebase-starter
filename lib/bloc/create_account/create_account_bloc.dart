@@ -1,6 +1,5 @@
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:firebasestarter/bloc/create_account/create_account_event.dart';
 import 'package:firebasestarter/bloc/create_account/create_account_state.dart';
 import 'package:firebasestarter/bloc/forms/create_account_form.dart';
