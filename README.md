@@ -11,24 +11,36 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 ### Firebase features out of the box
 
 ✅&nbsp; Crashlytics
+
 ✅&nbsp; Analytics
+
 ✅&nbsp; Cloud messaging
+
 ✅&nbsp; Authentication
+
 ✅&nbsp; Firestore
+
 ✅&nbsp; Storage
+
 ✅&nbsp; Dynamic links
+
 ✅&nbsp; Remote config
 
 ---
 
 ### Supported sign-in methods
 
-&nbsp;✅&nbsp; Anonymous
-&nbsp;✅&nbsp; Email & Password
-&nbsp;✅&nbsp; Facebook
-&nbsp;✅&nbsp; Google
-&nbsp;✅&nbsp; Apple
-&nbsp;✅&nbsp; Email link (passwordless)
+✅&nbsp; Anonymous
+
+✅&nbsp; Email & Password
+
+✅&nbsp; Facebook
+
+✅&nbsp; Google
+
+✅&nbsp; Apple
+
+✅&nbsp; Email link (passwordless)
 
 ---
 
