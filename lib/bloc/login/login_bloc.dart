@@ -1,50 +1,52 @@
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
-import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/bloc/login/login_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginBloc extends LoginFormBloc {
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  static const _errEvent = 'Error: Invalid event in [login_bloc.dart]';
   final _auth = FirebaseAuthService();
+  final form = LoginFormBloc();
+
+  LoginBloc() : super(const NotDetermined());
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     switch (event.runtimeType) {
       case StartLogin:
-        yield* login();
+        yield* _login();
         break;
       case StartGoogleLogin:
-        yield* signIn(_auth.signInWithGoogle);
+        yield* _signIn(_auth.signInWithGoogle);
         break;
       case StartAppleLogin:
-        yield* signIn(_auth.signInWithApple);
+        yield* _signIn(_auth.signInWithApple);
         break;
       case StartFacebookLogin:
-        yield* signIn(_auth.signInWithFacebook);
+        yield* _signIn(_auth.signInWithFacebook);
         break;
       case StartAnonymousLogin:
-        yield* signIn(_auth.signInAnonymously);
+        yield* _signIn(_auth.signInAnonymously);
         break;
       case StartLogout:
-        yield* logout();
+        yield* _logout();
         break;
       case CheckIfUserIsLoggedIn:
         yield* _checkIfUserIsLoggedIn();
         break;
       default:
-        yield const ErrorLogin('Undetermined event');
+        yield const ErrorLogin(_errEvent);
     }
   }
 
-  @protected
-  @override
-  Stream<LoginState> login() async* {
+  Stream<LoginState> _login() async* {
     yield const Loading();
     try {
       final user = await _auth.signInWithEmailAndPassword(
-        emailController.value,
-        passwordController.value,
+        form.emailValue,
+        form.passwordValue,
       );
       yield LoggedIn(user);
     } catch (e) {
@@ -52,8 +54,7 @@ class LoginBloc extends LoginFormBloc {
     }
   }
 
-  @protected
-  Stream<LoginState> signIn(Future<User> Function() signInMethod) async* {
+  Stream<LoginState> _signIn(Future<User> Function() signInMethod) async* {
     yield const Loading();
     try {
       final user = await signInMethod();
@@ -63,9 +64,7 @@ class LoginBloc extends LoginFormBloc {
     }
   }
 
-  @protected
-  @override
-  Stream<LoginState> logout() async* {
+  Stream<LoginState> _logout() async* {
     yield const Loading();
     try {
       await _auth.signOut();

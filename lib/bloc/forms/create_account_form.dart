@@ -1,49 +1,29 @@
 import 'package:firebasestarter/mixins/validation_mixin.dart';
-import 'package:flutter/material.dart';
-import 'package:firebasestarter/bloc/create_account/create_account_event.dart';
-import 'package:firebasestarter/bloc/create_account/create_account_state.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-abstract class CreateAccountFormBloc
-    extends Bloc<CreateAccountEvent, CreateAccountState> with ValidationMixin {
-  @protected
-  final firstNameController = BehaviorSubject<String>.seeded('');
-  @protected
-  final lastNameController = BehaviorSubject<String>.seeded('');
-  @protected
-  final emailController = BehaviorSubject<String>.seeded('');
-  @protected
-  final passwordController = BehaviorSubject<String>.seeded('');
-  @protected
-  final passwordConfirmationController = BehaviorSubject<String>.seeded('');
-
-  CreateAccountFormBloc() : super(const NotDetermined());
+class CreateAccountFormBloc with ValidationMixin {
+  final _firstNameController = BehaviorSubject<String>.seeded('');
+  final _lastNameController = BehaviorSubject<String>.seeded('');
+  final _emailController = BehaviorSubject<String>.seeded('');
+  final _passwordController = BehaviorSubject<String>.seeded('');
+  final _passwordConfirmationController = BehaviorSubject<String>.seeded('');
 
   Stream<String> get firstName =>
-      firstNameController.transform(alphabeticTransfomer);
-
+      _firstNameController.transform(alphabeticTransfomer);
   Stream<String> get lastName =>
-      lastNameController.transform(alphabeticTransfomer);
-
-  Stream<String> get email => emailController.transform(emailTransfomer);
-
+      _lastNameController.transform(alphabeticTransfomer);
+  Stream<String> get email => _emailController.transform(emailTransfomer);
   Stream<String> get password =>
-      passwordController.transform(passwordTransfomer);
-
+      _passwordController.transform(passwordTransfomer);
   Stream<String> get passwordConfirmation =>
-      passwordConfirmationController.transform(passwordTransfomer);
+      _passwordConfirmationController.transform(passwordTransfomer);
 
-  Function(void) get onFirstNameChanged => firstNameController.sink.add;
-
-  Function(void) get onLastNameChanged => lastNameController.sink.add;
-
-  Function(void) get onEmailChanged => emailController.sink.add;
-
-  Function(void) get onPasswordChanged => passwordController.sink.add;
-
+  Function(void) get onFirstNameChanged => _firstNameController.sink.add;
+  Function(void) get onLastNameChanged => _lastNameController.sink.add;
+  Function(void) get onEmailChanged => _emailController.sink.add;
+  Function(void) get onPasswordChanged => _passwordController.sink.add;
   Function(void) get onPasswordConfirmationChanged =>
-      passwordConfirmationController.sink.add;
+      _passwordConfirmationController.sink.add;
 
   Stream<bool> get activateButton => Rx.combineLatest2<String, String, bool>(
         email,
@@ -51,5 +31,9 @@ abstract class CreateAccountFormBloc
         (email, password) => true,
       );
 
-  Stream<CreateAccountState> createAccountWithEmail();
+  String get firstNameVal => _firstNameController.value;
+  String get lastNameVal => _lastNameController.value;
+  String get emailVal => _emailController.value;
+  String get passwordVal => _passwordController.value;
+  String get passwordConfVal => _passwordConfirmationController.value;
 }
