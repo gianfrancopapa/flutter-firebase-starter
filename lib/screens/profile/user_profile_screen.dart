@@ -25,16 +25,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _settingsIcon() => InkWell(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SettingsScreen(),
-          ),
-        ),
+        onTap: () async {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SettingsScreen(),
+            ),
+          );
+          //To update name, lastName and image
+          setState(() {});
+        },
         child: Container(
           margin: const EdgeInsets.only(right: 15.0),
-          child:
-              const Icon(Feather.settings, color: AppColor.white, size: 20.0),
+          child: const Icon(
+            Feather.settings,
+            color: AppColor.white,
+            size: 20.0,
+          ),
         ),
       );
 

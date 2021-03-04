@@ -13,10 +13,11 @@ class FirebaseAuthService implements AuthService {
     if (user == null) {
       return null;
     }
+    final splittedName = user.displayName.split(' ');
     final map = <String, dynamic>{
       'id': user.uid ?? '',
-      'firstName': user.displayName ?? '',
-      'lastName': user.displayName ?? '',
+      'firstName': splittedName.first ?? '',
+      'lastName': splittedName.last ?? '',
       'email': user.email ?? '',
       'emailVerified': user.emailVerified ?? false,
       'imageUrl': user.photoURL ?? '',

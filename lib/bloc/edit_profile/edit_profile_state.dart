@@ -1,3 +1,5 @@
+import 'package:firebasestarter/models/user.dart';
+
 abstract class EditProfileState {
   const EditProfileState();
 }
@@ -22,4 +24,9 @@ class Error extends EditProfileState {
 
 class Loading extends EditProfileState {
   const Loading();
+}
+
+class CurrentUser extends EditProfileState {
+  final User user;
+  const CurrentUser(this.user);
 }
