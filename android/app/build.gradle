@@ -55,6 +55,22 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "app"
+
+    productFlavors {
+        prod {
+            dimension "app"
+            resValue "string", "app_name", "firebasestarter"
+            applicationId "com.somniosoftware.firebasestarter"
+        }
+        dev {
+            dimension "app"
+            resValue "string", "app_name", "dev firebasestarter"
+            versionNameSuffix "-dev"
+            applicationId "com.somniosoftware.firebasestarter.dev"
+        }
+    }
 }
 
 flutter {
