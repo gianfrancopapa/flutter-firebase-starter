@@ -3,21 +3,20 @@ import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
 import 'package:firebasestarter/bloc/forms/edit_profile_form.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
-import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
-import 'package:firebasestarter/services/image_picker/image_picker_service.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
-import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
+import 'package:firebasestarter/services/storage/storage_service.dart';
+import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfileBloc extends EditProfileFormBloc {
   AuthService _authService;
-  FirebaseStorageService _storageService;
+  StorageService _storageService;
   ImageService _imageService;
 
   EditProfileBloc() {
-    _authService = FirebaseAuthService();
-    _storageService = FirebaseStorageService();
-    _imageService = PickImageService();
+    _authService = GetIt.I.get<AuthService>();
+    _storageService = GetIt.I.get<StorageService>();
+    _imageService = GetIt.I.get<ImageService>();
   }
 
   @override
