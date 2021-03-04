@@ -28,7 +28,7 @@ class AnalyticsService {
     logEvent(name: 'logout');
   }
 
-  void logEvent({String name, Map parameters}) {
+  void logEvent({String name, Map<String, dynamic> parameters}) {
     _firebaseAnalytics.logEvent(name: name, parameters: parameters);
     // Add another analytics service here if required
   }
