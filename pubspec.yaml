@@ -38,6 +38,7 @@ dependencies:
   string_validator: ^0.1.4
   flutter_local_notifications: ^3.0.1+3
   flutter_icons: ^1.1.0
+  flutter_svg:
 
 flutter_icons:
   android: true
