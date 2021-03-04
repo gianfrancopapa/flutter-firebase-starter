@@ -202,7 +202,28 @@ Firebase Analytics:
 - Flutter package: https://pub.dev/packages/firebase_analytics
 - Learn more: https://firebase.flutter.dev/docs/analytics/overview
 
-
+Flavors/Development Environments:
+- We have defined theree flavors or enviroments for the app: 
+  1. Development
+  2. Staging
+  3. Production
+- Each of these flavor will use a different firebase project. You can add `google-services.json`(Android) and `GoogleService-info.plist`(iOS)  for each flavor in following locations:
+  - For Android:
+    - `android/app/src/dev`
+    - `android/app/src/staging`
+    - `android/app/src/prod`
+  - For iOS:
+    - `ios/config/dev`
+    - `ios/config/staging`
+    - `ios/config/prod`
+  - Note: For iOS, XCode might not be able to find the files from above locations if you simply copy it there. You need to drag and drop or use Add Files option by right clicking the folder to make sure that they are added to Runner target. 
+- You can use each flavour as follows:
+  - You can run this command in Terminal: `flutter run --flavor FLAVOR_NAME` where FLAVOR_NAME can be replaced with either one of `dev`, `staging`, or `prod`.
+  - We have also provided the launch configuration for VSCode which you can view from the menu: `Run > Open Configurations`
+  - You can easily switch between different configuratons from the Status bar in VSCode.
+- You can get current flavor in Flutter by using `getCurrentFlavor()` method from `AppInfo` class. 
+- More on flavors: https://flutter.dev/docs/deployment/flavors  
+    
 
 [somnio_software_link]: https://somniosoftware.com/
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
