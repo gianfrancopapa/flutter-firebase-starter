@@ -7,7 +7,12 @@ abstract class AuthService {
   Future<User> currentUser();
   Future<User> signInAnonymously();
   Future<User> signInWithEmailAndPassword(String email, String password);
-  Future<User> createUserWithEmailAndPassword(String email, String password);
+  Future<User> createUserWithEmailAndPassword({
+    String name,
+    String lastName,
+    String email,
+    String password,
+  });
   Future<void> sendPasswordResetEmail(String email);
   Future<User> signInWithGoogle();
   Future<User> signInWithFacebook();

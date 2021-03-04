@@ -1,9 +1,12 @@
+import 'package:firebasestarter/models/user.dart';
+
 abstract class CreateAccountState {
   const CreateAccountState();
 }
 
 class AccountCreated extends CreateAccountState {
-  const AccountCreated();
+  final User user;
+  const AccountCreated(this.user);
 }
 
 class Error extends CreateAccountState {

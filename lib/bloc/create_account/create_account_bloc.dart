@@ -1,20 +1,18 @@
-import 'package:firebasestarter/services/analytics/analytics_service.dart';
-import 'package:firebasestarter/services/auth/auth_service.dart';
+import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
 import 'package:firebasestarter/bloc/create_account/create_account_event.dart';
 import 'package:firebasestarter/bloc/create_account/create_account_state.dart';
 import 'package:firebasestarter/bloc/forms/create_account_form.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CreateAccountBloc extends CreateAccountFormBloc {
-  AuthService _authService;
-  AnalyticsService _analyticsService;
+class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
   static const _errEvent = 'Error: Invalid event in [create_account_bloc.dart]';
+  static const _errPasswordMismatch = 'Error: Passwords doesn\'t match.';
+  final _firebaseAuth = FirebaseAuthService();
+  final form = CreateAccountFormBloc();
 
-  CreateAccountBloc() {
-    _authService = GetIt.I.get<AuthService>();
-    _analyticsService = GetIt.I.get<AnalyticsService>();
-  }
+  CreateAccountBloc() : super(const NotDetermined());
 
+  @override
   Stream<CreateAccountState> mapEventToState(CreateAccountEvent event) async* {
     switch (event.runtimeType) {
       case CreateAccount:
@@ -26,14 +24,19 @@ class CreateAccountBloc extends CreateAccountFormBloc {
   }
 
   Stream<CreateAccountState> _createAccountWithEmail() async* {
-    _analyticsService.logSignUp('email');
     yield const Loading();
+    if (form.passwordConfVal != form.passwordVal) {
+      yield const Error(_errPasswordMismatch);
+      return;
+    }
     try {
-      await _authService.createUserWithEmailAndPassword(
-        emailVal,
-        passwordVal,
+      final user = await _firebaseAuth.createUserWithEmailAndPassword(
+        name: form.firstNameVal,
+        lastName: form.lastNameVal,
+        email: form.emailVal,
+        password: form.passwordVal,
       );
-      yield const AccountCreated();
+      yield AccountCreated(user);
     } catch (e) {
       yield Error(e);
     }
