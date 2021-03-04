@@ -1,13 +1,16 @@
 import 'package:firebasestarter/models/user.dart';
+import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
 import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/bloc/login/login_state.dart';
+import 'package:get_it/get_it.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   static const _errEvent = 'Error: Invalid event in [login_bloc.dart]';
   final _auth = FirebaseAuthService();
+  final GetIt _getIt = GetIt.instance;
   final form = LoginFormBloc();
 
   LoginBloc() : super(const NotDetermined());
@@ -19,22 +22,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield* _login();
         break;
       case StartGoogleLogin:
-        yield* _signIn(_auth.signInWithGoogle);
+        yield* _signIn(_auth.signInWithGoogle, 'google');
         break;
       case StartAppleLogin:
-        yield* _signIn(_auth.signInWithApple);
+        yield* _signIn(_auth.signInWithApple, 'apple');
         break;
       case StartFacebookLogin:
-        yield* _signIn(_auth.signInWithFacebook);
+        yield* _signIn(_auth.signInWithFacebook, 'facebook');
         break;
       case StartAnonymousLogin:
-        yield* _signIn(_auth.signInAnonymously);
-        break;
-      case StartLogout:
-        yield* _logout();
-        break;
-      case CheckIfUserIsLoggedIn:
-        yield* _checkIfUserIsLoggedIn();
+        yield* _signIn(_auth.signInAnonymously, 'anonymous');
         break;
       default:
         yield const ErrorLogin(_errEvent);
@@ -42,6 +39,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Stream<LoginState> _login() async* {
+    _getIt<AnalyticsService>().logLogin('email');
     yield const Loading();
     try {
       final user = await _auth.signInWithEmailAndPassword(
@@ -54,7 +52,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  Stream<LoginState> _signIn(Future<User> Function() signInMethod) async* {
+  Stream<LoginState> _signIn(
+      Future<User> Function() signInMethod, String loginMethod) async* {
+    _getIt<AnalyticsService>().logLogin(loginMethod);
     yield const Loading();
     try {
       final user = await signInMethod();
@@ -65,6 +65,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Stream<LoginState> _logout() async* {
+    _getIt<AnalyticsService>().logLogout();
     yield const Loading();
     try {
       await _auth.signOut();
