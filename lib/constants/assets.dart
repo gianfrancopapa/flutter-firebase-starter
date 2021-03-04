@@ -1,5 +1,6 @@
 class Assets {
   Assets._();
+  static const String employeesRoute = 'assets/employees/';
 
   //Splash Screen
   static const String somnioLogo = 'assets/somnio_logo.png';

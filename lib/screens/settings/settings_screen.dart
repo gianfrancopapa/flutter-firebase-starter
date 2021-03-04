@@ -1,4 +1,3 @@
-import 'package:firebasestarter/bloc/forgot_password/forgot_password_state.dart';
 import 'package:firebasestarter/widgets/settings/app_version.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';

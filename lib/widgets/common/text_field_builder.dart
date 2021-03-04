@@ -1,3 +1,4 @@
+import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
@@ -36,13 +37,15 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
     super.initState();
   }
 
-  Widget _showPasswordButton() {
-    if (widget.showPasswordButton) {
-      return IconButton(
-          icon: const Icon(FeatherIcons.eye), onPressed: () => _toggle());
-    }
-    return null;
-  }
+  Widget _showPasswordButton() => widget.showPasswordButton
+      ? Padding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+          child: InkWell(
+            child: const Icon(FeatherIcons.eye),
+            onTap: () => _toggle(),
+          ),
+        )
+      : null;
 
   void _toggle() {
     setState(() {
@@ -50,30 +53,38 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
     });
   }
 
+  Widget _label() => Text(
+        widget.labelText,
+        style: const TextStyle(
+          fontSize: 16.0,
+          color: Colors.black,
+          fontWeight: FontWeight.w500,
+        ),
+      );
+
   InputDecoration _decoration(AsyncSnapshot<String> snapshot) =>
       InputDecoration(
+        hintMaxLines: 1,
+        helperText: '',
         suffixIcon: _showPasswordButton(),
         prefixText: widget.prefix,
         prefixStyle: const TextStyle(color: Colors.black, fontSize: 15.0),
-        contentPadding: const EdgeInsets.only(bottom: -5, top: 2),
-        errorStyle: const TextStyle(height: 0.6),
-        labelText: widget.labelText,
+        errorStyle: const TextStyle(fontSize: 12.0),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey[400]),
         ),
         disabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey[400]),
         ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey[400]),
         ),
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.red),
         ),
-        border: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
+        border: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey[400]),
         ),
-        labelStyle: const TextStyle(fontSize: 15, color: Colors.black),
         errorText: snapshot.hasError ? snapshot.error : null,
       );
 
@@ -107,14 +118,26 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
       );
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        height: 75,
-        child: StreamBuilder<String>(
-          stream: widget.stream,
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
-              widget.withInitialValue
-                  ? _textFieldWithInitialValue(snapshot)
-                  : _textFieldWithoutInitialValue(snapshot),
+  Widget build(BuildContext context) => StreamBuilder<String>(
+        stream: widget.stream,
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
+            Container(
+          alignment: Alignment.bottomCenter,
+          height: 72.0,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _label(),
+              Margin(0, 15.0),
+              Container(
+                alignment: Alignment.bottomCenter,
+                height: 40.0,
+                child: widget.withInitialValue
+                    ? _textFieldWithInitialValue(snapshot)
+                    : _textFieldWithoutInitialValue(snapshot),
+              ),
+            ],
+          ),
         ),
       );
 }

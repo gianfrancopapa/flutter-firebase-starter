@@ -1,4 +1,6 @@
+import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/screens/team/team_screen.dart';
+import 'package:firebasestarter/widgets/home/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/screens/profile/user_profile_screen.dart';
@@ -13,38 +15,21 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _index;
   List<Widget> _screens;
-  final _bottomNavBarItems = [
-    const BottomNavigationBarItem(
-      label: '',
-      icon: Icon(Icons.home),
-    ),
-    const BottomNavigationBarItem(
-      label: '',
-      icon: Icon(Icons.settings),
-    ),
-  ];
 
   @override
   void initState() {
     _index = 0;
-    _screens = [
-      TeamScreen(),
-      ProfileScreen(),
-    ];
+    _screens = [TeamScreen(), ProfileScreen()];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
         body: _screens[_index],
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _index,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          iconSize: 22.0,
-          selectedItemColor: Colors.teal,
-          onTap: (index) => setState(() => _index = index),
-          items: _bottomNavBarItems,
+        backgroundColor: AppColor.lightGrey,
+        bottomNavigationBar: BottomNavBar(
+          _index,
+          (int index) => setState(() => _index = index),
         ),
       );
 }

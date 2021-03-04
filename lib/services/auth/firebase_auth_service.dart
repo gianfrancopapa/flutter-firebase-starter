@@ -13,7 +13,7 @@ class FirebaseAuthService implements AuthService {
     if (user == null) {
       return null;
     }
-    final map = {
+    final map = <String, dynamic>{
       'id': user.uid ?? '',
       'firstName': user.displayName ?? '',
       'lastName': user.displayName ?? '',
