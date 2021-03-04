@@ -29,12 +29,18 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
       yield const Error(_errPasswordMismatch);
       return;
     }
+    if (form.emailVal == null) {
+      yield const Error('Error: Invalid email');
+      return;
+    }
     try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-        form.emailVal,
-        form.passwordVal,
+      final user = await _firebaseAuth.createUserWithEmailAndPassword(
+        name: form.firstNameVal ?? 'Name',
+        lastName: form.lastNameVal ?? 'LastName',
+        email: form.emailVal,
+        password: form.passwordVal,
       );
-      yield const AccountCreated();
+      yield AccountCreated(user);
     } catch (e) {
       yield Error(e);
     }

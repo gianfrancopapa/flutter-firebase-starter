@@ -1,3 +1,4 @@
+import 'package:firebasestarter/screens/home.dart';
 import 'package:firebasestarter/widgets/auth/create_account_form.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => OnBoardingScreen(),
+                  builder: (context) => HomeScreen(state.user),
                 ),
               );
             }
