@@ -12,6 +12,8 @@ import 'package:firebasestarter/widgets/common/image_picker_button.dart';
 import 'package:firebasestarter/widgets/common/text_field_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../bloc/edit_profile/edit_profile_state.dart';
+
 class EditProfileScreen extends StatefulWidget {
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
@@ -45,16 +47,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               },
               builder: (context, state) {
                 if (state.runtimeType == AvatarChanged) {
-                  return Image(
-                    image: CachedNetworkImageProvider(
-                        (state as AvatarChanged).image),
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.fitHeight,
-                  );
+                  final image = (state as AvatarChanged).image;
+                  return image.contains('http')
+                      ? Image(
+                          image: CachedNetworkImageProvider(image),
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.fitHeight,
+                        )
+                      : Image.asset(
+                          image,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.fitHeight,
+                        );
                 }
-                return Image.asset(Assets.anonUser,
-                    width: 100, height: 100, fit: BoxFit.fitHeight);
+                return Image.asset(
+                  Assets.anonUser,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.fitHeight,
+                );
               },
             ),
             radius: 55,

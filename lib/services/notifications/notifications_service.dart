@@ -3,7 +3,6 @@ import 'package:firebasestarter/services/notifications/local_notification_servic
 import 'package:rxdart/subjects.dart';
 
 class NotificationService {
-  final _firebaseMessaging = FirebaseMessaging();
   final _notificationController = BehaviorSubject<Map<String, dynamic>>();
   final _localNotificationService = LocalNotificationService();
 
@@ -27,16 +26,14 @@ class NotificationService {
       _notificationController.sink.add;
 
   void _configureService() {
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        await _localNotificationService.showNotification();
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        _onNotificationChanged(message);
-      },
-      onResume: (Map<String, dynamic> message) async {
-        _onNotificationChanged(message);
-      },
+    FirebaseMessaging.onMessage.listen((event) async {
+      await _localNotificationService.showNotification();
+    });
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (event) => _onNotificationChanged(event.data),
+    );
+    FirebaseMessaging.onBackgroundMessage(
+      (message) => _onNotificationChanged(message.data),
     );
   }
 

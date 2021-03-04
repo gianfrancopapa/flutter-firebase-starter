@@ -7,12 +7,11 @@ import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
 import 'package:firebasestarter/services/image_picker/image_picker_service.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
-import 'package:firebasestarter/services/storage/storage_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfileBloc extends EditProfileFormBloc {
   AuthService _authService;
-  StorageService _storageService;
+  FirebaseStorageService _storageService;
   ImageService _imageService;
 
   EditProfileBloc() {
@@ -42,15 +41,17 @@ class EditProfileBloc extends EditProfileFormBloc {
       Future<PickedFile> Function() uploadMethod) async* {
     yield const Loading();
     try {
+      final user = await _authService.currentUser();
       final image = await uploadMethod();
       if (image == null) {
         yield const Error('Insert valid image');
         return;
       }
-      final user = await _authService.currentUser();
-      final userId = user.id;
-      await _storageService.uploadFile(File(image.path), userId);
-      final imageURL = await _storageService.downloadURL(userId);
+      final extension = image.path.split('.').last;
+      final path = '/users/${user.id}.${extension}';
+      final file = File(image.path);
+      await _storageService.uploadFile(file, path);
+      final imageURL = await _storageService.downloadURL(path);
       await _authService.changeProfile(photoURL: imageURL);
       yield AvatarChanged(imageURL);
     } catch (e) {
