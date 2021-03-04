@@ -9,7 +9,7 @@ class FirebaseStorageService implements StorageService {
   Future<void> uploadFile(File file, String storagePath) async {
     try {
       final storageRef = _firebaseStorage.ref(storagePath);
-      return await storageRef.putFile(file);
+      await storageRef.putFile(file);
     } catch (e) {
       throw e;
     }
@@ -18,7 +18,6 @@ class FirebaseStorageService implements StorageService {
   @override
   Future<String> downloadFile(String storagePath, String localPath) async {
     final downloadToFile = File(localPath);
-
     try {
       await _firebaseStorage.ref(storagePath).writeToFile(downloadToFile);
       return downloadToFile.path;

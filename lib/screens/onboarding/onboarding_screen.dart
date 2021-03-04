@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebasestarter/constants/weights.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/screens/auth/login_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:firebasestarter/constants/assets.dart';
+import 'package:firebasestarter/constants/weights.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -25,8 +27,12 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
     );
   }
 
-  PageViewModel _page(
-      {String title, String bodyText, String asset, Color color}) {
+  PageViewModel _page({
+    String title,
+    String bodyText,
+    String asset,
+    Color color,
+  }) {
     return PageViewModel(
       titleWidget: AutoSizeText(
         title,
@@ -51,41 +57,47 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
     );
   }
 
+  List<PageViewModel> _pages() => [
+        _page(
+          title: AppLocalizations.of(context).welcome,
+          bodyText: AppLocalizations.of(context).pageOne,
+          asset: Assets.somnioLogo,
+          color: Colors.white,
+        ),
+        _page(
+          title: AppLocalizations.of(context).options,
+          bodyText: AppLocalizations.of(context).pageTwo,
+          asset: Assets.onboarding2,
+          color: Colors.white,
+        ),
+        _page(
+          title: AppLocalizations.of(context).documentationOnConfluence,
+          bodyText: AppLocalizations.of(context).pageThree,
+          asset: Assets.onboarding3,
+          color: Colors.white,
+        ),
+      ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IntroductionScreen(
-        pages: [
-          _page(
-            title: AppLocalizations.of(context).welcome,
-            bodyText: AppLocalizations.of(context).pageOne,
-            asset: Assets.somnioLogo,
-            color: Colors.white,
-          ),
-          _page(
-            title: AppLocalizations.of(context).options,
-            bodyText: AppLocalizations.of(context).pageTwo,
-            asset: Assets.onboarding2,
-            color: Colors.white,
-          ),
-          _page(
-            title: AppLocalizations.of(context).documentationOnConfluence,
-            bodyText: AppLocalizations.of(context).pageThree,
-            asset: Assets.onboarding3,
-            color: Colors.white,
-          ),
-        ],
+        pages: _pages(),
         onDone: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginScreen())),
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        ),
         showSkipButton: true,
         skipFlex: 0,
         nextFlex: 0,
         skip: Text(AppLocalizations.of(context).skip),
         next: const Icon(Icons.arrow_forward),
-        done: Text(AppLocalizations.of(context).done,
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-            )),
+        done: Text(
+          AppLocalizations.of(context).done,
+          style: TextStyle(
+            fontWeight: AppWeights.semiBold,
+          ),
+        ),
         dotsDecorator: const DotsDecorator(
           size: Size(10.0, 10.0),
           color: Color(0xFFBDBDBD),

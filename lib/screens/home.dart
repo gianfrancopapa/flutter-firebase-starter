@@ -1,3 +1,4 @@
+import 'package:firebasestarter/screens/team/team_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/screens/profile/user_profile_screen.dart';
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     _index = 0;
     _screens = [
-      ProfileScreen(),
+      TeamScreen(),
       ProfileScreen(),
     ];
     super.initState();

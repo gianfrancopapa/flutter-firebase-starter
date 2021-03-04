@@ -1,3 +1,4 @@
+import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
@@ -14,16 +15,16 @@ class LoginBloc extends LoginFormBloc {
         yield* login();
         break;
       case StartGoogleLogin:
-        yield* googleLogin();
+        yield* signIn(_auth.signInWithGoogle);
         break;
       case StartAppleLogin:
-        yield* appleLogin();
+        yield* signIn(_auth.signInWithApple);
         break;
       case StartFacebookLogin:
-        yield* facebookLogin();
+        yield* signIn(_auth.signInWithFacebook);
         break;
       case StartAnonymousLogin:
-        yield* anonymousLogin();
+        yield* signIn(_auth.signInAnonymously);
         break;
       case StartLogout:
         yield* logout();
@@ -52,43 +53,10 @@ class LoginBloc extends LoginFormBloc {
   }
 
   @protected
-  Stream<LoginState> googleLogin() async* {
+  Stream<LoginState> signIn(Future<User> Function() signInMethod) async* {
     yield const Loading();
     try {
-      final user = await _auth.signInWithGoogle();
-      yield LoggedIn(user);
-    } catch (e) {
-      yield ErrorLogin(e.toString());
-    }
-  }
-
-  @protected
-  Stream<LoginState> appleLogin() async* {
-    yield const Loading();
-    try {
-      final user = await _auth.signInWithApple();
-      yield LoggedIn(user);
-    } catch (e) {
-      yield ErrorLogin(e.toString());
-    }
-  }
-
-  @protected
-  Stream<LoginState> facebookLogin() async* {
-    yield const Loading();
-    try {
-      final user = await _auth.signInWithFacebook();
-      yield LoggedIn(user);
-    } catch (e) {
-      yield ErrorLogin(e.toString());
-    }
-  }
-
-  @protected
-  Stream<LoginState> anonymousLogin() async* {
-    yield const Loading();
-    try {
-      final user = await _auth.signInAnonymously();
+      final user = await signInMethod();
       yield LoggedIn(user);
     } catch (e) {
       yield ErrorLogin(e.toString());

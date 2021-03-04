@@ -2,7 +2,7 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"name": "firebasestarter dev",
+			"name": "Firebase Starter dev",
 			"request": "launch",
 			"type": "dart",
 			"args": [
@@ -11,7 +11,7 @@
 			]
 		},
 		{
-			"name": "firebasestarter staging",
+			"name": "Firebase Starter staging",
 			"request": "launch",
 			"type": "dart",
 			"args": [
@@ -20,7 +20,7 @@
 			]
 		},
 		{
-			"name": "firebasestarter prod",
+			"name": "Firebase Starter prod",
 			"request": "launch",
 			"type": "dart",
 			"args": [
