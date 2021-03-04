@@ -1,3 +1,6 @@
+import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebasestarter/widgets/common/app_bar.dart';
+import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:firebasestarter/bloc/forgot_password/forgot_password_event.dart';
@@ -22,54 +25,45 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     super.initState();
   }
 
-  Widget _body() => BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
-        cubit: _bloc,
-        listener: (context, state) {
-          if (state.runtimeType == EmailSent) {
-            DialogHelper.showAlertDialog(
-              context: context,
-              story: AppLocalizations.of(context).emailSended,
-              btnText: AppLocalizations.of(context).ok,
-              btnAction: () => Navigator.pop(context),
-            );
-          }
-        },
-        builder: (BuildContext context, state) => Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: MediaQuery.of(context).size.height / 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextFieldBuilder(
-                      stream: _bloc.email,
-                      labelText: AppLocalizations.of(context).email,
-                      onChanged: (email) => _bloc.onEmailChanged(email),
-                      margin: EdgeInsets.only(
-                        bottom: MediaQuery.of(context).size.height * 0.02,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Button(
-                text: AppLocalizations.of(context).send,
-                onTap: () => _bloc.add(const ForgotPassword()),
-              ),
-            ],
-          ),
-        ),
-      );
-
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text(AppLocalizations.of(context).forgotPassword),
+        appBar: CustomAppBar(
+          title: AppLocalizations.of(context).forgotPassword,
         ),
-        body: _body(),
+        body: BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
+          cubit: _bloc,
+          listener: (BuildContext context, ForgotPasswordState state) {
+            if (state is EmailSent) {
+              DialogHelper.showAlertDialog(
+                context: context,
+                story: AppLocalizations.of(context).emailSended,
+                btnText: AppLocalizations.of(context).ok,
+                btnAction: () => Navigator.pop(context),
+              );
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 44.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Margin(0.0, 131.0),
+                TextFieldBuilder(
+                  stream: _bloc.form.email,
+                  labelText: AppLocalizations.of(context).email,
+                  onChanged: (email) => _bloc.form.onEmailChanged(email),
+                ),
+                Margin(0.0, 41.0),
+                Button(
+                  text: AppLocalizations.of(context).send,
+                  onTap: () => _bloc.add(const ForgotPassword()),
+                  backgroundColor: AppColor.blue,
+                ),
+              ],
+            ),
+          ),
+        ),
       );
 
   @override

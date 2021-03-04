@@ -1,4 +1,7 @@
-import 'package:firebasestarter/bloc/forgot_password/forgot_password_state.dart';
+import 'package:firebasestarter/constants/assets.dart';
+import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebasestarter/widgets/common/app_bar.dart';
+import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:firebasestarter/widgets/settings/app_version.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
@@ -6,8 +9,8 @@ import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/bloc/login/login_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebasestarter/widgets/common/button.dart';
-import 'package:firebasestarter/widgets/common/loading.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -18,53 +21,49 @@ class _SettingsScreenState extends State<SettingsScreen> {
   LoginBloc _loginBloc;
 
   @override
-  void initState() {
-    _loginBloc = BlocProvider.of<LoginBloc>(context, listen: false);
-    super.initState();
+  void didChangeDependencies() {
+    _loginBloc = BlocProvider.of<LoginBloc>(context);
+    super.didChangeDependencies();
   }
 
-  Widget _body() {
-    return BlocConsumer(
-      cubit: _loginBloc,
-      listener: (context, state) {
-        if (state.runtimeType == LoggedOut) {
-          // TODO: Replace
-          Navigator.popUntil(context, (route) => route.isFirst);
-        }
-      },
-      builder: (BuildContext context, LoginState state) {
-        if (state.runtimeType == LoggedIn) {
-          return Container(
-            margin:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height / 2.5),
-            alignment: Alignment.bottomCenter,
-            height: MediaQuery.of(context).size.height / 2.5,
+  Widget _somnioLogo() => SvgPicture.asset(
+        Assets.somnioGreyLogoSvg,
+        color: AppColor.grey,
+      );
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: CustomAppBar(title: AppLocalizations.of(context).settings),
+        body: BlocListener<LoginBloc, LoginState>(
+          cubit: _loginBloc,
+          listener: (BuildContext context, LoginState state) {
+            if (state.runtimeType == LoggedOut) {
+              Navigator.popUntil(context, (route) => route.isFirst);
+            }
+          },
+          child: Container(
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.25,
+                ),
                 Button(
-                  backgroundColor: Colors.white,
-                  textColor: Colors.teal,
+                  height: 52.0,
+                  backgroundColor: AppColor.blue,
                   text: AppLocalizations.of(context).logout,
                   onTap: () => _loginBloc.add(const StartLogout()),
                 ),
-                const SizedBox(height: 10),
+                Margin(0.0, 200.0),
                 AppVersion(),
+                Margin(0.0, 20.45),
+                _somnioLogo(),
               ],
             ),
-          );
-        }
-        return const LoadingIndicator();
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context).settings)),
-      body: _body(),
-    );
-  }
+          ),
+        ),
+      );
 }

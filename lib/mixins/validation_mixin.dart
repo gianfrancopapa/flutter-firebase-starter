@@ -3,7 +3,7 @@ import 'dart:async';
 class ValidationMixin {
   static const passwordLength = 6;
   static final _uppercaseRegExp = RegExp(r'[A-Z]');
-  static final _digitsRegExp = RegExp(r'^(?:-?(?:0|[1-9][0-9]*))$');
+  static final _digitsRegExp = RegExp(r'[0-9]');
   static final _lowercaseRegExp = RegExp(r'[a-z]');
   static final _alphabeticRegExp = RegExp('[a-zA-Z]');
   static final _alphaNumericRegExp = RegExp('[a-zA-Z0-9]');
@@ -38,7 +38,6 @@ class ValidationMixin {
     handleData: (password, sink) => password.contains(_uppercaseRegExp) &&
             password.contains(_lowercaseRegExp) &&
             password.contains(_digitsRegExp) &&
-            password.contains(_alphabeticRegExp) &&
             password.length > passwordLength
         ? sink.add(password)
         : sink.addError('Insert a valid password.'),

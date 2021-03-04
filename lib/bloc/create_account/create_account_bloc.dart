@@ -8,35 +8,31 @@ import 'package:get_it/get_it.dart';
 
 class CreateAccountBloc extends CreateAccountFormBloc {
   AuthService _authService;
+  AnalyticsService _analyticsService;
+  static const _errEvent = 'Error: Invalid event in [create_account_bloc.dart]';
 
   CreateAccountBloc() {
     _authService = GetIt.I.get<AuthService>();
+    _analyticsService = GetIt.I.get<AnalyticsService>();
   }
 
-  @override
   Stream<CreateAccountState> mapEventToState(CreateAccountEvent event) async* {
     switch (event.runtimeType) {
       case CreateAccount:
-        yield* createAccountWithEmail();
+        yield* _createAccountWithEmail();
         break;
       default:
-        yield const Error('Invalid event.');
+        yield const Error(_errEvent);
     }
   }
 
-  @protected
-  @override
-  Stream<CreateAccountState> createAccountWithEmail() async* {
-    GetIt.I.get<AnalyticsService>().logSignUp('email');
+  Stream<CreateAccountState> _createAccountWithEmail() async* {
+    _analyticsService.logSignUp('email');
     yield const Loading();
-    if (passwordConfirmationController.value != passwordController.value) {
-      yield const Error('Error: Passwords doesn\'t match.');
-      return;
-    }
     try {
       await _authService.createUserWithEmailAndPassword(
-        emailController.value,
-        passwordController.value,
+        emailVal,
+        passwordVal,
       );
       yield const AccountCreated();
     } catch (e) {
