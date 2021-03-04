@@ -136,7 +136,6 @@ With introduction text of the app and custom images
 
 ✅&nbsp; [Splash Screen][splash_screen_package]
 
-
 ✅&nbsp; Flavors
 
 We have defined 3 differents flavors or development enviroments:
@@ -180,11 +179,6 @@ Moreover, we want to incorporate this new features:
 [somnio_software_link]: https://somniosoftware.com/
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
-[//]: # "Other Cool features links."
-[shared_preferences_package]: https://pub.dev/packages/shared_preferences
-[image_picker_package]: https://pub.dev/packages/image_picker
-[onboarding_package]: https://pub.dev/packages/introduction_screen
-[splash_screen_package]: https://pub.dev/packages/flutter_native_splash
 [//]: # "Getting Started links."
 [firebase_setup]: https://firebase.google.com/docs/flutter/setup
 [crashlytics_package]: https://pub.dev/packages/firebase_crashlytics
@@ -207,4 +201,9 @@ Moreover, we want to incorporate this new features:
 [remote_config_package]: https://pub.dev/packages/firebase_remote_config
 [remote_config_learn_more]: https://firebase.flutter.dev/docs/remote-config/overview
 
+[//]: # "Other Cool features links."
+[shared_preferences_package]: https://pub.dev/packages/shared_preferences
+[image_picker_package]: https://pub.dev/packages/image_picker
+[onboarding_package]: https://pub.dev/packages/introduction_screen
+[splash_screen_package]: https://pub.dev/packages/flutter_native_splash
 [flavors]: https://flutter.dev/docs/deployment/flavors 
