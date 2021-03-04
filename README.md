@@ -80,19 +80,28 @@ Crashlytics:
 
 Analytics:
 
-- To log an event use [get_it](https://pub.dev/packages/get_it) service locator instance and get `AnalyticsService`. The `AnalyticsService` class has a method named `logEvent` which can be extended to add another analytics service other than Firebase.
-- After configuring Firebase Analytics correctly, it can take some minutes or some hours to show up the events in Analytics Dashboard of Firebase Console. To track the events nearly in rear-time, [debug view][analytics_debug_view] can be used.
+- To log an event use [get_it][get_it_package] service locator instance and get `AnalyticsService`. The `AnalyticsService` is an abastract class which can be extended to add another analytics service.
+- After configuring Firebase Analytics correctly, it can take some minutes or some hours to show up the events in Analytics Dashboard of Firebase Console. To track the events nearly in real-time, [debug view][analytics_debug_view] can be used.
 - [Flutter package][analytics_package]
 - [Learn more][analytics_learn_more]
 
 Cloud messaging
-
+- You can use push notifications and local notifications depending on the 3 possible states your app would be.
+```dart
+FirebaseMessaging.onMessage.listen((event) async {
+  await _localNotificationService.showNotification();
+});
+FirebaseMessaging.onMessageOpenedApp.listen(
+  (event) => _onNotificationChanged(event.data),
+);
+FirebaseMessaging.onBackgroundMessage(
+  (message) => _onNotificationChanged(message.data),
+);
+```
 - [Flutter package][messaging_package]
 - [Learn more][messaging_learn_more]
 
 Authentication:
-
-Additional setup instructions for Google, Apple and Facebook sign-in:
 
 - [Google Sign-In][google_sign_in_ios] on iOS
 - [Google Sign-In][google_sign_in_android] on Android
@@ -102,20 +111,32 @@ Additional setup instructions for Google, Apple and Facebook sign-in:
 
 Firestore
 
+- Generic implementation of firestore methods: get, post, put, delete.
+- Repository class interact with firestore persistence service
 - [Flutter package][firestore_package]
 - [Learn more][firestore_learn_more]
 
 Storage
 
+- Methods for upload and download a file from firebase storage.
+```dart
+  Future<void> uploadFile(File file, String storagePath);
+  Future<String> downloadFile(String storagePath, String localPath);
+  Future<String> downloadURL(String storagePath);
+```
 - [Flutter package][storage_package]
 - [Learn more][storage_learn_more]
 
 Dynamic links
 
+- Invite new users to your app using dynamic links.
+- Automatic login redirection inside the app.
+- Paswordless sign-in.
 - [Flutter package][dynamic_links_package]
 
 Remote Config
 
+- Example on how to use remote config to communicate users if the version of an app has increased. 
 - [Flutter package][remote_config_package]
 - [Learn more][remote_config_learn_more]
 
@@ -125,16 +146,42 @@ Remote Config
 
 ✅&nbsp; Internationalization
 
+The configuration is on the yaml file on the root directory.
+```yaml
+arb-dir: lib/constants/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+```
+You can add new languages each one should have its own file. E.g:
+```yaml
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "Somnio Software loves Flutter"
+  }
+}
+```
+
 ✅&nbsp; [Shared Preferences][shared_preferences_package]
-A providing persistent storage for simple data
+A providing persistent storage for simple data.
 
 ✅&nbsp; [Image Picker][image_picker_package]
-For picking images from the library and taking photos
+You can take pick images from the library or take photos to update you user profile picture.
 
 ✅&nbsp; [Onboarding][onboarding_package]
-With introduction text of the app and custom images
+Basic example of an onboarding flow where you can explain users a little explanation about the app.
 
 ✅&nbsp; [Splash Screen][splash_screen_package]
+
+You can easily configure and cusotmize the splash screen in the pubspec.yaml.
+```yaml
+flutter_native_splash:
+  color: "#42a5f5"
+  image: assets/somnio_logo.png
+  color_dark: "#042a49"
+  image_dark: assets/somnio_logo.png
+  web: false
+```
 
 ✅&nbsp; Flavors
 
@@ -159,12 +206,6 @@ We have defined 3 differents flavors or development enviroments:
   - You can easily switch between different configuratons from the Status bar in VSCode.
 - You can get current flavor in Flutter by using `getCurrentFlavor()` method from `AppInfo` class.
 - More on [flavors][flavors]
-
-Firebase Analytics:
-- To log an event use [get_it](https://pub.dev/packages/get_it) service locator instance and get `AnalyticsService`. The `AnalyticsService` is an abastract class which can be extended to add another analytics service.
-- After configuring Firebase Analytics correctly, it can take some minutes or some hours to show up the events in Analytics Dashboard of Firebase Console. To track the events nearly in rear-time, [DebugView](https://firebase.google.com/docs/analytics/debugview) can be used.
-- Flutter package: https://pub.dev/packages/firebase_analytics
-- Learn more: https://firebase.flutter.dev/docs/analytics/overview
 
 ---
 
@@ -192,6 +233,7 @@ Moreover, we want to incorporate this new features:
 [analytics_package]: https://pub.dev/packages/firebase_analytics
 [analytics_learn_more]: https://firebase.flutter.dev/docs/analytics/overview
 [analytics_debug_view]: https://firebase.google.com/docs/analytics/debugview
+[get_it_package]: https://pub.dev/packages/get_it
 [messaging_package]: https://pub.dev/packages/firebase_messaging
 [messaging_learn_more]: https://firebase.flutter.dev/docs/messaging/overview
 [google_sign_in_ios]: https://firebase.google.com/docs/auth/ios/google-signin
