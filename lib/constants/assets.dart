@@ -6,7 +6,7 @@ class Assets {
   static const String somnioLogo = 'assets/somnio_logo.png';
 
   //Onboarding Screen
-  static const String onboarding2 = 'assets/lup_and_gear.png';
+  static const String onboarding2 = 'assets/setting.png';
   static const String onboarding3 = 'assets/confluence_logo.png';
 
   //User

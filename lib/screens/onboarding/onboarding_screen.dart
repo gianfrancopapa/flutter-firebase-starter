@@ -6,6 +6,14 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:firebasestarter/constants/assets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+class Asset {
+  String name;
+  double width;
+  double height;
+
+  Asset({this.name, this.width, this.height});
+}
+
 class OnBoardingScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -15,12 +23,12 @@ class OnBoardingScreen extends StatefulWidget {
 
 class OnBoardingScreenState extends State<OnBoardingScreen>
     with TickerProviderStateMixin {
-  Widget _buildImage(String assetName) {
+  Widget _buildImage(Asset asset) {
     return Align(
       child: Image.asset(
-        assetName,
-        width: 350.0,
-        height: 350.0,
+        asset.name,
+        width: asset.width,
+        height: asset.height,
       ),
       alignment: Alignment.bottomCenter,
     );
@@ -29,22 +37,25 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
   PageViewModel _page({
     String title,
     String bodyText,
-    String asset,
+    Asset asset,
     Color color,
   }) {
     return PageViewModel(
-      titleWidget: AutoSizeText(
-        title,
-        maxLines: 1,
-        style: const TextStyle(color: Colors.black, fontSize: 18),
-      ),
+      titleWidget: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: AutoSizeText(
+            title,
+            maxLines: 2,
+            style: const TextStyle(color: Colors.black, fontSize: 25),
+          )),
       bodyWidget: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(10.0),
         child: AutoSizeText(
           bodyText,
           textAlign: TextAlign.center,
           style: const TextStyle(
             color: Color(0xFF929794),
+            fontSize: 15,
           ),
         ),
       ),
@@ -60,19 +71,19 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
         _page(
           title: AppLocalizations.of(context).welcome,
           bodyText: AppLocalizations.of(context).pageOne,
-          asset: Assets.somnioLogo,
+          asset: Asset(name: Assets.somnioLogo, width: 160.0, height: 160.0),
           color: Colors.white,
         ),
         _page(
           title: AppLocalizations.of(context).options,
           bodyText: AppLocalizations.of(context).pageTwo,
-          asset: Assets.onboarding2,
+          asset: Asset(name: Assets.onboarding2, width: 120.0, height: 120.0),
           color: Colors.white,
         ),
         _page(
           title: AppLocalizations.of(context).documentationOnConfluence,
           bodyText: AppLocalizations.of(context).pageThree,
-          asset: Assets.onboarding3,
+          asset: Asset(name: Assets.onboarding3, width: null, height: 30.0),
           color: Colors.white,
         ),
       ];
