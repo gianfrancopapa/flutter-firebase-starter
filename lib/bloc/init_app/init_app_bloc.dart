@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_event.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +22,6 @@ class InitAppBloc extends Bloc<FirstTimeInAppEvent, FirstTimeInAppState> {
 
   Stream<FirstTimeInAppState> _checkIfFirstTime() async* {
     yield const Loading();
-    // await Firebase.initializeApp();
     final prefs = await SharedPreferences.getInstance();
     final result = (prefs.getBool(_isFirstTime) ?? true);
 

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:firebasestarter/screens/auth/login_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:firebasestarter/constants/assets.dart';
-import 'package:firebasestarter/constants/weights.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnBoardingScreen extends StatefulWidget {
