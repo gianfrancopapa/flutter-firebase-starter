@@ -1,13 +1,15 @@
 import 'package:firebasestarter/models/user.dart';
+import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/bloc/login/login_state.dart';
+import 'package:get_it/get_it.dart';
 
 class LoginBloc extends LoginFormBloc {
   final _auth = FirebaseAuthService();
-
+  final GetIt _getIt = GetIt.instance;
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     switch (event.runtimeType) {
@@ -15,16 +17,16 @@ class LoginBloc extends LoginFormBloc {
         yield* login();
         break;
       case StartGoogleLogin:
-        yield* signIn(_auth.signInWithGoogle);
+        yield* signIn(_auth.signInWithGoogle, 'google');
         break;
       case StartAppleLogin:
-        yield* signIn(_auth.signInWithApple);
+        yield* signIn(_auth.signInWithApple, 'apple');
         break;
       case StartFacebookLogin:
-        yield* signIn(_auth.signInWithFacebook);
+        yield* signIn(_auth.signInWithFacebook, 'facebook');
         break;
       case StartAnonymousLogin:
-        yield* signIn(_auth.signInAnonymously);
+        yield* signIn(_auth.signInAnonymously, 'anonymous');
         break;
       case StartLogout:
         yield* logout();
@@ -40,6 +42,7 @@ class LoginBloc extends LoginFormBloc {
   @protected
   @override
   Stream<LoginState> login() async* {
+    _getIt<AnalyticsService>().logLogin('email');
     yield const Loading();
     try {
       final user = await _auth.signInWithEmailAndPassword(
@@ -53,7 +56,9 @@ class LoginBloc extends LoginFormBloc {
   }
 
   @protected
-  Stream<LoginState> signIn(Future<User> Function() signInMethod) async* {
+  Stream<LoginState> signIn(
+      Future<User> Function() signInMethod, String loginMethod) async* {
+    _getIt<AnalyticsService>().logLogin(loginMethod);
     yield const Loading();
     try {
       final user = await signInMethod();
@@ -66,6 +71,7 @@ class LoginBloc extends LoginFormBloc {
   @protected
   @override
   Stream<LoginState> logout() async* {
+    _getIt<AnalyticsService>().logLogout();
     yield const Loading();
     try {
       await _auth.signOut();
