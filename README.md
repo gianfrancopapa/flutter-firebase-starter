@@ -1,74 +1,47 @@
 # Flutter Firebase Starter
 
-[![Somnio Software](assets/logo-somnio.jpg)][somnio_software_link]
+[![Somnio Software](assets/logo.png)][somnio_software_link]
 
-Developed by Somnio Software
+Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 [![License: MIT][license_badge]][license_link]
 
 ---
 
-### Firebase features out of the box
+### Firebase features out of the box :package:
 
-✅&nbsp; Crashlytics - 
+✅&nbsp; Crashlytics
 
-✅&nbsp; Analytics -
+✅&nbsp; Analytics
 
-✅&nbsp; Cloud messaging - 
+✅&nbsp; Cloud messaging
 
-✅&nbsp; Authentication - 
+✅&nbsp; Authentication
 
-✅&nbsp; Firestore - 
+✅&nbsp; Firestore
 
-✅&nbsp; Storage -
+✅&nbsp; Storage
 
-✅&nbsp;
+✅&nbsp; Dynamic links
 
-- [ ] Real time database 
-
-- [ ] Dynamic links
-
-- [ ] Remote Config
-
-- [ ] Performance
+✅&nbsp; Remote config
 
 ---
 
 ### Supported sign-in methods
 
-&nbsp;✅&nbsp; Anonymous
+✅&nbsp; Anonymous
 
-&nbsp;✅&nbsp; Email & Password
+✅&nbsp; Email & Password
 
-&nbsp;✅&nbsp; Facebook
+✅&nbsp; Facebook
 
-&nbsp;✅&nbsp; Google
+✅&nbsp; Google
 
-&nbsp;✅&nbsp; Apple
+✅&nbsp; Apple
 
-- [ ] Email link (passwordless)
+✅&nbsp; Email link (passwordless)
 
-- [ ] GitHub
-
-- [ ] Phone
-
-- [ ] Twitter
-
----
-
-### Other Cool features
-
-✅&nbsp; Flavors - 
-
-✅&nbsp; Internationalization - 
-
-✅&nbsp; Contionous integration & Continous deployment -
-
----
-
-
----
----
 ---
 
 ### Project Structure
@@ -83,118 +56,110 @@ Developed by Somnio Software
 ├── widgets
 └── README.md
 ```
+
 ---
 
-### Other authentication features
+### Getting Started :muscle:
 
-- [x] Email verification (for email & password sign-in)
-- [x] Password reset
-- [ ] Sign-in with custom token
-
-## Application features
-
-### Sign-in page
-
-- [x] Email and password sign-in
-- [x] Apple sign-in
-- [x] Google sign-in
-- [x] Facebook sign-in
-- [ ] Anonymous sing-in
-- [x] Custom submit button with loading state
-- [x] Disable all input widgets while authentication is in progress
-- [x] Email regex validation
-- [x] Error hints
-- [ ] Focus order (email -> password -> submit by pressing "next" on keyboard)
-- [x] Password of at least 6 characters, with at least 1 number, 1 capital letter and 1 lowercase letter
-- [x] Show/hide password
-- [x] Password reset flow
-
-### Create account page
-
-- [x] First name and last name fields
-- [x] Email regex validation
-- [x] Password and Confirm Password validation
-- [x] Show/hide password
-
-### Email link page
-
-- [ ] Email input field, backed by secure storage
-
-### Services
-
-#### Authentication
-
-- [x] Abstract `AuthService` class, modeled after the `firebase_auth` API
-- [x] `FirebaseAuthService` implementation
-- [ ] `MockAuthService` for testing
-- [x] Firebase project configuration for iOS & Android
-- [ ] Toggle `FirebaseAuthService` and `MockAuthService` at runtime via developer menu
-
-#### Storage
-
-- [x] Abstract `StorageService` class, modeled after `firebase_storage` API
-- [x] `FirebaseStorageService` implementation
-
-#### Persistence
-
-- [x] Abstract `PersistenceService` class, modeled after `cloud_firestore` API
-- [x] `FirebasePersistenceService` implementation
-
-### Architecture
-
-- [x] Logic inside models for better separation of concerns (using [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html))
-- [x] Use [Provider package](https://pub.dev/packages/provider) for dependency injection
-
-### User models
-
-- [x] On app custom User and Admin models
-- [x] Admin and User roles defined
-- [x] Admin with different capabilities from user
-
-### Other
-
-- [x] Use [`Shared Preferences`](https://pub.dev/packages/shared_preferences), a providing persistent storage for simple data
-- [x] Use [`Image Picker`](https://pub.dev/packages/image_picker) for picking images from the library and taking photos
-- [x] [`OnBoarding Screen`](https://pub.dev/packages/introduction_screen) with introduction text of the app and custom images
-- [x] Custom `Splash Screen`
-- [x] Custom App light and dark theme
-- [x] Abstracted general widgets as buttons, text fields, lists, etc.
-
-
-### Coming soon
-- error management 
-
-## Running the project with Firebase
-
-To use this project with Firebase authentication, some configuration steps are required.
+To use this project with Firebase, some configuration steps are required.
 
 - Create a new project with the Firebase console.
 - Add iOS and Android apps in the Firebase project settings.
-- On iOS, you must set a bundle ID. As a recommendation, if your thinking of releasing the app on iOS, you should have an [Apple Developer Program Account](https://developer.apple.com/account/) and [create an app](https://developer.apple.com/account/resources/identifiers/list/bundleId) on your profile. Here you will setup your bundle ID validated by Apple, that you should also use on the Firebase Configuration.
-- then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_ios_app) `GoogleService-Info.plist` into `iOS/Runner`, and add it to the Runner target in Xcode.
-- On Android, define the package name as your preference, a good practice is to use as name the bundle ID defined on iOS (a SHA-1 certificate fingerprint is also needed for Google sign-in).
-- then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_android_app) `google-services.json` into `android/app`.
 
-See this document for full instructions:
+See this [document][firebase_setup] for full instructions.
 
-- [https://firebase.google.com/docs/flutter/setup](https://firebase.google.com/docs/flutter/setup)
+Crashlytics:
+
+- To test the crash reporting, the app be can forced crash using following line:
+  `FirebaseCrashlytics.instance.crash();`
+  Above line can be put anywhere where we want the crash to happen.
+- Crash reporting happens only when the app is restarted after a crash.
+- Goto Crashlytics in Firebase project. Wait for sometime as it can take a few minutes for crashes to appear.
+- [Flutter package][crashlytics_package]
+- [Learn more][crashlytics_learn_more]
+
+Analytics:
+
+- To log an event use [get_it](https://pub.dev/packages/get_it) service locator instance and get `AnalyticsService`. The `AnalyticsService` class has a method named `logEvent` which can be extended to add another analytics service other than Firebase.
+- After configuring Firebase Analytics correctly, it can take some minutes or some hours to show up the events in Analytics Dashboard of Firebase Console. To track the events nearly in rear-time, [debug view][analytics_debug_view] can be used.
+- [Flutter package][analytics_package]
+- [Learn more][analytics_learn_more]
+
+Cloud messaging
+
+- [Flutter package][messaging_package]
+- [Learn more][messaging_learn_more]
+
+Authentication:
 
 Additional setup instructions for Google, Apple and Facebook sign-in:
 
-- Google Sign-In on iOS: [https://firebase.google.com/docs/auth/ios/google-signin](https://firebase.google.com/docs/auth/ios/google-signin)
-- Google Sign-In on Android: [https://firebase.google.com/docs/auth/android/google-signin](https://firebase.google.com/docs/auth/android/google-signin)
-- Facebook Login for Android: [https://developers.facebook.com/docs/facebook-login/android](https://developers.facebook.com/docs/facebook-login/android)
-- Facebook Login for iOS: [https://developers.facebook.com/docs/facebook-login/ios](https://developers.facebook.com/docs/facebook-login/ios)
-- Apple Sign-in: [https://pub.dev/packages/sign_in_with_apple](https://pub.dev/packages/sign_in_with_apple)
+- [Google Sign-In][google_sign_in_ios] on iOS
+- [Google Sign-In][google_sign_in_android] on Android
+- [Facebook Login][facebook_login_ios] on iOS
+- [Facebook Login][facebook_login_android] on Android
+- [Apple Sign-in][apple_sign_in]
 
-Firebase Crashlytics Testing:
-- To test the crash reporting, the app be can forced crash using following line:
-     `FirebaseCrashlytics.instance.crash();`
-     Above line can be put anywhere where we want the crash to happen.
-- Crash reporting happens only when the app is restarted after a crash.
-- Goto Crashlytics in Firebase project. Wait for sometime as it can take a few minutes for crashes to appear.
-- Flutter package: https://pub.dev/packages/firebase_crashlytics
-- Learn more: https://firebase.flutter.dev/docs/crashlytics/overview/
+Firestore
+
+- [Flutter package][firestore_package]
+- [Learn more][firestore_learn_more]
+
+Storage
+
+- [Flutter package][storage_package]
+- [Learn more][storage_learn_more]
+
+Dynamic links
+
+- [Flutter package][dynamic_links_package]
+
+Remote Config
+
+- [Flutter package][remote_config_package]
+- [Learn more][remote_config_learn_more]
+
+---
+
+### Other Cool features :fire:
+
+✅&nbsp; Internationalization
+
+✅&nbsp; [Shared Preferences][shared_preferences_package]
+A providing persistent storage for simple data
+
+✅&nbsp; [Image Picker][image_picker_package]
+For picking images from the library and taking photos
+
+✅&nbsp; [Onboarding][onboarding_package]
+With introduction text of the app and custom images
+
+✅&nbsp; [Splash Screen][splash_screen_package]
+
+
+✅&nbsp; Flavors
+
+We have defined 3 differents flavors or development enviroments:
+
+- Development
+- Staging
+- Production
+  Each of these flavor will use a different firebase project. You can add `google-services.json`(Android) and `GoogleService-info.plist`(iOS) for each flavor in following locations:
+  - Android:
+    - `android/app/src/dev`
+    - `android/app/src/staging`
+    - `android/app/src/prod`
+  - iOS:
+    - `ios/config/dev`
+    - `ios/config/staging`
+    - `ios/config/prod`
+  - Note: For iOS, XCode might not be able to find the files from above locations if you simply copy it there. You need to drag and drop or use Add Files option by right clicking the folder to make sure that they are added to Runner target.
+- You can use each flavor as follows:
+  - You can run this command in Terminal: `flutter run --flavor FLAVOR_NAME` where FLAVOR_NAME can be replaced with either one of `dev`, `staging`, or `prod`.
+  - We have also provided the launch configuration for VSCode which you can view from the menu: `Run > Open Configurations`
+  - You can easily switch between different configuratons from the Status bar in VSCode.
+- You can get current flavor in Flutter by using `getCurrentFlavor()` method from `AppInfo` class.
+- More on [flavors][flavors]
 
 Firebase Analytics:
 - To log an event use [get_it](https://pub.dev/packages/get_it) service locator instance and get `AnalyticsService`. The `AnalyticsService` is an abastract class which can be extended to add another analytics service.
@@ -202,8 +167,50 @@ Firebase Analytics:
 - Flutter package: https://pub.dev/packages/firebase_analytics
 - Learn more: https://firebase.flutter.dev/docs/analytics/overview
 
+---
 
+### Coming soon :rocket:
 
+This project is under construction. Contributions, issues and suggestions are very welcome! 
+Moreover, we want to incorporate this new features: 
+
+- [ ] Support more sign in methods like GitHub, Twitter.
+- [ ] Phone Verification
+- [ ] Real time database
+- [ ] Performance
+- [ ] Error Management
+- [ ] Unit, Widget & Integration testing.
+- [ ] Continous integration & Continoues Deployment.
+
+[//]: # "Flutter Firebase Starter links."
 [somnio_software_link]: https://somniosoftware.com/
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
+[//]: # "Other Cool features links."
+[shared_preferences_package]: https://pub.dev/packages/shared_preferences
+[image_picker_package]: https://pub.dev/packages/image_picker
+[onboarding_package]: https://pub.dev/packages/introduction_screen
+[splash_screen_package]: https://pub.dev/packages/flutter_native_splash
+[//]: # "Getting Started links."
+[firebase_setup]: https://firebase.google.com/docs/flutter/setup
+[crashlytics_package]: https://pub.dev/packages/firebase_crashlytics
+[crashlytics_learn_more]: https://firebase.flutter.dev/docs/crashlytics/overview/
+[analytics_package]: https://pub.dev/packages/firebase_analytics
+[analytics_learn_more]: https://firebase.flutter.dev/docs/analytics/overview
+[analytics_debug_view]: https://firebase.google.com/docs/analytics/debugview
+[messaging_package]: https://pub.dev/packages/firebase_messaging
+[messaging_learn_more]: https://firebase.flutter.dev/docs/messaging/overview
+[google_sign_in_ios]: https://firebase.google.com/docs/auth/ios/google-signin
+[google_sign_in_android]: https://firebase.google.com/docs/auth/android/google-signin
+[facebook_login_ios]: https://developers.facebook.com/docs/facebook-login/ios
+[facebook_login_android]: https://developers.facebook.com/docs/facebook-login/android
+[apple_sign_in]: https://pub.dev/packages/sign_in_with_apple
+[firestore_package]: https://pub.dev/packages/cloud_firestore
+[firestore_learn_more]: https://firebase.flutter.dev/docs/firestore/overview
+[storage_package]: https://pub.dev/packages/firebase_storage
+[storage_learn_more]: https://firebase.flutter.dev/docs/storage/overview
+[dynamic_links_package]: https://pub.dev/packages/firebase_dynamic_links
+[remote_config_package]: https://pub.dev/packages/firebase_remote_config
+[remote_config_learn_more]: https://firebase.flutter.dev/docs/remote-config/overview
+
+[flavors]: https://flutter.dev/docs/deployment/flavors 

@@ -20,4 +20,17 @@ class AppInfo {
     final packageInfo = await PackageInfo.fromPlatform();
     return packageInfo.buildNumber;
   }
+
+  Future<Flavor> getCurrentFlavor() async {
+    final packageName = await getPackageName();
+    if (packageName.endsWith('dev')) {
+      return Flavor.DEVELOPMENT;
+    } else if (packageName.endsWith('staging')) {
+      return Flavor.STAGING;
+    } else {
+      return Flavor.PRODUCTION;
+    }
+  }
 }
+
+enum Flavor { DEVELOPMENT, STAGING, PRODUCTION }
