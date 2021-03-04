@@ -197,7 +197,7 @@ Firebase Crashlytics Testing:
 - Learn more: https://firebase.flutter.dev/docs/crashlytics/overview/
 
 Firebase Analytics:
-- To log an event use [get_it](https://pub.dev/packages/get_it) service locator instance and get `AnalyticsService`. The `AnalyticsService` class has a method named `logEvent` which can be extended to add another analytics service other than Firebase.
+- To log an event use [get_it](https://pub.dev/packages/get_it) service locator instance and get `AnalyticsService`. The `AnalyticsService` is an abastract class which can be extended to add another analytics service.
 - After configuring Firebase Analytics correctly, it can take some minutes or some hours to show up the events in Analytics Dashboard of Firebase Console. To track the events nearly in rear-time, [DebugView](https://firebase.google.com/docs/analytics/debugview) can be used.
 - Flutter package: https://pub.dev/packages/firebase_analytics
 - Learn more: https://firebase.flutter.dev/docs/analytics/overview

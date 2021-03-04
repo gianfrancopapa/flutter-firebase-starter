@@ -9,7 +9,11 @@ import 'package:get_it/get_it.dart';
 
 class LoginBloc extends LoginFormBloc {
   final _auth = FirebaseAuthService();
-  final GetIt _getIt = GetIt.instance;
+  AnalyticsService _analyticsService;
+  LoginBloc() {
+    _analyticsService = GetIt.I.get<AnalyticsService>();
+  }
+
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     switch (event.runtimeType) {
@@ -42,7 +46,7 @@ class LoginBloc extends LoginFormBloc {
   @protected
   @override
   Stream<LoginState> login() async* {
-    _getIt<AnalyticsService>().logLogin('email');
+    _analyticsService.logLogin('email');
     yield const Loading();
     try {
       final user = await _auth.signInWithEmailAndPassword(
@@ -58,7 +62,7 @@ class LoginBloc extends LoginFormBloc {
   @protected
   Stream<LoginState> signIn(
       Future<User> Function() signInMethod, String loginMethod) async* {
-    _getIt<AnalyticsService>().logLogin(loginMethod);
+    _analyticsService.logLogin(loginMethod);
     yield const Loading();
     try {
       final user = await signInMethod();
@@ -71,7 +75,7 @@ class LoginBloc extends LoginFormBloc {
   @protected
   @override
   Stream<LoginState> logout() async* {
-    _getIt<AnalyticsService>().logLogout();
+    _analyticsService.logLogout();
     yield const Loading();
     try {
       await _auth.signOut();
