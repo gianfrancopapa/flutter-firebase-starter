@@ -4,21 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class MySharedPreferences implements LocalPersistanceService {
   SharedPreferences _prefs;
 
-  static final MySharedPreferences _singleton = MySharedPreferences._internal();
-
-  factory MySharedPreferences() {
-    return _singleton;
-  }
-
   Future<SharedPreferences> _getInstance() async {
     if (_prefs == null) {
       _prefs = await SharedPreferences.getInstance();
     }
     return _prefs;
-  }
-
-  MySharedPreferences._internal() {
-    _getInstance();
   }
 
   @override
