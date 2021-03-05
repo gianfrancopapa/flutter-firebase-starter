@@ -321,6 +321,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  flutter_icons:
+    dependency: "direct main"
+    description:
+      name: flutter_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -328,20 +335,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.1"
-  flutter_local_notifications:
-    dependency: "direct main"
-    description:
-      name: flutter_local_notifications
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.3"
-  flutter_local_notifications_platform_interface:
-    dependency: transitive
-    description:
-      name: flutter_local_notifications_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0+1"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -368,6 +361,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.11"
+  flutter_svg:
+    dependency: "direct main"
+    description:
+      name: flutter_svg
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.19.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -511,6 +511,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0-nullsafety.1"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.1+1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.4"
   path_provider:
     dependency: transitive
     description:
@@ -726,13 +740,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.19-nullsafety.2"
-  timezone:
-    dependency: transitive
-    description:
-      name: timezone
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.9"
   typed_data:
     dependency: transitive
     description:

@@ -32,9 +32,12 @@ class FirebaseStarter extends StatefulWidget {
 }
 
 class _FirebaseStarterState extends State<FirebaseStarter> {
+  NotificationService _notificationService;
+
   @override
   void initState() {
-    NotificationService();
+    _notificationService = GetIt.I<NotificationService>();
+    _notificationService.configure();
     super.initState();
   }
 
