@@ -27,7 +27,11 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
   Stream<EmployeesState> _getEmployees() async* {
     try {
       final employees = await _employeesRepository.getEmployees(null);
-      yield Employees(employees);
+      if (employees.isEmpty) {
+        yield const EmptyList();
+      } else {
+        yield Employees(employees);
+      }
     } catch (err) {
       yield Error(err.toString());
     }

@@ -304,6 +304,31 @@
   "done": "Done",
   "@done":{
       "description": ""
-  }  
+  },
+
+  "googleSignIn": "Sign in with Google",
+  "@googleSignIn":{
+      "description": ""
+  },
+
+  "facebookSignIn": "Sign in with Facebook",
+  "@facebookSignIn":{
+      "description": ""
+  },
+
+  "appleIdSignIn": "Sign in with Apple ID",
+  "@appleIdSignIn":{
+      "description": ""
+  },
+
+  "anonymousSignIn": "Sign in anonymously",
+  "@anonymousSignIn":{
+      "description": ""
+  },
+
+  "noEmployees": "No employees found",
+  "@noEmployees":{
+      "description": ""
+  }
 
 }
