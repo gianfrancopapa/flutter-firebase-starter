@@ -21,3 +21,7 @@ class Employees extends EmployeesState {
   final List<Employee> employees;
   const Employees(this.employees);
 }
+
+class EmptyList extends EmployeesState {
+  const EmptyList();
+}

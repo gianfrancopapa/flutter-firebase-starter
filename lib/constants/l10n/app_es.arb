@@ -119,5 +119,15 @@
 
   "skip": "Saltar",
 
-  "done": "Listo"
+  "done": "Listo",
+
+  "googleSignIn": "Iniciar sesión con Google",
+
+  "facebookSignIn": "Iniciar sesión con Facebook",
+
+  "appleIdSignIn": "Iniciar sesión con Apple ID",
+
+  "anonymousSignIn": "Iniciar sesión anónima",
+  
+  "noEmployees": "No se han encontrado empleados"
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class AuthServiceButton extends StatelessWidget {
   final String text;
   final double height;
+  final double width;
   final Function onTap;
   final Color backgroundColor;
   final Color textColor;
@@ -14,6 +15,7 @@ class AuthServiceButton extends StatelessWidget {
     this.text,
     this.onTap,
     this.height = 20.0,
+    this.width = 20.0,
     this.backgroundColor,
     this.textColor,
     this.asset,
@@ -23,9 +25,25 @@ class AuthServiceButton extends StatelessWidget {
   Widget build(BuildContext context) => Button(
         onTap: onTap,
         backgroundColor: AppColor.white,
-        child: Image(
-          image: AssetImage(asset),
-          height: height,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(
+              image: AssetImage(asset),
+              height: height,
+              width: width,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 10.0),
+            ),
+            Text(
+              text,
+              style: const TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ],
         ),
       );
 }
