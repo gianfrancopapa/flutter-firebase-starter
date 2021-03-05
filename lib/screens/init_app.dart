@@ -22,8 +22,7 @@ class _DetermineAccessScreenState extends State<DetermineAccessScreen> {
   @override
   void initState() {
     super.initState();
-    _initAppBloc = InitAppBloc();
-    _initAppBloc.add(const IsFirstTime());
+    _initAppBloc = InitAppBloc()..add(const IsFirstTime());
   }
 
   @override
@@ -64,5 +63,11 @@ class _DetermineAccessScreenState extends State<DetermineAccessScreen> {
         }
       },
     );
+  }
+
+  @override
+  void dispose() async {
+    await _initAppBloc.close();
+    super.dispose();
   }
 }
