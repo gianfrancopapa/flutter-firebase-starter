@@ -31,11 +31,17 @@ class _TeamScreenState extends State<TeamScreen> {
         backgroundColor: AppColor.lightGrey,
         body: BlocBuilder<EmployeesBloc, EmployeesState>(
           cubit: _bloc,
-          buildWhen: (_, EmployeesState current) => current is Employees,
           builder: (BuildContext context, EmployeesState state) =>
               state is Employees
                   ? EmployeesList(state.employees)
-                  : const Center(child: CircularProgressIndicator()),
+                  : state is EmptyList
+                      ? Center(
+                          child: Text(
+                            AppLocalizations.of(context).noEmployees,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                        )
+                      : const Center(child: CircularProgressIndicator()),
         ),
       );
 
