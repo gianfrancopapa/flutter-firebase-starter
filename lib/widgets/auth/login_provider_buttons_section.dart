@@ -1,10 +1,10 @@
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/constants/assets.dart';
-import 'package:firebasestarter/constants/strings.dart';
 import 'package:firebasestarter/widgets/auth/auth_service_button.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginProviderButtonsSection extends StatelessWidget {
   static const _text = 'text';
@@ -16,27 +16,27 @@ class LoginProviderButtonsSection extends StatelessWidget {
 
   const LoginProviderButtonsSection(this.bloc);
 
-  List<Map<String, dynamic>> get _buttonsData => [
+  List<Map<String, dynamic>> _buttonsData(context) => [
         {
-          _text: Strings.googleSignIn,
+          _text: AppLocalizations.of(context).googleSignIn,
           _asset: Assets.googleLogo,
           _onTap: () => bloc.add(const StartGoogleLogin()),
           _last: false,
         },
         {
-          _text: Strings.login,
+          _text: AppLocalizations.of(context).facebookSignIn,
           _asset: Assets.facebookLogo,
           _onTap: () => bloc.add(const StartFacebookLogin()),
           _last: false,
         },
         {
-          _text: Strings.login,
+          _text: AppLocalizations.of(context).appleIdSignIn,
           _asset: Assets.appleLogo,
           _onTap: () => bloc.add(const StartAppleLogin()),
           _last: false,
         },
         {
-          _text: Strings.login,
+          _text: AppLocalizations.of(context).anonymousSignIn,
           _asset: Assets.anonLogin,
           _onTap: () => bloc.add(const StartAnonymousLogin()),
           _last: true,
@@ -46,7 +46,7 @@ class LoginProviderButtonsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(
         children: [
-          for (final info in _buttonsData) ...[
+          for (final info in _buttonsData(context)) ...[
             AuthServiceButton(
               text: info[_text],
               backgroundColor: Colors.white,

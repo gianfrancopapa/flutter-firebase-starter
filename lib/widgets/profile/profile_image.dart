@@ -20,16 +20,19 @@ class ProfileImage extends StatelessWidget {
                   image: CachedNetworkImageProvider(image),
                   width: width ?? 100,
                   height: height ?? 100,
-                  fit: BoxFit.fitHeight,
+                  fit: BoxFit.fill,
                 )
               : Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(16.0),
+                    borderRadius: BorderRadius.circular(50.0),
                   ),
-                  height: height ?? MediaQuery.of(context).size.height * 0.25,
-                  width: width ?? MediaQuery.of(context).size.width,
-                  child: Image.asset(Assets.somnioLogo),
+                  width: width ?? 100,
+                  height: height ?? 100,
+                  child: const Icon(
+                    Icons.account_circle,
+                    size: 90.0,
+                  ),
                 ),
         ),
       );
