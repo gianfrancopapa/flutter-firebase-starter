@@ -6,5 +6,5 @@ abstract class AnalyticsService {
   void logSignUp(String method);
   void logLogin(String method);
   void logLogout();
-  void logEvent({String name, Map parameters});
+  void logEvent({String name, Map<String, dynamic> parameters});
 }
