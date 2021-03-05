@@ -10,26 +10,13 @@ import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class EditProfileScreen extends StatefulWidget {
-  @override
-  _EditProfileScreenState createState() => _EditProfileScreenState();
-}
-
-class _EditProfileScreenState extends State<EditProfileScreen> {
-  EditProfileBloc _bloc;
-
-  @override
-  void initState() {
-    _bloc = EditProfileBloc()..add(const GetCurrentUser());
-    super.initState();
-  }
-
+class EditProfileScreen extends StatelessWidget {
   Widget _userPhoto() => BlocBuilder<EditProfileBloc, EditProfileState>(
-        cubit: _bloc,
         buildWhen: (_, EditProfileState state) => state is AvatarChanged,
         builder: (BuildContext context, EditProfileState state) => ProfileImage(
           editable: true,
-          onTap: () => _bloc.add(UpdatePhotoWithLibrary()),
+          onTap: () =>
+              context.read<EditProfileBloc>().add(UpdatePhotoWithLibrary()),
           image: state is AvatarChanged ? state.image : null,
         ),
       );
@@ -37,7 +24,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) =>
       BlocListener<EditProfileBloc, EditProfileState>(
-        cubit: _bloc,
         listener: (BuildContext context, EditProfileState state) {
           if (state is ProfileEdited) {
             Navigator.pop(context);
@@ -60,16 +46,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 Margin(0.0, 60.0),
                 _userPhoto(),
                 Margin(0.0, 45.0),
-                EditProfileForm(_bloc),
+                EditProfileForm(context.read<EditProfileBloc>()),
               ],
             ),
           ),
         ),
       );
-
-  @override
-  void dispose() {
-    _bloc.close();
-    super.dispose();
-  }
 }

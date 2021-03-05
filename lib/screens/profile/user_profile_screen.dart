@@ -4,7 +4,6 @@ import 'package:firebasestarter/widgets/common/app_bar.dart';
 import 'package:firebasestarter/widgets/profile/user_info_section.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/user/user_bloc.dart';
-import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/bloc/user/user_state.dart';
 import 'package:firebasestarter/constants/strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,14 +15,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  UserBloc _bloc;
-  @override
-  void initState() {
-    _bloc = UserBloc();
-    _bloc.add(const GetUser());
-    super.initState();
-  }
-
   Widget _settingsIcon() => InkWell(
         onTap: () async {
           await Navigator.push(
@@ -53,7 +44,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           suffixWidget: _settingsIcon(),
         ),
         body: BlocBuilder<UserBloc, UserState>(
-          cubit: _bloc,
           builder: (BuildContext context, UserState state) {
             switch (state.runtimeType) {
               case Error:
@@ -67,10 +57,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
           },
         ),
       );
-
-  @override
-  void dispose() {
-    _bloc.close();
-    super.dispose();
-  }
 }

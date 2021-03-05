@@ -17,21 +17,12 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  ForgotPasswordBloc _bloc;
-
-  @override
-  void initState() {
-    _bloc = ForgotPasswordBloc();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: CustomAppBar(
           title: AppLocalizations.of(context).forgotPassword,
         ),
         body: BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
-          cubit: _bloc,
           listener: (BuildContext context, ForgotPasswordState state) {
             if (state is EmailSent) {
               DialogHelper.showAlertDialog(
@@ -42,33 +33,33 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               );
             }
           },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 44.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Margin(0.0, 131.0),
-                TextFieldBuilder(
-                  stream: _bloc.form.email,
-                  labelText: AppLocalizations.of(context).email,
-                  onChanged: (email) => _bloc.form.onEmailChanged(email),
-                ),
-                Margin(0.0, 41.0),
-                Button(
-                  text: AppLocalizations.of(context).send,
-                  onTap: () => _bloc.add(const ForgotPassword()),
-                  backgroundColor: AppColor.blue,
-                ),
-              ],
-            ),
-          ),
+          child: buildForgotPasswordForm(
+              context, context.read<ForgotPasswordBloc>()),
         ),
       );
 
-  @override
-  void dispose() {
-    _bloc.close();
-    super.dispose();
+  Padding buildForgotPasswordForm(
+      BuildContext context, ForgotPasswordBloc forgotPasswordBloc) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 44.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Margin(0.0, 131.0),
+          TextFieldBuilder(
+            stream: forgotPasswordBloc.form.email,
+            labelText: AppLocalizations.of(context).email,
+            onChanged: (email) => forgotPasswordBloc.form.onEmailChanged(email),
+          ),
+          Margin(0.0, 41.0),
+          Button(
+            text: AppLocalizations.of(context).send,
+            onTap: () => forgotPasswordBloc.add(const ForgotPassword()),
+            backgroundColor: AppColor.blue,
+          ),
+        ],
+      ),
+    );
   }
 }

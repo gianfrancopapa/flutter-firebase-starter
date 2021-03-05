@@ -14,15 +14,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  //ignore: close_sinks
-  LoginBloc _bloc;
-
-  @override
-  void initState() {
-    _bloc = BlocProvider.of<LoginBloc>(context, listen: false);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: AppColor.lightGrey,
@@ -30,7 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
           title: 'Login',
         ),
         body: BlocListener<LoginBloc, LoginState>(
-          cubit: _bloc,
           listener: (BuildContext context, LoginState state) {
             if (state is ErrorLogin) {
               DialogHelper.showAlertDialog(
@@ -51,7 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
           },
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 44.0),
-            child: SingleChildScrollView(child: LoginForm(_bloc)),
+            child: SingleChildScrollView(
+                child: LoginForm(context.read<LoginBloc>())),
           ),
         ),
       );

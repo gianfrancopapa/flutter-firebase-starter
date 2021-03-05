@@ -12,20 +12,7 @@ import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SettingsScreen extends StatefulWidget {
-  @override
-  _SettingsScreenState createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  LoginBloc _loginBloc;
-
-  @override
-  void didChangeDependencies() {
-    _loginBloc = BlocProvider.of<LoginBloc>(context);
-    super.didChangeDependencies();
-  }
-
+class SettingsScreen extends StatelessWidget {
   Widget _somnioLogo() => SvgPicture.asset(
         Assets.somnioGreyLogoSvg,
         color: AppColor.grey,
@@ -35,7 +22,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) => Scaffold(
         appBar: CustomAppBar(title: AppLocalizations.of(context).settings),
         body: BlocListener<LoginBloc, LoginState>(
-          cubit: _loginBloc,
           listener: (BuildContext context, LoginState state) {
             if (state.runtimeType == LoggedOut) {
               Navigator.popUntil(context, (route) => route.isFirst);
@@ -55,7 +41,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   height: 52.0,
                   backgroundColor: AppColor.blue,
                   text: AppLocalizations.of(context).logout,
-                  onTap: () => _loginBloc.add(const StartLogout()),
+                  onTap: () =>
+                      context.read<LoginBloc>().add(const StartLogout()),
                 ),
                 Margin(0.0, 200.0),
                 AppVersion(),
