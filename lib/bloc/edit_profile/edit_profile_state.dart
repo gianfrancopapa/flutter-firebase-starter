@@ -4,26 +4,26 @@ abstract class EditProfileState {
   const EditProfileState();
 }
 
-class AvatarChanged extends EditProfileState {
+class AvatarChangeSuccess extends EditProfileState {
   final String image;
-  const AvatarChanged(this.image);
+  const AvatarChangeSuccess(this.image);
 }
 
-class ProfileEdited extends EditProfileState {
-  const ProfileEdited();
+class EditProfileSuccess extends EditProfileState {
+  const EditProfileSuccess();
 }
 
-class NotDetermined extends EditProfileState {
-  const NotDetermined();
+class EditProfileInitial extends EditProfileState {
+  const EditProfileInitial();
 }
 
-class Error extends EditProfileState {
+class EditProfileFailure extends EditProfileState {
   final String message;
-  const Error(this.message);
+  const EditProfileFailure(this.message);
 }
 
-class Loading extends EditProfileState {
-  const Loading();
+class EditProfileInProgress extends EditProfileState {
+  const EditProfileInProgress();
 }
 
 class CurrentUser extends EditProfileState {

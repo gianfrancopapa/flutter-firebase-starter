@@ -16,7 +16,7 @@ class CreateAccountScreen extends StatelessWidget {
         ),
         body: BlocListener<CreateAccountBloc, CreateAccountState>(
           listener: (BuildContext context, CreateAccountState state) {
-            if (state is Error) {
+            if (state is CreateAccountFailure) {
               DialogHelper.showAlertDialog(
                 context: context,
                 story: state.message,
@@ -24,7 +24,7 @@ class CreateAccountScreen extends StatelessWidget {
                 btnAction: () => Navigator.pop(context),
               );
             }
-            if (state is AccountCreated) {
+            if (state is CreateAccountSuccess) {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(

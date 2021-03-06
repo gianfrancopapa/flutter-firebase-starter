@@ -1,3 +1,5 @@
+import 'package:firebasestarter/bloc/create_account/create_account_bloc.dart';
+import 'package:firebasestarter/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/constants/colors.dart';
@@ -6,6 +8,7 @@ import 'package:firebasestarter/screens/auth/forgot_password_screen.dart';
 import 'package:firebasestarter/widgets/auth/login_provider_buttons_section.dart';
 import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebasestarter/widgets/common/text_field_builder.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +21,17 @@ class LoginForm extends StatelessWidget {
   void _goToCreateAccountScreen(BuildContext context) => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => CreateAccountScreen(),
+          builder: (context) => BlocProvider(
+              create: (_) => CreateAccountBloc(), child: CreateAccountScreen()),
         ),
       );
 
   void _goToForgotPasswordScreen(BuildContext context) => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ForgotPasswordScreen(),
+          builder: (context) => BlocProvider(
+              create: (_) => ForgotPasswordBloc(),
+              child: ForgotPasswordScreen()),
         ),
       );
 
@@ -128,7 +134,7 @@ class LoginForm extends StatelessWidget {
           Button(
             backgroundColor: AppColor.blue,
             text: AppLocalizations.of(context).login,
-            onTap: () => bloc.add(const StartLogin()),
+            onTap: () => bloc.add(const LoginStarted()),
           ),
           Margin(0, 26.0),
           _orStory(context),

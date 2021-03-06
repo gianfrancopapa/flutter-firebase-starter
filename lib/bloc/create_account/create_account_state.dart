@@ -4,20 +4,20 @@ abstract class CreateAccountState {
   const CreateAccountState();
 }
 
-class AccountCreated extends CreateAccountState {
+class CreateAccountSuccess extends CreateAccountState {
   final User user;
-  const AccountCreated(this.user);
+  const CreateAccountSuccess(this.user);
 }
 
-class Error extends CreateAccountState {
+class CreateAccountFailure extends CreateAccountState {
   final String message;
-  const Error(this.message);
+  const CreateAccountFailure(this.message);
 }
 
-class Loading extends CreateAccountState {
-  const Loading();
+class CreateAccountInProgress extends CreateAccountState {
+  const CreateAccountInProgress();
 }
 
-class NotDetermined extends CreateAccountState {
-  const NotDetermined();
+class CreateAccountInitial extends CreateAccountState {
+  const CreateAccountInitial();
 }

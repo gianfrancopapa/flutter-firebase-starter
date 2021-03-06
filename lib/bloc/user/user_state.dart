@@ -4,20 +4,20 @@ abstract class UserState {
   const UserState();
 }
 
-class CurrentUser extends UserState {
+class UserLoadSuccess extends UserState {
   final User user;
-  const CurrentUser(this.user);
+  const UserLoadSuccess(this.user);
 }
 
-class NotDetermined extends UserState {
-  const NotDetermined();
+class UserInitial extends UserState {
+  const UserInitial();
 }
 
-class Error extends UserState {
+class UserLoadFailure extends UserState {
   final String message;
-  const Error(this.message);
+  const UserLoadFailure(this.message);
 }
 
-class Loading extends UserState {
-  const Loading();
+class UserLoadInProgress extends UserState {
+  const UserLoadInProgress();
 }

@@ -4,39 +4,38 @@ import 'package:firebasestarter/services/shared_preferences/local_persistance_in
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-class InitAppBloc extends Bloc<FirstTimeInAppEvent, FirstTimeInAppState> {
+class InitAppBloc extends Bloc<InitAppEvent, InitAppState> {
   static const String _isFirstTime = 'is_first_time';
   LocalPersistanceService _localPersistanceService;
 
-  InitAppBloc() : super(const NotDetermined()) {
+  InitAppBloc() : super(const InitAppInitial()) {
     _localPersistanceService = GetIt.I.get<LocalPersistanceService>();
   }
 
   @override
-  Stream<FirstTimeInAppState> mapEventToState(
-      FirstTimeInAppEvent event) async* {
+  Stream<InitAppState> mapEventToState(InitAppEvent event) async* {
     switch (event.runtimeType) {
-      case IsFirstTime:
+      case InitAppIsFirstTime:
         yield* _checkIfFirstTime();
         break;
       default:
-        yield const Error('Invalid event.');
+        yield const InitAppError('Invalid event.');
     }
   }
 
-  Stream<FirstTimeInAppState> _checkIfFirstTime() async* {
-    yield const Loading();
+  Stream<InitAppState> _checkIfFirstTime() async* {
+    yield const InitAppLoadInProgress();
     try {
       final firstTime =
           await _localPersistanceService.containsKey(_isFirstTime);
       if (firstTime ?? true) {
         await _localPersistanceService.setValue<bool>(_isFirstTime, false);
-        yield const FirstTime();
+        yield const InitAppFirstTime();
       } else {
-        yield const NoFirstTime();
+        yield const InitAppNotFirstTime();
       }
     } catch (err) {
-      yield Error(err.toString());
+      yield InitAppError(err.toString());
     }
   }
 }

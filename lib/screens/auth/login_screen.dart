@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         body: BlocListener<LoginBloc, LoginState>(
           listener: (BuildContext context, LoginState state) {
-            if (state is ErrorLogin) {
+            if (state is LoginFailure) {
               DialogHelper.showAlertDialog(
                 context: context,
                 story: state.message,
@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 btnAction: () => Navigator.pop(context),
               );
             }
-            if (state is LoggedIn) {
+            if (state is LoginSuccess) {
               Navigator.push(
                 context,
                 MaterialPageRoute(

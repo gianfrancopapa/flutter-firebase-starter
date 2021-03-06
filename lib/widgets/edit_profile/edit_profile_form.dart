@@ -32,7 +32,7 @@ class EditProfileForm extends StatelessWidget {
           Button(
             backgroundColor: AppColor.blue,
             text: Strings.editProfile,
-            onTap: () => bloc.add(UpdateProfileInfo()),
+            onTap: () => bloc.add(ProfileInfoUpdated()),
           ),
         ],
       );

@@ -10,17 +10,17 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
 
   final _employeesRepository = EmployeesRepository();
 
-  EmployeesBloc() : super(const NotDetermined());
+  EmployeesBloc() : super(const EmployeesInitial());
 
   @override
   Stream<EmployeesState> mapEventToState(EmployeesEvent event) async* {
-    yield const Loading();
+    yield const EmployeesLoadInProgress();
     switch (event.runtimeType) {
-      case GetEmployees:
+      case EmployeesLoaded:
         yield* _getEmployees();
         break;
       default:
-        yield const Error(_errEvent);
+        yield const EmployeesLoadFailure(_errEvent);
     }
   }
 
@@ -28,12 +28,12 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     try {
       final employees = await _employeesRepository.getEmployees(null);
       if (employees.isEmpty) {
-        yield const EmptyList();
+        yield const EmployeesLoadEmpty();
       } else {
-        yield Employees(employees);
+        yield EmployeesLoadSuccess(employees);
       }
     } catch (err) {
-      yield Error(err.toString());
+      yield EmployeesLoadFailure(err.toString());
     }
   }
 }

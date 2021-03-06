@@ -2,12 +2,12 @@ abstract class EditProfileEvent {
   const EditProfileEvent();
 }
 
-class UpdateProfileInfo extends EditProfileEvent {}
+class ProfileInfoUpdated extends EditProfileEvent {}
 
-class UploadPhotoWithCamera extends EditProfileEvent {}
+class PhotoWithCameraUploaded extends EditProfileEvent {}
 
-class UpdatePhotoWithLibrary extends EditProfileEvent {}
+class PhotoWithLibraryUpdated extends EditProfileEvent {}
 
-class GetCurrentUser extends EditProfileEvent {
-  const GetCurrentUser();
+class CurrentUserLoaded extends EditProfileEvent {
+  const CurrentUserLoaded();
 }

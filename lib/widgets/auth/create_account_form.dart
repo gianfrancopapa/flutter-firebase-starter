@@ -54,7 +54,7 @@ class CreateAccountForm extends StatelessWidget {
           Button(
             backgroundColor: AppColor.blue,
             text: AppLocalizations.of(context).createAccount,
-            onTap: () => bloc.add(const CreateAccount()),
+            onTap: () => bloc.add(const AccountCreated()),
           ),
           Margin(0.0, 49.5),
         ],

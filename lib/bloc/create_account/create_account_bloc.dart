@@ -10,23 +10,23 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
   final _firebaseAuth = FirebaseAuthService();
   final form = CreateAccountFormBloc();
 
-  CreateAccountBloc() : super(const NotDetermined());
+  CreateAccountBloc() : super(const CreateAccountInitial());
 
   @override
   Stream<CreateAccountState> mapEventToState(CreateAccountEvent event) async* {
     switch (event.runtimeType) {
-      case CreateAccount:
+      case AccountCreated:
         yield* _createAccountWithEmail();
         break;
       default:
-        yield const Error(_errEvent);
+        yield const CreateAccountFailure(_errEvent);
     }
   }
 
   Stream<CreateAccountState> _createAccountWithEmail() async* {
-    yield const Loading();
+    yield const CreateAccountInProgress();
     if (form.passwordConfVal != form.passwordVal) {
-      yield const Error(_errPasswordMismatch);
+      yield const CreateAccountFailure(_errPasswordMismatch);
       return;
     }
     try {
@@ -36,9 +36,9 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
         email: form.emailVal,
         password: form.passwordVal,
       );
-      yield AccountCreated(user);
+      yield CreateAccountSuccess(user);
     } catch (e) {
-      yield Error(e);
+      yield CreateAccountFailure(e);
     }
   }
 }

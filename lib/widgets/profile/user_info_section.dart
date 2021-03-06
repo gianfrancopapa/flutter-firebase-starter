@@ -1,9 +1,12 @@
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/screens/profile/edit_profile_screen.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:firebasestarter/widgets/profile/profile_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 class UserInfoSection extends StatelessWidget {
@@ -44,7 +47,11 @@ class UserInfoSection extends StatelessWidget {
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => EditProfileScreen(),
+            builder: (context) => BlocProvider<EditProfileBloc>(
+              create: (BuildContext context) =>
+                  EditProfileBloc()..add(const CurrentUserLoaded()),
+              child: EditProfileScreen(),
+            ),
           ),
         ),
         child: Container(

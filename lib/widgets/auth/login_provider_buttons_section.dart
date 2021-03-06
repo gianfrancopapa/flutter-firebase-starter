@@ -20,25 +20,25 @@ class LoginProviderButtonsSection extends StatelessWidget {
         {
           _text: AppLocalizations.of(context).googleSignIn,
           _asset: Assets.googleLogo,
-          _onTap: () => bloc.add(const StartGoogleLogin()),
+          _onTap: () => bloc.add(const GoogleLoginStarted()),
           _last: false,
         },
         {
           _text: AppLocalizations.of(context).facebookSignIn,
           _asset: Assets.facebookLogo,
-          _onTap: () => bloc.add(const StartFacebookLogin()),
+          _onTap: () => bloc.add(const FacebookLoginStarted()),
           _last: false,
         },
         {
           _text: AppLocalizations.of(context).appleIdSignIn,
           _asset: Assets.appleLogo,
-          _onTap: () => bloc.add(const StartAppleLogin()),
+          _onTap: () => bloc.add(const AppleLoginStarted()),
           _last: false,
         },
         {
           _text: AppLocalizations.of(context).anonymousSignIn,
           _asset: Assets.anonLogin,
-          _onTap: () => bloc.add(const StartAnonymousLogin()),
+          _onTap: () => bloc.add(const AnonymousLoginStarted()),
           _last: true,
         }
       ];

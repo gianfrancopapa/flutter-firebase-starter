@@ -17,7 +17,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   PickedFile _pickedPhoto;
   final form = EditProfileFormBloc();
 
-  EditProfileBloc() : super(const NotDetermined()) {
+  EditProfileBloc() : super(const EditProfileInitial()) {
     _authService = GetIt.I.get<AuthService>();
     _storageService = GetIt.I.get<StorageService>();
     _imageService = GetIt.I.get<ImageService>();
@@ -26,34 +26,34 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   @override
   Stream<EditProfileState> mapEventToState(EditProfileEvent event) async* {
     switch (event.runtimeType) {
-      case UploadPhotoWithCamera:
+      case PhotoWithCameraUploaded:
         yield* _updateUserPhoto(_imageService.imgFromCamera);
         break;
-      case UpdatePhotoWithLibrary:
+      case PhotoWithLibraryUpdated:
         yield* _updateUserPhoto(_imageService.imgFromGallery);
         break;
-      case UpdateProfileInfo:
+      case ProfileInfoUpdated:
         yield* _updateProfile();
         break;
-      case GetCurrentUser:
+      case CurrentUserLoaded:
         yield* _mapGetCurrentUserEventToState();
         break;
       default:
-        yield const Error(_errEvent);
+        yield const EditProfileFailure(_errEvent);
     }
   }
 
   Stream<EditProfileState> _mapGetCurrentUserEventToState() async* {
-    yield const Loading();
+    yield const EditProfileInProgress();
     try {
       final user = await _authService.currentUser();
       form.onFirstNameChanged(user.firstName);
       form.onLastNameChanged(user.lastName);
       yield CurrentUser(user);
       _pickedPhoto = PickedFile(user.imageUrl);
-      yield AvatarChanged(user.imageUrl);
+      yield AvatarChangeSuccess(user.imageUrl);
     } catch (e) {
-      yield const Error('Error: Something went wrong');
+      yield const EditProfileFailure('Error: Something went wrong');
     }
   }
 
@@ -63,13 +63,13 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     try {
       final image = await uploadMethod();
       if (image == null) {
-        yield const Error('Error: Insert valid image');
+        yield const EditProfileFailure('Error: Insert valid image');
         return;
       }
       _pickedPhoto = image;
-      yield AvatarChanged(_pickedPhoto.path);
+      yield AvatarChangeSuccess(_pickedPhoto.path);
     } catch (err) {
-      yield Error(err.toString());
+      yield EditProfileFailure(err.toString());
     }
   }
 
@@ -89,14 +89,14 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   }
 
   Stream<EditProfileState> _updateProfile() async* {
-    yield const Loading();
+    yield const EditProfileInProgress();
 
     try {
       final user = await _authService.currentUser();
       if (user.firstName == form.firstNameVal &&
           user.lastName == form.lastNameVal &&
           (user.imageUrl == _pickedPhoto.path || _pickedPhoto == null)) {
-        yield const ProfileEdited();
+        yield const EditProfileSuccess();
         return;
       }
       if (user.imageUrl != _pickedPhoto.path) {
@@ -106,10 +106,10 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         firstName: form.firstNameVal,
         lastName: form.lastNameVal,
       );
-      yield const ProfileEdited();
-      yield AvatarChanged(user.imageUrl);
+      yield const EditProfileSuccess();
+      yield AvatarChangeSuccess(user.imageUrl);
     } catch (e) {
-      yield Error(e);
+      yield EditProfileFailure(e);
     }
   }
 }

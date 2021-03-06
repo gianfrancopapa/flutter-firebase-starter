@@ -2,30 +2,30 @@ abstract class LoginEvent {
   const LoginEvent();
 }
 
-class StartLogin extends LoginEvent {
-  const StartLogin();
+class LoginStarted extends LoginEvent {
+  const LoginStarted();
 }
 
-class StartGoogleLogin extends LoginEvent {
-  const StartGoogleLogin();
+class GoogleLoginStarted extends LoginEvent {
+  const GoogleLoginStarted();
 }
 
-class StartAppleLogin extends LoginEvent {
-  const StartAppleLogin();
+class AppleLoginStarted extends LoginEvent {
+  const AppleLoginStarted();
 }
 
-class StartFacebookLogin extends LoginEvent {
-  const StartFacebookLogin();
+class FacebookLoginStarted extends LoginEvent {
+  const FacebookLoginStarted();
 }
 
-class StartAnonymousLogin extends LoginEvent {
-  const StartAnonymousLogin();
+class AnonymousLoginStarted extends LoginEvent {
+  const AnonymousLoginStarted();
 }
 
-class StartLogout extends LoginEvent {
-  const StartLogout();
+class LogoutStarted extends LoginEvent {
+  const LogoutStarted();
 }
 
-class CheckIfUserIsLoggedIn extends LoginEvent {
-  const CheckIfUserIsLoggedIn();
+class IsUserLoggedIn extends LoginEvent {
+  const IsUserLoggedIn();
 }

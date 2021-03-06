@@ -46,11 +46,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: BlocBuilder<UserBloc, UserState>(
           builder: (BuildContext context, UserState state) {
             switch (state.runtimeType) {
-              case Error:
-                return Center(child: Text((state as Error).message.toString()));
-              case CurrentUser:
-                return UserInfoSection((state as CurrentUser).user);
-              case Loading:
+              case UserLoadFailure:
+                return Center(
+                    child: Text((state as UserLoadFailure).message.toString()));
+              case UserLoadSuccess:
+                return UserInfoSection((state as UserLoadSuccess).user);
+              case UserLoadInProgress:
               default:
                 return const Center(child: CircularProgressIndicator());
             }

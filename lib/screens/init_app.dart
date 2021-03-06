@@ -12,8 +12,8 @@ class DetermineAccessScreen extends StatelessWidget {
   Widget _checkIfUserIsLoggedIn() => BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           switch (state.runtimeType) {
-            case LoggedIn:
-              return HomeScreen((state as LoggedIn).currentUser);
+            case LoginSuccess:
+              return HomeScreen((state as LoginSuccess).currentUser);
             default:
               return LoginScreen();
           }
@@ -22,12 +22,12 @@ class DetermineAccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<InitAppBloc, FirstTimeInAppState>(
+    return BlocBuilder<InitAppBloc, InitAppState>(
       builder: (context, initAppState) {
         switch (initAppState.runtimeType) {
-          case FirstTime:
+          case InitAppFirstTime:
             return OnBoardingScreen();
-          case NoFirstTime:
+          case InitAppNotFirstTime:
             return _checkIfUserIsLoggedIn();
           default:
             return const Scaffold(

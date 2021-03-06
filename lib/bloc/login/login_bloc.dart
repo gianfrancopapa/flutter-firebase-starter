@@ -13,7 +13,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   AnalyticsService _analyticsService;
   final form = LoginFormBloc();
 
-  LoginBloc() : super(const NotDetermined()) {
+  LoginBloc() : super(const LoginInitial()) {
     _authService = GetIt.I<AuthService>();
     _analyticsService = GetIt.I<AnalyticsService>();
   }
@@ -21,79 +21,79 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     switch (event.runtimeType) {
-      case StartLogin:
+      case LoginStarted:
         yield* _login();
         break;
-      case StartGoogleLogin:
+      case GoogleLoginStarted:
         yield* _signIn(_authService.signInWithGoogle, 'google');
         break;
-      case StartAppleLogin:
+      case AppleLoginStarted:
         yield* _signIn(_authService.signInWithApple, 'apple');
         break;
-      case StartFacebookLogin:
+      case FacebookLoginStarted:
         yield* _signIn(_authService.signInWithFacebook, 'facebook');
         break;
-      case StartAnonymousLogin:
+      case AnonymousLoginStarted:
         yield* _signIn(_authService.signInAnonymously, 'anonymous');
         break;
-      case StartLogout:
+      case LogoutStarted:
         yield* _logout();
         break;
-      case CheckIfUserIsLoggedIn:
+      case IsUserLoggedIn:
         yield* _checkIfUserIsLoggedIn();
         break;
       default:
-        yield const ErrorLogin(_errEvent);
+        yield const LoginFailure(_errEvent);
     }
   }
 
   Stream<LoginState> _login() async* {
-    yield const Loading();
+    yield const LoginInProgress();
     try {
       final user = await _authService.signInWithEmailAndPassword(
         form.emailValue,
         form.passwordValue,
       );
-      yield LoggedIn(user);
+      yield LoginSuccess(user);
     } catch (e) {
-      yield ErrorLogin(e.toString());
+      yield LoginFailure(e.toString());
     }
   }
 
   Stream<LoginState> _signIn(
       Future<User> Function() signInMethod, String loginMethod) async* {
     _analyticsService.logLogin(loginMethod);
-    yield const Loading();
+    yield const LoginInProgress();
     try {
       final user = await signInMethod();
-      yield LoggedIn(user);
+      yield LoginSuccess(user);
     } catch (e) {
-      yield ErrorLogin(e.toString());
+      yield LoginFailure(e.toString());
     }
   }
 
   Stream<LoginState> _logout() async* {
     _analyticsService.logLogout();
-    yield const Loading();
+    yield const LoginInProgress();
     try {
       await _authService.signOut();
-      yield const LoggedOut();
+      yield const LogoutSuccess();
     } catch (e) {
-      yield const ErrorLogin('Error while trying to log out');
+      yield const LoginFailure('Error while trying to log out');
     }
   }
 
   Stream<LoginState> _checkIfUserIsLoggedIn() async* {
-    yield const Loading();
+    yield const LoginInProgress();
     try {
       final user = await _authService.currentUser();
       if (user != null) {
-        yield LoggedIn(user);
+        yield LoginSuccess(user);
       } else {
-        yield const LoggedOut();
+        yield const LogoutSuccess();
       }
     } catch (e) {
-      yield const ErrorLogin(
+      yield const LoginFailure(
           'Error while trying to verify if user is logged in');
     }
   }

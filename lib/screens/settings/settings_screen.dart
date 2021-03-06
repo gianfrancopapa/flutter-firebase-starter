@@ -23,7 +23,7 @@ class SettingsScreen extends StatelessWidget {
         appBar: CustomAppBar(title: AppLocalizations.of(context).settings),
         body: BlocListener<LoginBloc, LoginState>(
           listener: (BuildContext context, LoginState state) {
-            if (state.runtimeType == LoggedOut) {
+            if (state.runtimeType == LogoutSuccess) {
               Navigator.popUntil(context, (route) => route.isFirst);
             }
           },
@@ -42,7 +42,7 @@ class SettingsScreen extends StatelessWidget {
                   backgroundColor: AppColor.blue,
                   text: AppLocalizations.of(context).logout,
                   onTap: () =>
-                      context.read<LoginBloc>().add(const StartLogout()),
+                      context.read<LoginBloc>().add(const LogoutStarted()),
                 ),
                 Margin(0.0, 200.0),
                 AppVersion(),

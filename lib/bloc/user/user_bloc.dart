@@ -7,28 +7,28 @@ import 'package:get_it/get_it.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   AuthService _authService;
 
-  UserBloc() : super(const NotDetermined()) {
+  UserBloc() : super(const UserInitial()) {
     _authService = GetIt.I.get<AuthService>();
   }
 
   @override
   Stream<UserState> mapEventToState(UserEvent event) async* {
     switch (event.runtimeType) {
-      case GetUser:
+      case UserLoaded:
         yield* _mapGetUserToState();
         break;
       default:
-        yield const Error('Undetermined event');
+        yield const UserLoadFailure('Undetermined event');
     }
   }
 
   Stream<UserState> _mapGetUserToState() async* {
-    yield const Loading();
+    yield const UserLoadInProgress();
     try {
       final user = await _authService.currentUser();
-      yield CurrentUser(user);
+      yield UserLoadSuccess(user);
     } catch (e) {
-      yield const Error('Something went wrong');
+      yield const UserLoadFailure('Something went wrong');
     }
   }
 }

@@ -4,24 +4,24 @@ abstract class EmployeesState {
   const EmployeesState();
 }
 
-class NotDetermined extends EmployeesState {
-  const NotDetermined();
+class EmployeesInitial extends EmployeesState {
+  const EmployeesInitial();
 }
 
-class Loading extends EmployeesState {
-  const Loading();
+class EmployeesLoadInProgress extends EmployeesState {
+  const EmployeesLoadInProgress();
 }
 
-class Error extends EmployeesState {
+class EmployeesLoadFailure extends EmployeesState {
   final String message;
-  const Error(this.message);
+  const EmployeesLoadFailure(this.message);
 }
 
-class Employees extends EmployeesState {
+class EmployeesLoadSuccess extends EmployeesState {
   final List<Employee> employees;
-  const Employees(this.employees);
+  const EmployeesLoadSuccess(this.employees);
 }
 
-class EmptyList extends EmployeesState {
-  const EmptyList();
+class EmployeesLoadEmpty extends EmployeesState {
+  const EmployeesLoadEmpty();
 }

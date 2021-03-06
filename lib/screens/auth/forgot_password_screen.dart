@@ -24,7 +24,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         ),
         body: BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
           listener: (BuildContext context, ForgotPasswordState state) {
-            if (state is EmailSent) {
+            if (state is ForgotPasswordEmailSent) {
               DialogHelper.showAlertDialog(
                 context: context,
                 story: AppLocalizations.of(context).emailSended,
@@ -55,7 +55,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           Margin(0.0, 41.0),
           Button(
             text: AppLocalizations.of(context).send,
-            onTap: () => forgotPasswordBloc.add(const ForgotPassword()),
+            onTap: () => forgotPasswordBloc.add(const PasswordReset()),
             backgroundColor: AppColor.blue,
           ),
         ],

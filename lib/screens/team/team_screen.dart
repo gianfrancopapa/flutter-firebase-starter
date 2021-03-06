@@ -17,9 +17,9 @@ class TeamScreen extends StatelessWidget {
         backgroundColor: AppColor.lightGrey,
         body: BlocBuilder<EmployeesBloc, EmployeesState>(
           builder: (BuildContext context, EmployeesState state) =>
-              state is Employees
+              state is EmployeesLoadSuccess
                   ? EmployeesList(state.employees)
-                  : state is EmptyList
+                  : state is EmployeesLoadEmpty
                       ? Center(
                           child: Text(
                             AppLocalizations.of(context).noEmployees,
