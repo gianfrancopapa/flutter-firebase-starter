@@ -13,27 +13,29 @@ class EditProfileForm extends StatelessWidget {
   const EditProfileForm(this.bloc);
 
   @override
-  Widget build(BuildContext context) => Column(
-        children: [
-          TextFieldBuilder(
-            withInitialValue: true,
-            stream: bloc.form.firstName,
-            labelText: Strings.firstName,
-            onChanged: (firstName) => bloc.form.onFirstNameChanged(firstName),
-          ),
-          Margin(0.0, 20.0),
-          TextFieldBuilder(
-            withInitialValue: true,
-            stream: bloc.form.lastName,
-            labelText: Strings.lastName,
-            onChanged: (lastName) => bloc.form.onLastNameChanged(lastName),
-          ),
-          Margin(0.0, 43.0),
-          Button(
-            backgroundColor: AppColor.blue,
-            text: Strings.editProfile,
-            onTap: () => bloc.add(ProfileInfoUpdated()),
-          ),
-        ],
+  Widget build(BuildContext context) => SingleChildScrollView(
+        child: Column(
+          children: [
+            TextFieldBuilder(
+              withInitialValue: true,
+              stream: bloc.form.firstName,
+              labelText: Strings.firstName,
+              onChanged: (firstName) => bloc.form.onFirstNameChanged(firstName),
+            ),
+            Margin(0.0, 20.0),
+            TextFieldBuilder(
+              withInitialValue: true,
+              stream: bloc.form.lastName,
+              labelText: Strings.lastName,
+              onChanged: (lastName) => bloc.form.onLastNameChanged(lastName),
+            ),
+            Margin(0.0, 43.0),
+            Button(
+              backgroundColor: AppColor.blue,
+              text: Strings.editProfile,
+              onTap: () => bloc.add(ProfileInfoUpdated()),
+            ),
+          ],
+        ),
       );
 }
