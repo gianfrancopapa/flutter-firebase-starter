@@ -4,7 +4,7 @@ const String _STRING_IOS = 'ios_app_version';
 const String _STRING_ANDROID = 'android_app_version';
 
 class RemoteConfigService {
-  RemoteConfig _remoteConfig;
+  final RemoteConfig _remoteConfig;
   RemoteConfigService({RemoteConfig remoteConfig})
       : _remoteConfig = remoteConfig;
 

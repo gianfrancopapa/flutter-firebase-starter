@@ -9,6 +9,7 @@ class AppVersion extends StatefulWidget {
 }
 
 class _AppVersionState extends State<AppVersion> {
+  // ignore: unused_field
   PackageInfo _packageInfo = PackageInfo(
     appName: '',
     packageName: '',
