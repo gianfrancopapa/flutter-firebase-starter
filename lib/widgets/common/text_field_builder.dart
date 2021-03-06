@@ -123,7 +123,7 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
             Container(
           alignment: Alignment.bottomCenter,
-          height: 72.0,
+          height: 80.0,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
