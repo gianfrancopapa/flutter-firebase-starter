@@ -9,24 +9,27 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TeamScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(
-          goBack: false,
-          title: AppLocalizations.of(context).employees,
-        ),
-        backgroundColor: AppColor.lightGrey,
-        body: BlocBuilder<EmployeesBloc, EmployeesState>(
-          builder: (BuildContext context, EmployeesState state) =>
-              state is EmployeesLoadSuccess
-                  ? EmployeesList(state.employees)
-                  : state is EmployeesLoadEmpty
-                      ? Center(
-                          child: Text(
-                            AppLocalizations.of(context).noEmployees,
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                        )
-                      : const Center(child: CircularProgressIndicator()),
-        ),
-      );
+  Widget build(BuildContext context) {
+    final _localizedStrings = AppLocalizations.of(context);
+    return Scaffold(
+      appBar: CustomAppBar(
+        goBack: false,
+        title: _localizedStrings.employees,
+      ),
+      backgroundColor: AppColor.lightGrey,
+      body: BlocBuilder<EmployeesBloc, EmployeesState>(
+        builder: (BuildContext context, EmployeesState state) =>
+            state is EmployeesLoadSuccess
+                ? EmployeesList(state.employees)
+                : state is EmployeesLoadEmpty
+                    ? Center(
+                        child: Text(
+                          _localizedStrings.noEmployees,
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      )
+                    : const Center(child: CircularProgressIndicator()),
+      ),
+    );
+  }
 }

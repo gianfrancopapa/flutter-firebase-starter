@@ -108,39 +108,42 @@ class LoginForm extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Margin(0, 47.0),
-          _createAccountStory(context),
-          Margin(0, 12.0),
-          TextFieldBuilder(
-            stream: bloc.form.email,
-            labelText: AppLocalizations.of(context).email,
-            onChanged: (email) => bloc.form.onEmailChanged(email),
-          ),
-          Margin(0, 20.0),
-          TextFieldBuilder(
-            stream: bloc.form.password,
-            labelText: AppLocalizations.of(context).password,
-            onChanged: (password) => bloc.form.onPasswordChanged(password),
-            isPassword: true,
-            showPasswordButton: true,
-          ),
-          Margin(0, 27.5),
-          _forgotPasswordStory(context),
-          Margin(0, 21.0),
-          Button(
-            backgroundColor: AppColor.blue,
-            text: AppLocalizations.of(context).login,
-            onTap: () => bloc.add(const LoginStarted()),
-          ),
-          Margin(0, 26.0),
-          _orStory(context),
-          Margin(0, 20.0),
-          LoginProviderButtonsSection(bloc),
-          Margin(0, 40.0),
-        ],
-      );
+  Widget build(BuildContext context) {
+    final _localizedStrings = AppLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Margin(0, 47.0),
+        _createAccountStory(context),
+        Margin(0, 12.0),
+        TextFieldBuilder(
+          stream: bloc.form.email,
+          labelText: _localizedStrings.email,
+          onChanged: (email) => bloc.form.onEmailChanged(email),
+        ),
+        Margin(0, 20.0),
+        TextFieldBuilder(
+          stream: bloc.form.password,
+          labelText: _localizedStrings.password,
+          onChanged: (password) => bloc.form.onPasswordChanged(password),
+          isPassword: true,
+          showPasswordButton: true,
+        ),
+        Margin(0, 27.5),
+        _forgotPasswordStory(context),
+        Margin(0, 21.0),
+        Button(
+          backgroundColor: AppColor.blue,
+          text: _localizedStrings.login,
+          onTap: () => bloc.add(const LoginStarted()),
+        ),
+        Margin(0, 26.0),
+        _orStory(context),
+        Margin(0, 20.0),
+        LoginProviderButtonsSection(bloc),
+        Margin(0, 40.0),
+      ],
+    );
+  }
 }

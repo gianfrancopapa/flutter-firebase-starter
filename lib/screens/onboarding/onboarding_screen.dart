@@ -77,29 +77,33 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
     );
   }
 
-  List<PageViewModel> _pages() => [
-        _page(
-          title: AppLocalizations.of(context).welcome,
-          bodyText: AppLocalizations.of(context).pageOne,
-          asset: Asset(name: Assets.somnioLogo, width: 160.0, height: 160.0),
-          color: Colors.white,
-        ),
-        _page(
-          title: AppLocalizations.of(context).options,
-          bodyText: AppLocalizations.of(context).pageTwo,
-          asset: Asset(name: Assets.onboarding2, width: 120.0, height: 120.0),
-          color: Colors.white,
-        ),
-        _page(
-          title: AppLocalizations.of(context).documentationOnConfluence,
-          bodyText: AppLocalizations.of(context).pageThree,
-          asset: Asset(name: Assets.onboarding3, width: null, height: 30.0),
-          color: Colors.white,
-        ),
-      ];
+  List<PageViewModel> _pages() {
+    final _localizedStrings = AppLocalizations.of(context);
+    return [
+      _page(
+        title: _localizedStrings.welcome,
+        bodyText: _localizedStrings.pageOne,
+        asset: Asset(name: Assets.somnioLogo, width: 160.0, height: 160.0),
+        color: Colors.white,
+      ),
+      _page(
+        title: _localizedStrings.options,
+        bodyText: _localizedStrings.pageTwo,
+        asset: Asset(name: Assets.onboarding2, width: 120.0, height: 120.0),
+        color: Colors.white,
+      ),
+      _page(
+        title: _localizedStrings.documentationOnConfluence,
+        bodyText: _localizedStrings.pageThree,
+        asset: Asset(name: Assets.onboarding3, width: null, height: 30.0),
+        color: Colors.white,
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+    final _localizedStrings = AppLocalizations.of(context);
     return Scaffold(
       body: IntroductionScreen(
         pages: _pages(),
@@ -113,10 +117,10 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
         showSkipButton: true,
         skipFlex: 0,
         nextFlex: 0,
-        skip: Text(AppLocalizations.of(context).skip),
+        skip: Text(_localizedStrings.skip),
         next: const Icon(Icons.arrow_forward),
         done: Text(
-          AppLocalizations.of(context).done,
+          _localizedStrings.done,
           style: TextStyle(
             fontWeight: AppWeights.semiBold,
           ),

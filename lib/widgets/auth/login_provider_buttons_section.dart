@@ -16,32 +16,35 @@ class LoginProviderButtonsSection extends StatelessWidget {
 
   const LoginProviderButtonsSection(this.bloc);
 
-  List<Map<String, dynamic>> _buttonsData(context) => [
-        {
-          _text: AppLocalizations.of(context).googleSignIn,
-          _asset: Assets.googleLogo,
-          _onTap: () => bloc.add(const GoogleLoginStarted()),
-          _last: false,
-        },
-        {
-          _text: AppLocalizations.of(context).facebookSignIn,
-          _asset: Assets.facebookLogo,
-          _onTap: () => bloc.add(const FacebookLoginStarted()),
-          _last: false,
-        },
-        {
-          _text: AppLocalizations.of(context).appleIdSignIn,
-          _asset: Assets.appleLogo,
-          _onTap: () => bloc.add(const AppleLoginStarted()),
-          _last: false,
-        },
-        {
-          _text: AppLocalizations.of(context).anonymousSignIn,
-          _asset: Assets.anonLogin,
-          _onTap: () => bloc.add(const AnonymousLoginStarted()),
-          _last: true,
-        }
-      ];
+  List<Map<String, dynamic>> _buttonsData(context) {
+    final _localizedStrings = AppLocalizations.of(context);
+    return [
+      {
+        _text: _localizedStrings.googleSignIn,
+        _asset: Assets.googleLogo,
+        _onTap: () => bloc.add(const GoogleLoginStarted()),
+        _last: false,
+      },
+      {
+        _text: _localizedStrings.facebookSignIn,
+        _asset: Assets.facebookLogo,
+        _onTap: () => bloc.add(const FacebookLoginStarted()),
+        _last: false,
+      },
+      {
+        _text: _localizedStrings.appleIdSignIn,
+        _asset: Assets.appleLogo,
+        _onTap: () => bloc.add(const AppleLoginStarted()),
+        _last: false,
+      },
+      {
+        _text: _localizedStrings.anonymousSignIn,
+        _asset: Assets.anonLogin,
+        _onTap: () => bloc.add(const AnonymousLoginStarted()),
+        _last: true,
+      }
+    ];
+  }
 
   @override
   Widget build(BuildContext context) => Column(

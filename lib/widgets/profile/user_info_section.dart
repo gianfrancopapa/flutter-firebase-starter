@@ -8,6 +8,7 @@ import 'package:firebasestarter/widgets/profile/profile_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserInfoSection extends StatelessWidget {
   final User user;
@@ -73,27 +74,30 @@ class UserInfoSection extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-        width: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Margin(0.0, 30.0),
-            ProfileImage(image: user.imageUrl),
-            Margin(0.0, 43.0),
-            _userInfoItem(context, 'First Name', user.firstName),
-            Margin(0.0, 12.0),
-            _userInfoItem(context, 'Last Name', user.lastName),
-            Margin(0.0, 12.0),
-            _userInfoItem(context, 'Email', user.email),
-            Margin(0.0, 80.0),
-            Container(
-              alignment: Alignment.centerRight,
-              width: double.infinity,
-              child: _editIcon(context),
-            ),
-          ],
-        ),
-      );
+  Widget build(BuildContext context) {
+    final _localizedStrings = AppLocalizations.of(context);
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Margin(0.0, 30.0),
+          ProfileImage(image: user.imageUrl),
+          Margin(0.0, 43.0),
+          _userInfoItem(context, _localizedStrings.firstName, user.firstName),
+          Margin(0.0, 12.0),
+          _userInfoItem(context, _localizedStrings.lastName, user.lastName),
+          Margin(0.0, 12.0),
+          _userInfoItem(context, _localizedStrings.email, user.email),
+          Margin(0.0, 80.0),
+          Container(
+            alignment: Alignment.centerRight,
+            width: double.infinity,
+            child: _editIcon(context),
+          ),
+        ],
+      ),
+    );
+  }
 }

@@ -18,28 +18,32 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(
-          title: AppLocalizations.of(context).forgotPassword,
-        ),
-        body: BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
-          listener: (BuildContext context, ForgotPasswordState state) {
-            if (state is ForgotPasswordEmailSent) {
-              DialogHelper.showAlertDialog(
-                context: context,
-                story: AppLocalizations.of(context).emailSended,
-                btnText: AppLocalizations.of(context).ok,
-                btnAction: () => Navigator.pop(context),
-              );
-            }
-          },
-          child: buildForgotPasswordForm(
-              context, context.read<ForgotPasswordBloc>()),
-        ),
-      );
+  Widget build(BuildContext context) {
+    final _localizedStrings = AppLocalizations.of(context);
+    return Scaffold(
+      appBar: CustomAppBar(
+        title: _localizedStrings.forgotPassword,
+      ),
+      body: BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
+        listener: (BuildContext context, ForgotPasswordState state) {
+          if (state is ForgotPasswordEmailSent) {
+            DialogHelper.showAlertDialog(
+              context: context,
+              story: _localizedStrings.emailSended,
+              btnText: _localizedStrings.ok,
+              btnAction: () => Navigator.pop(context),
+            );
+          }
+        },
+        child: buildForgotPasswordForm(
+            context, context.read<ForgotPasswordBloc>()),
+      ),
+    );
+  }
 
   Padding buildForgotPasswordForm(
       BuildContext context, ForgotPasswordBloc forgotPasswordBloc) {
+    final _localizedStrings = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 44.0),
       child: Column(
@@ -49,12 +53,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           Margin(0.0, 131.0),
           TextFieldBuilder(
             stream: forgotPasswordBloc.form.email,
-            labelText: AppLocalizations.of(context).email,
+            labelText: _localizedStrings.email,
             onChanged: (email) => forgotPasswordBloc.form.onEmailChanged(email),
           ),
           Margin(0.0, 41.0),
           Button(
-            text: AppLocalizations.of(context).send,
+            text: _localizedStrings.send,
             onTap: () => forgotPasswordBloc.add(const PasswordReset()),
             backgroundColor: AppColor.blue,
           ),
