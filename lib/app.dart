@@ -81,7 +81,8 @@ class _FirebaseStarterState extends State<FirebaseStarter> {
       home: DetermineAccessScreen(),
       navigatorObservers: [
         FirebaseAnalyticsObserver(
-            analytics: GetIt.I.get<AnalyticsService>().getService()),
+          analytics: GetIt.I.get<AnalyticsService>().getService(),
+        ),
       ],
     );
   }

@@ -30,7 +30,7 @@ dependencies:
   introduction_screen: ^1.0.9
   package_info: ^0.4.3+4
   flutter_launcher_icons: ^0.8.1
-  shared_preferences: ^0.5.12+4
+  shared_preferences: ">=0.5.12+4 <2.0.0"
   image_picker: ^0.6.7+22
   flutter_feather_icons: ^1.0.3
   cached_network_image: ^2.5.0
