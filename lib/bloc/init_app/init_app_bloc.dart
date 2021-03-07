@@ -27,7 +27,7 @@ class InitAppBloc extends Bloc<InitAppEvent, InitAppState> {
     yield const InitAppLoadInProgress();
     try {
       final firstTime =
-          await _localPersistanceService.containsKey(_isFirstTime);
+          await _localPersistanceService.getValue<bool>(_isFirstTime);
       if (firstTime ?? true) {
         await _localPersistanceService.setValue<bool>(_isFirstTime, false);
         yield const InitAppFirstTime();
