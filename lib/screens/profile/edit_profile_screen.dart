@@ -13,12 +13,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class EditProfileScreen extends StatelessWidget {
   Widget _userPhoto() => BlocBuilder<EditProfileBloc, EditProfileState>(
         buildWhen: (_, EditProfileState state) => state is AvatarChangeSuccess,
-        builder: (BuildContext context, EditProfileState state) => ProfileImage(
-          editable: true,
-          onTap: () =>
-              context.read<EditProfileBloc>().add(PhotoWithLibraryUpdated()),
-          image: state is AvatarChangeSuccess ? state.image : null,
-        ),
+        builder: (BuildContext context, EditProfileState state) {
+          return ProfileImage(
+            editable: true,
+            onTap: () =>
+                context.read<EditProfileBloc>().add(PhotoWithLibraryUpdated()),
+            image: state is AvatarChangeSuccess ? state.image : '',
+          );
+        },
       );
 
   @override

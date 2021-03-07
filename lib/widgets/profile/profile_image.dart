@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/constants/colors.dart';
@@ -26,18 +28,22 @@ class ProfileImage extends StatelessWidget {
         fit: BoxFit.fitHeight,
       );
 
-  Widget _assetImage(BuildContext context) => Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-          image: DecorationImage(
-            image: AssetImage(image ?? Assets.somnioLogo),
-            fit: BoxFit.fitHeight,
-          ),
+  Widget _assetImage(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          image: image != null && image.isNotEmpty
+              ? Image.file(File(image)).image
+              : const AssetImage(Assets.somnioLogo),
+          fit: BoxFit.fitHeight,
         ),
-        height: height ?? 100,
-        width: width ?? 100,
-      );
+      ),
+      height: height ?? 100,
+      width: width ?? 100,
+    );
+  }
 
   Widget _editIcon() => InkWell(
         onTap: onTap,
@@ -56,8 +62,11 @@ class ProfileImage extends StatelessWidget {
         ),
       );
 
-  Widget _imageToShow(BuildContext context) =>
-      image != null && isURL(image) ? _networkImage() : _assetImage(context);
+  Widget _imageToShow(BuildContext context) {
+    return image != null && image.isNotEmpty && isURL(image)
+        ? _networkImage()
+        : _assetImage(context);
+  }
 
   Widget _editableImage(BuildContext context) => Stack(
         alignment: Alignment.bottomRight,
