@@ -1,5 +1,6 @@
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
+import 'package:firebasestarter/bloc/user/user_bloc.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/screens/profile/edit_profile_screen.dart';
@@ -50,7 +51,8 @@ class UserInfoSection extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => BlocProvider<EditProfileBloc>(
               create: (BuildContext context) =>
-                  EditProfileBloc()..add(const CurrentUserLoaded()),
+                  EditProfileBloc(context.read<UserBloc>())
+                    ..add(const CurrentUserLoaded()),
               child: EditProfileScreen(),
             ),
           ),

@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
 import 'package:firebasestarter/bloc/forms/edit_profile_form.dart';
+import 'package:firebasestarter/bloc/user/user_bloc.dart';
+import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:firebasestarter/services/storage/storage_service.dart';
@@ -16,8 +18,9 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   ImageService _imageService;
   PickedFile _pickedPhoto;
   final form = EditProfileFormBloc();
+  UserBloc userBloc;
 
-  EditProfileBloc() : super(const EditProfileInitial()) {
+  EditProfileBloc(this.userBloc) : super(const EditProfileInitial()) {
     _authService = GetIt.I.get<AuthService>();
     _storageService = GetIt.I.get<StorageService>();
     _imageService = GetIt.I.get<ImageService>();
@@ -90,7 +93,6 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
   Stream<EditProfileState> _updateProfile() async* {
     yield const EditProfileInProgress();
-
     try {
       final user = await _authService.currentUser();
       if (user.firstName == form.firstNameVal &&
@@ -107,6 +109,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         lastName: form.lastNameVal,
       );
       yield const EditProfileSuccess();
+      userBloc.add(const UserLoaded());
       yield AvatarChangeSuccess(user.imageUrl);
     } catch (e) {
       yield EditProfileFailure(e);

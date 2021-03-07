@@ -1,3 +1,5 @@
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/screens/settings/settings_screen.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
@@ -23,8 +25,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               builder: (context) => SettingsScreen(),
             ),
           );
-          //To update name, lastName and image
-          setState(() {});
         },
         child: Container(
           margin: const EdgeInsets.only(right: 15.0),
@@ -37,7 +37,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    return Scaffold(
         appBar: CustomAppBar(
           goBack: false,
           title: Strings.myProfile,
@@ -56,6 +57,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return const Center(child: CircularProgressIndicator());
             }
           },
-        ),
-      );
+        ));
+  }
 }

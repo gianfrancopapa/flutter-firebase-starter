@@ -1,3 +1,5 @@
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/employees/employees_bloc.dart';
 import 'package:firebasestarter/bloc/employees/employees_event.dart';
 import 'package:firebasestarter/bloc/user/user_bloc.dart';
@@ -24,14 +26,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     _index = 0;
+
     _screens = [
       BlocProvider(
         create: (context) => EmployeesBloc()..add(const EmployeesLoaded()),
         child: TeamScreen(),
       ),
-      BlocProvider(
-          create: (_) => UserBloc()..add(const UserLoaded()),
-          child: ProfileScreen())
+      ProfileScreen(),
     ];
     super.initState();
   }

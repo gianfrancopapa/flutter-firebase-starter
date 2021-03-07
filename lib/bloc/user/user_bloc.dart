@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/bloc/user/user_state.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
@@ -15,14 +19,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Stream<UserState> mapEventToState(UserEvent event) async* {
     switch (event.runtimeType) {
       case UserLoaded:
-        yield* _mapGetUserToState();
+        yield* _mapUserLoadedToState();
         break;
       default:
         yield const UserLoadFailure('Undetermined event');
     }
   }
 
-  Stream<UserState> _mapGetUserToState() async* {
+  Stream<UserState> _mapUserLoadedToState() async* {
     yield const UserLoadInProgress();
     try {
       final user = await _authService.currentUser();

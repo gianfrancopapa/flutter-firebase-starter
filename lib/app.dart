@@ -1,8 +1,12 @@
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_bloc.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_event.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
+import 'package:firebasestarter/bloc/user/user_bloc.dart';
+import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/screens/init_app.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/notifications/notifications_service.dart';
@@ -28,6 +32,7 @@ class _AppState extends State<App> {
         BlocProvider<LoginBloc>(
             create: (BuildContext context) =>
                 LoginBloc()..add(const IsUserLoggedIn())),
+        BlocProvider(create: (_) => UserBloc()..add(const UserLoaded())),
       ],
       child: FirebaseStarter(),
     );
