@@ -1,6 +1,4 @@
 import 'package:firebase_analytics/observer.dart';
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_bloc.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_event.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';

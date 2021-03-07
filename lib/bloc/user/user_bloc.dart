@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/bloc/user/user_state.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';

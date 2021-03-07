@@ -1,5 +1,3 @@
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/screens/settings/settings_screen.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';

@@ -1,9 +1,5 @@
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/employees/employees_bloc.dart';
 import 'package:firebasestarter/bloc/employees/employees_event.dart';
-import 'package:firebasestarter/bloc/user/user_bloc.dart';
-import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/screens/team/team_screen.dart';
 import 'package:firebasestarter/widgets/home/bottom_navigation_bar.dart';
