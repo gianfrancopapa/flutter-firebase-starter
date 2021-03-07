@@ -16,14 +16,14 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
   Stream<CreateAccountState> mapEventToState(CreateAccountEvent event) async* {
     switch (event.runtimeType) {
       case AccountCreated:
-        yield* _createAccountWithEmail();
+        yield* _mapAccountCreatedToState();
         break;
       default:
         yield const CreateAccountFailure(_errEvent);
     }
   }
 
-  Stream<CreateAccountState> _createAccountWithEmail() async* {
+  Stream<CreateAccountState> _mapAccountCreatedToState() async* {
     yield const CreateAccountInProgress();
     if (form.passwordConfVal != form.passwordVal) {
       yield const CreateAccountFailure(_errPasswordMismatch);

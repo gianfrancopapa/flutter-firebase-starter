@@ -22,32 +22,36 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     switch (event.runtimeType) {
       case LoginStarted:
-        yield* _login();
+        yield* _mapLoginStartedToState();
         break;
       case GoogleLoginStarted:
-        yield* _signIn(_authService.signInWithGoogle, 'google');
+        yield* _mapProviderLoginStartedToState(
+            _authService.signInWithGoogle, 'google');
         break;
       case AppleLoginStarted:
-        yield* _signIn(_authService.signInWithApple, 'apple');
+        yield* _mapProviderLoginStartedToState(
+            _authService.signInWithApple, 'apple');
         break;
       case FacebookLoginStarted:
-        yield* _signIn(_authService.signInWithFacebook, 'facebook');
+        yield* _mapProviderLoginStartedToState(
+            _authService.signInWithFacebook, 'facebook');
         break;
       case AnonymousLoginStarted:
-        yield* _signIn(_authService.signInAnonymously, 'anonymous');
+        yield* _mapProviderLoginStartedToState(
+            _authService.signInAnonymously, 'anonymous');
         break;
       case LogoutStarted:
-        yield* _logout();
+        yield* _mapLogoutStartedToState();
         break;
       case IsUserLoggedIn:
-        yield* _checkIfUserIsLoggedIn();
+        yield* _mapIsUserLoggedInToState();
         break;
       default:
         yield const LoginFailure(_errEvent);
     }
   }
 
-  Stream<LoginState> _login() async* {
+  Stream<LoginState> _mapLoginStartedToState() async* {
     yield const LoginInProgress();
     try {
       final user = await _authService.signInWithEmailAndPassword(
@@ -60,7 +64,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  Stream<LoginState> _signIn(
+  Stream<LoginState> _mapProviderLoginStartedToState(
       Future<User> Function() signInMethod, String loginMethod) async* {
     _analyticsService.logLogin(loginMethod);
     yield const LoginInProgress();
@@ -72,7 +76,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  Stream<LoginState> _logout() async* {
+  Stream<LoginState> _mapLogoutStartedToState() async* {
     _analyticsService.logLogout();
     yield const LoginInProgress();
     try {
@@ -83,7 +87,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  Stream<LoginState> _checkIfUserIsLoggedIn() async* {
+  Stream<LoginState> _mapIsUserLoggedInToState() async* {
     yield const LoginInProgress();
     try {
       final user = await _authService.currentUser();

@@ -30,23 +30,23 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   Stream<EditProfileState> mapEventToState(EditProfileEvent event) async* {
     switch (event.runtimeType) {
       case PhotoWithCameraUploaded:
-        yield* _updateUserPhoto(_imageService.imgFromCamera);
+        yield* _mapPhotoUploadedToState(_imageService.imgFromCamera);
         break;
       case PhotoWithLibraryUpdated:
-        yield* _updateUserPhoto(_imageService.imgFromGallery);
+        yield* _mapPhotoUploadedToState(_imageService.imgFromGallery);
         break;
       case ProfileInfoUpdated:
-        yield* _updateProfile();
+        yield* _mapProfileInfoUpdatedToState();
         break;
       case CurrentUserLoaded:
-        yield* _mapGetCurrentUserEventToState();
+        yield* _mapCurrentUserLoadedToState();
         break;
       default:
         yield const EditProfileFailure(_errEvent);
     }
   }
 
-  Stream<EditProfileState> _mapGetCurrentUserEventToState() async* {
+  Stream<EditProfileState> _mapCurrentUserLoadedToState() async* {
     yield const EditProfileInProgress();
     try {
       final user = await _authService.currentUser();
@@ -60,7 +60,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     }
   }
 
-  Stream<EditProfileState> _updateUserPhoto(
+  Stream<EditProfileState> _mapPhotoUploadedToState(
     Future<PickedFile> Function() uploadMethod,
   ) async* {
     try {
@@ -91,7 +91,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     }
   }
 
-  Stream<EditProfileState> _updateProfile() async* {
+  Stream<EditProfileState> _mapProfileInfoUpdatedToState() async* {
     yield const EditProfileInProgress();
     try {
       final user = await _authService.currentUser();

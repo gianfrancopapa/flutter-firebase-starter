@@ -17,14 +17,14 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     yield const EmployeesLoadInProgress();
     switch (event.runtimeType) {
       case EmployeesLoaded:
-        yield* _getEmployees();
+        yield* _mapEmployeesLoadedToState();
         break;
       default:
         yield const EmployeesLoadFailure(_errEvent);
     }
   }
 
-  Stream<EmployeesState> _getEmployees() async* {
+  Stream<EmployeesState> _mapEmployeesLoadedToState() async* {
     try {
       final employees = await _employeesRepository.getEmployees(null);
       if (employees.isEmpty) {

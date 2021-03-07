@@ -25,14 +25,14 @@ class ForgotPasswordBloc
       ForgotPasswordEvent event) async* {
     switch (event.runtimeType) {
       case PasswordReset:
-        yield* _resetPassword();
+        yield* _mapPasswordResetToState();
         break;
       default:
         yield const ForgotPasswordFailure(_errEvent);
     }
   }
 
-  Stream<ForgotPasswordState> _resetPassword() async* {
+  Stream<ForgotPasswordState> _mapPasswordResetToState() async* {
     yield const ForgotPasswordInProgress();
     try {
       await _authService.sendPasswordResetEmail(form.emailValue);

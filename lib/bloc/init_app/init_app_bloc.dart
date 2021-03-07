@@ -16,14 +16,14 @@ class InitAppBloc extends Bloc<InitAppEvent, InitAppState> {
   Stream<InitAppState> mapEventToState(InitAppEvent event) async* {
     switch (event.runtimeType) {
       case InitAppIsFirstTime:
-        yield* _checkIfFirstTime();
+        yield* _mapInitAppIsFirstTimeToState();
         break;
       default:
         yield const InitAppError('Invalid event.');
     }
   }
 
-  Stream<InitAppState> _checkIfFirstTime() async* {
+  Stream<InitAppState> _mapInitAppIsFirstTimeToState() async* {
     yield const InitAppLoadInProgress();
     try {
       final firstTime =
