@@ -39,15 +39,17 @@ class EditProfileScreen extends StatelessWidget {
         },
         child: Scaffold(
           appBar: CustomAppBar(title: AppLocalizations.of(context).editProfile),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 44.0),
-            child: Column(
-              children: [
-                Margin(0.0, 60.0),
-                _userPhoto(),
-                Margin(0.0, 45.0),
-                EditProfileForm(context.read<EditProfileBloc>()),
-              ],
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 44.0),
+              child: Column(
+                children: [
+                  Margin(0.0, 60.0),
+                  _userPhoto(),
+                  Margin(0.0, 45.0),
+                  EditProfileForm(context.read<EditProfileBloc>()),
+                ],
+              ),
             ),
           ),
         ),

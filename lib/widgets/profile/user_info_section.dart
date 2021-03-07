@@ -17,7 +17,7 @@ class UserInfoSection extends StatelessWidget {
 
   Widget _userInfoItem(BuildContext context, String title, String data) =>
       SizedBox(
-        height: 43.0,
+        height: 52.0,
         width: MediaQuery.of(context).size.width / 1.5,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
