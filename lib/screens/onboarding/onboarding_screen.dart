@@ -109,7 +109,7 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
         pages: _pages(),
         onDone: () {
           _analyticsService.logTutorialComplete();
-          return Navigator.push(
+          return Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => LoginScreen()),
           );

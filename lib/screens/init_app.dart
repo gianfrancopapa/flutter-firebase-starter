@@ -12,6 +12,12 @@ class DetermineAccessScreen extends StatelessWidget {
   Widget _checkIfUserIsLoggedIn() => BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           switch (state.runtimeType) {
+            case LoginInitial:
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
             case LoginSuccess:
               return HomeScreen((state as LoginSuccess).currentUser);
             default:

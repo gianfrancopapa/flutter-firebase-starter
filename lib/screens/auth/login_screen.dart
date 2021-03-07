@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: AppColor.lightGrey,
         appBar: const CustomAppBar(
           title: 'Login',
+          goBack: false,
         ),
         body: BlocListener<LoginBloc, LoginState>(
           listener: (BuildContext context, LoginState state) {
