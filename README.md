@@ -74,13 +74,13 @@ Crashlytics:
   `FirebaseCrashlytics.instance.crash();`
   Above line can be put anywhere where we want the crash to happen.
 - Crash reporting happens only when the app is restarted after a crash.
-- Goto Crashlytics in Firebase project. Wait for sometime as it can take a few minutes for crashes to appear.
+- Go to Crashlytics in the Firebase project. Wait for sometime as it can take a few minutes for crashes to appear.
 - [Flutter package][crashlytics_package]
 - [Learn more][crashlytics_learn_more]
 
 Analytics:
 
-- To log an event use [get_it][get_it_package] service locator instance and get `AnalyticsService`. The `AnalyticsService` is an abastract class which can be extended to add another analytics service.
+- To log an event use [get_it][get_it_package] service locator instance and get `AnalyticsService`. The `AnalyticsService` is an abstract class which can be extended to add another analytics service.
 - After configuring Firebase Analytics correctly, it can take some minutes or some hours to show up the events in Analytics Dashboard of Firebase Console. To track the events nearly in real-time, [debug view][analytics_debug_view] can be used.
 - [Flutter package][analytics_package]
 - [Learn more][analytics_learn_more]

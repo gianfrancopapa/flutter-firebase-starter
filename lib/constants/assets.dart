@@ -7,7 +7,7 @@ class Assets {
   static const String somnioLogo = root + 'somnio_logo.png';
 
   //Onboarding Screen
-  static const String onboarding2 = root + 'lup_and_gear.jpg';
+  static const String onboarding2 = root + 'setting.png';
   static const String onboarding3 = root + 'confluence_logo.png';
 
   //User
