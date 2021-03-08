@@ -40,6 +40,6 @@ class ValidationMixin {
             password.contains(_digitsRegExp) &&
             password.length > passwordLength
         ? sink.add(password)
-        : sink.addError('Insert a valid password.'),
+        : sink.addError('Insert a valid password please.'),
   );
 }
