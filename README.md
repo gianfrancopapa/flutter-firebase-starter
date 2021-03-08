@@ -255,3 +255,19 @@ Moreover, we want to incorporate this new features:
 [onboarding_package]: https://pub.dev/packages/introduction_screen
 [splash_screen_package]: https://pub.dev/packages/flutter_native_splash
 [flavors]: https://flutter.dev/docs/deployment/flavors 
+
+## Gallery
+
+ ![](https://user-images.githubusercontent.com/66737000/110339369-dcf2f080-8006-11eb-9e0e-2322fcb4f47c.gif)
+ ![](https://user-images.githubusercontent.com/66737000/110339404-e9774900-8006-11eb-9c46-b30d7101f4aa.gif)
+ ![](https://user-images.githubusercontent.com/66737000/110339755-44a93b80-8007-11eb-916d-7954549f4bd9.gif)
+ ![](https://user-images.githubusercontent.com/66737000/110340001-8934d700-8007-11eb-8fa2-4bd3dbfe4f03.gif)
+ ![](https://user-images.githubusercontent.com/66737000/110340318-e29d0600-8007-11eb-99d0-d34eacf2d402.gif)
+ <img src="https://user-images.githubusercontent.com/66737000/110336244-70c2bd80-8003-11eb-9dab-7a685d6c97fb.png" height="480" width="250"/>
+ <img src="https://user-images.githubusercontent.com/66737000/110336270-77e9cb80-8003-11eb-917d-8fc91ac2f73f.png" height="480" width="250"/>
+ <img src="https://user-images.githubusercontent.com/66737000/110336284-7ae4bc00-8003-11eb-9931-b9c790a95892.png" height="480" width="250"/>
+ <img src="https://user-images.githubusercontent.com/66737000/110336299-7ddfac80-8003-11eb-8788-1f7d62e01f59.png" height="480" width="250"/>
+ <img src="https://user-images.githubusercontent.com/66737000/110336303-7e784300-8003-11eb-9cc4-40b52bb182a7.png" height="480" width="250"/>
+ <img src="https://user-images.githubusercontent.com/66737000/110336410-99e34e00-8003-11eb-9a47-ca11d03b8d01.png" height="480" width="250"/>
+ <img src="https://user-images.githubusercontent.com/66737000/110336420-9bad1180-8003-11eb-8d1e-4f75d178ec8d.png" height="480" width="250"/>
+ <img src="https://user-images.githubusercontent.com/66737000/110336308-7f10d980-8003-11eb-808f-7542c7662e5f.png" height="480" width="250"/>
