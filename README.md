@@ -24,8 +24,6 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 ✅&nbsp; Dynamic links
 
-✅&nbsp; Remote config
-
 ---
 
 ### Supported sign-in methods
@@ -40,8 +38,6 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 ✅&nbsp; Apple
 
-✅&nbsp; Email link (passwordless)
-
 ---
 
 ### Project Structure
@@ -50,10 +46,15 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 ├── bloc
     └──
 ├── constants
+├── mixins
 ├── models
+├── repository
 ├── screens
 ├── services
+├── utils
 ├── widgets
+├── app.dart
+├── main.dart
 └── README.md
 ```
 
@@ -86,7 +87,9 @@ Analytics:
 - [Learn more][analytics_learn_more]
 
 Cloud messaging
+
 - You can use push notifications and local notifications depending on the 3 possible states your app would be.
+
 ```dart
 FirebaseMessaging.onMessage.listen((event) async {
   await _localNotificationService.showNotification();
@@ -98,6 +101,7 @@ FirebaseMessaging.onBackgroundMessage(
   (message) => _onNotificationChanged(message.data),
 );
 ```
+
 - [Flutter package][messaging_package]
 - [Learn more][messaging_learn_more]
 
@@ -119,24 +123,19 @@ Firestore
 Storage
 
 - Methods for upload and download a file from firebase storage.
+
 ```dart
   Future<void> uploadFile(File file, String storagePath);
   Future<String> downloadFile(String storagePath, String localPath);
   Future<String> downloadURL(String storagePath);
 ```
+
 - [Flutter package][storage_package]
 - [Learn more][storage_learn_more]
 
-Dynamic links
-
-- Invite new users to your app using dynamic links.
-- Automatic login redirection inside the app.
-- Paswordless sign-in.
-- [Flutter package][dynamic_links_package]
-
 Remote Config
 
-- Example on how to use remote config to communicate users if the version of an app has increased. 
+- Example on how to use remote config to communicate users if the version of an app has increased.
 - [Flutter package][remote_config_package]
 - [Learn more][remote_config_learn_more]
 
@@ -147,18 +146,19 @@ Remote Config
 ✅&nbsp; Internationalization
 
 The configuration is on the yaml file on the root directory.
+
 ```yaml
 arb-dir: lib/constants/l10n
 template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
 ```
+
 You can add new languages each one should have its own file. E.g:
+
 ```yaml
 {
   "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "Somnio Software loves Flutter"
-  }
+  "@helloWorld": { "description": "Somnio Software loves Flutter" },
 }
 ```
 
@@ -174,6 +174,7 @@ Basic example of an onboarding flow where you can explain users a little explana
 ✅&nbsp; [Splash Screen][splash_screen_package]
 
 You can easily configure and cusotmize the splash screen in the pubspec.yaml.
+
 ```yaml
 flutter_native_splash:
   color: "#42a5f5"
@@ -211,11 +212,12 @@ We have defined 3 differents flavors or development enviroments:
 
 ### Coming soon :rocket:
 
-This project is under construction. Contributions, issues and suggestions are very welcome! 
-Moreover, we want to incorporate this new features: 
+This project is under construction. Contributions, issues and suggestions are very welcome!
+Moreover, we want to incorporate this new features:
 
 - [ ] Support more sign in methods like GitHub, Twitter.
 - [ ] Phone Verification
+- [ ] Dynamic Links
 - [ ] Real time database
 - [ ] Performance
 - [ ] Error Management
@@ -248,26 +250,25 @@ Moreover, we want to incorporate this new features:
 [dynamic_links_package]: https://pub.dev/packages/firebase_dynamic_links
 [remote_config_package]: https://pub.dev/packages/firebase_remote_config
 [remote_config_learn_more]: https://firebase.flutter.dev/docs/remote-config/overview
-
 [//]: # "Other Cool features links."
 [shared_preferences_package]: https://pub.dev/packages/shared_preferences
 [image_picker_package]: https://pub.dev/packages/image_picker
 [onboarding_package]: https://pub.dev/packages/introduction_screen
 [splash_screen_package]: https://pub.dev/packages/flutter_native_splash
-[flavors]: https://flutter.dev/docs/deployment/flavors 
+[flavors]: https://flutter.dev/docs/deployment/flavors
 
 ## Gallery
 
- ![](https://user-images.githubusercontent.com/66737000/110339369-dcf2f080-8006-11eb-9e0e-2322fcb4f47c.gif)
- ![](https://user-images.githubusercontent.com/66737000/110339404-e9774900-8006-11eb-9c46-b30d7101f4aa.gif)
- ![](https://user-images.githubusercontent.com/66737000/110339755-44a93b80-8007-11eb-916d-7954549f4bd9.gif)
- ![](https://user-images.githubusercontent.com/66737000/110340001-8934d700-8007-11eb-8fa2-4bd3dbfe4f03.gif)
- ![](https://user-images.githubusercontent.com/66737000/110340318-e29d0600-8007-11eb-99d0-d34eacf2d402.gif)
- <img src="https://user-images.githubusercontent.com/66737000/110336244-70c2bd80-8003-11eb-9dab-7a685d6c97fb.png" height="480" width="250"/>
- <img src="https://user-images.githubusercontent.com/66737000/110336270-77e9cb80-8003-11eb-917d-8fc91ac2f73f.png" height="480" width="250"/>
- <img src="https://user-images.githubusercontent.com/66737000/110336284-7ae4bc00-8003-11eb-9931-b9c790a95892.png" height="480" width="250"/>
- <img src="https://user-images.githubusercontent.com/66737000/110336299-7ddfac80-8003-11eb-8788-1f7d62e01f59.png" height="480" width="250"/>
- <img src="https://user-images.githubusercontent.com/66737000/110336303-7e784300-8003-11eb-9cc4-40b52bb182a7.png" height="480" width="250"/>
- <img src="https://user-images.githubusercontent.com/66737000/110336410-99e34e00-8003-11eb-9a47-ca11d03b8d01.png" height="480" width="250"/>
- <img src="https://user-images.githubusercontent.com/66737000/110336420-9bad1180-8003-11eb-8d1e-4f75d178ec8d.png" height="480" width="250"/>
- <img src="https://user-images.githubusercontent.com/66737000/110336308-7f10d980-8003-11eb-808f-7542c7662e5f.png" height="480" width="250"/>
+![](https://user-images.githubusercontent.com/66737000/110339369-dcf2f080-8006-11eb-9e0e-2322fcb4f47c.gif)
+![](https://user-images.githubusercontent.com/66737000/110339404-e9774900-8006-11eb-9c46-b30d7101f4aa.gif)
+![](https://user-images.githubusercontent.com/66737000/110339755-44a93b80-8007-11eb-916d-7954549f4bd9.gif)
+![](https://user-images.githubusercontent.com/66737000/110340001-8934d700-8007-11eb-8fa2-4bd3dbfe4f03.gif)
+![](https://user-images.githubusercontent.com/66737000/110340318-e29d0600-8007-11eb-99d0-d34eacf2d402.gif)
+<img src="https://user-images.githubusercontent.com/66737000/110336244-70c2bd80-8003-11eb-9dab-7a685d6c97fb.png" height="480" width="250"/>
+<img src="https://user-images.githubusercontent.com/66737000/110336270-77e9cb80-8003-11eb-917d-8fc91ac2f73f.png" height="480" width="250"/>
+<img src="https://user-images.githubusercontent.com/66737000/110336284-7ae4bc00-8003-11eb-9931-b9c790a95892.png" height="480" width="250"/>
+<img src="https://user-images.githubusercontent.com/66737000/110336299-7ddfac80-8003-11eb-8788-1f7d62e01f59.png" height="480" width="250"/>
+<img src="https://user-images.githubusercontent.com/66737000/110336303-7e784300-8003-11eb-9cc4-40b52bb182a7.png" height="480" width="250"/>
+<img src="https://user-images.githubusercontent.com/66737000/110336410-99e34e00-8003-11eb-9a47-ca11d03b8d01.png" height="480" width="250"/>
+<img src="https://user-images.githubusercontent.com/66737000/110336420-9bad1180-8003-11eb-8d1e-4f75d178ec8d.png" height="480" width="250"/>
+<img src="https://user-images.githubusercontent.com/66737000/110336308-7f10d980-8003-11eb-808f-7542c7662e5f.png" height="480" width="250"/>
