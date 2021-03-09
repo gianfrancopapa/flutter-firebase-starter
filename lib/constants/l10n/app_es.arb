@@ -41,7 +41,7 @@
 
   "send": "Enviar",
 
-  "emailSended": "Email Enviado",
+  "emailSent": "Email Enviado",
 
   "checkInbox": "Revisa tu bandeja de entrada",
 
@@ -99,7 +99,7 @@
 
   "workingArea": "Área de trabajo",
 
-  "didYouForgotYourPassword" : "¿Has olvidado tu contraseña?",
+  "didYouForgetYourPassword" : "¿Has olvidado tu contraseña?",
 
   "optionTwo": "Opción 2",
 

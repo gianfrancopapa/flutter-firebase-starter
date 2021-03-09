@@ -29,7 +29,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           if (state is ForgotPasswordEmailSent) {
             DialogHelper.showAlertDialog(
               context: context,
-              story: _localizedStrings.emailSended,
+              story: _localizedStrings.emailSent,
               btnText: _localizedStrings.ok,
               btnAction: () => Navigator.pop(context),
             );

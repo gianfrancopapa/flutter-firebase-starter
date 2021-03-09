@@ -105,8 +105,8 @@
       "description": ""
   },
 
-  "emailSended": "Email Sended",
-  "@emailSended": {
+  "emailSent": "Email Sent",
+  "@emailSent": {
       "description": ""
   },
 
@@ -251,8 +251,8 @@
       "description": ""
   },
 
-  "didYouForgotYourPassword": "Did you forgot your password?",
-  "@didYouForgotYourPassword": {
+  "didYouForgetYourPassword": "Did you forget your password?",
+  "@didYouForgetYourPassword": {
       "description": ""
   },
 
