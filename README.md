@@ -65,19 +65,18 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 ├── main.dart
 └── README.md
 ```
-Description:
 
-- bloc: In here we handle the current state of the app. The UI layer communicates with components of the bloc folder by dispatching events and listening to changes in the state.  
-- constants: In this folder we save files related to strings, font weights and assets.
-- mixins: Helper classes that we use to abstract some common behavior and reuse it across different places like inside the bloc files.
-- models: Here you can find abstractions that we did about entities of the real world.
-- repository: The repository folder provides a more object-oriented view of the persistence layer. 
-- screens: All the screens of the app goes here.
-- services: In here you can find abstractions of all the third-party services that we use in the app, like persistance, notifications, etc.
-- utils: Helper functions that we use across the app.
-- widgets: In the widget folder lives purely UI components. We have reusable components as well as coupled ones to a particular screen.
-- app: Responsible to inflate widgets, initiate process among other stuff.
-- main: Entry point of the app.
+- bloc: where we handle the current state of the app. The UI layer communicates with components of the bloc layer by dispatching events and listening to changes in the state.
+- constants: here we have files related to strings, font weights and assets.
+- mixins: helper classes that we use to abstract some common behavior and reuse it across different places like inside the bloc layer.
+- models: here you can find have abstractions that defines entities of the real world.
+- repository: the repository layer provides a more object-oriented view of the persistence layer. 
+- screens: all the screens of the app goes here, it is the UI layer.
+- services: here you can find abstractions of all the third-party services that we use across the app, like persistance, notifications, etc.
+- utils: helper functions that we use across the app.
+- widgets: in the widget folder lives purely UI components. We have reusable components as well as widgets that are coupled to a particular screen.
+- app: responsible to inflate widgets, initiate process among other stuff.
+- main: entry point of the app.
 
 ---
 
