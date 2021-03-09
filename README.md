@@ -42,7 +42,9 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 ## Gallery
 
-![](https://user-images.githubusercontent.com/66737000/110339369-dcf2f080-8006-11eb-9e0e-2322fcb4f47c.gif) ![](https://user-images.githubusercontent.com/66737000/110339404-e9774900-8006-11eb-9c46-b30d7101f4aa.gif) ![](https://user-images.githubusercontent.com/66737000/110339755-44a93b80-8007-11eb-916d-7954549f4bd9.gif)
+![](https://user-images.githubusercontent.com/66737000/110529950-a0072680-80f8-11eb-8a75-5100568cf23c.gif)
+![](https://user-images.githubusercontent.com/66737000/110529944-9e3d6300-80f8-11eb-912b-c2ed2acc17af.gif)
+![](https://user-images.githubusercontent.com/66737000/110529938-9c739f80-80f8-11eb-8410-40bb3ff02da6.gif)
 
 ---
 
@@ -63,6 +65,19 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 ├── main.dart
 └── README.md
 ```
+Description:
+
+- bloc: In here we handle the current state of the app. The UI layer communicates with components of the bloc folder by dispatching events and listening to changes in the state.  
+- constants: In this folder we save files related to strings, font weights and assets.
+- mixins: Helper classes that we use to abstract some common behavior and reuse it across different places like inside the bloc files.
+- models: Here you can find abstractions that we did about entities of the real world.
+- repository: The repository folder provides a more object-oriented view of the persistence layer. 
+- screens: All the screens of the app goes here.
+- services: In here you can find abstractions of all the third-party services that we use in the app, like persistance, notifications, etc.
+- utils: Helper functions that we use across the app.
+- widgets: In the widget folder lives purely UI components. We have reusable components as well as coupled ones to a particular screen.
+- app: Responsible to inflate widgets, initiate process among other stuff.
+- main: Entry point of the app.
 
 ---
 
