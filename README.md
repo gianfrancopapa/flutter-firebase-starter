@@ -42,9 +42,7 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 ## Gallery
 
-![](https://user-images.githubusercontent.com/66737000/110529950-a0072680-80f8-11eb-8a75-5100568cf23c.gif)
-![](https://user-images.githubusercontent.com/66737000/110529944-9e3d6300-80f8-11eb-912b-c2ed2acc17af.gif)
-![](https://user-images.githubusercontent.com/66737000/110529938-9c739f80-80f8-11eb-8410-40bb3ff02da6.gif)
+![](https://user-images.githubusercontent.com/66737000/110529950-a0072680-80f8-11eb-8a75-5100568cf23c.gif) &nbsp;&nbsp;&nbsp; ![](https://user-images.githubusercontent.com/66737000/110529944-9e3d6300-80f8-11eb-912b-c2ed2acc17af.gif) &nbsp;&nbsp;&nbsp; ![](https://user-images.githubusercontent.com/66737000/110529938-9c739f80-80f8-11eb-8410-40bb3ff02da6.gif)
 
 ---
 
@@ -71,7 +69,7 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 - models: here you can find your domain which represents abstractions of the real world.
 - repository: the repository layer provides a more object-oriented view of the persistence layer. 
 - screens: all the screens of the app goes here, it is the UI layer.
-- services: here you can find abstractions of all the third-party services that we use across the app, like persistance, notifications, etc.
+- services: here you can find abstractions of all the third-party services that we use across the app, like persistence, notifications, etc.
 - utils: helper functions that we use across the app.
 - widgets: in the widget folder lives purely UI components. We have reusable components as well as widgets that are coupled to a particular screen.
 - app: responsible to inflate widgets, initiate process among other stuff.
