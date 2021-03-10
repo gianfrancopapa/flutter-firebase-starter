@@ -22,7 +22,7 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 ✅&nbsp; Storage
 
-✅&nbsp; Dynamic links
+✅&nbsp; Remote config
 
 ---
 
@@ -52,7 +52,6 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 ```bash
 ├── bloc
-    └──
 ├── constants
 ├── mixins
 ├── models
@@ -69,7 +68,7 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 - bloc: where we handle the current state of the app. The UI layer communicates with components of the bloc layer by dispatching events and listening to changes in the state.
 - constants: here we have files related to strings, font weights and assets.
 - mixins: helper classes that we use to abstract some common behavior and reuse it across different places like inside the bloc layer.
-- models: here you can find have abstractions that defines entities of the real world.
+- models: here you can find your domain which represents abstractions of the real world.
 - repository: the repository layer provides a more object-oriented view of the persistence layer. 
 - screens: all the screens of the app goes here, it is the UI layer.
 - services: here you can find abstractions of all the third-party services that we use across the app, like persistance, notifications, etc.
@@ -242,7 +241,7 @@ Moreover, we want to incorporate this new features:
 - [ ] Performance
 - [ ] Error Management
 - [ ] Unit, Widget & Integration testing.
-- [ ] Continous integration & Continoues Deployment.
+- [ ] Continous integration & Continous Deployment with Firebase App Distribution.
 
 [//]: # "Flutter Firebase Starter links."
 [somnio_software_link]: https://somniosoftware.com/
