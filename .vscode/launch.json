@@ -1,0 +1,32 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Firebase Starter dev",
+			"request": "launch",
+			"type": "dart",
+			"args": [
+				"--flavor",
+				"dev"
+			]
+		},
+		{
+			"name": "Firebase Starter staging",
+			"request": "launch",
+			"type": "dart",
+			"args": [
+				"--flavor",
+				"staging"
+			]
+		},
+		{
+			"name": "Firebase Starter prod",
+			"request": "launch",
+			"type": "dart",
+			"args": [
+				"--flavor",
+				"prod"
+			]
+		}
+	]
+}

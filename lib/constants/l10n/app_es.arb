@@ -1,0 +1,133 @@
+{
+  "lastName": "Apellido",
+  
+  "email": "Email",
+  
+  "settings": "Configuración",
+  
+  "editEmployee": "Editar Empleado",
+
+  "description": "Descripción",
+
+  "password": "Contraseña",
+
+  "login": "Login",
+
+  "dontYouHaveAccount": "¿No tienes una cuenta?",
+
+  "createOne": "Create una",
+
+  "firstName": "Nombre",
+
+  "passwordConfirmation": "Confirmar Contraseña",
+
+  "createAccount": "Crearse una cuenta",
+
+  "employees": "Empleados",
+
+  "logout": "Logout",
+
+  "configuration": "Configuración",
+
+  "version": "Versión",
+  
+  "appName": "Nombre de la aplicación",
+  
+  "buildNumber": "Número de build",
+
+  "packageName": "Nombre del paquete",
+
+  "forgotPassword": "Olvidé mi contraseña",
+
+  "send": "Enviar",
+
+  "emailSent": "Email Enviado",
+
+  "checkInbox": "Revisa tu bandeja de entrada",
+
+  "myProfile": "Mi perfil",
+
+  "editProfile": "Editar perfil",
+
+  "employeeAddedSuccessfully": "Se ha creado un nuevo empleado satisfactoriamente",
+
+  "ok": "Aceptar",
+
+  "employeeUpdatedSuccessfully": "El empleado a sido actualizado",
+
+  "update": "Actualizar",
+
+  "home": "Inicio",
+
+  "addEmployee": "Agregar Empleado",
+
+  "name": "Nombre",
+
+  "phone": "Teléfono",
+
+  "address": "Domicilio",
+
+  "age": "Edad",
+
+  "admin": "Administrador",
+
+  "create": "Crear",
+
+  "addNewEmployee": "Agregar nuevo empleado",
+
+  "doYouWantToDeleteThisUser": "¿Desea eliminar este empleado?",
+
+  "yes": "Si",
+
+  "no": "No",
+
+  "delete": "Eliminar",
+
+  "sector": "Sector",
+
+  "phoneNumber": "Número de telefono",
+
+  "charge": "Cargo: ",
+
+  "signIn": "Sign In",
+
+  "filters": "Filtros",
+
+  "clear": "Limpiar",
+
+  "applyFilters": "Aplicar Filtros",
+
+  "workingArea": "Área de trabajo",
+
+  "didYouForgetYourPassword" : "¿Has olvidado tu contraseña?",
+
+  "optionTwo": "Opción 2",
+
+  "optionThree": "Opción 3",
+
+  "welcome": "Bienvenido al Flutter Boilerplate",
+
+  "pageOne": "Una aplicación de Somnio pensada para ser reusada al crear una nueva app",
+
+  "options": "Opciones",
+
+  "pageTwo": "Explora y reusa funcionalidades genéricas que te permitiran empezar a codear lo antes posible",
+  
+  "documentationOnConfluence": "Documentación en Confluence",
+
+  "pageThree": "Podras encontrar en Confluence toda la información que necesitas sobre la aplicación",
+
+  "skip": "Saltar",
+
+  "done": "Listo",
+
+  "googleSignIn": "Iniciar sesión con Google",
+
+  "facebookSignIn": "Iniciar sesión con Facebook",
+
+  "appleIdSignIn": "Iniciar sesión con Apple ID",
+
+  "anonymousSignIn": "Iniciar sesión anónima",
+  
+  "noEmployees": "No se han encontrado empleados"
+}
