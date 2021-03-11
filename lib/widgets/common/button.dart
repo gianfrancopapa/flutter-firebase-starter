@@ -41,6 +41,7 @@ class Button extends StatelessWidget {
               Text(
                 text,
                 style: TextStyle(
+                  fontSize: 18,
                   color: textColor ?? Colors.white,
                 ),
               ),
