@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:firebasestarter/models/user.dart';
 
 abstract class AuthService {
@@ -16,7 +15,7 @@ abstract class AuthService {
   Future<void> sendPasswordResetEmail(String email);
   Future<User> signInWithGoogle();
   Future<User> signInWithFacebook();
-  Future<User> signInWithApple({List<Scope> scopes});
+  Future<User> signInWithApple();
   Future<void> signOut();
   Future<bool> changeProfile(
       {String firstName, String lastName, String photoURL});

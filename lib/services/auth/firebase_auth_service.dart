@@ -1,4 +1,7 @@
-import 'package:apple_sign_in/apple_sign_in.dart';
+import 'dart:convert';
+import 'dart:math';
+import 'package:crypto/crypto.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
@@ -148,39 +151,41 @@ class FirebaseAuthService implements AuthService {
     }
   }
 
+  String generateNonce([int length = 32]) {
+    const charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
+  }
+
+  String sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = sha256.convert(bytes);
+    return digest.toString();
+  }
+
   @override
-  Future<User> signInWithApple({List<Scope> scopes}) async {
-    final result = await AppleSignIn.performRequests(
-        [AppleIdRequest(requestedScopes: scopes)]);
-    switch (result.status) {
-      case AuthorizationStatus.authorized:
-        final appleIdCredential = result.credential;
-        final oAuthProvider = Auth.OAuthProvider('apple.com');
-        final credential = oAuthProvider.credential(
-          idToken: String.fromCharCodes(appleIdCredential.identityToken),
-          accessToken:
-              String.fromCharCodes(appleIdCredential.authorizationCode),
-        );
-        final authResult = await _firebaseAuth.signInWithCredential(credential);
-        final firebaseUser = authResult.user;
-        if (scopes.contains(Scope.fullName)) {
-          final displayName =
-              '${appleIdCredential.fullName.givenName} ${appleIdCredential.fullName.familyName}';
-          await firebaseUser.updateProfile(displayName: displayName);
-        }
-        return _mapFirebaseUser(firebaseUser);
-      case AuthorizationStatus.error:
-        throw PlatformException(
-          code: 'ERROR_AUTHORIZATION_DENIED',
-          message: result.error.toString(),
-        );
-      case AuthorizationStatus.cancelled:
-        throw PlatformException(
-          code: 'ERROR_ABORTED_BY_USER',
-          message: 'Sign in aborted by user',
-        );
-    }
-    return null;
+  Future<User> signInWithApple() async {
+    final rawNonce = generateNonce();
+    final nonce = sha256ofString(rawNonce);
+
+    final appleCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: nonce,
+    );
+
+    final oauthCredential = Auth.OAuthProvider('apple.com').credential(
+      idToken: appleCredential.identityToken,
+      rawNonce: rawNonce,
+    );
+
+    final userCredential =
+        await Auth.FirebaseAuth.instance.signInWithCredential(oauthCredential);
+    return _mapFirebaseUser(userCredential.user);
   }
 
   @override
