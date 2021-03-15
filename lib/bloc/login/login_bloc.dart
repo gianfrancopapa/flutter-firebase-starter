@@ -6,7 +6,6 @@ import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/bloc/login/login_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   static const _errEvent = 'Error: Invalid event in [login_bloc.dart]';
@@ -61,7 +60,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
       yield LoginSuccess(user);
     } catch (e) {
-      yield LoginFailure(_determineAccessError(e));
+      yield LoginFailure(e.code);
     }
   }
 
@@ -71,9 +70,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     yield const LoginInProgress();
     try {
       final user = await signInMethod();
-      yield LoginSuccess(user);
+      if (user != null) {
+        yield LoginSuccess(user);
+      }
     } catch (e) {
-      yield LoginFailure(_determineAccessError(e));
+      yield LoginFailure(e.code);
     }
   }
 
@@ -101,48 +102,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield const LoginFailure(
           'Error while trying to verify if user is logged in');
     }
-  }
-
-  String _determineAccessError(FirebaseAuthException exception) {
-    const error = 'Error:';
-    var message;
-    switch (exception.code) {
-      case 'invalid-email':
-        message = 'Invalid email.';
-        break;
-      case 'user-disabled':
-        message = 'This user has been disabled.';
-        break;
-      case 'user-not-found':
-        message = 'There is no user linked with this email.';
-        break;
-      case 'wrong-password':
-        message =
-            'The password is invalid or the user does not have a password.';
-        break;
-      case 'email-already-in-use':
-      case 'account-exists-with-different-credential':
-        message = 'An account with this email already exists.';
-        break;
-      case 'invalid-credential':
-        message = 'Invalid credential.';
-        break;
-      case 'operation-not-allowed':
-        message = 'You do not have permission to perform this action.';
-        break;
-      case 'weak-password':
-        message =
-            'Insert a password with at least 6 characters that contains at least one uppercase letter and one number.';
-        break;
-      case 'ERROR_ABORTED_BY_USER':
-        message = 'Sign in aborted by user.';
-        break;
-      case 'ERROR_MISSING_GOOGLE_AUTH_TOKEN':
-        message = 'Missing Google auth token.';
-        break;
-      default:
-        message = 'An error occurs';
-    }
-    return error + ' ' + message;
   }
 }

@@ -105,10 +105,7 @@ class FirebaseAuthService implements AuthService {
         );
       }
     } else {
-      throw Auth.FirebaseAuthException(
-        code: 'ERROR_ABORTED_BY_USER',
-        message: 'Sign in aborted by user',
-      );
+      return null;
     }
   }
 
@@ -127,10 +124,7 @@ class FirebaseAuthService implements AuthService {
         );
         return _mapFirebaseUser(userCredential.user);
       case FacebookLoginStatus.cancel:
-        throw Auth.FirebaseAuthException(
-          code: 'ERROR_ABORTED_BY_USER',
-          message: 'Sign in aborted by user',
-        );
+        return null;
       case FacebookLoginStatus.error:
         throw Auth.FirebaseAuthException(
           code: 'ERROR_FACEBOOK_LOGIN_FAILED',
@@ -168,10 +162,7 @@ class FirebaseAuthService implements AuthService {
           message: result.error.toString(),
         );
       case AuthorizationStatus.cancelled:
-        throw Auth.FirebaseAuthException(
-          code: 'ERROR_ABORTED_BY_USER',
-          message: 'Sign in aborted by user',
-        );
+        return null;
     }
     return null;
   }
