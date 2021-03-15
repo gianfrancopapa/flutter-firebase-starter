@@ -28,6 +28,8 @@ class InitAppBloc extends Bloc<InitAppEvent, InitAppState> {
     try {
       final firstTime =
           await _localPersistanceService.getValue<bool>(_isFirstTime);
+      const _duration = Duration(seconds: 2);
+      await Future.delayed(_duration, () async {});
       if (firstTime ?? true) {
         await _localPersistanceService.setValue<bool>(_isFirstTime, false);
         yield const InitAppFirstTime();
