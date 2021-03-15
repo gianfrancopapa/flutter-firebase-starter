@@ -28,12 +28,12 @@ class CustomAppBar extends PreferredSize {
                   size: 30.0,
                 ),
               )
-            : const SizedBox(),
+            : null,
         title: Text(
           title,
           style: const TextStyle(
             color: AppColor.white,
-            fontSize: 18.0,
+            fontSize: 23.0,
             fontWeight: FontWeight.w400,
           ),
         ),
