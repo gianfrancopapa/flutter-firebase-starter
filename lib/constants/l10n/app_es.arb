@@ -129,5 +129,11 @@
 
   "anonymousSignIn": "Iniciar sesión anónima",
   
-  "noEmployees": "No se han encontrado empleados"
+  "noEmployees": "No se han encontrado empleados",
+
+  "selectProfilePicture" : "Selecciona tu foto de perfil.",
+
+  "gallery" : "Galería",
+
+  "camera" : "Cámara"
 }

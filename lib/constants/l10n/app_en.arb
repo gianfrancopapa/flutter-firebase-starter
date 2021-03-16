@@ -329,6 +329,21 @@
   "noEmployees": "No employees found",
   "@noEmployees":{
       "description": ""
+  },
+
+  "selectProfilePicture" : "Select your profile picture.",
+  "@selectProfilePicture":{ 
+      "description": ""
+  },
+
+  "gallery" : "Gallery",
+  "@gallery":{ 
+      "description": ""
+  },
+
+  "camera" : "Camera",
+  "@camera":{ 
+      "description": ""
   }
 
 }
