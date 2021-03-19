@@ -7,7 +7,9 @@ import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService implements AuthService {
-  final Auth.FirebaseAuth _firebaseAuth = Auth.FirebaseAuth.instance;
+  final Auth.FirebaseAuth _firebaseAuth;
+
+  FirebaseAuthService(Auth.FirebaseAuth this._firebaseAuth) {}
 
   User _mapFirebaseUser(Auth.User user) {
     if (user == null) {

@@ -1,16 +1,19 @@
-import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
+import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:firebasestarter/bloc/create_account/create_account_event.dart';
 import 'package:firebasestarter/bloc/create_account/create_account_state.dart';
 import 'package:firebasestarter/bloc/forms/create_account_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
   static const _errEvent = 'Error: Invalid event in [create_account_bloc.dart]';
   static const _errPasswordMismatch = 'Error: Passwords doesn\'t match.';
-  final _firebaseAuth = FirebaseAuthService();
+  AuthService _firebaseAuth;
   final form = CreateAccountFormBloc();
 
-  CreateAccountBloc() : super(const CreateAccountInitial());
+  CreateAccountBloc() : super(const CreateAccountInitial()) {
+    _firebaseAuth = GetIt.I<AuthService>();
+  }
 
   @override
   Stream<CreateAccountState> mapEventToState(CreateAccountEvent event) async* {

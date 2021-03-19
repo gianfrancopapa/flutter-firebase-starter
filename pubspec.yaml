@@ -51,6 +51,7 @@ dev_dependencies:
   flutter_native_splash: ^0.3.0
   flutter_test:
     sdk: flutter
+  mockito: 
 
 flutter:
   uses-material-design: true
