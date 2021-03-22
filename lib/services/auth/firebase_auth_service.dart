@@ -2,14 +2,19 @@ import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
+import 'package:firebasestarter/services/auth/google/googe_auth_service.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService implements AuthService {
   final Auth.FirebaseAuth _firebaseAuth;
+  final GoogleSignIn _googleSignIn;
+  final GoogleAuthService _googleAuthService;
 
-  FirebaseAuthService(Auth.FirebaseAuth this._firebaseAuth) {}
+  FirebaseAuthService(Auth.FirebaseAuth this._firebaseAuth,
+      [GoogleSignIn this._googleSignIn,
+      this._googleAuthService = const GoogleAuthService()]) {}
 
   User _mapFirebaseUser(Auth.User user) {
     if (user == null) {
@@ -89,35 +94,18 @@ class FirebaseAuthService implements AuthService {
   @override
   Future<User> signInWithGoogle() async {
     try {
-      final googleSignIn = GoogleSignIn();
-      final googleUser = await googleSignIn.signIn();
-      if (googleUser != null) {
-        final googleAuth = await googleUser.authentication;
-        if (googleAuth.accessToken != null && googleAuth.idToken != null) {
-          final userCredential = await _firebaseAuth.signInWithCredential(
-            Auth.GoogleAuthProvider.credential(
-              idToken: googleAuth.idToken,
-              accessToken: googleAuth.accessToken,
-            ),
-          );
-          return _mapFirebaseUser(userCredential.user);
-        } else {
-          throw PlatformException(
-            code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
-            message: 'Missing Google Auth Token',
-          );
-        }
-      } else {
-        throw PlatformException(
-          code: 'ERROR_ABORTED_BY_USER',
-          message: 'Sign in aborted by user',
-        );
-      }
-    } catch (err) {
-      throw PlatformException(
-        code: 'ERROR_ABORTED_BY_USER',
-        message: 'User aborted Google Sign in',
-      );
+      final signInMethod = _googleSignIn ?? GoogleSignIn();
+      final googleUser = await _googleAuthService.getGoogleUser(signInMethod);
+      final googleAuth = await _googleAuthService.getGoogleAuth(googleUser);
+      final googleCredential = _googleAuthService.getUserCredentials(
+          googleAuth.accessToken, googleAuth.idToken);
+
+      final userCredential =
+          await _firebaseAuth.signInWithCredential(googleCredential);
+
+      return _mapFirebaseUser(userCredential.user);
+    } catch (error) {
+      throw error;
     }
   }
 
