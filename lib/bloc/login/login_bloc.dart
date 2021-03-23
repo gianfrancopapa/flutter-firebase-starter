@@ -65,7 +65,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Stream<LoginState> _mapProviderLoginStartedToState(
-      Future<User> Function() signInMethod, String loginMethod) async* {
+    Future<User> Function() signInMethod,
+    String loginMethod,
+  ) async* {
     _analyticsService.logLogin(loginMethod);
     yield const LoginInProgress();
     try {

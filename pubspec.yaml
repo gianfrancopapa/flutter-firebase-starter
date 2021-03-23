@@ -41,6 +41,9 @@ dependencies:
   firebase_remote_config: ^0.6.0
   flutter_icons: ^1.1.0
   flutter_svg: ^0.19.0
+  built_value:
+  repository:
+    path: packages/repository
 
 flutter_icons:
   android: true
@@ -51,6 +54,8 @@ dev_dependencies:
   flutter_native_splash: ^0.3.0
   flutter_test:
     sdk: flutter
+  build_runner:
+  built_value_generator:
 
 flutter:
   uses-material-design: true
