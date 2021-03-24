@@ -41,7 +41,7 @@
 
   "send": "Enviar",
 
-  "emailSended": "Email Enviado",
+  "emailSent": "Email Enviado",
 
   "checkInbox": "Revisa tu bandeja de entrada",
 
@@ -99,7 +99,7 @@
 
   "workingArea": "Área de trabajo",
 
-  "didYouForgotYourPassword" : "¿Has olvidado tu contraseña?",
+  "didYouForgetYourPassword" : "¿Has olvidado tu contraseña?",
 
   "optionTwo": "Opción 2",
 
@@ -147,5 +147,12 @@
 
   "weakPassword" : "Ingrese una contraseña de al menos 6 caracteres con al menos una mayúscula y un número.",
 
-  "missingAuthToken" : "No se ha encontrado el token Google auth."
+  "missingAuthToken" : "No se ha encontrado el token Google auth.",
+
+  "selectProfilePicture" : "Selecciona tu foto de perfil.",
+
+  "gallery" : "Galería",
+
+  "camera" : "Cámara"
+
 }

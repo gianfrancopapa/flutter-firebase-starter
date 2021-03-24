@@ -105,8 +105,8 @@
       "description": ""
   },
 
-  "emailSended": "Email Sended",
-  "@emailSended": {
+  "emailSent": "Email Sent",
+  "@emailSent": {
       "description": ""
   },
 
@@ -251,8 +251,8 @@
       "description": ""
   },
 
-  "didYouForgotYourPassword": "Did you forgot your password?",
-  "@didYouForgotYourPassword": {
+  "didYouForgetYourPassword": "Did you forget your password?",
+  "@didYouForgetYourPassword": {
       "description": ""
   },
 
@@ -360,6 +360,21 @@
   "@invalidCredential":{
       "description": ""
   }, 
+  
+  "selectProfilePicture" : "Select your profile picture.",
+  "@selectProfilePicture":{ 
+      "description": ""
+  },
+
+  "gallery" : "Gallery",
+  "@gallery":{ 
+      "description": ""
+  },
+
+  "camera" : "Camera",
+  "@camera":{ 
+      "description": ""
+  },
 
   "operationNotAllowed" : "You do not have permission to perform this action.",
   "@operationNotAllowed":{

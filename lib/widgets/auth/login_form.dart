@@ -96,7 +96,7 @@ class LoginForm extends StatelessWidget {
         child: SizedBox(
           width: double.infinity,
           child: Text(
-            AppLocalizations.of(context).didYouForgotYourPassword,
+            AppLocalizations.of(context).didYouForgetYourPassword,
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: AppColor.blue,

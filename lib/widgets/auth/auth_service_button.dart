@@ -14,8 +14,8 @@ class AuthServiceButton extends StatelessWidget {
   const AuthServiceButton({
     this.text,
     this.onTap,
-    this.height = 20.0,
-    this.width = 20.0,
+    this.height = 30.0,
+    this.width = 30.0,
     this.backgroundColor,
     this.textColor,
     this.asset,
@@ -26,22 +26,24 @@ class AuthServiceButton extends StatelessWidget {
         onTap: onTap,
         backgroundColor: AppColor.white,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Padding(
+              padding: EdgeInsets.only(left: 15.0),
+            ),
             Image(
               image: AssetImage(asset),
               height: height,
               width: width,
             ),
             const Padding(
-              padding: EdgeInsets.only(left: 10.0),
+              padding: EdgeInsets.only(left: 15.0),
             ),
             Text(
               text,
               style: const TextStyle(
-                fontSize: 15.0,
-                fontWeight: FontWeight.w400,
-              ),
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.grey),
             ),
           ],
         ),
