@@ -60,19 +60,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
       yield LoginSuccess(user);
     } catch (e) {
-      yield LoginFailure(e.toString());
+      yield LoginFailure(e.code);
     }
   }
 
   Stream<LoginState> _mapProviderLoginStartedToState(
-      Future<User> Function() signInMethod, String loginMethod) async* {
+    Future<User> Function() signInMethod,
+    String loginMethod,
+  ) async* {
     _analyticsService.logLogin(loginMethod);
     yield const LoginInProgress();
     try {
       final user = await signInMethod();
-      yield LoginSuccess(user);
+      if (user != null) {
+        yield LoginSuccess(user);
+      }
     } catch (e) {
-      yield LoginFailure(e.toString());
+      yield LoginFailure(e.code);
     }
   }
 

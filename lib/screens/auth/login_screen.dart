@@ -7,6 +7,7 @@ import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_state.dart';
 import 'package:firebasestarter/utils/dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
             if (state is LoginFailure) {
               DialogHelper.showAlertDialog(
                 context: context,
-                story: state.message,
+                story: _determineAccessError(state, context),
                 btnText: 'Close',
                 btnAction: () => Navigator.pop(context),
               );
@@ -47,4 +48,43 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       );
+
+  String _determineAccessError(LoginFailure exception, BuildContext context) {
+    const error = 'Error:';
+    var message;
+    final _appLocalizations = AppLocalizations.of(context);
+    switch (exception.message) {
+      case 'invalid-email':
+        message = _appLocalizations.invalidEmail;
+        break;
+      case 'user-disabled':
+        message = _appLocalizations.userDisabled;
+        break;
+      case 'user-not-found':
+        message = _appLocalizations.userNotFound;
+        break;
+      case 'wrong-password':
+        message = _appLocalizations.wrongPassword;
+        break;
+      case 'email-already-in-use':
+      case 'account-exists-with-different-credential':
+        message = _appLocalizations.emailAlreadyInUse;
+        break;
+      case 'invalid-credential':
+        message = _appLocalizations.invalidCredential;
+        break;
+      case 'operation-not-allowed':
+        message = _appLocalizations.operationNotAllowed;
+        break;
+      case 'weak-password':
+        message = _appLocalizations.weakPassword;
+        break;
+      case 'ERROR_MISSING_GOOGLE_AUTH_TOKEN':
+        message = _appLocalizations.missingAuthToken;
+        break;
+      default:
+        message = 'An error occurs';
+    }
+    return error + ' ' + message;
+  }
 }
