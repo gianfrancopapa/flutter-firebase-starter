@@ -13,12 +13,8 @@ class GoogleAuthService {
       GoogleSignInAccount googleUser) {
     if (googleUser != null) {
       return googleUser.authentication;
-    } else {
-      throw PlatformException(
-        code: 'ERROR_ABORTED_BY_USER',
-        message: 'Sign in aborted by user',
-      );
     }
+    return null;
   }
 
   Auth.OAuthCredential getUserCredentials(String accessToken, String idToken) {
@@ -29,7 +25,7 @@ class GoogleAuthService {
       );
       return credential;
     } else {
-      throw PlatformException(
+      throw Auth.FirebaseAuthException(
         code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
         message: 'Missing Google Auth Token',
       );

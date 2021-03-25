@@ -137,7 +137,7 @@ void main() async {
       final authService = FirebaseAuthService(auth, googleSignIn);
       when(googleSignIn.signIn()).thenAnswer((realInvocation) => null);
 
-      expect(() async => authService.signInWithGoogle(), throwsException);
+      expect(await authService.signInWithGoogle(), null);
     });
 
     test('No google auth accessToken', () async {
@@ -217,7 +217,7 @@ void main() async {
 
       when(loginResult.status).thenReturn(FacebookLoginStatus.cancel);
 
-      expect(() async => authService.signInWithFacebook(), throwsException);
+      expect(await authService.signInWithFacebook(), null);
     });
 
     test('Facebook Error', () async {

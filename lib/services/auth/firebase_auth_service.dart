@@ -103,13 +103,16 @@ class FirebaseAuthService implements AuthService {
       final signInMethod = _googleSignIn ?? GoogleSignIn();
       final googleUser = await _googleAuthService.getGoogleUser(signInMethod);
       final googleAuth = await _googleAuthService.getGoogleAuth(googleUser);
-      final googleCredential = _googleAuthService.getUserCredentials(
-          googleAuth.accessToken, googleAuth.idToken);
+      if (googleAuth != null) {
+        final googleCredential = _googleAuthService.getUserCredentials(
+            googleAuth.accessToken, googleAuth.idToken);
 
-      final userCredential =
-          await _firebaseAuth.signInWithCredential(googleCredential);
+        final userCredential =
+            await _firebaseAuth.signInWithCredential(googleCredential);
 
-      return _mapFirebaseUser(userCredential.user);
+        return _mapFirebaseUser(userCredential.user);
+      }
+      return null;
     } catch (error) {
       throw error;
     }
