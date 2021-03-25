@@ -12,7 +12,6 @@ import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
 import 'package:firebasestarter/services/storage/storage_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
-import 'package:google_sign_in/google_sign_in.dart';
 
 final getIt = GetIt.instance;
 
