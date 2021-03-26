@@ -20,7 +20,9 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   final form = EditProfileFormBloc();
   UserBloc userBloc;
 
-  EditProfileBloc(this.userBloc) : super(const EditProfileInitial()) {
+  EditProfileBloc(this.userBloc,
+      [AuthService auth, StorageService storage, ImageService image])
+      : super(const EditProfileInitial()) {
     _authService = GetIt.I.get<AuthService>();
     _storageService = GetIt.I.get<StorageService>();
     _imageService = GetIt.I.get<ImageService>();
