@@ -23,9 +23,9 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   EditProfileBloc(this.userBloc,
       [AuthService auth, StorageService storage, ImageService image])
       : super(const EditProfileInitial()) {
-    _authService = GetIt.I.get<AuthService>();
-    _storageService = GetIt.I.get<StorageService>();
-    _imageService = GetIt.I.get<ImageService>();
+    _authService = auth ?? GetIt.I.get<AuthService>();
+    _storageService = storage ?? GetIt.I.get<StorageService>();
+    _imageService = image ?? GetIt.I.get<ImageService>();
   }
 
   @override
