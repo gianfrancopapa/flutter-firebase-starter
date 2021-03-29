@@ -268,9 +268,9 @@ PODS:
     - Firebase/Analytics (= 7.3.0)
     - firebase_core
     - Flutter
-  - firebase_auth (0.20.1):
-    - Firebase/Auth (= 7.3.0)
-    - firebase_core
+  - firebase_auth (0.0.1):
+    - Firebase/Auth
+    - Firebase/Core
     - Flutter
   - firebase_core (0.7.0):
     - Firebase/CoreOnly (= 7.3.0)
@@ -554,7 +554,7 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: d5ffe6d808897019ccf16feb6f0a7ab260bc5cd6
   Firebase: 26223c695fe322633274198cb19dca8cb7e54416
   firebase_analytics: 41043f6e14fc9bc27c3f05217ab7f2b0ad9b41eb
-  firebase_auth: 7220e26fc14a501a63093edc10443de6bca0d7e8
+  firebase_auth: 6023fc2e28feabd6571d9a105b678cce7978be90
   firebase_core: 91b27774a52f41f8b58484a75edf71197ac01c59
   firebase_crashlytics: e6ecb908f6249ce3757d18a812819a41495bf1cb
   firebase_messaging: caf0273c76e54f0a10dfe5048ac47b89e75bb78a
@@ -572,7 +572,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: 68d1bcb14880189558a8ae57167abe0b7e417232
   FirebaseRemoteConfig: 826fad8bec5ce1912ef97a124d6ec0ce4dcf6ec1
   FirebaseStorage: 5002b1895bfe74a5ce92ad54f966e6162d0da2e5
-  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   flutter_login_facebook: 8dca6968e2f545124b447aebcea0327f870af1f3
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
@@ -596,4 +596,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b564c0fdf04dadb665e3b06a0c2d236675511fca
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1
