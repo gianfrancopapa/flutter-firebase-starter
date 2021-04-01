@@ -90,7 +90,7 @@ class FirebaseAuthService implements AuthService {
     final googleUser = await googleSignIn.signIn();
     if (googleUser != null) {
       final googleAuth = await googleUser.authentication;
-      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+      if (googleAuth.accessToken != null || googleAuth.idToken != null) {
         final userCredential = await _firebaseAuth.signInWithCredential(
           Auth.GoogleAuthProvider.credential(
             idToken: googleAuth.idToken,
