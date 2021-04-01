@@ -2,7 +2,7 @@ import 'package:firebasestarter/models/user.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebaseMock.dart';
+import 'firebase_mock.dart';
 import './mocks/auth_mocks.dart';
 import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
 import 'package:mockito/mockito.dart';
@@ -140,7 +140,7 @@ void main() async {
       expect(await authService.signInWithGoogle(), null);
     });
 
-    test('No google auth accessToken', () async {
+    test('No google auth', () async {
       final authService = FirebaseAuthService(auth, googleSignIn);
       final _googleAccount = MockGoogleSignInAccount();
       final _googleAuth = MockGoogleSignInAuthentication();
@@ -150,22 +150,6 @@ void main() async {
       when(_googleAccount.authentication).thenAnswer((_) async => _googleAuth);
 
       when(_googleAuth.accessToken).thenReturn(null);
-
-      when(_googleAuth.idToken).thenReturn('abcd1234');
-
-      expect(() async => authService.signInWithGoogle(), throwsException);
-    });
-
-    test('No google auth idToken', () async {
-      final authService = FirebaseAuthService(auth, googleSignIn);
-      final _googleAccount = MockGoogleSignInAccount();
-      final _googleAuth = MockGoogleSignInAuthentication();
-
-      when(googleSignIn.signIn()).thenAnswer((_) async => _googleAccount);
-
-      when(_googleAccount.authentication).thenAnswer((_) async => _googleAuth);
-
-      when(_googleAuth.accessToken).thenReturn('abcd1234');
 
       when(_googleAuth.idToken).thenReturn(null);
 
