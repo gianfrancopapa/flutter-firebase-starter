@@ -28,6 +28,7 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
   Stream<EmployeesState> _mapEmployeesLoadedToState() async* {
     try {
       final employees = await _employeesRepository.getAll();
+
       if (employees.isEmpty) {
         yield const EmployeesLoadEmpty();
       } else {
@@ -41,4 +42,9 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
   }
 
   Employee _toEmployee(EmployeeEntity entity) => Employee.fromEntity(entity);
+
+  @override
+  Future<void> close() {
+    return super.close();
+  }
 }
