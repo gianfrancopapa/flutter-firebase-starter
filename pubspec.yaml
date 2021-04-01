@@ -41,7 +41,7 @@ dependencies:
   get_it: ^5.0.6
   flutter_icons: ^1.1.0
   flutter_svg: ^0.19.0
-  built_value:
+  equatable: ^1.2.6
   repository:
     path: packages/repository
 
@@ -56,6 +56,8 @@ dev_dependencies:
     sdk: flutter
   build_runner:
   built_value_generator:
+  test: ^1.15.7
+  mockito: ^4.1.4
 
 flutter:
   uses-material-design: true
