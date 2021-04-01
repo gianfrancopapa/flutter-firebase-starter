@@ -86,36 +86,26 @@ class FirebaseAuthService implements AuthService {
 
   @override
   Future<User> signInWithGoogle() async {
-    try {
-      final googleSignIn = GoogleSignIn();
-      final googleUser = await googleSignIn.signIn();
-      if (googleUser != null) {
-        final googleAuth = await googleUser.authentication;
-        if (googleAuth.accessToken != null && googleAuth.idToken != null) {
-          final userCredential = await _firebaseAuth.signInWithCredential(
-            Auth.GoogleAuthProvider.credential(
-              idToken: googleAuth.idToken,
-              accessToken: googleAuth.accessToken,
-            ),
-          );
-          return _mapFirebaseUser(userCredential.user);
-        } else {
-          throw PlatformException(
-            code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
-            message: 'Missing Google Auth Token',
-          );
-        }
+    final googleSignIn = GoogleSignIn();
+    final googleUser = await googleSignIn.signIn();
+    if (googleUser != null) {
+      final googleAuth = await googleUser.authentication;
+      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+        final userCredential = await _firebaseAuth.signInWithCredential(
+          Auth.GoogleAuthProvider.credential(
+            idToken: googleAuth.idToken,
+            accessToken: googleAuth.accessToken,
+          ),
+        );
+        return _mapFirebaseUser(userCredential.user);
       } else {
-        throw PlatformException(
-          code: 'ERROR_ABORTED_BY_USER',
-          message: 'Sign in aborted by user',
+        throw Auth.FirebaseAuthException(
+          code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
+          message: 'Missing Google Auth Token',
         );
       }
-    } catch (err) {
-      throw PlatformException(
-        code: 'ERROR_ABORTED_BY_USER',
-        message: 'User aborted Google Sign in',
-      );
+    } else {
+      return null;
     }
   }
 
@@ -134,10 +124,7 @@ class FirebaseAuthService implements AuthService {
         );
         return _mapFirebaseUser(userCredential.user);
       case FacebookLoginStatus.cancel:
-        throw Auth.FirebaseAuthException(
-          code: 'ERROR_ABORTED_BY_USER',
-          message: 'Login cancelado pelo usuário.',
-        );
+        return null;
       case FacebookLoginStatus.error:
         throw Auth.FirebaseAuthException(
           code: 'ERROR_FACEBOOK_LOGIN_FAILED',
@@ -170,15 +157,12 @@ class FirebaseAuthService implements AuthService {
         }
         return _mapFirebaseUser(firebaseUser);
       case AuthorizationStatus.error:
-        throw PlatformException(
+        throw Auth.FirebaseAuthException(
           code: 'ERROR_AUTHORIZATION_DENIED',
           message: result.error.toString(),
         );
       case AuthorizationStatus.cancelled:
-        throw PlatformException(
-          code: 'ERROR_ABORTED_BY_USER',
-          message: 'Sign in aborted by user',
-        );
+        return null;
     }
     return null;
   }

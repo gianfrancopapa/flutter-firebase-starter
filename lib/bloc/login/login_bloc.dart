@@ -60,7 +60,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
       yield LoginSuccess(user);
     } catch (e) {
-      yield LoginFailure(e.toString());
+      yield LoginFailure(e.code);
     }
   }
 
@@ -72,9 +72,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     yield const LoginInProgress();
     try {
       final user = await signInMethod();
-      yield LoginSuccess(user);
+      if (user != null) {
+        yield LoginSuccess(user);
+      }
     } catch (e) {
-      yield LoginFailure(e.toString());
+      yield LoginFailure(e.code);
     }
   }
 
