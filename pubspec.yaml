@@ -44,7 +44,6 @@ dependencies:
   equatable: ^1.2.6
   repository:
     path: packages/repository
-  equatable: 
 
 flutter_icons:
   android: true
