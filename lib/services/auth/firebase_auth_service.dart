@@ -2,12 +2,25 @@ import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
-import 'package:flutter/services.dart';
+import 'package:firebasestarter/services/auth/facebook/facebook_auth_service.dart';
+import 'package:firebasestarter/services/auth/google/googe_auth_service.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService implements AuthService {
-  final Auth.FirebaseAuth _firebaseAuth = Auth.FirebaseAuth.instance;
+  final Auth.FirebaseAuth _firebaseAuth;
+  final GoogleSignIn _googleSignIn;
+  final FacebookLogin _facebookLogin;
+  final GoogleAuthService _googleAuthService;
+  final FacebookAuthService _facebookAuthService;
+
+  FirebaseAuthService(
+    Auth.FirebaseAuth this._firebaseAuth, [
+    GoogleSignIn this._googleSignIn,
+    this._googleAuthService = const GoogleAuthService(),
+    FacebookLogin this._facebookLogin,
+    this._facebookAuthService = const FacebookAuthService(),
+  ]) {}
 
   User _mapFirebaseUser(Auth.User user) {
     if (user == null) {
@@ -72,7 +85,6 @@ class FirebaseAuthService implements AuthService {
         displayName: name + ' ' + lastName,
       );
       await userCredential.user.reload();
-      print(_firebaseAuth.currentUser.displayName);
       return _mapFirebaseUser(_firebaseAuth.currentUser);
     } catch (err) {
       throw err.toString();
@@ -86,41 +98,34 @@ class FirebaseAuthService implements AuthService {
 
   @override
   Future<User> signInWithGoogle() async {
-    final googleSignIn = GoogleSignIn();
-    final googleUser = await googleSignIn.signIn();
-    if (googleUser != null) {
-      final googleAuth = await googleUser.authentication;
-      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
-        final userCredential = await _firebaseAuth.signInWithCredential(
-          Auth.GoogleAuthProvider.credential(
-            idToken: googleAuth.idToken,
-            accessToken: googleAuth.accessToken,
-          ),
-        );
+    try {
+      final signInMethod = _googleSignIn ?? GoogleSignIn();
+      final googleUser = await _googleAuthService.getGoogleUser(signInMethod);
+      final googleAuth = await _googleAuthService.getGoogleAuth(googleUser);
+      if (googleAuth != null) {
+        final googleCredential = _googleAuthService.getUserCredentials(
+            googleAuth.accessToken, googleAuth.idToken);
+
+        final userCredential =
+            await _firebaseAuth.signInWithCredential(googleCredential);
+
         return _mapFirebaseUser(userCredential.user);
-      } else {
-        throw Auth.FirebaseAuthException(
-          code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
-          message: 'Missing Google Auth Token',
-        );
       }
-    } else {
       return null;
+    } catch (error) {
+      throw error;
     }
   }
 
   @override
   Future<User> signInWithFacebook() async {
-    final fb = FacebookLogin();
-    final response = await fb.logIn(permissions: [
-      FacebookPermission.publicProfile,
-      FacebookPermission.email,
-    ]);
+    final signInMethod = _facebookLogin ?? FacebookLogin();
+    final response = await _facebookAuthService.signIn(signInMethod);
     switch (response.status) {
       case FacebookLoginStatus.success:
-        final accessToken = response.accessToken;
+        final accessToken = response.accessToken.token;
         final userCredential = await _firebaseAuth.signInWithCredential(
-          Auth.FacebookAuthProvider.credential(accessToken.token),
+          _facebookAuthService.createFirebaseCredential(accessToken),
         );
         return _mapFirebaseUser(userCredential.user);
       case FacebookLoginStatus.cancel:

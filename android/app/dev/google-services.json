@@ -34,8 +34,7 @@
               "client_id": "401997180113-2tgafrp1vs291g9nt56scj26ui5i6s32.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.somniosoftware.firebasestarter",
-                "app_store_id": "123456789"
+                "bundle_id": "com.somniosoftware.firebasestarter"
               }
             }
           ]

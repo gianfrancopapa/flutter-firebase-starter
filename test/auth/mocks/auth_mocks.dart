@@ -1,5 +1,5 @@
-//import 'package:firebasestarter/services/auth/facebook/facebook_auth_service.dart';
-//import 'package:firebasestarter/services/auth/google/googe_auth_service.dart';
+import 'package:firebasestarter/services/auth/facebook/facebook_auth_service.dart';
+import 'package:firebasestarter/services/auth/google/googe_auth_service.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/mockito.dart';
@@ -45,7 +45,7 @@ class MockGoogleSignInAccount extends Mock implements GoogleSignInAccount {}
 class MockGoogleSignInAuthentication extends Mock
     implements GoogleSignInAuthentication {}
 
-//class MockGoogleAuthService extends Mock implements GoogleAuthService {}
+class MockGoogleAuthService extends Mock implements GoogleAuthService {}
 
 class MockFacebookLogin extends Mock implements FacebookLogin {}
 
@@ -53,4 +53,4 @@ class MockFacebookLoginResult extends Mock implements FacebookLoginResult {}
 
 class MockFacebookAccessToken extends Mock implements FacebookAccessToken {}
 
-//class MockFacebookAuthService extends Mock implements FacebookAuthService {}
+class MockFacebookAuthService extends Mock implements FacebookAuthService {}

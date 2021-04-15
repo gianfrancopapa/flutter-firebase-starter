@@ -42,8 +42,7 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 ## Gallery 
 
-![](https://user-images.githubusercontent.com/66737000/110529950-a0072680-80f8-11eb-8a75-5100568cf23c.gif) &nbsp;&nbsp;&nbsp; ![](https://user-images.githubusercontent.com/66737000/110529944-9e3d6300-80f8-11eb-912b-c2ed2acc17af.gif) &nbsp;&nbsp;&nbsp; ![](https://user-images.githubusercontent.com/66737000/110529938-9c739f80-80f8-11eb-8410-40bb3ff02da6.gif)
-
+![Screen1](doc/assets/screen_1.gif)&nbsp;&nbsp;&nbsp;![Screen2](doc/assets/screen_2.gif)&nbsp;&nbsp;&nbsp;![Screen3](doc/assets/screen_3.gif)
 ---
 
 ### Project Structure
