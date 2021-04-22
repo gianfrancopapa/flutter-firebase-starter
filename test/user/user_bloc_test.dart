@@ -15,9 +15,12 @@ void main() {
       when(auth.currentUser()).thenAnswer((realInvocation) async => user);
 
       expectLater(
-        userBloc,
+        userBloc.stream,
         emitsInOrder(
-          [const UserLoadInProgress(), UserLoadSuccess(user)],
+          [
+            const UserLoadInProgress(),
+            UserLoadSuccess(user),
+          ],
         ),
       );
 

@@ -4,6 +4,7 @@ import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
 import 'package:firebasestarter/bloc/forms/edit_profile_form.dart';
 import 'package:firebasestarter/bloc/user/user_bloc.dart';
 import 'package:firebasestarter/bloc/user/user_event.dart';
+import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:firebasestarter/services/storage/storage_service.dart';
@@ -17,15 +18,21 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   StorageService _storageService;
   ImageService _imageService;
   PickedFile _pickedPhoto;
-  final form = EditProfileFormBloc();
+  EditProfileFormBloc form;
   UserBloc userBloc;
 
   EditProfileBloc(this.userBloc,
-      [AuthService auth, StorageService storage, ImageService image])
+      [AuthService auth,
+      StorageService storage,
+      ImageService image,
+      EditProfileFormBloc formBloc,
+      PickedFile fakePhoto])
       : super(const EditProfileInitial()) {
     _authService = auth ?? GetIt.I.get<AuthService>();
     _storageService = storage ?? GetIt.I.get<StorageService>();
     _imageService = image ?? GetIt.I.get<ImageService>();
+    form = formBloc ?? EditProfileFormBloc();
+    _pickedPhoto = fakePhoto ?? null;
   }
 
   @override
@@ -78,10 +85,9 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     }
   }
 
-  Future<void> _uploadProfilePicture() async {
+  Future<void> _uploadProfilePicture(User user) async {
     try {
       if (_pickedPhoto == null) throw 'Error: Invalid photo';
-      final user = await _authService.currentUser();
       final extension = _pickedPhoto.path.split('.').last;
       final path = '/users/${user.id}.${extension}';
       final file = File(_pickedPhoto.path);
@@ -99,12 +105,12 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       final user = await _authService.currentUser();
       if (user.firstName == form.firstNameVal &&
           user.lastName == form.lastNameVal &&
-          (user.imageUrl == _pickedPhoto.path || _pickedPhoto == null)) {
+          (_pickedPhoto == null || user.imageUrl == _pickedPhoto.path)) {
         yield const EditProfileSuccess();
         return;
       }
       if (user.imageUrl != _pickedPhoto.path) {
-        await _uploadProfilePicture();
+        await _uploadProfilePicture(user);
       }
       await _authService.changeProfile(
         firstName: form.firstNameVal,

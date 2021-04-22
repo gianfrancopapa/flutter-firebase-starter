@@ -15,7 +15,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.0
   intl: ^0.17.0
-  flutter_bloc: ^6.1.0
+  flutter_bloc: ^7.0.0
   rxdart: ^0.24.1
   firebase_core: ^1.0.2
   firebase_analytics: ^7.0.1
@@ -58,6 +58,7 @@ dev_dependencies:
   built_value_generator:
   test: ^1.15.7
   mockito: ^4.1.4
+  bloc_test: ^8.0.0
 
 flutter:
   uses-material-design: true

@@ -36,7 +36,7 @@ void main() {
         );
 
         expectLater(
-          employeesBloc,
+          employeesBloc.stream,
           emitsInOrder(expectedResponse),
         );
 
@@ -66,7 +66,7 @@ void main() {
         );
 
         expectLater(
-          employeesBloc,
+          employeesBloc.stream,
           emitsInOrder(expectedResponse),
         );
 
@@ -85,7 +85,7 @@ void main() {
         );
 
         expectLater(
-          employeesBloc,
+          employeesBloc.stream,
           emitsInOrder(expectedResponse),
         );
 
