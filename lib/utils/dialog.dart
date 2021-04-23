@@ -22,8 +22,11 @@ abstract class DialogHelper {
           ),
           contentPadding: const EdgeInsets.all(10.0),
           actions: [
-            FlatButton(
-              color: Colors.blueGrey,
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.blueGrey),
+              ),
               child: Text(
                 btnText,
                 style: const TextStyle(color: Colors.white),
@@ -31,8 +34,11 @@ abstract class DialogHelper {
               onPressed: btnAction,
             ),
             btnText2 != null
-                ? FlatButton(
-                    color: Colors.blueGrey,
+                ? TextButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blueGrey),
+                    ),
                     child: Text(
                       btnText2,
                       style: const TextStyle(color: Colors.white),
