@@ -1,3 +1,5 @@
+import 'package:firebasestarter/bloc/user/user_bloc.dart';
+import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/widgets/auth/login_form.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
@@ -33,6 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
               );
             }
             if (state is LoginSuccess) {
+              BlocProvider.of<UserBloc>(context)..add(const UserLoaded());
               Navigator.push(
                 context,
                 MaterialPageRoute(
