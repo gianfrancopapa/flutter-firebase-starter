@@ -34,10 +34,10 @@ class RemoteConfigService {
     // }
   }
 
-  Future _fetchAndActivate() async {
+  /*Future _fetchAndActivate() async {
     //await _remoteConfig.fetch(expiration: const Duration(seconds: 10));
     //await _remoteConfig.activateFetched();
     print('$getStringValueIos');
     print('$getStringValueAndroid');
-  }
+  }*/
 }

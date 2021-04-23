@@ -19,7 +19,7 @@ class EditProfileScreen extends StatelessWidget {
             onTap: () => showModalBottomSheet(
               context: context,
               backgroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15.0),
                     topRight: Radius.circular(15.0)),
@@ -72,8 +72,8 @@ class EditProfileScreen extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(20.0),
+        const Padding(
+          padding: EdgeInsets.all(20.0),
         ),
         Center(
           child: Text(
@@ -81,11 +81,11 @@ class EditProfileScreen extends StatelessWidget {
             style: const TextStyle(fontSize: 22),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
+        const Padding(
+          padding: EdgeInsets.all(10.0),
         ),
         ListTile(
-          leading: Icon(
+          leading: const Icon(
             Icons.photo_camera,
             size: 50,
           ),
@@ -99,7 +99,7 @@ class EditProfileScreen extends StatelessWidget {
           },
         ),
         ListTile(
-          leading: Icon(
+          leading: const Icon(
             Icons.insert_photo,
             size: 50,
           ),
@@ -112,8 +112,8 @@ class EditProfileScreen extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
+        const Padding(
+          padding: EdgeInsets.all(20.0),
         )
       ],
     );
