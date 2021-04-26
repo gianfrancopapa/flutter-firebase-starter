@@ -1,6 +1,6 @@
-const String _STRING_WEB = 'web_app_version';
-const String _STRING_IOS = 'ios_app_version';
-const String _STRING_ANDROID = 'android_app_version';
+const String _STRING_WEB = '1.0';
+const String _STRING_IOS = '1.0';
+const String _STRING_ANDROID = '1.0';
 
 class RemoteConfigService {
   RemoteConfigService() {}
