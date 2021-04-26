@@ -2,6 +2,12 @@ abstract class EditProfileEvent {
   const EditProfileEvent();
 }
 
-class EditAvatar extends EditProfileEvent {
-  const EditAvatar();
+class ProfileInfoUpdated extends EditProfileEvent {}
+
+class PhotoWithCameraUploaded extends EditProfileEvent {}
+
+class PhotoWithLibraryUpdated extends EditProfileEvent {}
+
+class CurrentUserLoaded extends EditProfileEvent {
+  const CurrentUserLoaded();
 }

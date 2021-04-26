@@ -1,123 +1,107 @@
-import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
-import 'package:flutter/material.dart';
+import 'package:firebasestarter/models/user.dart';
+import 'package:firebasestarter/services/analytics/analytics_service.dart';
+import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/bloc/login/login_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
-class LoginBloc extends LoginFormBloc {
-  final _auth = FirebaseAuthService();
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  static const _errEvent = 'Error: Invalid event in [login_bloc.dart]';
+  AuthService _authService;
+  AnalyticsService _analyticsService;
+  final form = LoginFormBloc();
+
+  LoginBloc() : super(const LoginInitial()) {
+    _authService = GetIt.I<AuthService>();
+    _analyticsService = GetIt.I<AnalyticsService>();
+  }
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     switch (event.runtimeType) {
-      case StartLogin:
-        yield* login();
+      case LoginStarted:
+        yield* _mapLoginStartedToState();
         break;
-      case StartGoogleLogin:
-        yield* googleLogin();
+      case GoogleLoginStarted:
+        yield* _mapProviderLoginStartedToState(
+            _authService.signInWithGoogle, 'google');
         break;
-      case StartAppleLogin:
-        yield* appleLogin();
+      case AppleLoginStarted:
+        yield* _mapProviderLoginStartedToState(
+            _authService.signInWithApple, 'apple');
         break;
-      case StartFacebookLogin:
-        yield* facebookLogin();
+      case FacebookLoginStarted:
+        yield* _mapProviderLoginStartedToState(
+            _authService.signInWithFacebook, 'facebook');
         break;
-      case StartAnonymousLogin:
-        yield* anonymousLogin();
+      case AnonymousLoginStarted:
+        yield* _mapProviderLoginStartedToState(
+            _authService.signInAnonymously, 'anonymous');
         break;
-      case StartLogout:
-        yield* logout();
+      case LogoutStarted:
+        yield* _mapLogoutStartedToState();
         break;
-      case CheckIfUserIsLoggedIn:
-        yield* _checkIfUserIsLoggedIn();
+      case IsUserLoggedIn:
+        yield* _mapIsUserLoggedInToState();
         break;
       default:
-        yield const ErrorLogin('Undetermined event');
+        yield const LoginFailure(_errEvent);
     }
   }
 
-  @protected
-  @override
-  Stream<LoginState> login() async* {
-    yield const Loading();
+  Stream<LoginState> _mapLoginStartedToState() async* {
+    yield const LoginInProgress();
     try {
-      final user = await _auth.signInWithEmailAndPassword(
-        emailController.value,
-        passwordController.value,
+      final user = await _authService.signInWithEmailAndPassword(
+        form.emailValue,
+        form.passwordValue,
       );
-      yield LoggedIn(user);
+      yield LoginSuccess(user);
     } catch (e) {
-      yield ErrorLogin(e.toString());
+      yield LoginFailure(e.code);
     }
   }
 
-  @protected
-  Stream<LoginState> googleLogin() async* {
-    yield const Loading();
+  Stream<LoginState> _mapProviderLoginStartedToState(
+    Future<User> Function() signInMethod,
+    String loginMethod,
+  ) async* {
+    _analyticsService.logLogin(loginMethod);
+    yield const LoginInProgress();
     try {
-      final user = await _auth.signInWithGoogle();
-      yield LoggedIn(user);
-    } catch (e) {
-      yield ErrorLogin(e.toString());
-    }
-  }
-
-  @protected
-  Stream<LoginState> appleLogin() async* {
-    yield const Loading();
-    try {
-      final user = await _auth.signInWithApple();
-      yield LoggedIn(user);
-    } catch (e) {
-      yield ErrorLogin(e.toString());
-    }
-  }
-
-  @protected
-  Stream<LoginState> facebookLogin() async* {
-    yield const Loading();
-    try {
-      final user = await _auth.signInWithFacebook();
-      yield LoggedIn(user);
-    } catch (e) {
-      yield ErrorLogin(e.toString());
-    }
-  }
-
-  @protected
-  Stream<LoginState> anonymousLogin() async* {
-    yield const Loading();
-    try {
-      final user = await _auth.signInAnonymously();
-      yield LoggedIn(user);
-    } catch (e) {
-      yield ErrorLogin(e.toString());
-    }
-  }
-
-  @protected
-  @override
-  Stream<LoginState> logout() async* {
-    yield const Loading();
-    try {
-      await _auth.signOut();
-      yield const LoggedOut();
-    } catch (e) {
-      yield const ErrorLogin('Error while trying to log out');
-    }
-  }
-
-  Stream<LoginState> _checkIfUserIsLoggedIn() async* {
-    yield const Loading();
-    try {
-      final user = await _auth.currentUser();
+      final user = await signInMethod();
       if (user != null) {
-        yield LoggedIn(user);
-      } else {
-        yield const LoggedOut();
+        yield LoginSuccess(user);
       }
     } catch (e) {
-      yield const ErrorLogin(
+      yield LoginFailure(e.code);
+    }
+  }
+
+  Stream<LoginState> _mapLogoutStartedToState() async* {
+    _analyticsService.logLogout();
+    yield const LoginInProgress();
+    try {
+      await _authService.signOut();
+      yield const LogoutSuccess();
+    } catch (e) {
+      yield const LoginFailure('Error while trying to log out');
+    }
+  }
+
+  Stream<LoginState> _mapIsUserLoggedInToState() async* {
+    yield const LoginInProgress();
+    try {
+      final user = await _authService.currentUser();
+      if (user != null) {
+        yield LoginSuccess(user);
+      } else {
+        yield const LogoutSuccess();
+      }
+    } catch (e) {
+      yield const LoginFailure(
           'Error while trying to verify if user is logged in');
     }
   }

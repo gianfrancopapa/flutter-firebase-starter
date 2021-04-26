@@ -41,7 +41,7 @@
 
   "send": "Enviar",
 
-  "emailSended": "Email Enviado",
+  "emailSent": "Email Enviado",
 
   "checkInbox": "Revisa tu bandeja de entrada",
 
@@ -99,7 +99,7 @@
 
   "workingArea": "Área de trabajo",
 
-  "didYouForgotYourPassword" : "¿Has olvidado tu contraseña?",
+  "didYouForgetYourPassword" : "¿Has olvidado tu contraseña?",
 
   "optionTwo": "Opción 2",
 
@@ -119,5 +119,40 @@
 
   "skip": "Saltar",
 
-  "done": "Listo"
+  "done": "Listo",
+
+  "googleSignIn": "Iniciar sesión con Google",
+
+  "facebookSignIn": "Iniciar sesión con Facebook",
+
+  "appleIdSignIn": "Iniciar sesión con Apple ID",
+
+  "anonymousSignIn": "Iniciar sesión anónima",
+  
+  "noEmployees": "No se han encontrado empleados",
+
+  "invalidEmail": "Email inválido.",
+
+  "userDisabled": "El usuario se encuentra deshabilitado.",
+
+  "userNotFound": "No se ha encontrado un usuario asociado al email ingresado.",
+
+  "wrongPassword": "La contraseña ingresada es inválida o el usuario no tiene una contraseña asignada.",
+
+  "emailAlreadyInUse" : "Ya existe una cuenta vinculada al email ingresado.",
+
+  "invalidCredential" : "Credenciales inválidas.",
+
+  "operationNotAllowed" : "Operación no permitida.",
+
+  "weakPassword" : "Ingrese una contraseña de al menos 6 caracteres con al menos una mayúscula y un número.",
+
+  "missingAuthToken" : "No se ha encontrado el token Google auth.",
+
+  "selectProfilePicture" : "Selecciona tu foto de perfil.",
+
+  "gallery" : "Galería",
+
+  "camera" : "Cámara"
+
 }

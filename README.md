@@ -1,200 +1,260 @@
 # Flutter Firebase Starter
 
-[![Somnio Software](assets/logo-somnio.jpg)][somnio_software_link]
+[![Somnio Software](assets/logo.png)][somnio_software_link]
 
-Developed by Somnio Software
+Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 [![License: MIT][license_badge]][license_link]
 
 ---
 
-### Firebase features out of the box
+### Firebase features out-of-the-box :package:
 
-✅&nbsp; Crashlytics - 
+✅&nbsp; Crashlytics
 
-✅&nbsp; Analytics -
+✅&nbsp; Analytics
 
-✅&nbsp; Cloud messaging - 
+✅&nbsp; Cloud messaging
 
-✅&nbsp; Authentication - 
+✅&nbsp; Authentication
 
 ✅&nbsp; Firestore
 
-✅&nbsp; Real time database -
+✅&nbsp; Storage
 
-✅&nbsp; Storage -
-
-✅&nbsp;
-
-- [ ] Real time database 
-
-- [ ] Dynamic links
-
-- [ ] Remote Config
-
-- [ ] Performance
+✅&nbsp; Remote config
 
 ---
 
 ### Supported sign-in methods
 
-&nbsp;✅&nbsp; Anonymous
+✅&nbsp; Anonymous
 
-&nbsp;✅&nbsp; Email & Password
+✅&nbsp; Email & Password
 
-&nbsp;✅&nbsp; Facebook
+✅&nbsp; Facebook
 
-&nbsp;✅&nbsp; Google
+✅&nbsp; Google
 
-&nbsp;✅&nbsp; Apple
-
-- [ ] Email link (passwordless)
-
-- [ ] GitHub
-
-- [ ] Phone
-
-- [ ] Twitter
+✅&nbsp; Apple
 
 ---
 
-### Other Cool features
+## Gallery 
 
-✅&nbsp; Flavors - 
-
-✅&nbsp; Internationalization - 
-
-✅&nbsp; Contionous integration & Continous deployment -
-
----
-
-
----
----
+![Screen1](doc/assets/screen_1.gif)&nbsp;&nbsp;&nbsp;![Screen2](doc/assets/screen_2.gif)&nbsp;&nbsp;&nbsp;![Screen3](doc/assets/screen_3.gif)
 ---
 
 ### Project Structure
 
 ```bash
 ├── bloc
-    └──
 ├── constants
+├── mixins
 ├── models
+├── repository
 ├── screens
 ├── services
+├── utils
 ├── widgets
+├── app.dart
+├── main.dart
 └── README.md
 ```
+
+- bloc: where we handle the current state of the app. The UI layer communicates with components of the bloc layer by dispatching events and listening to changes in the state.
+- constants: here we have files related to strings, font weights, and assets.
+- mixins: helper classes that we use to abstract some common behavior and reuse it across different places like inside the bloc layer.
+- models: here you can find your domain which represents abstractions of the real world.
+- repository: the repository layer provides a more object-oriented view of the persistence layer.
+- screens: all the screens of the app go here, it is the UI layer.
+- services: here you can find abstractions of all the third-party services that we use across the app, like persistence, notifications, etc.
+- utils: helper functions that we use across the app.
+- widgets: in the widget folder lives purely UI components. We have reusable components as well as widgets that are coupled to a particular screen.
+- app: responsible to inflate widgets, initiate process among other stuff.
+- main: entry point of the app.
+
 ---
 
-### Other authentication features
+### Getting Started :muscle:
 
-- [x] Email verification (for email & password sign-in)
-- [x] Password reset
-- [ ] Sign-in with custom token
+Some configuration steps are required to use this project with Firebase, such as:
+- Creating a new project with the Firebase console.
+- Adding iOS and Android apps in the Firebase project settings.
+See this [document][firebase_setup] for the complete instructions.
 
-## Application features
+Crashlytics:
+- To test the crash reporting, the app can be forced to crash using the following line:
+  `FirebaseCrashlytics.instance.crash();`
+  the Above line can be put anywhere we want the crash to happen.
+- Crash reporting happens only when the app has restarted after a crash.
+- Go to Crashlytics in the Firebase project.Wait for some time as it can take a few minutes for crashes to appear.
+- [Flutter package][crashlytics_package]
+- [Learn more][crashlytics_learn_more]
 
-### Sign-in page
+Analytics:
+- To log an event use the [get_it][get_it_package] service locator instance and get `AnalyticsService`. The `AnalyticsService` is an abstract class that can be extended to add another analytics service.
+- After configuring Firebase Analytics correctly, it can take some minutes or some hours to show up the events in the Analytics Dashboard of Firebase Console. To track the events nearly in real-time, [debug view][analytics_debug_view] can be used.
+- [Flutter package][analytics_package]
+- [Learn more][analytics_learn_more]
 
-- [x] Email and password sign-in
-- [x] Apple sign-in
-- [x] Google sign-in
-- [x] Facebook sign-in
-- [ ] Anonymous sing-in
-- [x] Custom submit button with loading state
-- [x] Disable all input widgets while authentication is in progress
-- [x] Email regex validation
-- [x] Error hints
-- [ ] Focus order (email -> password -> submit by pressing "next" on keyboard)
-- [x] Password of at least 6 characters, with at least 1 number, 1 capital letter and 1 lowercase letter
-- [x] Show/hide password
-- [x] Password reset flow
+Cloud messaging
 
-### Create account page
+- You can use push notifications and local notifications depending on the 3 possible states your app would be.
+```dart
+FirebaseMessaging.onMessage.listen((event) async {
+  await _localNotificationService.showNotification();
+});
+FirebaseMessaging.onMessageOpenedApp.listen(
+  (event) => _onNotificationChanged(event.data),
+);
+FirebaseMessaging.onBackgroundMessage(
+  (message) => _onNotificationChanged(message.data),
+);
+```
 
-- [x] First name and last name fields
-- [x] Email regex validation
-- [x] Password and Confirm Password validation
-- [x] Show/hide password
+- [Flutter package][messaging_package]
+- [Learn more][messaging_learn_more]
 
-### Email link page
+Authentication:
 
-- [ ] Email input field, backed by secure storage
+- [Google Sign-In][google_sign_in_ios] on iOS
+- [Google Sign-In][google_sign_in_android] on Android
+- [Facebook Login][facebook_login_ios] on iOS
+- [Facebook Login][facebook_login_android] on Android
+- [Apple Sign-in][apple_sign_in]
 
-### Services
+Firestore
 
-#### Authentication
+- Generic implementation of Firestore methods: get, post, put, delete.
+- The repository class interacts with the Firestore persistence service.
+- [Flutter package][firestore_package]
+- [Learn more][firestore_learn_more]
 
-- [x] Abstract `AuthService` class, modeled after the `firebase_auth` API
-- [x] `FirebaseAuthService` implementation
-- [ ] `MockAuthService` for testing
-- [x] Firebase project configuration for iOS & Android
-- [ ] Toggle `FirebaseAuthService` and `MockAuthService` at runtime via developer menu
+Storage
 
-#### Storage
+- Methods for uploading and downloading a file from Firebase storage.
+```dart
+  Future<void> uploadFile(File file, String storagePath);
+  Future<String> downloadFile(String storagePath, String localPath);
+  Future<String> downloadURL(String storagePath);
+```
 
-- [x] Abstract `StorageService` class, modeled after `firebase_storage` API
-- [x] `FirebaseStorageService` implementation
+- [Flutter package][storage_package]
+- [Learn more][storage_learn_more]
 
-#### Persistence
+Remote Config
 
-- [x] Abstract `PersistenceService` class, modeled after `cloud_firestore` API
-- [x] `FirebasePersistenceService` implementation
+- Example on how to use Remote Config to communicate to users if the version of an app has increased.
+- [Flutter package][remote_config_package]
+- [Learn more][remote_config_learn_more]
 
-### Architecture
+---
 
-- [x] Logic inside models for better separation of concerns (using [`ChangeNotifier`](https://api.flutter.dev/flutter/foundation/ChangeNotifier-class.html))
-- [x] Use [Provider package](https://pub.dev/packages/provider) for dependency injection
+### Other cool features :fire:
 
-### User models
+✅&nbsp; Internationalization
 
-- [x] On app custom User and Admin models
-- [x] Admin and User roles defined
-- [x] Admin with different capabilities from user
+The configuration is on the yaml file on the root directory.
 
-### Other
+```yaml
+arb-dir: lib/constants/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+```
 
-- [x] Use [`Shared Preferences`](https://pub.dev/packages/shared_preferences), a providing persistent storage for simple data
-- [x] Use [`Image Picker`](https://pub.dev/packages/image_picker) for picking images from the library and taking photos
-- [x] [`OnBoarding Screen`](https://pub.dev/packages/introduction_screen) with introduction text of the app and custom images
-- [x] Custom `Splash Screen`
-- [x] Custom App light and dark theme
-- [x] Abstracted general widgets as buttons, text fields, lists, etc.
+You can add new languages each one should have its own file. E.g:
 
-## Running the project with Firebase
+```yaml
+{
+  “helloWorld”: “Hello World!“,
+  “@helloWorld”: { “description”: “Somnio Software loves Flutter” },
+}
+```
 
-To use this project with Firebase authentication, some configuration steps are required.
+✅&nbsp; [Shared Preferences][shared_preferences_package]
+A providing persistent storage for simple data.
+✅&nbsp; [Image Picker][image_picker_package]
+You can take pick images from the library or take photos to update you user profile picture.
+:✅&nbsp; [Onboarding][onboarding_package]
+ Basic example of an onboarding flow where you can give users a little explanation about the app.
+✅&nbsp; [Splash Screen][splash_screen_package]
+You can easily configure and cusotmize the splash screen in the pubspec.yaml.
+```yaml
+flutter_native_splash:
+  color: “#42A5F5"
+  image: assets/somnio_logo.png
+  color_dark: “#042A49”
+  image_dark: assets/somnio_logo.png
+  web: false
+```
+✅&nbsp; Flavors
+We have defined 3 different flavors or development environments:
+- Development
+- Staging
+- Production
+Each of these flavors will use a different Firebase project. You can add `google-services.json`(Android) and `GoogleService-info.plist`(iOS) for each flavor in following locations:
+  - Android:
+    - `android/app/src/dev`
+    - `android/app/src/staging`
+    - `android/app/src/prod`
+  - iOS:
+    - `ios/config/dev`
+    - `ios/config/staging`
+    - `ios/config/prod`
+  - Note: For iOS, XCode might not be able to find the files from the above locations if you simply copy them there. You need to drag and drop or use the Add Files option by right-clicking the folder to make sure that they are added to the Runner target.
+- You can use each flavor as follows:
+  - You can run this command in Terminal: `flutter run --flavor FLAVOR_NAME` where FLAVOR_NAME can be replaced with either one of `dev`, `staging`, or `prod`.
+  - We have also provided the launch configuration for VSCode which you can view from the menu: `Run > Open Configurations`
+  - You can easily switch between different configuratons from the Status bar in VSCode.
+- You can get a current flavor in Flutter by using `getCurrentFlavor()` method from the `AppInfo` class.
+- More on [flavors][flavors]
 
-- Create a new project with the Firebase console.
-- Add iOS and Android apps in the Firebase project settings.
-- On iOS, you must set a bundle ID. As a recommendation, if your thinking of releasing the app on iOS, you should have an [Apple Developer Program Account](https://developer.apple.com/account/) and [create an app](https://developer.apple.com/account/resources/identifiers/list/bundleId) on your profile. Here you will setup your bundle ID validated by Apple, that you should also use on the Firebase Configuration.
-- then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_ios_app) `GoogleService-Info.plist` into `iOS/Runner`, and add it to the Runner target in Xcode.
-- On Android, define the package name as your preference, a good practice is to use as name the bundle ID defined on iOS (a SHA-1 certificate fingerprint is also needed for Google sign-in).
-- then, [download and copy](https://firebase.google.com/docs/flutter/setup#configure_an_android_app) `google-services.json` into `android/app`.
+---
 
-See this document for full instructions:
+### Coming Soon :rocket:
 
-- [https://firebase.google.com/docs/flutter/setup](https://firebase.google.com/docs/flutter/setup)
+This project is under construction. Contributions, issues and suggestions are very welcome! 
+Moreover, we want to incorporate these new features:
 
-Additional setup instructions for Google, Apple and Facebook sign-in:
+- [ ] Support more sign-in methods like GitHub, Twitter.
+- [ ] Phone Verification
+- [ ] Dynamic Links
+- [ ] Real-time database
+- [ ] Performance
+- [ ] Error Management
+- [ ] Unit, Widget & Integration testing.
+- [ ] Continuous integration & Continuous Deployment with Firebase App Distribution.
 
-- Google Sign-In on iOS: [https://firebase.google.com/docs/auth/ios/google-signin](https://firebase.google.com/docs/auth/ios/google-signin)
-- Google Sign-In on Android: [https://firebase.google.com/docs/auth/android/google-signin](https://firebase.google.com/docs/auth/android/google-signin)
-- Facebook Login for Android: [https://developers.facebook.com/docs/facebook-login/android](https://developers.facebook.com/docs/facebook-login/android)
-- Facebook Login for iOS: [https://developers.facebook.com/docs/facebook-login/ios](https://developers.facebook.com/docs/facebook-login/ios)
-- Apple Sign-in: [https://pub.dev/packages/sign_in_with_apple](https://pub.dev/packages/sign_in_with_apple)
-
-Firebase Crashlytics Testing
-- To test the crash reporting, the app be can forced crash using following line:
-     `FirebaseCrashlytics.instance.crash();`
-     Above line can be put anywhere where we want the crash to happen.
-- Crash reporting happens only when the app is restarted after a crash.
-- Goto Crashlytics in Firebase project. Wait for sometime as it can take a few minutes for crashes to appear.
-- Refer more here: https://firebase.flutter.dev/docs/crashlytics/overview/
-
-
-
+[//]: # "Flutter Firebase Starter links."
 [somnio_software_link]: https://somniosoftware.com/
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
 [license_link]: https://opensource.org/licenses/MIT
+[//]: # "Getting Started links."
+[firebase_setup]: https://firebase.google.com/docs/flutter/setup
+[crashlytics_package]: https://pub.dev/packages/firebase_crashlytics
+[crashlytics_learn_more]: https://firebase.flutter.dev/docs/crashlytics/overview/
+[analytics_package]: https://pub.dev/packages/firebase_analytics
+[analytics_learn_more]: https://firebase.flutter.dev/docs/analytics/overview
+[analytics_debug_view]: https://firebase.google.com/docs/analytics/debugview
+[get_it_package]: https://pub.dev/packages/get_it
+[messaging_package]: https://pub.dev/packages/firebase_messaging
+[messaging_learn_more]: https://firebase.flutter.dev/docs/messaging/overview
+[google_sign_in_ios]: https://firebase.google.com/docs/auth/ios/google-signin
+[google_sign_in_android]: https://firebase.google.com/docs/auth/android/google-signin
+[facebook_login_ios]: https://developers.facebook.com/docs/facebook-login/ios
+[facebook_login_android]: https://developers.facebook.com/docs/facebook-login/android
+[apple_sign_in]: https://pub.dev/packages/sign_in_with_apple
+[firestore_package]: https://pub.dev/packages/cloud_firestore
+[firestore_learn_more]: https://firebase.flutter.dev/docs/firestore/overview
+[storage_package]: https://pub.dev/packages/firebase_storage
+[storage_learn_more]: https://firebase.flutter.dev/docs/storage/overview
+[dynamic_links_package]: https://pub.dev/packages/firebase_dynamic_links
+[remote_config_package]: https://pub.dev/packages/firebase_remote_config
+[remote_config_learn_more]: https://firebase.flutter.dev/docs/remote-config/overview
+[//]: # "Other Cool features links."
+[shared_preferences_package]: https://pub.dev/packages/shared_preferences
+[image_picker_package]: https://pub.dev/packages/image_picker
+[onboarding_package]: https://pub.dev/packages/introduction_screen
+[splash_screen_package]: https://pub.dev/packages/flutter_native_splash
+[flavors]: https://flutter.dev/docs/deployment/flavors

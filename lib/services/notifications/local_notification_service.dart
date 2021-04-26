@@ -12,6 +12,7 @@ class LocalNotificationService {
   Stream<Map<String, dynamic>> get selected =>
       _didReceivedLocalNotificationSubject.stream;
 
+  // ignore: unused_element
   Function(Map<String, dynamic>) get _onSelected =>
       _didReceivedLocalNotificationSubject.sink.add;
 

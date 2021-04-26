@@ -55,6 +55,28 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "app"
+
+    productFlavors {
+        prod {
+            dimension "app"
+            resValue "string", "app_name", "Firebase Starter"
+            applicationId "com.somniosoftware.firebasestarter"
+        }
+        staging {
+            dimension "app"
+            resValue "string", "app_name", "staging Firebase Starter"
+            versionNameSuffix "-staging"
+            applicationId "com.somniosoftware.firebasestarter.staging"
+        }
+        dev {
+            dimension "app"
+            resValue "string", "app_name", "dev Firebase Starter"
+            versionNameSuffix "-dev"
+            applicationId "com.somniosoftware.firebasestarter.dev"
+        }
+    }
 }
 
 flutter {
@@ -63,7 +85,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation platform('com.google.firebase:firebase-bom:26.5.0')
-    implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.android.support:multidex:1.0.3'
 }

@@ -1,24 +1,24 @@
-abstract class FirstTimeInAppState {
-  const FirstTimeInAppState();
+abstract class InitAppState {
+  const InitAppState();
 }
 
-class FirstTime extends FirstTimeInAppState {
-  const FirstTime();
+class InitAppFirstTime extends InitAppState {
+  const InitAppFirstTime();
 }
 
-class NoFirstTime extends FirstTimeInAppState {
-  const NoFirstTime();
+class InitAppNotFirstTime extends InitAppState {
+  const InitAppNotFirstTime();
 }
 
-class Error extends FirstTimeInAppState {
+class InitAppError extends InitAppState {
   final String message;
-  const Error(this.message);
+  const InitAppError(this.message);
 }
 
-class Loading extends FirstTimeInAppState {
-  const Loading();
+class InitAppLoadInProgress extends InitAppState {
+  const InitAppLoadInProgress();
 }
 
-class NotDetermined extends FirstTimeInAppState {
-  const NotDetermined();
+class InitAppInitial extends InitAppState {
+  const InitAppInitial();
 }

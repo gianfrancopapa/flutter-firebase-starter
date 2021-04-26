@@ -4,24 +4,24 @@ abstract class LoginState {
   const LoginState();
 }
 
-class LoggedIn extends LoginState {
+class LoginSuccess extends LoginState {
   final User currentUser;
-  const LoggedIn(this.currentUser);
+  const LoginSuccess(this.currentUser);
 }
 
-class LoggedOut extends LoginState {
-  const LoggedOut();
+class LogoutSuccess extends LoginState {
+  const LogoutSuccess();
 }
 
-class NotDetermined extends LoginState {
-  const NotDetermined();
+class LoginInitial extends LoginState {
+  const LoginInitial();
 }
 
-class ErrorLogin extends LoginState {
+class LoginFailure extends LoginState {
   final String message;
-  const ErrorLogin(this.message);
+  const LoginFailure(this.message);
 }
 
-class Loading extends LoginState {
-  const Loading();
+class LoginInProgress extends LoginState {
+  const LoginInProgress();
 }

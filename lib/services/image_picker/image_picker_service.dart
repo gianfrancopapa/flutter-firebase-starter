@@ -1,15 +1,16 @@
+import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:image_picker/image_picker.dart';
 
-class PickImageService {
-  static final _imagePicker = ImagePicker();
+class PickImageService implements ImageService {
+  final _imagePicker = ImagePicker();
 
-  static Future<PickedFile> imgFromCamera() async =>
-      _getImage(ImageSource.camera);
+  @override
+  Future<PickedFile> imgFromCamera() async => _getImage(ImageSource.camera);
 
-  static Future<PickedFile> imgFromGallery() async =>
-      _getImage(ImageSource.gallery);
+  @override
+  Future<PickedFile> imgFromGallery() async => _getImage(ImageSource.gallery);
 
-  static Future<PickedFile> _getImage(source) async {
+  Future<PickedFile> _getImage(source) async {
     final image = await _imagePicker.getImage(source: source, imageQuality: 50);
     return image;
   }

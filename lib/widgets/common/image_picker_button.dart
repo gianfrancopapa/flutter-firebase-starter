@@ -4,10 +4,12 @@ class ImagePickerButton extends StatelessWidget {
   final Function dispatchImageFromGallery;
   final Function dispatchImageFromCamera;
   final Widget child;
-  const ImagePickerButton(
-      {this.dispatchImageFromGallery,
-      this.dispatchImageFromCamera,
-      this.child});
+
+  const ImagePickerButton({
+    this.dispatchImageFromGallery,
+    this.dispatchImageFromCamera,
+    this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +29,13 @@ class ImagePickerButton extends StatelessWidget {
           child: Wrap(
             children: <Widget>[
               ListTile(
-                  leading: const Icon(Icons.photo_library),
-                  title: const Text('Photo Library'),
-                  onTap: () {
-                    dispatchImageFromGallery();
-                    Navigator.of(context).pop();
-                  }),
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Photo Library'),
+                onTap: () {
+                  dispatchImageFromGallery();
+                  Navigator.of(context).pop();
+                },
+              ),
               ListTile(
                 leading: const Icon(Icons.photo_camera),
                 title: const Text('Camera'),

@@ -1,35 +1,43 @@
 import 'package:firebasestarter/bloc/init_app/init_app_event.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_state.dart';
+import 'package:firebasestarter/services/shared_preferences/local_persistance_interface.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get_it/get_it.dart';
 
-class InitAppBloc extends Bloc<FirstTimeInAppEvent, FirstTimeInAppState> {
-  static const _isFirstTime = 'is_first_time';
+class InitAppBloc extends Bloc<InitAppEvent, InitAppState> {
+  static const String _isFirstTime = 'is_first_time';
+  LocalPersistanceService _localPersistanceService;
 
-  InitAppBloc() : super(const NotDetermined());
+  InitAppBloc() : super(const InitAppInitial()) {
+    _localPersistanceService = GetIt.I.get<LocalPersistanceService>();
+  }
 
   @override
-  Stream<FirstTimeInAppState> mapEventToState(
-      FirstTimeInAppEvent event) async* {
+  Stream<InitAppState> mapEventToState(InitAppEvent event) async* {
     switch (event.runtimeType) {
-      case IsFirstTime:
-        yield* _checkIfFirstTime();
+      case InitAppIsFirstTime:
+        yield* _mapInitAppIsFirstTimeToState();
         break;
       default:
-        yield const Error('Invalid event.');
+        yield const InitAppError('Invalid event.');
     }
   }
 
-  Stream<FirstTimeInAppState> _checkIfFirstTime() async* {
-    yield const Loading();
-    SharedPreferences.setMockInitialValues({});
-    final prefs = await SharedPreferences.getInstance();
-    final result = (prefs.getBool(_isFirstTime) ?? true);
-    if (result) {
-      prefs.setBool(_isFirstTime, false);
-      yield const FirstTime();
-    } else {
-      yield const NoFirstTime();
+  Stream<InitAppState> _mapInitAppIsFirstTimeToState() async* {
+    yield const InitAppLoadInProgress();
+    try {
+      final firstTime =
+          await _localPersistanceService.getValue<bool>(_isFirstTime);
+      const _duration = Duration(seconds: 2);
+      await Future.delayed(_duration, () async {});
+      if (firstTime ?? true) {
+        await _localPersistanceService.setValue<bool>(_isFirstTime, false);
+        yield const InitAppFirstTime();
+      } else {
+        yield const InitAppNotFirstTime();
+      }
+    } catch (err) {
+      yield InitAppError(err.toString());
     }
   }
 }

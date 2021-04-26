@@ -1,109 +1,65 @@
-import 'package:firebasestarter/screens/onboarding/onboarding_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/create_account/create_account_bloc.dart';
 import 'package:firebasestarter/bloc/create_account/create_account_event.dart';
-import 'package:firebasestarter/bloc/create_account/create_account_state.dart';
-import 'package:firebasestarter/utils/dialog.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/widgets/common/button.dart';
+import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:firebasestarter/widgets/common/text_field_builder.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
 
-class CreateAccountForm extends StatefulWidget {
-  @override
-  _CreateAccountFormState createState() => _CreateAccountFormState();
-}
+class CreateAccountForm extends StatelessWidget {
+  final CreateAccountBloc bloc;
 
-class _CreateAccountFormState extends State<CreateAccountForm> {
-  CreateAccountBloc _bloc;
+  const CreateAccountForm(this.bloc);
 
   @override
-  void initState() {
-    _bloc = CreateAccountBloc();
-    super.initState();
-  }
-
-  void _determineAction(CreateAccountState state) {
-    if (state.runtimeType == Error) {
-      DialogHelper.showAlertDialog(
-        context: context,
-        story: (state as Error).message,
-        btnText: 'Close',
-        btnAction: () => Navigator.pop(context),
-      );
-    } else if (state.runtimeType == AccountCreated) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OnBoardingScreen(),
+  Widget build(BuildContext context) {
+    final _localizedStrings = AppLocalizations.of(context);
+    return Column(
+      children: [
+        Margin(0.0, 71.0),
+        TextFieldBuilder(
+          stream: bloc.form.firstName,
+          labelText: _localizedStrings.firstName,
+          onChanged: (firstName) => bloc.form.onFirstNameChanged(firstName),
         ),
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) =>
-      BlocConsumer<CreateAccountBloc, CreateAccountState>(
-        cubit: _bloc,
-        listener: (context, state) => _determineAction(state),
-        builder: (context, state) => Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20.0,
-            vertical: 10.0,
-          ),
-          child: ListView(
-            padding: const EdgeInsets.symmetric(
-              vertical: 40.0,
-              horizontal: 0.0,
-            ),
-            children: [
-              TextFieldBuilder(
-                stream: _bloc.firstName,
-                labelText: AppLocalizations.of(context).firstName,
-                onChanged: (firstName) => _bloc.onFirstNameChanged(firstName),
-              ),
-              TextFieldBuilder(
-                stream: _bloc.lastName,
-                labelText: AppLocalizations.of(context).lastName,
-                onChanged: (lastName) => _bloc.onLastNameChanged(lastName),
-              ),
-              TextFieldBuilder(
-                stream: _bloc.email,
-                labelText: AppLocalizations.of(context).email,
-                onChanged: (email) => _bloc.onEmailChanged(email),
-              ),
-              TextFieldBuilder(
-                stream: _bloc.password,
-                labelText: AppLocalizations.of(context).password,
-                onChanged: (password) => _bloc.onPasswordChanged(password),
-                isPassword: true,
-                showPasswordButton: true,
-              ),
-              TextFieldBuilder(
-                stream: _bloc.passwordConfirmation,
-                labelText: AppLocalizations.of(context).passwordConfirmation,
-                onChanged: (passwordConf) =>
-                    _bloc.onPasswordConfirmationChanged(passwordConf),
-                isPassword: true,
-                showPasswordButton: true,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(36.0),
-                child: Button(
-                  width: MediaQuery.of(context).size.width / 2,
-                  text: AppLocalizations.of(context).createAccount,
-                  onTap: () => _bloc.add(const CreateAccount()),
-                ),
-              ),
-            ],
-          ),
+        Margin(0.0, 20.5),
+        TextFieldBuilder(
+          stream: bloc.form.lastName,
+          labelText: _localizedStrings.lastName,
+          onChanged: (lastName) => bloc.form.onLastNameChanged(lastName),
         ),
-      );
-
-  @override
-  void dispose() {
-    _bloc.close();
-    super.dispose();
+        Margin(0.0, 20.5),
+        TextFieldBuilder(
+          stream: bloc.form.email,
+          labelText: _localizedStrings.email,
+          onChanged: (email) => bloc.form.onEmailChanged(email),
+        ),
+        Margin(0.0, 20.5),
+        TextFieldBuilder(
+          stream: bloc.form.password,
+          labelText: _localizedStrings.password,
+          onChanged: (password) => bloc.form.onPasswordChanged(password),
+          isPassword: true,
+          showPasswordButton: true,
+        ),
+        Margin(0.0, 20.5),
+        TextFieldBuilder(
+          stream: bloc.form.passwordConfirmation,
+          labelText: _localizedStrings.passwordConfirmation,
+          onChanged: (passwordConf) =>
+              bloc.form.onPasswordConfirmationChanged(passwordConf),
+          isPassword: true,
+          showPasswordButton: true,
+        ),
+        Margin(0.0, 49.5),
+        Button(
+          backgroundColor: AppColor.blue,
+          text: _localizedStrings.createAccount,
+          onTap: () => bloc.add(const AccountCreated()),
+        ),
+        Margin(0.0, 49.5),
+      ],
+    );
   }
 }

@@ -2,19 +2,19 @@ abstract class ForgotPasswordState {
   const ForgotPasswordState();
 }
 
-class EmailSent extends ForgotPasswordState {
-  const EmailSent();
+class ForgotPasswordEmailSent extends ForgotPasswordState {
+  const ForgotPasswordEmailSent();
 }
 
-class NotDetermined extends ForgotPasswordState {
-  const NotDetermined();
+class ForgotPasswordInitial extends ForgotPasswordState {
+  const ForgotPasswordInitial();
 }
 
-class Error extends ForgotPasswordState {
+class ForgotPasswordFailure extends ForgotPasswordState {
   final String message;
-  const Error(this.message);
+  const ForgotPasswordFailure(this.message);
 }
 
-class Loading extends ForgotPasswordState {
-  const Loading();
+class ForgotPasswordInProgress extends ForgotPasswordState {
+  const ForgotPasswordInProgress();
 }

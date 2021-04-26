@@ -1,4 +1,6 @@
-class User {
+import 'package:equatable/equatable.dart';
+
+class User extends Equatable {
   final String id;
   final String firstName;
   final String lastName;
@@ -41,4 +43,20 @@ class User {
         'address': address,
         'phoneNumber': phoneNumber,
       };
+
+  @override
+  List<Object> get props => [
+        id,
+        firstName,
+        lastName,
+        email,
+        imageUrl,
+        isAnonymous,
+        age,
+        phoneNumber,
+        address
+      ];
+
+  @override
+  bool get stringify => false;
 }

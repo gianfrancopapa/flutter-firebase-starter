@@ -1,1 +1,0 @@
-enum StorageServiceType { Firebase, CurrentStorage }

@@ -1,163 +1,149 @@
-import 'package:flutter/material.dart';
+import 'package:firebasestarter/bloc/create_account/create_account_bloc.dart';
+import 'package:firebasestarter/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
-import 'package:firebasestarter/bloc/login/login_state.dart';
-import 'package:firebasestarter/constants/assets.dart';
-import 'package:firebasestarter/constants/strings.dart';
+import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/screens/auth/create_account_screen.dart';
 import 'package:firebasestarter/screens/auth/forgot_password_screen.dart';
-import 'package:firebasestarter/utils/dialog.dart';
-import 'package:firebasestarter/widgets/common/auth_service_button.dart';
+import 'package:firebasestarter/widgets/auth/login_provider_buttons_section.dart';
 import 'package:firebasestarter/widgets/common/button.dart';
-import 'package:firebasestarter/widgets/common/text_field_builder.dart';
+import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:firebasestarter/widgets/common/text_field_builder.dart';
+import 'package:flutter/material.dart';
 
-class LoginForm extends StatefulWidget {
-  @override
-  _LoginFormState createState() => _LoginFormState();
-}
+class LoginForm extends StatelessWidget {
+  final LoginBloc bloc;
 
-class _LoginFormState extends State<LoginForm> {
-  LoginBloc _bloc;
-  final _isPassword = true;
+  const LoginForm(this.bloc);
 
-  @override
-  void didChangeDependencies() {
-    _bloc = BlocProvider.of<LoginBloc>(context);
-    super.didChangeDependencies();
-  }
-
-  void _goToCreateAccountScreen() => Navigator.push(
+  void _goToCreateAccountScreen(BuildContext context) => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => CreateAccountScreen(),
+          builder: (context) => BlocProvider(
+              create: (_) => CreateAccountBloc(), child: CreateAccountScreen()),
         ),
       );
 
-  void _goToForgotPasswordScreen() => Navigator.push(
+  void _goToForgotPasswordScreen(BuildContext context) => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ForgotPasswordScreen(),
+          builder: (context) => BlocProvider(
+              create: (_) => ForgotPasswordBloc(),
+              child: ForgotPasswordScreen()),
         ),
       );
 
-  void _determineAction(LoginState state) {
-    if (state.runtimeType == ErrorLogin) {
-      DialogHelper.showAlertDialog(
-        context: context,
-        story: (state as ErrorLogin).message,
-        btnText: 'Close',
-        btnAction: () => Navigator.pop(context),
-      );
-    }
-  }
-
-  Widget _customLoginForm() => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextFieldBuilder(
-            stream: _bloc.email,
-            labelText: AppLocalizations.of(context).email,
-            onChanged: (email) => _bloc.onEmailChanged(email),
-            margin: EdgeInsets.only(
-              bottom: MediaQuery.of(context).size.height * 0.02,
-            ),
-          ),
-          TextFieldBuilder(
-            stream: _bloc.password,
-            labelText: AppLocalizations.of(context).password,
-            onChanged: (password) => _bloc.onPasswordChanged(password),
-            isPassword: _isPassword,
-            showPasswordButton: true,
-          ),
-          TextButton(
-            onPressed: _goToForgotPasswordScreen,
-            child: Text(AppLocalizations.of(context).didYouForgotYourPassword),
-          ),
-          Button(
-            text: AppLocalizations.of(context).login,
-            onTap: () => _bloc.add(const StartLogin()),
-          ),
-          const SizedBox(height: 10),
-          GestureDetector(
-            onTap: _goToCreateAccountScreen,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(AppLocalizations.of(context).dontYouHaveAccount + ' '),
-                Text(
-                  AppLocalizations.of(context).createOne,
-                  style: TextStyle(
-                    color: Colors.blue[900],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 10),
-        ],
-      );
-
-  Widget _socialNetworkButtons() {
-    final socialNetworkButtonInfo = [
-      {
-        'text': Strings.googleSignIn,
-        'asset': Assets.googleLogo,
-        'onTap': () => _bloc.add(const StartGoogleLogin()),
-      },
-      {
-        'text': Strings.login,
-        'asset': Assets.facebookLogo,
-        'onTap': () => _bloc.add(const StartFacebookLogin()),
-      },
-      {
-        'text': Strings.login,
-        'asset': Assets.appleLogo,
-        'onTap': () => _bloc.add(const StartAppleLogin()),
-      },
-      {
-        'text': Strings.login,
-        'asset': Assets.anonLogin,
-        'onTap': () => _bloc.add(const StartAnonymousLogin()),
-      }
-    ];
-    return Column(
-      children: [
-        for (final info in socialNetworkButtonInfo) ...[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15.0, 0, 15.0, 15.0),
-            child: AuthServiceButton(
-              text: info['text'],
-              backgroundColor: Colors.white,
-              textColor: Colors.black,
-              asset: info['asset'],
-              onTap: info['onTap'],
-            ),
-          ),
-        ]
-      ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) => BlocConsumer<LoginBloc, LoginState>(
-        cubit: _bloc,
-        listener: (context, state) => _determineAction(state),
-        builder: (context, state) => ListView(
-          shrinkWrap: true,
+  Widget _createAccountStory(BuildContext context) => InkWell(
+        onTap: () => _goToCreateAccountScreen(context),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-              child: Column(
-                children: [
-                  _customLoginForm(),
-                  const SizedBox(height: 10),
-                  _socialNetworkButtons(),
-                ],
+            Text(
+              AppLocalizations.of(context).createAccount,
+              style: const TextStyle(
+                color: AppColor.skyBlue,
+                fontSize: 13.0,
+                fontWeight: FontWeight.w400,
               ),
+            ),
+            const Icon(
+              Icons.keyboard_arrow_right_outlined,
+              color: AppColor.skyBlue,
+              size: 15.0,
+            )
+          ],
+        ),
+      );
+
+  Widget _orStory(BuildContext context) => SizedBox(
+        height: 20.0,
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              color: AppColor.grey,
+              height: 0.5,
+              width: MediaQuery.of(context).size.width / 3,
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 0.0,
+                horizontal: 5.0,
+              ),
+              child: Text(
+                'OR',
+                style: TextStyle(
+                  color: AppColor.grey,
+                  fontSize: 13.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            Container(
+              color: AppColor.grey,
+              height: 0.5,
+              width: MediaQuery.of(context).size.width / 3,
             ),
           ],
         ),
       );
+
+  Widget _forgotPasswordStory(BuildContext context) => TextButton(
+        onPressed: () => _goToForgotPasswordScreen(context),
+        child: SizedBox(
+          width: double.infinity,
+          child: Text(
+            AppLocalizations.of(context).didYouForgetYourPassword,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: AppColor.blue,
+              fontSize: 13.0,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    final _localizedStrings = AppLocalizations.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Margin(0, 47.0),
+        _createAccountStory(context),
+        Margin(0, 12.0),
+        TextFieldBuilder(
+          stream: bloc.form.email,
+          labelText: _localizedStrings.email,
+          onChanged: (email) => bloc.form.onEmailChanged(email),
+        ),
+        Margin(0, 20.0),
+        TextFieldBuilder(
+          stream: bloc.form.password,
+          labelText: _localizedStrings.password,
+          onChanged: (password) => bloc.form.onPasswordChanged(password),
+          isPassword: true,
+          showPasswordButton: true,
+        ),
+        Margin(0, 27.5),
+        _forgotPasswordStory(context),
+        Margin(0, 21.0),
+        Button(
+          backgroundColor: AppColor.blue,
+          text: _localizedStrings.login,
+          onTap: () => bloc.add(const LoginStarted()),
+        ),
+        Margin(0, 26.0),
+        _orStory(context),
+        Margin(0, 20.0),
+        LoginProviderButtonsSection(bloc),
+        Margin(0, 40.0),
+      ],
+    );
+  }
 }

@@ -1,30 +1,36 @@
+import 'dart:async';
+
 import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/bloc/user/user_state.dart';
-import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
+import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc() : super(const NotDetermined());
-  final _authService = FirebaseAuthService();
+  AuthService _authService;
+
+  UserBloc([AuthService authService]) : super(const UserInitial()) {
+    _authService = authService ?? GetIt.I.get<AuthService>();
+  }
 
   @override
   Stream<UserState> mapEventToState(UserEvent event) async* {
     switch (event.runtimeType) {
-      case GetUser:
-        yield* _mapGetUserToState();
+      case UserLoaded:
+        yield* _mapUserLoadedToState();
         break;
       default:
-        yield const Error('Undetermined event');
+        yield const UserLoadFailure('Undetermined event');
     }
   }
 
-  Stream<UserState> _mapGetUserToState() async* {
-    yield const Loading();
+  Stream<UserState> _mapUserLoadedToState() async* {
+    yield const UserLoadInProgress();
     try {
       final user = await _authService.currentUser();
-      yield CurrentUser(user);
+      yield UserLoadSuccess(user);
     } catch (e) {
-      yield const Error('Something went wrong');
+      yield const UserLoadFailure('Something went wrong');
     }
   }
 }

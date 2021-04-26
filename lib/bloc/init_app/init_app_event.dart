@@ -1,7 +1,7 @@
-abstract class FirstTimeInAppEvent {
-  const FirstTimeInAppEvent();
+abstract class InitAppEvent {
+  const InitAppEvent();
 }
 
-class IsFirstTime extends FirstTimeInAppEvent {
-  const IsFirstTime();
+class InitAppIsFirstTime extends InitAppEvent {
+  const InitAppIsFirstTime();
 }

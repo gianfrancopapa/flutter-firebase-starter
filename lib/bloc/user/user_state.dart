@@ -1,23 +1,31 @@
 import 'package:firebasestarter/models/user.dart';
+import 'package:equatable/equatable.dart';
 
-abstract class UserState {
+abstract class UserState extends Equatable {
   const UserState();
+  @override
+  List<Object> get props => [];
 }
 
-class CurrentUser extends UserState {
+class UserLoadSuccess extends UserState {
   final User user;
-  const CurrentUser(this.user);
+  const UserLoadSuccess(this.user);
+
+  @override
+  List<Object> get props => [user];
 }
 
-class NotDetermined extends UserState {
-  const NotDetermined();
+class UserInitial extends UserState {
+  const UserInitial();
 }
 
-class Error extends UserState {
+class UserLoadFailure extends UserState {
   final String message;
-  const Error(this.message);
+  const UserLoadFailure(this.message);
+  @override
+  List<Object> get props => [message];
 }
 
-class Loading extends UserState {
-  const Loading();
+class UserLoadInProgress extends UserState {
+  const UserLoadInProgress();
 }

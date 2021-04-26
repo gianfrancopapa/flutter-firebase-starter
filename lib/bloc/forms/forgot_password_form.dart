@@ -1,19 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:firebasestarter/bloc/forgot_password/forgot_password_event.dart';
-import 'package:firebasestarter/bloc/forgot_password/forgot_password_state.dart';
 import 'package:firebasestarter/mixins/validation_mixin.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-abstract class ForgotPasswordFormBloc
-    extends Bloc<ForgotPasswordEvent, ForgotPasswordState>
-    with ValidationMixin {
-  @protected
-  final emailController = BehaviorSubject<String>.seeded('');
+class ForgotPasswordFormBloc with ValidationMixin {
+  final _emailController = BehaviorSubject<String>.seeded('');
 
-  ForgotPasswordFormBloc() : super(const NotDetermined());
+  ForgotPasswordFormBloc();
 
-  Stream<String> get email => emailController.transform(emailTransfomer);
+  Stream<String> get email => _emailController.transform(emailTransfomer);
 
-  Function(void) get onEmailChanged => emailController.sink.add;
+  Function(void) get onEmailChanged => _emailController.sink.add;
+
+  String get emailValue => _emailController.value;
 }
