@@ -3,7 +3,7 @@ import 'package:firebasestarter/widgets/team/employees_list.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:repository/repository.dart';
-import '../../../lib/widgets/common/test_bench_test.dart';
+import '../../../lib/widgets/common/test_bench.dart';
 import 'mocks/employees_widget_mocks.dart';
 
 List<EmployeeEntity> employeesList;
