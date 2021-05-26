@@ -133,15 +133,21 @@ class LoginForm extends StatelessWidget {
         Margin(0, 27.5),
         _forgotPasswordStory(context),
         Margin(0, 21.0),
-        Button(
-          backgroundColor: AppColor.blue,
-          text: _localizedStrings.login,
-          onTap: () => bloc.add(const LoginStarted()),
+        Center(
+          child: Button(
+            backgroundColor: AppColor.blue,
+            text: _localizedStrings.login,
+            onTap: () => bloc.add(const LoginStarted()),
+          ),
         ),
         Margin(0, 26.0),
-        _orStory(context),
+        Center(
+          child: _orStory(context),
+        ),
         Margin(0, 20.0),
-        LoginProviderButtonsSection(bloc),
+        Center(
+          child: LoginProviderButtonsSection(bloc),
+        ),
         Margin(0, 40.0),
       ],
     );

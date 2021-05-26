@@ -18,8 +18,8 @@ dependencies:
   flutter_bloc: ^7.0.0
   rxdart: ^0.24.1
   firebase_core: ^1.0.2
-  firebase_analytics: ^7.0.1
-  firebase_crashlytics: ^1.0.0
+  firebase_analytics: ^8.1.0
+  firebase_crashlytics: ^2.0.4
   firebase_auth: ^1.0.1
   firebase_auth_web:
   firebase_storage: ^8.0.1
