@@ -38,6 +38,7 @@ void main() {
       imageService = MockImageService();
       editProfileFormBloc = MockEditProfileFormBloc();
     });
+
     test('Initial state BLoC', () {
       expect(
           EditProfileBloc(userBloc, auth, storageService, imageService,
@@ -45,6 +46,7 @@ void main() {
               .state,
           const EditProfileInitial());
     });
+
     group('Photo uploaded with camera /', () {
       blocTest(
         'success',
@@ -204,6 +206,7 @@ void main() {
         user = mockUser();
         editProfileFormBloc = MockEditProfileFormBloc();
       });
+
       blocTest(
         'success',
         build: () => EditProfileBloc(userBloc, auth, storageService,

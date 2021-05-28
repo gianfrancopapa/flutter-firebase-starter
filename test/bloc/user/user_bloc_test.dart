@@ -5,30 +5,23 @@ import 'package:flutter_test/flutter_test.dart';
 import '../../unit/auth/mocks/auth_mocks.dart';
 import './mocks/user_mocks.dart';
 import 'package:mockito/mockito.dart';
+import 'package:bloc_test/bloc_test.dart';
 
 void main() {
   final auth = MockFirebaseAuthService();
-  final userBloc = UserBloc(auth);
   final user = MockUser();
-  group('User bloc', () {
-    test('Map event to state', () {
-      when(auth.currentUser()).thenAnswer((realInvocation) async => user);
-
-      expectLater(
-        userBloc.stream,
-        emitsInOrder(
-          [
-            const UserLoadInProgress(),
-            UserLoadSuccess(user),
-          ],
-        ),
-      );
-
-      userBloc.add(const UserLoaded());
-    });
-  });
-
-  tearDown(() {
-    userBloc?.close();
+  group('User bloc /', () {
+    blocTest(
+      'Map UserLoaded to state',
+      build: () => UserBloc(auth),
+      act: (bloc) {
+        when(auth.currentUser()).thenAnswer((realInvocation) async => user);
+        bloc.add(const UserLoaded());
+      },
+      expect: () => [
+        const UserLoadInProgress(),
+        UserLoadSuccess(user),
+      ],
+    );
   });
 }
