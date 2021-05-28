@@ -9,9 +9,9 @@ import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
-import '../auth/mocks/auth_mocks.dart';
-import 'mocks/edit_profile_mocks.dart';
-import 'mocks/user_mocks.dart';
+import '../../unit/auth/mocks/auth_mocks.dart';
+import './mocks/edit_profile_mocks.dart';
+import './mocks/user_mocks.dart';
 import 'package:mockito/mockito.dart';
 
 const TEST_FIRST_NAME = 'TestFirstName';
