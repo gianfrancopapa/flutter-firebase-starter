@@ -3,7 +3,7 @@ import 'package:firebasestarter/widgets/team/employees_list.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:repository/repository.dart';
-import '../../../lib/widgets/common/test_bench_test.dart';
+import '../test_bench.dart';
 import 'mocks/employees_widget_mocks.dart';
 
 List<EmployeeEntity> employeesList;
@@ -27,9 +27,9 @@ void main() {
     when(mockEmployeesRepository.getAll())
         .thenAnswer((_) async => employeesList);
 
-    await tester.pumpWidget(TestBench(mockEmployeesRepository, TeamScreen()));
+    await tester.pumpApp(TeamScreen(),
+        employeesRepository: mockEmployeesRepository);
 
-    await tester.pump(const Duration(seconds: 1));
     expect(find.text('testName testLastName'), findsOneWidget);
   });
 
@@ -40,9 +40,9 @@ void main() {
     when(mockEmployeesRepository.getAll())
         .thenAnswer((_) async => employeesList);
 
-    await tester.pumpWidget(TestBench(mockEmployeesRepository, TeamScreen()));
+    await tester.pumpApp(TeamScreen(),
+        employeesRepository: mockEmployeesRepository);
 
-    await tester.pump(const Duration(seconds: 1));
     expect(find.byType(EmployeesList), findsNothing);
     expect(find.text('No employees found'), findsOneWidget);
   });

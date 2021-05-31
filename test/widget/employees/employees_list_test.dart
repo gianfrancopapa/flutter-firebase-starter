@@ -1,6 +1,6 @@
 import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/models/employee.dart';
-import 'package:firebasestarter/widgets/common/test_bench_test.dart';
+import '../test_bench.dart';
 import 'package:firebasestarter/widgets/team/employees_list.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -32,7 +32,7 @@ void main() {
 
     final employees = [employee1, employee2];
 
-    await tester.pumpWidget(TestBench(null, EmployeesList(employees)));
+    await tester.pumpApp(EmployeesList(employees));
 
     await tester.pump();
     expect(find.text('testName testLastName'), findsOneWidget);
