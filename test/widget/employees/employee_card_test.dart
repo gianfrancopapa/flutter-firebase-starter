@@ -1,6 +1,6 @@
 import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/models/employee.dart';
-import '../test_bench.dart';
+import 'package:flutter/material.dart';
 import 'package:firebasestarter/widgets/team/employee_card.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -18,7 +18,7 @@ void main() {
       description: 'testDescription',
     );
 
-    await tester.pumpApp(EmployeeCard(employee));
+    await tester.pumpWidget(MaterialApp(home: EmployeeCard(employee)));
 
     await tester.pump();
     expect(find.text('testName testLastName'), findsOneWidget);
