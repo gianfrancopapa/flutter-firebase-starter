@@ -6,7 +6,7 @@ import 'package:firebasestarter/models/employee.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:repository/repository.dart';
-import '../../widget/employees/mocks/employees_widget_mocks.dart';
+import '../../widget/test_bench_mocks.dart';
 
 void main() {
   EmployeesBloc employeesBloc;
