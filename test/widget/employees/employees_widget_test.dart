@@ -13,29 +13,26 @@ import '../test_bench.dart';
 import '../test_bench_mocks.dart';
 
 void main() {
-  EmployeesRepository employeesRepository;
-  List<EmployeeEntity> employeesEntityList;
-  EmployeeEntity testEmployee;
+  final employeesRepository = MockEmployeesRepository();
+  final testEmployee = EmployeeEntity.fromJson({
+    'firstName': 'testName',
+    'lastName': 'testLastName',
+    'email': 'testEmail',
+    'avatarAsset': 'testAvatar',
+    'role': 'user',
+    'age': 20,
+    'address': 'testAddress',
+    'phoneNumber': '098123456',
+    'description': 'testDescription',
+  });
   EmployeesBloc employeesBloc;
 
   setUpAll(() {
-    employeesRepository = MockEmployeesRepository();
-    testEmployee = EmployeeEntity.fromJson({
-      'firstName': 'testName',
-      'lastName': 'testLastName',
-      'email': 'testEmail',
-      'avatarAsset': 'testAvatar',
-      'role': 'user',
-      'age': 20,
-      'address': 'testAddress',
-      'phoneNumber': '098123456',
-      'description': 'testDescription',
-    });
     employeesBloc = MockEmployeesBloc();
   });
 
   testWidgets('Employees load correctly', (WidgetTester tester) async {
-    employeesEntityList = [testEmployee];
+    final employeesEntityList = [testEmployee];
 
     when(employeesRepository.getAll())
         .thenAnswer((_) async => employeesEntityList);
@@ -49,7 +46,8 @@ void main() {
   });
 
   testWidgets('Employees load empty', (WidgetTester tester) async {
-    employeesEntityList = [];
+    // ignore: omit_local_variable_types
+    final List<EmployeeEntity> employeesEntityList = [];
 
     when(employeesRepository.getAll())
         .thenAnswer((_) async => employeesEntityList);
@@ -79,7 +77,7 @@ void main() {
 
   testWidgets('Bloc emits EmployeesLoadSuccess, screen shows EmployeesList',
       (WidgetTester tester) async {
-    employeesEntityList = [testEmployee];
+    final employeesEntityList = [testEmployee];
     final employeesList = employeesEntityList
         .map((employee) => Employee.fromEntity(employee))
         .toList();
