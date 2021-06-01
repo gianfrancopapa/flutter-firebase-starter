@@ -7,7 +7,6 @@ import 'package:firebasestarter/widgets/team/employees_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-
 import 'package:repository/repository.dart';
 import '../test_bench.dart';
 import '../test_bench_mocks.dart';
@@ -69,7 +68,7 @@ void main() {
     );
 
     await tester.pumpApp(TeamScreen(), employeesBloc: employeesBloc);
-
+        
     expect(find.byType(EmployeesList), findsNothing);
     expect(find.text('No employees found'), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsNothing);
