@@ -5,38 +5,24 @@ import 'package:flutter_test/flutter_test.dart';
 import '../test_bench.dart';
 
 void main() {
-  User user;
-  const testId = '1';
-  const testFirstName = 'testFirstName';
-  const testLastName = 'testLastName';
-  const testEmail = 'test@email.com';
-  const testURL = 'URL';
-  const testAnonymous = false;
-  const testAge = 20;
-  const testPhoneNumber = '1234';
-  const testAddress = 'address';
-
-  setUp(() {
-    final json = {
-      'id': testId,
-      'firstName': testFirstName,
-      'lastName': testLastName,
-      'email': testEmail,
-      'imageUrl': testURL,
-      'isAnonymous': testAnonymous,
-      'age': testAge,
-      'phoneNumber': testPhoneNumber,
-      'address': testAddress,
-    };
-    user = User.fromJson(json);
+  final user = User.fromJson({
+    'id': 'testId',
+    'firstName': 'testFirstName',
+    'lastName': 'testLastName',
+    'email': 'test@Email.com',
+    'imageUrl': 'testURL',
+    'isAnonymous': false,
+    'age': 20,
+    'phoneNumber': '098123456',
+    'address': 'testAddress',
   });
 
   testWidgets('User info section', (WidgetTester tester) async {
     await tester.pumpApp(UserInfoSection(user));
 
-    expect(find.text(testFirstName), findsOneWidget);
-    expect(find.text(testLastName), findsOneWidget);
-    expect(find.text(testEmail), findsOneWidget);
+    expect(find.text(user.firstName), findsOneWidget);
+    expect(find.text(user.lastName), findsOneWidget);
+    expect(find.text(user.email), findsOneWidget);
     expect(find.byType(Icon), findsOneWidget);
   });
 }
