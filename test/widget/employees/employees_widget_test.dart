@@ -1,6 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/bloc/employees/employees_bloc.dart';
-import 'package:firebasestarter/bloc/employees/employees_event.dart';
 import 'package:firebasestarter/bloc/employees/employees_state.dart';
 import 'package:firebasestarter/models/employee.dart';
 import 'package:firebasestarter/screens/team/team_screen.dart';
@@ -8,15 +7,10 @@ import 'package:firebasestarter/widgets/team/employees_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:mocktail/mocktail.dart' as mocktail;
 
 import 'package:repository/repository.dart';
 import '../test_bench.dart';
 import '../test_bench_mocks.dart';
-
-class FakeEmployeesEvent extends Fake implements EmployeesEvent {}
-
-class FakeEmployeesState extends Fake implements EmployeesState {}
 
 void main() {
   EmployeesRepository employeesRepository;
@@ -25,9 +19,6 @@ void main() {
   EmployeesBloc employeesBloc;
 
   setUpAll(() {
-    mocktail.registerFallbackValue<EmployeesState>(FakeEmployeesState());
-    mocktail.registerFallbackValue<EmployeesEvent>(FakeEmployeesEvent());
-
     employeesRepository = MockEmployeesRepository();
     testEmployee = EmployeeEntity.fromJson({
       'firstName': 'testName',
