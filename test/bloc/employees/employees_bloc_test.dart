@@ -42,9 +42,7 @@ void main() {
         'Fetching employees, empty result',
         build: () => EmployeesBloc(employeesRepository),
         act: (bloc) {
-          when(employeesRepository.getAll()).thenAnswer(
-            (_) => Future.value([]),
-          );
+          when(employeesRepository.getAll()).thenAnswer((_) async => []);
           bloc.add(const EmployeesLoaded());
         },
         expect: () =>
@@ -56,7 +54,7 @@ void main() {
         build: () => EmployeesBloc(employeesRepository),
         act: (bloc) {
           when(employeesRepository.getAll()).thenAnswer(
-            (_) => Future.value([employeeEntity]),
+            (_) async => [employeeEntity],
           );
           bloc.add(const EmployeesLoaded());
         },
@@ -70,9 +68,7 @@ void main() {
         'Fetching employees fails',
         build: () => EmployeesBloc(employeesRepository),
         act: (bloc) {
-          when(employeesRepository.getAll()).thenAnswer(
-            (_) => throw Exception(errMessage),
-          );
+          when(employeesRepository.getAll()).thenThrow(Exception(errMessage));
           bloc.add(const EmployeesLoaded());
         },
         expect: () => [

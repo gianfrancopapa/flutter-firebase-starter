@@ -15,7 +15,7 @@ void main() {
       'Map UserLoaded to state',
       build: () => UserBloc(auth),
       act: (bloc) {
-        when(auth.currentUser()).thenAnswer((realInvocation) async => user);
+        when(auth.currentUser()).thenAnswer((_) async => user);
         bloc.add(const UserLoaded());
       },
       expect: () => [
