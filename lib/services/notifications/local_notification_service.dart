@@ -1,6 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:io' show Platform;
 import 'package:rxdart/subjects.dart';
+import '../../constants/assets.dart';
 
 class LocalNotificationService {
   FlutterLocalNotificationsPlugin _localNotifications;
@@ -44,7 +45,7 @@ class LocalNotificationService {
 
   InitializationSettings _getPlatformSettings() {
     const initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
+        AndroidInitializationSettings('@mipmap/ic_launcher');
     const initializationSettingsIOS = IOSInitializationSettings(
       requestAlertPermission: true,
       requestBadgePermission: true,
@@ -67,7 +68,8 @@ class LocalNotificationService {
         );
   }
 
-  Future<void> showNotification() async {
+  Future<void> showNotification(Map<String, dynamic> message) async {
+    final notification = message['notification'];
     const androidChannelSpecifics = AndroidNotificationDetails(
       'CHANNEL_ID',
       'CHANNEL_NAME',
@@ -85,8 +87,8 @@ class LocalNotificationService {
     );
     await _localNotifications.show(
       0,
-      '',
-      '',
+      notification['title'],
+      notification['body'],
       platformChannelSpecifics,
       payload: 'payload',
     );
