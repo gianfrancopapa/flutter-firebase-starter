@@ -7,17 +7,14 @@ import 'package:firebasestarter/bloc/login/login_state.dart';
 import 'package:firebasestarter/screens/auth/login_screen.dart';
 import 'package:firebasestarter/screens/onboarding/onboarding_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'splash.dart';
 
 class DetermineAccessScreen extends StatelessWidget {
   Widget _checkIfUserIsLoggedIn() => BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           switch (state.runtimeType) {
             case LoginInitial:
-              return const Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
+              return Splash();
             case LoginSuccess:
               return HomeScreen((state as LoginSuccess).currentUser);
             default:
@@ -36,11 +33,7 @@ class DetermineAccessScreen extends StatelessWidget {
           case InitAppNotFirstTime:
             return _checkIfUserIsLoggedIn();
           default:
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
+            return Splash();
         }
       },
     );

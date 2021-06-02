@@ -16,8 +16,18 @@ class EditProfileScreen extends StatelessWidget {
         builder: (BuildContext context, EditProfileState state) {
           return ProfileImage(
             editable: true,
-            onTap: () =>
-                context.read<EditProfileBloc>().add(PhotoWithLibraryUpdated()),
+            onTap: () => showModalBottomSheet(
+              context: context,
+              backgroundColor: Colors.white,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15.0),
+                    topRight: Radius.circular(15.0)),
+              ),
+              builder: (_) {
+                return _selectProfilePicture(context);
+              },
+            ),
             image: state is AvatarChangeSuccess ? state.image : '',
           );
         },
@@ -56,4 +66,56 @@ class EditProfileScreen extends StatelessWidget {
           ),
         ),
       );
+
+  Widget _selectProfilePicture(BuildContext context) {
+    final _appLocalizations = AppLocalizations.of(context);
+
+    return Column(
+      children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.all(20.0),
+        ),
+        Center(
+          child: Text(
+            _appLocalizations.selectProfilePicture,
+            style: const TextStyle(fontSize: 22),
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(10.0),
+        ),
+        ListTile(
+          leading: const Icon(
+            Icons.photo_camera,
+            size: 50,
+          ),
+          title: Text(
+            _appLocalizations.camera,
+            style: const TextStyle(fontSize: 20),
+          ),
+          onTap: () {
+            context.read<EditProfileBloc>().add(PhotoWithCameraUploaded());
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          leading: const Icon(
+            Icons.insert_photo,
+            size: 50,
+          ),
+          title: Text(
+            _appLocalizations.gallery,
+            style: const TextStyle(fontSize: 20),
+          ),
+          onTap: () {
+            context.read<EditProfileBloc>().add(PhotoWithLibraryUpdated());
+            Navigator.pop(context);
+          },
+        ),
+        const Padding(
+          padding: EdgeInsets.all(20.0),
+        )
+      ],
+    );
+  }
 }

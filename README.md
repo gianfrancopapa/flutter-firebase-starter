@@ -8,7 +8,7 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 ---
 
-### Firebase features out of the box :package:
+### Firebase features out-of-the-box :package:
 
 ✅&nbsp; Crashlytics
 
@@ -22,7 +22,7 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 ✅&nbsp; Storage
 
-✅&nbsp; Dynamic links
+✅&nbsp; Remote config
 
 ---
 
@@ -40,17 +40,15 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
 ---
 
-## Gallery
+## Gallery 
 
-![](https://user-images.githubusercontent.com/66737000/110339369-dcf2f080-8006-11eb-9e0e-2322fcb4f47c.gif) ![](https://user-images.githubusercontent.com/66737000/110339404-e9774900-8006-11eb-9c46-b30d7101f4aa.gif) ![](https://user-images.githubusercontent.com/66737000/110339755-44a93b80-8007-11eb-916d-7954549f4bd9.gif)
-
+![Screen1](doc/assets/screen_1.gif)&nbsp;&nbsp;&nbsp;![Screen2](doc/assets/screen_2.gif)&nbsp;&nbsp;&nbsp;![Screen3](doc/assets/screen_3.gif)
 ---
 
 ### Project Structure
 
 ```bash
 ├── bloc
-    └──
 ├── constants
 ├── mixins
 ├── models
@@ -64,38 +62,45 @@ Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 └── README.md
 ```
 
+- bloc: where we handle the current state of the app. The UI layer communicates with components of the bloc layer by dispatching events and listening to changes in the state.
+- constants: here we have files related to strings, font weights, and assets.
+- mixins: helper classes that we use to abstract some common behavior and reuse it across different places like inside the bloc layer.
+- models: here you can find your domain which represents abstractions of the real world.
+- repository: the repository layer provides a more object-oriented view of the persistence layer.
+- screens: all the screens of the app go here, it is the UI layer.
+- services: here you can find abstractions of all the third-party services that we use across the app, like persistence, notifications, etc.
+- utils: helper functions that we use across the app.
+- widgets: in the widget folder lives purely UI components. We have reusable components as well as widgets that are coupled to a particular screen.
+- app: responsible to inflate widgets, initiate process among other stuff.
+- main: entry point of the app.
+
 ---
 
 ### Getting Started :muscle:
 
-To use this project with Firebase, some configuration steps are required.
-
-- Create a new project with the Firebase console.
-- Add iOS and Android apps in the Firebase project settings.
-
-See this [document][firebase_setup] for full instructions.
+Some configuration steps are required to use this project with Firebase, such as:
+- Creating a new project with the Firebase console.
+- Adding iOS and Android apps in the Firebase project settings.
+See this [document][firebase_setup] for the complete instructions.
 
 Crashlytics:
-
-- To test the crash reporting, the app be can forced crash using following line:
+- To test the crash reporting, the app can be forced to crash using the following line:
   `FirebaseCrashlytics.instance.crash();`
-  Above line can be put anywhere where we want the crash to happen.
-- Crash reporting happens only when the app is restarted after a crash.
-- Go to Crashlytics in the Firebase project. Wait for sometime as it can take a few minutes for crashes to appear.
+  the Above line can be put anywhere we want the crash to happen.
+- Crash reporting happens only when the app has restarted after a crash.
+- Go to Crashlytics in the Firebase project.Wait for some time as it can take a few minutes for crashes to appear.
 - [Flutter package][crashlytics_package]
 - [Learn more][crashlytics_learn_more]
 
 Analytics:
-
-- To log an event use [get_it][get_it_package] service locator instance and get `AnalyticsService`. The `AnalyticsService` is an abstract class which can be extended to add another analytics service.
-- After configuring Firebase Analytics correctly, it can take some minutes or some hours to show up the events in Analytics Dashboard of Firebase Console. To track the events nearly in real-time, [debug view][analytics_debug_view] can be used.
+- To log an event use the [get_it][get_it_package] service locator instance and get `AnalyticsService`. The `AnalyticsService` is an abstract class that can be extended to add another analytics service.
+- After configuring Firebase Analytics correctly, it can take some minutes or some hours to show up the events in the Analytics Dashboard of Firebase Console. To track the events nearly in real-time, [debug view][analytics_debug_view] can be used.
 - [Flutter package][analytics_package]
 - [Learn more][analytics_learn_more]
 
 Cloud messaging
 
 - You can use push notifications and local notifications depending on the 3 possible states your app would be.
-
 ```dart
 FirebaseMessaging.onMessage.listen((event) async {
   await _localNotificationService.showNotification();
@@ -121,15 +126,14 @@ Authentication:
 
 Firestore
 
-- Generic implementation of firestore methods: get, post, put, delete.
-- Repository class interact with firestore persistence service
+- Generic implementation of Firestore methods: get, post, put, delete.
+- The repository class interacts with the Firestore persistence service.
 - [Flutter package][firestore_package]
 - [Learn more][firestore_learn_more]
 
 Storage
 
-- Methods for upload and download a file from firebase storage.
-
+- Methods for uploading and downloading a file from Firebase storage.
 ```dart
   Future<void> uploadFile(File file, String storagePath);
   Future<String> downloadFile(String storagePath, String localPath);
@@ -141,13 +145,13 @@ Storage
 
 Remote Config
 
-- Example on how to use remote config to communicate users if the version of an app has increased.
+- Example on how to use Remote Config to communicate to users if the version of an app has increased.
 - [Flutter package][remote_config_package]
 - [Learn more][remote_config_learn_more]
 
 ---
 
-### Other Cool features :fire:
+### Other cool features :fire:
 
 ✅&nbsp; Internationalization
 
@@ -163,41 +167,33 @@ You can add new languages each one should have its own file. E.g:
 
 ```yaml
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": { "description": "Somnio Software loves Flutter" },
+  “helloWorld”: “Hello World!“,
+  “@helloWorld”: { “description”: “Somnio Software loves Flutter” },
 }
 ```
 
 ✅&nbsp; [Shared Preferences][shared_preferences_package]
 A providing persistent storage for simple data.
-
 ✅&nbsp; [Image Picker][image_picker_package]
 You can take pick images from the library or take photos to update you user profile picture.
-
-✅&nbsp; [Onboarding][onboarding_package]
-Basic example of an onboarding flow where you can explain users a little explanation about the app.
-
+:✅&nbsp; [Onboarding][onboarding_package]
+ Basic example of an onboarding flow where you can give users a little explanation about the app.
 ✅&nbsp; [Splash Screen][splash_screen_package]
-
 You can easily configure and cusotmize the splash screen in the pubspec.yaml.
-
 ```yaml
 flutter_native_splash:
-  color: "#42a5f5"
+  color: “#42A5F5"
   image: assets/somnio_logo.png
-  color_dark: "#042a49"
+  color_dark: “#042A49”
   image_dark: assets/somnio_logo.png
   web: false
 ```
-
 ✅&nbsp; Flavors
-
-We have defined 3 differents flavors or development enviroments:
-
+We have defined 3 different flavors or development environments:
 - Development
 - Staging
 - Production
-  Each of these flavor will use a different firebase project. You can add `google-services.json`(Android) and `GoogleService-info.plist`(iOS) for each flavor in following locations:
+Each of these flavors will use a different Firebase project. You can add `google-services.json`(Android) and `GoogleService-info.plist`(iOS) for each flavor in following locations:
   - Android:
     - `android/app/src/dev`
     - `android/app/src/staging`
@@ -206,29 +202,29 @@ We have defined 3 differents flavors or development enviroments:
     - `ios/config/dev`
     - `ios/config/staging`
     - `ios/config/prod`
-  - Note: For iOS, XCode might not be able to find the files from above locations if you simply copy it there. You need to drag and drop or use Add Files option by right clicking the folder to make sure that they are added to Runner target.
+  - Note: For iOS, XCode might not be able to find the files from the above locations if you simply copy them there. You need to drag and drop or use the Add Files option by right-clicking the folder to make sure that they are added to the Runner target.
 - You can use each flavor as follows:
   - You can run this command in Terminal: `flutter run --flavor FLAVOR_NAME` where FLAVOR_NAME can be replaced with either one of `dev`, `staging`, or `prod`.
   - We have also provided the launch configuration for VSCode which you can view from the menu: `Run > Open Configurations`
   - You can easily switch between different configuratons from the Status bar in VSCode.
-- You can get current flavor in Flutter by using `getCurrentFlavor()` method from `AppInfo` class.
+- You can get a current flavor in Flutter by using `getCurrentFlavor()` method from the `AppInfo` class.
 - More on [flavors][flavors]
 
 ---
 
-### Coming soon :rocket:
+### Coming Soon :rocket:
 
-This project is under construction. Contributions, issues and suggestions are very welcome!
-Moreover, we want to incorporate this new features:
+This project is under construction. Contributions, issues and suggestions are very welcome! 
+Moreover, we want to incorporate these new features:
 
-- [ ] Support more sign in methods like GitHub, Twitter.
+- [ ] Support more sign-in methods like GitHub, Twitter.
 - [ ] Phone Verification
 - [ ] Dynamic Links
-- [ ] Real time database
+- [ ] Real-time database
 - [ ] Performance
 - [ ] Error Management
 - [ ] Unit, Widget & Integration testing.
-- [ ] Continous integration & Continoues Deployment.
+- [ ] Continuous integration & Continuous Deployment with Firebase App Distribution.
 
 [//]: # "Flutter Firebase Starter links."
 [somnio_software_link]: https://somniosoftware.com/

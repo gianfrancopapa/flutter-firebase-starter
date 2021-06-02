@@ -12,6 +12,7 @@ class TextFieldBuilder extends StatefulWidget {
   final bool withInitialValue;
   final int maxLines;
   final bool showPasswordButton;
+  final bool autoValidate;
 
   const TextFieldBuilder({
     this.labelText,
@@ -23,6 +24,7 @@ class TextFieldBuilder extends StatefulWidget {
     this.withInitialValue = false,
     this.maxLines = 1,
     this.showPasswordButton = false,
+    this.autoValidate = false,
   });
   @override
   _TextFieldBuilderState createState() => _TextFieldBuilderState();
@@ -30,10 +32,12 @@ class TextFieldBuilder extends StatefulWidget {
 
 class _TextFieldBuilderState extends State<TextFieldBuilder> {
   bool isPassword;
+  bool autoValidate;
 
   @override
   void initState() {
     isPassword = widget.isPassword;
+    autoValidate = widget.autoValidate;
     super.initState();
   }
 
@@ -50,6 +54,12 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
   void _toggle() {
     setState(() {
       isPassword = !isPassword;
+    });
+  }
+
+  void _setAutoValidation() {
+    setState(() {
+      autoValidate = true;
     });
   }
 
@@ -85,13 +95,14 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
         border: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey[400]),
         ),
-        errorText: snapshot.hasError ? snapshot.error : null,
+        errorText: autoValidate && snapshot.hasError ? snapshot.error : null,
       );
 
   TextField _textFieldWithoutInitialValue(AsyncSnapshot<String> snapshot) =>
       TextField(
         maxLines: widget.maxLines,
         keyboardType: widget.maxLines > 1 ? TextInputType.multiline : null,
+        onTap: _setAutoValidation,
         onChanged: widget.onChanged,
         obscureText: isPassword,
         style: const TextStyle(color: Colors.black),
@@ -112,6 +123,7 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
         keyboardType: widget.maxLines > 1 ? TextInputType.multiline : null,
         style: const TextStyle(color: Colors.black),
         onChanged: widget.onChanged,
+        onTap: _setAutoValidation,
         obscureText: isPassword,
         decoration:
             snapshot != null ? _decoration(snapshot) : const InputDecoration(),

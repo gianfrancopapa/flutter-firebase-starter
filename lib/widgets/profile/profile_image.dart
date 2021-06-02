@@ -23,8 +23,8 @@ class ProfileImage extends StatelessWidget {
 
   Widget _networkImage() => Image(
         image: CachedNetworkImageProvider(image),
-        width: width ?? 100,
-        height: height ?? 100,
+        width: width ?? 150,
+        height: height ?? 150,
         fit: BoxFit.fitHeight,
       );
 
@@ -40,8 +40,8 @@ class ProfileImage extends StatelessWidget {
           fit: BoxFit.fitHeight,
         ),
       ),
-      height: height ?? 100,
-      width: width ?? 100,
+      height: height ?? 150,
+      width: width ?? 150,
     );
   }
 

@@ -7,7 +7,9 @@
 			"type": "dart",
 			"args": [
 				"--flavor",
-				"dev"
+				"dev",
+				"--web-port",
+				"5000"
 			]
 		},
 		{

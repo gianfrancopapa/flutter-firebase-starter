@@ -105,8 +105,8 @@
       "description": ""
   },
 
-  "emailSended": "Email Sended",
-  "@emailSended": {
+  "emailSent": "Email Sent",
+  "@emailSent": {
       "description": ""
   },
 
@@ -251,8 +251,8 @@
       "description": ""
   },
 
-  "didYouForgotYourPassword": "Did you forgot your password?",
-  "@didYouForgotYourPassword": {
+  "didYouForgetYourPassword": "Did you forget your password?",
+  "@didYouForgetYourPassword": {
       "description": ""
   },
 
@@ -329,6 +329,65 @@
   "noEmployees": "No employees found",
   "@noEmployees":{
       "description": ""
-  }
+  },
 
+  "invalidEmail": "Invalid email.",
+  "@invalidEmail":{
+      "description": ""
+  },
+
+  "userDisabled": "This user has been disabled.",
+  "@userDisabled":{
+      "description": ""
+  },
+
+  "userNotFound": "There is no user linked with this email.",
+   "@userNotFound":{
+      "description": ""
+  },
+
+  "wrongPassword": "The password is invalid or the user does not have a password.",
+  "@wrongPassword":{
+      "description": ""
+  }, 
+
+  "emailAlreadyInUse" : "An account with this email already exists.",
+  "@emailAlreadyInUse":{
+      "description": ""
+  },
+
+  "invalidCredential" : "Invalid credential.",
+  "@invalidCredential":{
+      "description": ""
+  }, 
+  
+  "selectProfilePicture" : "Select your profile picture.",
+  "@selectProfilePicture":{ 
+      "description": ""
+  },
+
+  "gallery" : "Gallery",
+  "@gallery":{ 
+      "description": ""
+  },
+
+  "camera" : "Camera",
+  "@camera":{ 
+      "description": ""
+  },
+
+  "operationNotAllowed" : "You do not have permission to perform this action.",
+  "@operationNotAllowed":{
+      "description": ""
+  }, 
+
+  "weakPassword" : "Insert a password with at least 6 characters that contains at least one uppercase letter and one number.",
+  "@weakPassword":{
+      "description": ""
+  }, 
+
+  "missingAuthToken" : "Missing Google auth token.",
+  "@missingAuthToken":{ 
+      "description": ""
+  } 
 }

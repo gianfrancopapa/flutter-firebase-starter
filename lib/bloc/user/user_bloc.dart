@@ -9,8 +9,8 @@ import 'package:get_it/get_it.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   AuthService _authService;
 
-  UserBloc() : super(const UserInitial()) {
-    _authService = GetIt.I.get<AuthService>();
+  UserBloc([AuthService authService]) : super(const UserInitial()) {
+    _authService = authService ?? GetIt.I.get<AuthService>();
   }
 
   @override

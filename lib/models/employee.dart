@@ -1,5 +1,7 @@
+import 'package:repository/repository.dart';
+
 class Employee {
-  final String id;
+  String id;
   String firstName;
   String lastName;
   String email;
@@ -21,26 +23,27 @@ class Employee {
     this.description,
   });
 
-  static Employee fromJson(Map<String, dynamic> json) => Employee(
-      id: json['id'],
-      firstName: json['firstName'] ?? 'Gonzalo',
-      lastName: json['lastName'] ?? 'LastName',
-      email: json['email'] ?? 'employee@somnio.com',
-      age: json['age'] ?? 18,
-      phoneNumber: json['phoneNumber'] ?? '99999999',
-      address: json['address'] ?? 'Address',
-      description: json['description'] ?? '-',
-      avatarAsset: json['avatarAsset']);
+  static Employee fromEntity(EmployeeEntity entity) => Employee(
+        id: entity.id,
+        firstName: entity.firstName,
+        lastName: entity.lastName,
+        email: entity.email,
+        age: entity.age,
+        phoneNumber: entity.phoneNumber,
+        address: entity.address,
+        description: entity.description,
+        avatarAsset: entity.avatarAsset,
+      );
 
-  Map<String, dynamic> toJson() => {
-        'firstName': firstName,
-        'lastName': lastName,
-        'email': email,
-        'avatarAsset': avatarAsset,
-        'role': 'user',
-        'age': age,
-        'address': address,
-        'phoneNumber': phoneNumber,
-        'description': description,
-      };
+  EmployeeEntity toEntity() => EmployeeEntity(
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        age: age,
+        phoneNumber: phoneNumber,
+        address: address,
+        description: description,
+        avatarAsset: avatarAsset,
+      );
 }
