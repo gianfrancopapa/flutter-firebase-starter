@@ -78,7 +78,9 @@ class FirebaseAuthService implements AuthService {
         email: email,
         password: password,
       );
-      await userCredential.user.updateDisplayName(name + ' ' + lastName);
+      await userCredential.user.updateDisplayName(
+        name + ' ' + lastName,
+      );
       await userCredential.user.reload();
       return _mapFirebaseUser(_firebaseAuth.currentUser);
     } catch (err) {
