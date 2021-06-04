@@ -5,10 +5,8 @@ import 'package:firebasestarter/services/auth/sign_in_services/sign_in_service.d
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
-
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
 import 'sign_in_services/sign_in_service.dart';
 
 class FirebaseAuthService implements AuthService {
@@ -80,9 +78,7 @@ class FirebaseAuthService implements AuthService {
         email: email,
         password: password,
       );
-      await userCredential.user.updateProfile(
-        displayName: name + ' ' + lastName,
-      );
+      await userCredential.user.updateDisplayName(name + ' ' + lastName);
       await userCredential.user.reload();
       return _mapFirebaseUser(_firebaseAuth.currentUser);
     } catch (err) {
@@ -115,7 +111,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<User> signInWithFacebook({FacebookLogin facebookLogin}) async {
+  Future<User> signInWithFacebook({FacebookAuth facebookLogin}) async {
     final facebookService =
         _testingService ?? FacebookSignInService(signInMethod: facebookLogin);
     return _signInWithAService(facebookService);
@@ -139,8 +135,8 @@ class FirebaseAuthService implements AuthService {
       {String firstName, String lastName, String photoURL}) async {
     try {
       final user = _firebaseAuth.currentUser;
-      await user.updateProfile(
-          displayName: '$firstName $lastName', photoURL: photoURL);
+      await user.updateDisplayName('$firstName $lastName');
+      await user.updatePhotoURL(photoURL);
       return true;
     } catch (e) {
       throw e;

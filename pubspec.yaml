@@ -28,7 +28,7 @@ dependencies:
   google_sign_in: ^4.5.9
   sign_in_with_apple: ^3.0.0
   crypto: ^2.1.5
-  flutter_login_facebook: ^0.5.0
+  flutter_facebook_auth: ^3.4.0
   introduction_screen: ^1.0.9
   package_info: ^0.4.3+4
   flutter_launcher_icons: ^0.8.1
