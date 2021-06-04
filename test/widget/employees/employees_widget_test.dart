@@ -68,7 +68,7 @@ void main() {
     );
 
     await tester.pumpApp(TeamScreen(), employeesBloc: employeesBloc);
-        
+
     expect(find.byType(EmployeesList), findsNothing);
     expect(find.text('No employees found'), findsOneWidget);
     expect(find.byType(CircularProgressIndicator), findsNothing);
