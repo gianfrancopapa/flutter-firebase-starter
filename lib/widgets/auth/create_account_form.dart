@@ -1,5 +1,5 @@
-import 'package:firebasestarter/bloc/create_account/create_account_bloc.dart';
-import 'package:firebasestarter/bloc/create_account/create_account_event.dart';
+import 'package:firebasestarter/bloc/account_creation/account_creation_bloc.dart';
+import 'package:firebasestarter/bloc/account_creation/account_creation_event.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
@@ -8,7 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CreateAccountForm extends StatelessWidget {
-  final CreateAccountBloc bloc;
+  final AccountCreationBloc bloc;
 
   const CreateAccountForm(this.bloc);
 
@@ -56,7 +56,7 @@ class CreateAccountForm extends StatelessWidget {
         Button(
           backgroundColor: AppColor.blue,
           text: _localizedStrings.createAccount,
-          onTap: () => bloc.add(const AccountCreated()),
+          onTap: () => bloc.add(const AccountCreationRequested()),
         ),
         Margin(0.0, 49.5),
       ],

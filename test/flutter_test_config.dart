@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:firebasestarter/bloc/create_account/create_account_event.dart';
-import 'package:firebasestarter/bloc/create_account/create_account_state.dart';
+import 'package:firebasestarter/bloc/account_creation/account_creation_event.dart';
+import 'package:firebasestarter/bloc/account_creation/account_creation_state.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
 import 'package:firebasestarter/bloc/forgot_password/forgot_password_event.dart';
@@ -31,8 +31,8 @@ Future<void> testExecutable(FutureOr<void> Function() testMain) async {
     registerFallbackValue<UserState>(FakeUserState());
     registerFallbackValue<UserEvent>(FakeUserEvent());
 
-    registerFallbackValue<CreateAccountState>(FakeCreateAccountState());
-    registerFallbackValue<CreateAccountEvent>(FakeCreateAccountEvent());
+    registerFallbackValue<AccountCreationState>(FakeAccountCreationState());
+    registerFallbackValue<AccountCreationEvent>(FakeAccountCreationEvent());
 
     registerFallbackValue<EditProfileState>(FakeEditProfileState());
     registerFallbackValue<EditProfileEvent>(FakeEditProfileEvent());
@@ -52,7 +52,7 @@ class FakeLoginEvent extends Fake implements LoginEvent {}
 
 class FakeUserEvent extends Fake implements UserEvent {}
 
-class FakeCreateAccountEvent extends Fake implements CreateAccountEvent {}
+class FakeAccountCreationEvent extends Fake implements AccountCreationEvent {}
 
 class FakeEditProfileEvent extends Fake implements EditProfileEvent {}
 
@@ -66,7 +66,7 @@ class FakeLoginState extends Fake implements LoginState {}
 
 class FakeUserState extends Fake implements UserState {}
 
-class FakeCreateAccountState extends Fake implements CreateAccountState {}
+class FakeAccountCreationState extends Fake implements AccountCreationState {}
 
 class FakeEditProfileState extends Fake implements EditProfileState {}
 
