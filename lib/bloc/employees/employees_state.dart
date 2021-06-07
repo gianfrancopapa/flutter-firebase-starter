@@ -1,31 +1,36 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/models/employee.dart';
 
-abstract class EmployeesState extends Equatable {
-  const EmployeesState();
+enum EmployeesStatus {
+  initial,
+  loadInProgress,
+  loadFailure,
+  loadSuccess,
+  loadEmpty
+}
+
+class EmployeesState extends Equatable {
+  final EmployeesStatus status;
+  final List<Employee> employees;
+  final String errorMessage;
+
+  const EmployeesState({
+    this.status = EmployeesStatus.initial,
+    this.employees,
+    this.errorMessage,
+  }) : assert(status != null);
+
+  EmployeesState copyWith({
+    EmployeesStatus status,
+    List<Employee> employees,
+    String errorMessage,
+  }) {
+    return EmployeesState(
+        status: status ?? this.status,
+        employees: employees ?? this.employees,
+        errorMessage: errorMessage ?? this.errorMessage);
+  }
 
   @override
-  List<Object> get props => [];
-}
-
-class EmployeesInitial extends EmployeesState {
-  const EmployeesInitial();
-}
-
-class EmployeesLoadInProgress extends EmployeesState {
-  const EmployeesLoadInProgress();
-}
-
-class EmployeesLoadFailure extends EmployeesState {
-  final String message;
-  const EmployeesLoadFailure(this.message);
-}
-
-class EmployeesLoadSuccess extends EmployeesState {
-  final List<Employee> employees;
-  const EmployeesLoadSuccess(this.employees);
-}
-
-class EmployeesLoadEmpty extends EmployeesState {
-  const EmployeesLoadEmpty();
+  List<Object> get props => [status, employees, errorMessage];
 }

@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:repository/repository.dart';
 
-class Employee {
+class Employee extends Equatable {
   String id;
   String firstName;
   String lastName;
@@ -46,4 +47,17 @@ class Employee {
         description: description,
         avatarAsset: avatarAsset,
       );
+
+  @override
+  List<Object> get props => [
+        id,
+        firstName,
+        lastName,
+        email,
+        age,
+        phoneNumber,
+        address,
+        description,
+        avatarAsset,
+      ];
 }

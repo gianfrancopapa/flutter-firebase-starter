@@ -11,17 +11,18 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
 
   final Repository<EmployeeEntity> _employeesRepository;
 
-  EmployeesBloc(this._employeesRepository) : super(const EmployeesInitial());
+  EmployeesBloc(this._employeesRepository) : super(const EmployeesState());
 
   @override
   Stream<EmployeesState> mapEventToState(EmployeesEvent event) async* {
-    yield const EmployeesLoadInProgress();
-    switch (event.runtimeType) {
-      case EmployeesLoaded:
-        yield* _mapEmployeesLoadedToState();
-        break;
-      default:
-        yield const EmployeesLoadFailure(_errEvent);
+    yield state.copyWith(status: EmployeesStatus.loadInProgress);
+    if (event is EmployeesLoaded) {
+      yield* _mapEmployeesLoadedToState();
+    } else {
+      state.copyWith(
+        status: EmployeesStatus.loadFailure,
+        errorMessage: _errEvent,
+      );
     }
   }
 
@@ -30,14 +31,19 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
       final employees = await _employeesRepository.getAll();
 
       if (employees.isEmpty) {
-        yield const EmployeesLoadEmpty();
+        yield state.copyWith(status: EmployeesStatus.loadEmpty);
       } else {
-        yield EmployeesLoadSuccess(
-          employees.map<Employee>(_toEmployee).toList(),
+        final loadedEmployees = employees.map<Employee>(_toEmployee).toList();
+        yield state.copyWith(
+          status: EmployeesStatus.loadSuccess,
+          employees: loadedEmployees,
         );
       }
     } catch (err) {
-      yield EmployeesLoadFailure(err.toString());
+      yield state.copyWith(
+        status: EmployeesStatus.loadFailure,
+        errorMessage: err.message,
+      );
     }
   }
 
