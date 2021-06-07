@@ -26,7 +26,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       ),
       body: BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
         listener: (BuildContext context, ForgotPasswordState state) {
-          if (state is ForgotPasswordEmailSent) {
+          if (state.status == ForgotPasswordStatus.emailSent) {
             DialogHelper.showAlertDialog(
               context: context,
               story: _localizedStrings.emailSent,

@@ -1,20 +1,24 @@
-abstract class ForgotPasswordState {
-  const ForgotPasswordState();
-}
+import 'package:equatable/equatable.dart';
 
-class ForgotPasswordEmailSent extends ForgotPasswordState {
-  const ForgotPasswordEmailSent();
-}
+enum ForgotPasswordStatus { initial, inProgress, emailSent, failure }
 
-class ForgotPasswordInitial extends ForgotPasswordState {
-  const ForgotPasswordInitial();
-}
+class ForgotPasswordState extends Equatable {
+  final ForgotPasswordStatus status;
+  final String errorMessage;
 
-class ForgotPasswordFailure extends ForgotPasswordState {
-  final String message;
-  const ForgotPasswordFailure(this.message);
-}
+  const ForgotPasswordState({
+    ForgotPasswordStatus this.status = ForgotPasswordStatus.initial,
+    String this.errorMessage,
+  }) : assert(status != null);
 
-class ForgotPasswordInProgress extends ForgotPasswordState {
-  const ForgotPasswordInProgress();
+  ForgotPasswordState copyWith(
+      {ForgotPasswordStatus status, String errorMessage}) {
+    return ForgotPasswordState(
+      status: status ?? this.status,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
+
+  @override
+  List<Object> get props => [status, errorMessage];
 }
