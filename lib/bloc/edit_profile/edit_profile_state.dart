@@ -1,51 +1,41 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/models/user.dart';
 
-abstract class EditProfileState {
-  const EditProfileState();
+enum EditProfileStatus {
+  initial,
+  inProgress,
+  profileSuccess,
+  avatarSuccess,
+  failure,
+  currentUser
 }
 
-class AvatarChangeSuccess extends EditProfileState with EquatableMixin {
+class EditProfileState extends Equatable {
+  final EditProfileStatus status;
   final String image;
-  const AvatarChangeSuccess(this.image);
-
-  @override
-  List<Object> get props => [image];
-}
-
-class EditProfileSuccess extends EditProfileState with EquatableMixin {
-  const EditProfileSuccess();
-
-  @override
-  List<Object> get props => [];
-}
-
-class EditProfileInitial extends EditProfileState with EquatableMixin {
-  const EditProfileInitial();
-
-  @override
-  List<Object> get props => [];
-}
-
-class EditProfileFailure extends EditProfileState with EquatableMixin {
-  final String message;
-  const EditProfileFailure(this.message);
-
-  @override
-  List<Object> get props => [message];
-}
-
-class EditProfileInProgress extends EditProfileState with EquatableMixin {
-  const EditProfileInProgress();
-
-  @override
-  List<Object> get props => [];
-}
-
-class CurrentUser extends EditProfileState with EquatableMixin {
+  final String errorMessage;
   final User user;
-  const CurrentUser(this.user);
+
+  const EditProfileState(
+      {EditProfileStatus this.status = EditProfileStatus.initial,
+      String this.image,
+      String this.errorMessage,
+      User this.user})
+      : assert(status != null);
+
+  EditProfileState copyWith(
+      {EditProfileStatus status,
+      String image,
+      String errorMessage,
+      User user}) {
+    return EditProfileState(
+      status: status ?? this.status,
+      image: image ?? this.image,
+      errorMessage: errorMessage ?? this.errorMessage,
+      user: user ?? this.user,
+    );
+  }
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [status, errorMessage, image, user];
 }

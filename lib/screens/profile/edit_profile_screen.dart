@@ -12,7 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditProfileScreen extends StatelessWidget {
   Widget _userPhoto() => BlocBuilder<EditProfileBloc, EditProfileState>(
-        buildWhen: (_, EditProfileState state) => state is AvatarChangeSuccess,
+        buildWhen: (_, EditProfileState state) =>
+            state.status == EditProfileStatus.avatarSuccess,
         builder: (BuildContext context, EditProfileState state) {
           return ProfileImage(
             editable: true,
@@ -28,7 +29,9 @@ class EditProfileScreen extends StatelessWidget {
                 return _selectProfilePicture(context);
               },
             ),
-            image: state is AvatarChangeSuccess ? state.image : '',
+            image: state.status == EditProfileStatus.avatarSuccess
+                ? state.image
+                : '',
           );
         },
       );
@@ -37,13 +40,13 @@ class EditProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) =>
       BlocListener<EditProfileBloc, EditProfileState>(
         listener: (BuildContext context, EditProfileState state) {
-          if (state is EditProfileSuccess) {
+          if (state.status == EditProfileStatus.profileSuccess) {
             Navigator.pop(context);
           }
-          if (state is EditProfileFailure) {
+          if (state.status == EditProfileStatus.failure) {
             DialogHelper.showAlertDialog(
               context: context,
-              story: state.message,
+              story: state.errorMessage,
               btnText: 'Close',
               btnAction: () => Navigator.pop(context),
             );

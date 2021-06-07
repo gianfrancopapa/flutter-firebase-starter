@@ -27,7 +27,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       ImageService image,
       EditProfileFormBloc formBloc,
       PickedFile fakePhoto])
-      : super(const EditProfileInitial()) {
+      : super(const EditProfileState()) {
     _authService = auth ?? GetIt.I.get<AuthService>();
     _storageService = storage ?? GetIt.I.get<StorageService>();
     _imageService = image ?? GetIt.I.get<ImageService>();
@@ -51,21 +51,31 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         yield* _mapCurrentUserLoadedToState();
         break;
       default:
-        yield const EditProfileFailure(_errEvent);
+        yield state.copyWith(
+            status: EditProfileStatus.failure, errorMessage: _errEvent);
     }
   }
 
   Stream<EditProfileState> _mapCurrentUserLoadedToState() async* {
-    yield const EditProfileInProgress();
+    yield state.copyWith(status: EditProfileStatus.inProgress);
     try {
       final user = await _authService.currentUser();
       form.onFirstNameChanged(user.firstName);
       form.onLastNameChanged(user.lastName);
-      yield CurrentUser(user);
+      yield state.copyWith(
+        status: EditProfileStatus.currentUser,
+        user: user,
+      );
       _pickedPhoto = PickedFile(user.imageUrl);
-      yield AvatarChangeSuccess(user.imageUrl);
+      yield state.copyWith(
+        status: EditProfileStatus.avatarSuccess,
+        image: user.imageUrl,
+      );
     } catch (e) {
-      yield const EditProfileFailure('Error: Something went wrong');
+      yield state.copyWith(
+        status: EditProfileStatus.failure,
+        errorMessage: 'Error: Something went wrong',
+      );
     }
   }
 
@@ -75,13 +85,22 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     try {
       final image = await uploadMethod();
       if (image == null) {
-        yield const EditProfileFailure('Error: Insert valid image');
+        yield state.copyWith(
+          status: EditProfileStatus.failure,
+          errorMessage: 'Error: Insert valid image',
+        );
         return;
       }
       _pickedPhoto = image;
-      yield AvatarChangeSuccess(_pickedPhoto.path);
+      yield state.copyWith(
+        status: EditProfileStatus.avatarSuccess,
+        image: _pickedPhoto.path,
+      );
     } catch (err) {
-      yield EditProfileFailure(err.toString());
+      yield state.copyWith(
+        status: EditProfileStatus.failure,
+        errorMessage: err,
+      );
     }
   }
 
@@ -100,13 +119,13 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   }
 
   Stream<EditProfileState> _mapProfileInfoUpdatedToState() async* {
-    yield const EditProfileInProgress();
+    yield state.copyWith(status: EditProfileStatus.inProgress);
     try {
       final user = await _authService.currentUser();
       if (user.firstName == form.firstNameVal &&
           user.lastName == form.lastNameVal &&
           (_pickedPhoto == null || user.imageUrl == _pickedPhoto.path)) {
-        yield const EditProfileSuccess();
+        yield state.copyWith(status: EditProfileStatus.profileSuccess);
         return;
       }
       if (user.imageUrl != _pickedPhoto.path) {
@@ -116,11 +135,17 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         firstName: form.firstNameVal,
         lastName: form.lastNameVal,
       );
-      yield const EditProfileSuccess();
+      yield state.copyWith(status: EditProfileStatus.profileSuccess);
       userBloc.add(const UserLoaded());
-      yield AvatarChangeSuccess(user.imageUrl);
-    } catch (e) {
-      yield EditProfileFailure(e);
+      yield state.copyWith(
+        status: EditProfileStatus.avatarSuccess,
+        image: user.imageUrl,
+      );
+    } catch (error) {
+      yield state.copyWith(
+        status: EditProfileStatus.failure,
+        errorMessage: error,
+      );
     }
   }
 }
