@@ -138,7 +138,9 @@ class FirebaseAuthService implements AuthService {
     try {
       final user = _firebaseAuth.currentUser;
       await user.updateDisplayName('$firstName $lastName');
-      await user.updatePhotoURL(photoURL);
+      if (photoURL != null) {
+        await user.updatePhotoURL(photoURL);
+      }
       return true;
     } catch (e) {
       throw e;
