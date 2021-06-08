@@ -27,14 +27,13 @@ class DetermineAccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<InitAppBloc, InitAppState>(
       builder: (context, initAppState) {
-        switch (initAppState.runtimeType) {
-          case InitAppFirstTime:
-            return OnBoardingScreen();
-          case InitAppNotFirstTime:
-            return _checkIfUserIsLoggedIn();
-          default:
-            return Splash();
+        if (initAppState.status == InitAppStatus.firstTime) {
+          return OnBoardingScreen();
         }
+        if (initAppState.status == InitAppStatus.notFirstTime) {
+          return _checkIfUserIsLoggedIn();
+        }
+        return Splash();
       },
     );
   }
