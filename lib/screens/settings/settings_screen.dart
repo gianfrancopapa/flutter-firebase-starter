@@ -25,7 +25,7 @@ class SettingsScreen extends StatelessWidget {
       appBar: CustomAppBar(title: _localizedStrings.settings),
       body: BlocListener<LoginBloc, LoginState>(
         listener: (BuildContext context, LoginState state) {
-          if (state.runtimeType == LogoutSuccess) {
+          if (state.status == LoginStatus.logoutSuccess) {
             Navigator.popUntil(context, (route) => route.isFirst);
           }
         },

@@ -12,14 +12,13 @@ import 'splash.dart';
 class DetermineAccessScreen extends StatelessWidget {
   Widget _checkIfUserIsLoggedIn() => BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
-          switch (state.runtimeType) {
-            case LoginInitial:
-              return Splash();
-            case LoginSuccess:
-              return HomeScreen((state as LoginSuccess).currentUser);
-            default:
-              return LoginScreen();
+          if (state.status == LoginStatus.initial) {
+            return Splash();
           }
+          if (state.status == LoginStatus.loginSuccess) {
+            return HomeScreen(state.currentUser);
+          }
+          return LoginScreen();
         },
       );
 

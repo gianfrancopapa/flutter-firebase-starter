@@ -13,7 +13,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   AnalyticsService _analyticsService;
   final form = LoginFormBloc();
 
-  LoginBloc() : super(const LoginInitial()) {
+  LoginBloc() : super(const LoginState()) {
     _authService = GetIt.I<AuthService>();
     _analyticsService = GetIt.I<AnalyticsService>();
   }
@@ -47,20 +47,29 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield* _mapIsUserLoggedInToState();
         break;
       default:
-        yield const LoginFailure(_errEvent);
+        yield state.copyWith(
+          status: LoginStatus.failure,
+          errorMessage: _errEvent,
+        );
     }
   }
 
   Stream<LoginState> _mapLoginStartedToState() async* {
-    yield const LoginInProgress();
+    yield state.copyWith(status: LoginStatus.inProgress);
     try {
       final user = await _authService.signInWithEmailAndPassword(
         form.emailValue,
         form.passwordValue,
       );
-      yield LoginSuccess(user);
+      yield state.copyWith(
+        status: LoginStatus.loginSuccess,
+        currentUser: user,
+      );
     } catch (e) {
-      yield LoginFailure(e.code);
+      yield state.copyWith(
+        status: LoginStatus.failure,
+        errorMessage: e.code,
+      );
     }
   }
 
@@ -69,40 +78,54 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     String loginMethod,
   ) async* {
     _analyticsService.logLogin(loginMethod);
-    yield const LoginInProgress();
+    yield state.copyWith(status: LoginStatus.inProgress);
     try {
       final user = await signInMethod();
       if (user != null) {
-        yield LoginSuccess(user);
+        yield state.copyWith(
+          status: LoginStatus.loginSuccess,
+          currentUser: user,
+        );
       }
-    } catch (e) {
-      yield LoginFailure(e.code);
+    } catch (error) {
+      yield state.copyWith(
+        status: LoginStatus.failure,
+        errorMessage: error,
+      );
     }
   }
 
   Stream<LoginState> _mapLogoutStartedToState() async* {
     _analyticsService.logLogout();
-    yield const LoginInProgress();
+    yield state.copyWith(status: LoginStatus.inProgress);
     try {
       await _authService.signOut();
-      yield const LogoutSuccess();
+      yield state.copyWith(status: LoginStatus.logoutSuccess);
     } catch (e) {
-      yield const LoginFailure('Error while trying to log out');
+      yield state.copyWith(
+        status: LoginStatus.failure,
+        errorMessage: 'Error while trying to log out',
+      );
     }
   }
 
   Stream<LoginState> _mapIsUserLoggedInToState() async* {
-    yield const LoginInProgress();
+    yield state.copyWith(status: LoginStatus.inProgress);
     try {
       final user = await _authService.currentUser();
       if (user != null) {
-        yield LoginSuccess(user);
+        yield state.copyWith(
+          status: LoginStatus.loginSuccess,
+          currentUser: user,
+        );
       } else {
-        yield const LogoutSuccess();
+        yield state.copyWith(status: LoginStatus.logoutSuccess);
       }
     } catch (e) {
-      yield const LoginFailure(
-          'Error while trying to verify if user is logged in');
+      yield state.copyWith(
+        status: LoginStatus.failure,
+        errorMessage: 'Error while trying to verify if user is logged in',
+      );
     }
   }
 }

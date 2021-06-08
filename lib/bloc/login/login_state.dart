@@ -1,27 +1,35 @@
+import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/models/user.dart';
 
-abstract class LoginState {
-  const LoginState();
-}
+enum LoginStatus { initial, inProgress, loginSuccess, logoutSuccess, failure }
 
-class LoginSuccess extends LoginState {
+class LoginState extends Equatable {
+  final LoginStatus status;
   final User currentUser;
-  const LoginSuccess(this.currentUser);
-}
+  final String errorMessage;
 
-class LogoutSuccess extends LoginState {
-  const LogoutSuccess();
-}
+  const LoginState({
+    LoginStatus this.status = LoginStatus.initial,
+    User this.currentUser,
+    String this.errorMessage,
+  }) : assert(status != null);
 
-class LoginInitial extends LoginState {
-  const LoginInitial();
-}
+  LoginState copyWith({
+    LoginStatus status,
+    User currentUser,
+    String errorMessage,
+  }) {
+    return LoginState(
+      status: status ?? this.status,
+      currentUser: currentUser ?? this.currentUser,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 
-class LoginFailure extends LoginState {
-  final String message;
-  const LoginFailure(this.message);
-}
-
-class LoginInProgress extends LoginState {
-  const LoginInProgress();
+  @override
+  List<Object> get props => [
+        status,
+        currentUser,
+        errorMessage,
+      ];
 }
