@@ -1,31 +1,27 @@
 import 'package:firebasestarter/models/user.dart';
 import 'package:equatable/equatable.dart';
 
-abstract class UserState extends Equatable {
-  const UserState();
-  @override
-  List<Object> get props => [];
-}
+enum UserStatus { initial, inProgress, success, failure }
 
-class UserLoadSuccess extends UserState {
+class UserState extends Equatable {
+  final UserStatus status;
   final User user;
-  const UserLoadSuccess(this.user);
+  final String errorMessage;
+
+  const UserState({
+    UserStatus this.status = UserStatus.initial,
+    User this.user,
+    String this.errorMessage,
+  }) : assert(status != null);
+
+  UserState copyWith({UserStatus status, User user, String errorMessage}) {
+    return UserState(
+      status: status ?? this.status,
+      user: user ?? this.user,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 
   @override
-  List<Object> get props => [user];
-}
-
-class UserInitial extends UserState {
-  const UserInitial();
-}
-
-class UserLoadFailure extends UserState {
-  final String message;
-  const UserLoadFailure(this.message);
-  @override
-  List<Object> get props => [message];
-}
-
-class UserLoadInProgress extends UserState {
-  const UserLoadInProgress();
+  List<Object> get props => [status, user, errorMessage];
 }

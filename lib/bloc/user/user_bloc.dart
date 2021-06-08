@@ -9,7 +9,7 @@ import 'package:get_it/get_it.dart';
 class UserBloc extends Bloc<UserEvent, UserState> {
   AuthService _authService;
 
-  UserBloc([AuthService authService]) : super(const UserInitial()) {
+  UserBloc([AuthService authService]) : super(const UserState()) {
     _authService = authService ?? GetIt.I.get<AuthService>();
   }
 
@@ -20,17 +20,26 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         yield* _mapUserLoadedToState();
         break;
       default:
-        yield const UserLoadFailure('Undetermined event');
+        yield state.copyWith(
+          status: UserStatus.failure,
+          errorMessage: 'Undetermined event',
+        );
     }
   }
 
   Stream<UserState> _mapUserLoadedToState() async* {
-    yield const UserLoadInProgress();
+    yield state.copyWith(status: UserStatus.inProgress);
     try {
       final user = await _authService.currentUser();
-      yield UserLoadSuccess(user);
+      yield state.copyWith(
+        status: UserStatus.success,
+        user: user,
+      );
     } catch (e) {
-      yield const UserLoadFailure('Something went wrong');
+      yield state.copyWith(
+        status: UserStatus.failure,
+        errorMessage: 'Something went wrong',
+      );
     }
   }
 }
