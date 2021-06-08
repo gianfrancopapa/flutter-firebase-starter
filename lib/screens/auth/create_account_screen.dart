@@ -1,3 +1,5 @@
+import 'package:firebasestarter/bloc/user/user_bloc.dart';
+import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/screens/home.dart';
 import 'package:firebasestarter/widgets/auth/create_account_form.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
@@ -25,6 +27,7 @@ class CreateAccountScreen extends StatelessWidget {
               );
             }
             if (state.status == AccountCreationStatus.success) {
+              BlocProvider.of<UserBloc>(context)..add(const UserLoaded());
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
