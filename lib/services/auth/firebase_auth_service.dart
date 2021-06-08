@@ -92,8 +92,8 @@ class FirebaseAuthService implements AuthService {
       await userCredential.user.reload();
       _signInMethod = SignInMethods.email;
       return _mapFirebaseUser(_firebaseAuth.currentUser);
-    } catch (err) {
-      throw err.toString();
+    } catch (error) {
+      throw error;
     }
   }
 
