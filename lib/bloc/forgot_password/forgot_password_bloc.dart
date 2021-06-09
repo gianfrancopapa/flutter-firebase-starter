@@ -14,10 +14,14 @@ class ForgotPasswordBloc
   static const _recoverPasswordErr =
       'Error: Something went wrong while trying to recover password';
 
-  final form = ForgotPasswordFormBloc();
+  ForgotPasswordFormBloc form;
 
-  ForgotPasswordBloc() : super(const ForgotPasswordState()) {
-    _authService = GetIt.I<AuthService>();
+  ForgotPasswordBloc({
+    AuthService authService,
+    ForgotPasswordFormBloc form,
+  }) : super(const ForgotPasswordState()) {
+    _authService = authService ?? GetIt.I<AuthService>();
+    this.form = form ?? ForgotPasswordFormBloc();
   }
 
   @override
