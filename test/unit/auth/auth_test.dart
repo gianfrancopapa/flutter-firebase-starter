@@ -1,5 +1,4 @@
 import 'package:firebasestarter/models/user.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_mock.dart';
@@ -32,7 +31,7 @@ void main() async {
   final expectedUserJSON = expectedUser.toJson();
   final userCredential = MockUserCredential();
 
-  group('Firebase auth', () {
+  group('Firebase auth /', () {
     test('Sign in with email and password', () async {
       final authService = FirebaseAuthService(auth);
 
@@ -99,30 +98,18 @@ void main() async {
     });
   });
 
-  group('Google Sign in', () {
+  group('Google Sign in /', () {
     test('Success', () async {
-      final _googleAuthService = MockGoogleAuthService();
+      final _googleSignInService = MockGoogleSignInService();
       final authService =
-          FirebaseAuthService(auth, googleSignIn, _googleAuthService);
-      final _googleAccount = MockGoogleSignInAccount();
-      final _googleAuth = MockGoogleSignInAuthentication();
+          FirebaseAuthService(auth, testingService: _googleSignInService);
       final credential = Auth.GoogleAuthProvider.credential(
         idToken: 'abcd1234',
         accessToken: 'abcd1234',
       );
 
-      when(_googleAuthService.getGoogleUser(googleSignIn))
-          .thenAnswer((_) async => _googleAccount);
-
-      when(_googleAuthService.getGoogleAuth(_googleAccount))
-          .thenAnswer((_) async => _googleAuth);
-
-      when(_googleAuth.accessToken).thenReturn('abcd1234');
-
-      when(_googleAuth.idToken).thenReturn('abcd1234');
-
-      when(_googleAuthService.getUserCredentials('abcd1234', 'abcd1234'))
-          .thenReturn(credential);
+      when(_googleSignInService.getFirebaseCredential())
+          .thenAnswer((_) async => credential);
 
       when(auth.signInWithCredential(credential))
           .thenAnswer((_) async => userCredential);
@@ -134,51 +121,24 @@ void main() async {
     });
 
     test('Cancelled by user', () async {
-      final authService = FirebaseAuthService(auth, googleSignIn);
-      when(googleSignIn.signIn()).thenAnswer((realInvocation) => null);
+      final authService = FirebaseAuthService(auth);
+      when(googleSignIn.signIn()).thenAnswer((_) => null);
 
-      expect(await authService.signInWithGoogle(), null);
-    });
-
-    test('No google auth', () async {
-      final authService = FirebaseAuthService(auth, googleSignIn);
-      final _googleAccount = MockGoogleSignInAccount();
-      final _googleAuth = MockGoogleSignInAuthentication();
-
-      when(googleSignIn.signIn()).thenAnswer((_) async => _googleAccount);
-
-      when(_googleAccount.authentication).thenAnswer((_) async => _googleAuth);
-
-      when(_googleAuth.accessToken).thenReturn(null);
-
-      when(_googleAuth.idToken).thenReturn(null);
-
-      expect(() async => authService.signInWithGoogle(), throwsException);
+      expect(
+          await authService.signInWithGoogle(googleLogin: googleSignIn), null);
     });
   });
 
-  group('Facebook sign in', () {
+  group('Facebook sign in /', () {
     test('Success', () async {
-      final _facebookAuthService = MockFacebookAuthService();
-      final _facebook = MockFacebookLogin();
-      final authService = FirebaseAuthService(
-          auth, null, null, _facebook, _facebookAuthService);
-      final loginResult = MockFacebookLoginResult();
-      final accessToken = MockFacebookAccessToken();
-
-      when(_facebookAuthService.signIn(_facebook))
-          .thenAnswer((realInvocation) async => loginResult);
-
-      when(loginResult.status).thenReturn(FacebookLoginStatus.success);
-
-      when(loginResult.accessToken).thenReturn(accessToken);
-
-      when(accessToken.token).thenReturn('abcd1234');
+      final _facebookSignInService = MockFacebookSignInService();
+      final authService =
+          FirebaseAuthService(auth, testingService: _facebookSignInService);
 
       final credential = Auth.FacebookAuthProvider.credential('abcd1234');
 
-      when(_facebookAuthService.createFirebaseCredential('abcd1234'))
-          .thenReturn(credential);
+      when(_facebookSignInService.getFirebaseCredential())
+          .thenAnswer((_) async => credential);
 
       when(auth.signInWithCredential(credential))
           .thenAnswer((_) async => userCredential);
@@ -190,40 +150,49 @@ void main() async {
     });
 
     test('Cancelled by user', () async {
-      final _facebookAuthService = MockFacebookAuthService();
-      final _facebook = MockFacebookLogin();
-      final authService = FirebaseAuthService(
-          auth, null, null, _facebook, _facebookAuthService);
-      final loginResult = MockFacebookLoginResult();
+      final _facebookSignInService = MockFacebookSignInService();
+      final authService =
+          FirebaseAuthService(auth, testingService: _facebookSignInService);
 
-      when(_facebookAuthService.signIn(_facebook))
-          .thenAnswer((realInvocation) async => loginResult);
-
-      when(loginResult.status).thenReturn(FacebookLoginStatus.cancel);
+      when(_facebookSignInService.getFirebaseCredential())
+          .thenAnswer((_) async => null);
 
       expect(await authService.signInWithFacebook(), null);
     });
+  });
 
-    test('Facebook Error', () async {
-      final _facebookAuthService = MockFacebookAuthService();
-      final _facebook = MockFacebookLogin();
-      final authService = FirebaseAuthService(
-          auth, null, null, _facebook, _facebookAuthService);
-      final loginResult = MockFacebookLoginResult();
+  group('Apple sign in /', () {
+    test('Success', () async {
+      final _appleSignInService = MockAppleSignInService();
+      final authService =
+          FirebaseAuthService(auth, testingService: _appleSignInService);
 
-      when(_facebookAuthService.signIn(_facebook))
-          .thenAnswer((realInvocation) async => loginResult);
+      final credential = Auth.OAuthProvider('apple.com').credential(
+        idToken: 'abcd1234',
+        rawNonce: 'abcd1234',
+      );
 
-      when(loginResult.status).thenReturn(FacebookLoginStatus.error);
+      when(_appleSignInService.getFirebaseCredential())
+          .thenAnswer((_) async => credential);
 
-      final error = FacebookError(
-          developerMessage: 'error',
-          localizedDescription: 'error',
-          localizedTitle: 'error');
+      when(auth.signInWithCredential(credential))
+          .thenAnswer((_) async => userCredential);
 
-      when(loginResult.error).thenReturn(error);
+      final obtainedUser = await authService.signInWithApple();
+      final obtainedUserJSON = obtainedUser.toJson();
 
-      expect(() async => authService.signInWithFacebook(), throwsException);
+      expect(mapEquals(expectedUserJSON, obtainedUserJSON), true);
+    });
+
+    test('Cancelled by user', () async {
+      final _appleSignInService = MockAppleSignInService();
+      final authService =
+          FirebaseAuthService(auth, testingService: _appleSignInService);
+
+      when(_appleSignInService.getFirebaseCredential())
+          .thenAnswer((_) async => null);
+
+      expect(await authService.signInWithApple(), null);
     });
   });
 }
