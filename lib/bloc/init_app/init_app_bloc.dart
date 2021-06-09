@@ -8,8 +8,10 @@ class InitAppBloc extends Bloc<InitAppEvent, InitAppState> {
   static const String _isFirstTime = 'is_first_time';
   LocalPersistanceService _localPersistanceService;
 
-  InitAppBloc() : super(const InitAppState()) {
-    _localPersistanceService = GetIt.I.get<LocalPersistanceService>();
+  InitAppBloc({LocalPersistanceService localPersistanceService})
+      : super(const InitAppState()) {
+    _localPersistanceService =
+        localPersistanceService ?? GetIt.I.get<LocalPersistanceService>();
   }
 
   @override
