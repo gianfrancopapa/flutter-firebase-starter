@@ -11,11 +11,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   static const _errEvent = 'Error: Invalid event in [login_bloc.dart]';
   AuthService _authService;
   AnalyticsService _analyticsService;
-  final form = LoginFormBloc();
+  LoginFormBloc form;
 
-  LoginBloc() : super(const LoginState()) {
-    _authService = GetIt.I<AuthService>();
-    _analyticsService = GetIt.I<AnalyticsService>();
+  LoginBloc({
+    AuthService authService,
+    LoginFormBloc form,
+    AnalyticsService analyticsService,
+  }) : super(const LoginState()) {
+    _authService = authService ?? GetIt.I<AuthService>();
+    _analyticsService = analyticsService ?? GetIt.I<AnalyticsService>();
+    this.form = form ?? LoginFormBloc();
   }
 
   @override
