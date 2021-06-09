@@ -1,7 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:io' show Platform;
 import 'package:rxdart/subjects.dart';
-import '../../constants/assets.dart';
 
 class LocalNotificationService {
   FlutterLocalNotificationsPlugin _localNotifications;

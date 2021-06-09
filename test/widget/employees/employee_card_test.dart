@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('Employee card text', (WidgetTester tester) async {
-    final employee = Employee(
+    const employee = Employee(
       id: 'testID',
       firstName: 'testName',
       lastName: 'testLastName',

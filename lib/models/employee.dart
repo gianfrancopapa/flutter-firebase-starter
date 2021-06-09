@@ -2,17 +2,17 @@ import 'package:equatable/equatable.dart';
 import 'package:repository/repository.dart';
 
 class Employee extends Equatable {
-  String id;
-  String firstName;
-  String lastName;
-  String email;
-  String avatarAsset;
-  int age;
-  String phoneNumber;
-  String address;
-  String description;
+  final String id;
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String avatarAsset;
+  final int age;
+  final String phoneNumber;
+  final String address;
+  final String description;
 
-  Employee({
+  const Employee({
     this.id,
     this.firstName,
     this.lastName,

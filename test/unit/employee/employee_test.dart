@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:repository/repository.dart';
 
 void main() {
-  final employee = Employee(
+  const employee = Employee(
     id: '1',
     firstName: 'A',
     lastName: 'Test',
