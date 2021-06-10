@@ -60,20 +60,6 @@ void main() {
           ),
         ],
       );
-
-      blocTest(
-        'Invalid event started, failure',
-        build: () => ForgotPasswordBloc(authService: auth, form: form),
-        act: (bloc) {
-          bloc.add(null);
-        },
-        expect: () => [
-          const ForgotPasswordState(
-            status: ForgotPasswordStatus.failure,
-            errorMessage: 'Error: Invalid event in [forgot_password_bloc.dart]',
-          ),
-        ],
-      );
     },
   );
 }

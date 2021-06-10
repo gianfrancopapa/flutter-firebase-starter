@@ -7,7 +7,6 @@ import 'package:get_it/get_it.dart';
 
 class AccountCreationBloc
     extends Bloc<AccountCreationEvent, AccountCreationState> {
-  static const _errEvent = 'Error: Invalid event in [create_account_bloc.dart]';
   static const _errPasswordMismatch = 'Error: Passwords doesn\'t match.';
 
   AuthService _firebaseAuth;
@@ -26,11 +25,6 @@ class AccountCreationBloc
       AccountCreationEvent event) async* {
     if (event is AccountCreationRequested) {
       yield* _mapAccountCreationRequestedToState(event, state);
-    } else {
-      yield state.copyWith(
-        status: AccountCreationStatus.failure,
-        errorMessage: _errEvent,
-      );
     }
   }
 

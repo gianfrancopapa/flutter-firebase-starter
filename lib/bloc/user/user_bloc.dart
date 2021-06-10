@@ -15,15 +15,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   @override
   Stream<UserState> mapEventToState(UserEvent event) async* {
-    switch (event.runtimeType) {
-      case UserLoaded:
-        yield* _mapUserLoadedToState();
-        break;
-      default:
-        yield state.copyWith(
-          status: UserStatus.failure,
-          errorMessage: 'Undetermined event',
-        );
+    if (event is UserLoaded) {
+      yield* _mapUserLoadedToState();
     }
   }
 

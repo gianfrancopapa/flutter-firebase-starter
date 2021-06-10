@@ -306,24 +306,6 @@ void main() {
           ),
         ],
       );
-
-      blocTest(
-        'Invalid event started, failure',
-        build: () => LoginBloc(
-          authService: auth,
-          form: form,
-          analyticsService: analyticsService,
-        ),
-        act: (bloc) {
-          bloc.add(null);
-        },
-        expect: () => [
-          const LoginState(
-            status: LoginStatus.failure,
-            errorMessage: 'Error: Invalid event in [login_bloc.dart]',
-          ),
-        ],
-      );
     },
   );
 }

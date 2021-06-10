@@ -13,7 +13,6 @@ import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
-  static const _errEvent = 'Error: Invalid event in [edit_profile_bloc.dart]';
   AuthService _authService;
   StorageService _storageService;
   ImageService _imageService;
@@ -37,22 +36,14 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
   @override
   Stream<EditProfileState> mapEventToState(EditProfileEvent event) async* {
-    switch (event.runtimeType) {
-      case PhotoWithCameraUploaded:
-        yield* _mapPhotoUploadedToState(_imageService.imgFromCamera);
-        break;
-      case PhotoWithLibraryUpdated:
-        yield* _mapPhotoUploadedToState(_imageService.imgFromGallery);
-        break;
-      case ProfileInfoUpdated:
-        yield* _mapProfileInfoUpdatedToState();
-        break;
-      case CurrentUserLoaded:
-        yield* _mapCurrentUserLoadedToState();
-        break;
-      default:
-        yield state.copyWith(
-            status: EditProfileStatus.failure, errorMessage: _errEvent);
+    if (event is PhotoWithCameraUploaded) {
+      yield* _mapPhotoUploadedToState(_imageService.imgFromCamera);
+    } else if (event is PhotoWithLibraryUpdated) {
+      yield* _mapPhotoUploadedToState(_imageService.imgFromGallery);
+    } else if (event is ProfileInfoUpdated) {
+      yield* _mapProfileInfoUpdatedToState();
+    } else if (event is CurrentUserLoaded) {
+      yield* _mapCurrentUserLoadedToState();
     }
   }
 

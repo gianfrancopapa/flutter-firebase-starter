@@ -79,20 +79,6 @@ void main() {
           ),
         ],
       );
-
-      blocTest(
-        'Invalid event started, failure - exception',
-        build: () => AccountCreationBloc(authService: auth),
-        act: (bloc) {
-          bloc.add(null);
-        },
-        expect: () => [
-          const AccountCreationState(
-            status: AccountCreationStatus.failure,
-            errorMessage: 'Error: Invalid event in [create_account_bloc.dart]',
-          ),
-        ],
-      );
     },
   );
 }

@@ -67,20 +67,6 @@ void main() {
               status: InitAppStatus.failure, errorMessage: error),
         ],
       );
-
-      blocTest(
-        'Invalid event started, failure',
-        build: () => InitAppBloc(localPersistanceService: localPersistance),
-        act: (bloc) {
-          bloc.add(null);
-        },
-        expect: () => [
-          const InitAppState(
-            status: InitAppStatus.failure,
-            errorMessage: 'Invalid event.',
-          ),
-        ],
-      );
     },
   );
 }

@@ -6,9 +6,6 @@ import 'package:repository/repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
-  static const _errEvent =
-      'Error: Invalid event [FilterEmployeesBloc.mapEventToState].';
-
   final Repository<EmployeeEntity> _employeesRepository;
 
   EmployeesBloc(this._employeesRepository) : super(const EmployeesState());
@@ -18,11 +15,6 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
     yield state.copyWith(status: EmployeesStatus.loadInProgress);
     if (event is EmployeesLoaded) {
       yield* _mapEmployeesLoadedToState();
-    } else {
-      state.copyWith(
-        status: EmployeesStatus.loadFailure,
-        errorMessage: _errEvent,
-      );
     }
   }
 
