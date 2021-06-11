@@ -4,18 +4,18 @@ on: [push]
 
 jobs:
   
-  preparation:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.6.0'
       
       # Get flutter dependencies.
       - name: install dependencies
         run: flutter pub get
-  tests:
-    runs-on: ubuntu-latest
-    steps:
+
       # Run widget tests for our flutter project.
       - name: run tests
         run: flutter test --exclude-tags='integration_test'
