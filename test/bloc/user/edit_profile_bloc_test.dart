@@ -43,8 +43,9 @@ void main() {
       expect(
           EditProfileBloc(userBloc, auth, storageService, imageService,
                   editProfileFormBloc, sameAsUsersImagePickedFile)
-              .state,
-          const EditProfileInitial());
+              .state
+              .status,
+          EditProfileStatus.initial);
     });
 
     group('Photo uploaded with camera /', () {
@@ -58,7 +59,10 @@ void main() {
           bloc.add(PhotoWithCameraUploaded());
         },
         expect: () => [
-          AvatarChangeSuccess(sameAsUsersImagePickedFile.path),
+          EditProfileState(
+            status: EditProfileStatus.avatarSuccess,
+            image: sameAsUsersImagePickedFile.path,
+          ),
         ],
       );
 
@@ -71,7 +75,10 @@ void main() {
           bloc.add(PhotoWithCameraUploaded());
         },
         expect: () => [
-          const EditProfileFailure('Error: Insert valid image'),
+          const EditProfileState(
+            status: EditProfileStatus.failure,
+            errorMessage: 'Error: Insert valid image',
+          ),
         ],
       );
 
@@ -84,7 +91,10 @@ void main() {
           bloc.add(PhotoWithCameraUploaded());
         },
         expect: () => [
-          const EditProfileFailure(TEST_ERROR),
+          const EditProfileState(
+            status: EditProfileStatus.failure,
+            errorMessage: TEST_ERROR,
+          ),
         ],
       );
     });
@@ -100,7 +110,10 @@ void main() {
           bloc.add(PhotoWithLibraryUpdated());
         },
         expect: () => [
-          AvatarChangeSuccess(sameAsUsersImagePickedFile.path),
+          EditProfileState(
+            status: EditProfileStatus.avatarSuccess,
+            image: sameAsUsersImagePickedFile.path,
+          ),
         ],
       );
 
@@ -113,7 +126,10 @@ void main() {
           bloc.add(PhotoWithLibraryUpdated());
         },
         expect: () => [
-          const EditProfileFailure('Error: Insert valid image'),
+          const EditProfileState(
+            status: EditProfileStatus.failure,
+            errorMessage: 'Error: Insert valid image',
+          ),
         ],
       );
 
@@ -126,7 +142,10 @@ void main() {
           bloc.add(PhotoWithLibraryUpdated());
         },
         expect: () => [
-          const EditProfileFailure(TEST_ERROR),
+          const EditProfileState(
+            status: EditProfileStatus.failure,
+            errorMessage: TEST_ERROR,
+          ),
         ],
       );
     });
@@ -144,8 +163,8 @@ void main() {
           bloc.add(ProfileInfoUpdated());
         },
         expect: () => [
-          const EditProfileInProgress(),
-          const EditProfileSuccess(),
+          const EditProfileState(status: EditProfileStatus.inProgress),
+          const EditProfileState(status: EditProfileStatus.profileSuccess),
         ],
       );
 
@@ -158,8 +177,11 @@ void main() {
           bloc.add(ProfileInfoUpdated());
         },
         expect: () => [
-          const EditProfileInProgress(),
-          const EditProfileFailure(TEST_ERROR),
+          const EditProfileState(status: EditProfileStatus.inProgress),
+          const EditProfileState(
+            status: EditProfileStatus.failure,
+            errorMessage: TEST_ERROR,
+          ),
         ],
       );
 
@@ -194,9 +216,12 @@ void main() {
           bloc.add(ProfileInfoUpdated());
         },
         expect: () => [
-          const EditProfileInProgress(),
-          const EditProfileSuccess(),
-          const AvatarChangeSuccess(Assets.somnioLogo)
+          const EditProfileState(status: EditProfileStatus.inProgress),
+          const EditProfileState(status: EditProfileStatus.profileSuccess),
+          const EditProfileState(
+            status: EditProfileStatus.avatarSuccess,
+            image: Assets.somnioLogo,
+          ),
         ],
       );
     });
@@ -221,9 +246,15 @@ void main() {
           bloc.add(const CurrentUserLoaded());
         },
         expect: () => [
-          const EditProfileInProgress(),
-          CurrentUser(user),
-          AvatarChangeSuccess(user.imageUrl)
+          const EditProfileState(status: EditProfileStatus.inProgress),
+          EditProfileState(
+            status: EditProfileStatus.currentUser,
+            user: user,
+          ),
+          EditProfileState(
+            status: EditProfileStatus.avatarSuccess,
+            image: user.imageUrl,
+          ),
         ],
       );
 
@@ -236,8 +267,11 @@ void main() {
           bloc.add(const CurrentUserLoaded());
         },
         expect: () => [
-          const EditProfileInProgress(),
-          const EditProfileFailure('Error: Something went wrong')
+          const EditProfileState(status: EditProfileStatus.inProgress),
+          const EditProfileState(
+            status: EditProfileStatus.failure,
+            errorMessage: 'Error: Something went wrong',
+          ),
         ],
       );
     });
