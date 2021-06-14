@@ -8,7 +8,7 @@ class InitAppBloc extends Bloc<InitAppEvent, InitAppState> {
   static const String _isFirstTime = 'is_first_time';
   LocalPersistanceService _localPersistanceService;
 
-  InitAppBloc() : super(const InitAppInitial()) {
+  InitAppBloc() : super(const InitAppState()) {
     _localPersistanceService = GetIt.I.get<LocalPersistanceService>();
   }
 
@@ -19,12 +19,15 @@ class InitAppBloc extends Bloc<InitAppEvent, InitAppState> {
         yield* _mapInitAppIsFirstTimeToState();
         break;
       default:
-        yield const InitAppError('Invalid event.');
+        yield state.copyWith(
+          status: InitAppStatus.failure,
+          errorMessage: 'Invalid event.',
+        );
     }
   }
 
   Stream<InitAppState> _mapInitAppIsFirstTimeToState() async* {
-    yield const InitAppLoadInProgress();
+    yield state.copyWith(status: InitAppStatus.inProgress);
     try {
       final firstTime =
           await _localPersistanceService.getValue<bool>(_isFirstTime);
@@ -32,12 +35,15 @@ class InitAppBloc extends Bloc<InitAppEvent, InitAppState> {
       await Future.delayed(_duration, () async {});
       if (firstTime ?? true) {
         await _localPersistanceService.setValue<bool>(_isFirstTime, false);
-        yield const InitAppFirstTime();
+        yield state.copyWith(status: InitAppStatus.firstTime);
       } else {
-        yield const InitAppNotFirstTime();
+        yield state.copyWith(status: InitAppStatus.notFirstTime);
       }
-    } catch (err) {
-      yield InitAppError(err.toString());
+    } catch (error) {
+      yield state.copyWith(
+        status: InitAppStatus.failure,
+        errorMessage: error,
+      );
     }
   }
 }

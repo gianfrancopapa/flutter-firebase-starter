@@ -1,24 +1,26 @@
-abstract class InitAppState {
-  const InitAppState();
-}
+import 'package:equatable/equatable.dart';
 
-class InitAppFirstTime extends InitAppState {
-  const InitAppFirstTime();
-}
+enum InitAppStatus { initial, inProgress, firstTime, notFirstTime, failure }
 
-class InitAppNotFirstTime extends InitAppState {
-  const InitAppNotFirstTime();
-}
+class InitAppState extends Equatable {
+  final InitAppStatus status;
+  final String errorMessage;
 
-class InitAppError extends InitAppState {
-  final String message;
-  const InitAppError(this.message);
-}
+  const InitAppState({
+    InitAppStatus this.status = InitAppStatus.initial,
+    String this.errorMessage,
+  }) : assert(status != null);
 
-class InitAppLoadInProgress extends InitAppState {
-  const InitAppLoadInProgress();
-}
+  InitAppState copyWith({InitAppStatus status, String errorMessage}) {
+    return InitAppState(
+      status: status ?? this.status,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 
-class InitAppInitial extends InitAppState {
-  const InitAppInitial();
+  @override
+  List<Object> get props => [
+        status,
+        errorMessage,
+      ];
 }
