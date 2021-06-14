@@ -16,7 +16,7 @@ class ForgotPasswordBloc
 
   final form = ForgotPasswordFormBloc();
 
-  ForgotPasswordBloc() : super(const ForgotPasswordInitial()) {
+  ForgotPasswordBloc() : super(const ForgotPasswordState()) {
     _authService = GetIt.I<AuthService>();
   }
 
@@ -28,17 +28,23 @@ class ForgotPasswordBloc
         yield* _mapPasswordResetToState();
         break;
       default:
-        yield const ForgotPasswordFailure(_errEvent);
+        yield state.copyWith(
+          status: ForgotPasswordStatus.failure,
+          errorMessage: _errEvent,
+        );
     }
   }
 
   Stream<ForgotPasswordState> _mapPasswordResetToState() async* {
-    yield const ForgotPasswordInProgress();
+    yield state.copyWith(status: ForgotPasswordStatus.inProgress);
     try {
       await _authService.sendPasswordResetEmail(form.emailValue);
-      yield const ForgotPasswordEmailSent();
+      yield state.copyWith(status: ForgotPasswordStatus.emailSent);
     } catch (e) {
-      yield const ForgotPasswordFailure(_recoverPasswordErr);
+      yield state.copyWith(
+        status: ForgotPasswordStatus.failure,
+        errorMessage: _recoverPasswordErr,
+      );
     }
   }
 }
