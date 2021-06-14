@@ -1,5 +1,5 @@
 import 'package:firebasestarter/services/auth/sign_in_services/facebook/facebook_sign_in_service.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import '.././mocks/auth_mocks.dart';
 import 'package:mockito/mockito.dart';
@@ -7,9 +7,9 @@ import 'package:firebase_auth/firebase_auth.dart' as Auth;
 
 void main() {
   group('Facebook sign in service /', () {
-    FacebookLogin _facebook;
-    FacebookLoginResult _loginResult;
-    FacebookAccessToken _accessToken;
+    FacebookAuth _facebook;
+    LoginResult _loginResult;
+    AccessToken _accessToken;
     FacebookSignInService _facebookSignInService;
 
     setUp(() {
@@ -18,14 +18,12 @@ void main() {
       _accessToken = MockFacebookAccessToken();
       _facebookSignInService = FacebookSignInService(signInMethod: _facebook);
 
-      when(_facebook.logIn(permissions: [
-        FacebookPermission.publicProfile,
-        FacebookPermission.email,
-      ])).thenAnswer((_) async => _loginResult);
+      when(_facebook.login(loginBehavior: LoginBehavior.nativeWithFallback))
+          .thenAnswer((_) async => _loginResult);
     });
 
     test('Success', () async {
-      when(_loginResult.status).thenReturn(FacebookLoginStatus.success);
+      when(_loginResult.status).thenReturn(LoginStatus.success);
 
       when(_loginResult.accessToken).thenReturn(_accessToken);
 
@@ -40,20 +38,17 @@ void main() {
     });
 
     test('Cancelled by user', () async {
-      when(_loginResult.status).thenReturn(FacebookLoginStatus.cancel);
+      when(_loginResult.status).thenReturn(LoginStatus.cancelled);
 
       expect(await _facebookSignInService.getFirebaseCredential(), null);
     });
 
     test('Facebook Error', () async {
-      when(_loginResult.status).thenReturn(FacebookLoginStatus.error);
+      const error = 'error';
 
-      final error = FacebookError(
-          developerMessage: 'error',
-          localizedDescription: 'error',
-          localizedTitle: 'error');
+      when(_loginResult.status).thenReturn(LoginStatus.failed);
 
-      when(_loginResult.error).thenReturn(error);
+      when(_loginResult.message).thenReturn(error);
 
       expect(_facebookSignInService.getFirebaseCredential(), throwsException);
     });

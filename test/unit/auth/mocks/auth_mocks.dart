@@ -2,7 +2,7 @@ import 'package:firebasestarter/services/auth/sign_in_services/apple/apple_crede
 import 'package:firebasestarter/services/auth/sign_in_services/apple/apple_sign_in_service.dart';
 import 'package:firebasestarter/services/auth/sign_in_services/facebook/facebook_sign_in_service.dart';
 import 'package:firebasestarter/services/auth/sign_in_services/google/googe_sign_in_service.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/mockito.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
@@ -49,11 +49,11 @@ class MockGoogleSignInAuthentication extends Mock
 
 class MockGoogleSignInService extends Mock implements GoogleSignInService {}
 
-class MockFacebookLogin extends Mock implements FacebookLogin {}
+class MockFacebookLogin extends Mock implements FacebookAuth {}
 
-class MockFacebookLoginResult extends Mock implements FacebookLoginResult {}
+class MockFacebookLoginResult extends Mock implements LoginResult {}
 
-class MockFacebookAccessToken extends Mock implements FacebookAccessToken {}
+class MockFacebookAccessToken extends Mock implements AccessToken {}
 
 class MockFacebookSignInService extends Mock implements FacebookSignInService {}
 
