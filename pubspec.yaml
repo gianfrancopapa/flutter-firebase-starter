@@ -23,12 +23,12 @@ dependencies:
   firebase_auth: ^1.0.1
   firebase_auth_web:
   firebase_storage: ^8.0.1
-  firebase_messaging: ^9.1.0
+  firebase_messaging: ^10.0.0
   cloud_firestore: ^1.0.3
   google_sign_in: ^4.5.9
   sign_in_with_apple: ^3.0.0
   crypto: ^2.1.5
-  flutter_login_facebook: ^0.5.0
+  flutter_facebook_auth: ^3.3.3-no-nullsafety
   introduction_screen: ^1.0.9
   package_info: ^0.4.3+4
   flutter_launcher_icons: ^0.8.1
@@ -41,7 +41,7 @@ dependencies:
   flutter_local_notifications: ^5.0.0
   get_it: ^5.0.6
   flutter_icons: ^1.1.0
-  flutter_svg: ^0.19.0
+  flutter_svg: ^0.19.3
   equatable: ^1.2.6
   repository:
     path: packages/repository

@@ -75,10 +75,10 @@ void main() async {
       final authService = FirebaseAuthService(auth);
       final user = MockFirebaseUser();
 
-      when(user.updateProfile(
-        displayName: 'A Test',
-        photoURL: 'URL',
-      )).thenAnswer((_) => null);
+      when(auth.currentUser).thenAnswer((_) => user);
+
+      when(user.updateDisplayName('A Test')).thenAnswer((_) => null);
+      when(user.updatePhotoURL('URL')).thenAnswer((_) => null);
 
       final changedProfile = await authService.changeProfile(
           firstName: 'A', lastName: 'Test', photoURL: 'URL');
