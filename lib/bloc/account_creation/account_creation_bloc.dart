@@ -11,10 +11,14 @@ class AccountCreationBloc
   static const _errPasswordMismatch = 'Error: Passwords doesn\'t match.';
 
   AuthService _firebaseAuth;
-  final form = CreateAccountFormBloc();
+  CreateAccountFormBloc form;
 
-  AccountCreationBloc() : super(const AccountCreationState()) {
-    _firebaseAuth = GetIt.I<AuthService>();
+  AccountCreationBloc({
+    AuthService authService,
+    CreateAccountFormBloc form,
+  }) : super(const AccountCreationState()) {
+    _firebaseAuth = authService ?? GetIt.I<AuthService>();
+    this.form = form ?? CreateAccountFormBloc();
   }
 
   @override
