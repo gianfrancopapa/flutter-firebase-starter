@@ -9,29 +9,24 @@ class ForgotPasswordBloc
     extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
   AuthService _authService;
 
-  static const _errEvent =
-      'Error: Invalid event in [forgot_password_bloc.dart]';
   static const _recoverPasswordErr =
       'Error: Something went wrong while trying to recover password';
 
-  final form = ForgotPasswordFormBloc();
+  ForgotPasswordFormBloc form;
 
-  ForgotPasswordBloc() : super(const ForgotPasswordState()) {
-    _authService = GetIt.I<AuthService>();
+  ForgotPasswordBloc({
+    AuthService authService,
+    ForgotPasswordFormBloc form,
+  }) : super(const ForgotPasswordState()) {
+    _authService = authService ?? GetIt.I<AuthService>();
+    this.form = form ?? ForgotPasswordFormBloc();
   }
 
   @override
   Stream<ForgotPasswordState> mapEventToState(
       ForgotPasswordEvent event) async* {
-    switch (event.runtimeType) {
-      case PasswordReset:
-        yield* _mapPasswordResetToState();
-        break;
-      default:
-        yield state.copyWith(
-          status: ForgotPasswordStatus.failure,
-          errorMessage: _errEvent,
-        );
+    if (event is PasswordReset) {
+      yield* _mapPasswordResetToState();
     }
   }
 

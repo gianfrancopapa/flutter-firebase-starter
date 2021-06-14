@@ -16,15 +16,8 @@ class InitAppBloc extends Bloc<InitAppEvent, InitAppState> {
 
   @override
   Stream<InitAppState> mapEventToState(InitAppEvent event) async* {
-    switch (event.runtimeType) {
-      case InitAppIsFirstTime:
-        yield* _mapInitAppIsFirstTimeToState();
-        break;
-      default:
-        yield state.copyWith(
-          status: InitAppStatus.failure,
-          errorMessage: 'Invalid event.',
-        );
+    if (event is InitAppIsFirstTime) {
+      yield* _mapInitAppIsFirstTimeToState();
     }
   }
 

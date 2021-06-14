@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  static const _errEvent = 'Error: Invalid event in [login_bloc.dart]';
   AuthService _authService;
   AnalyticsService _analyticsService;
   LoginFormBloc form;
@@ -25,37 +24,24 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    switch (event.runtimeType) {
-      case LoginStarted:
-        yield* _mapLoginStartedToState();
-        break;
-      case GoogleLoginStarted:
-        yield* _mapProviderLoginStartedToState(
-            _authService.signInWithGoogle, 'google');
-        break;
-      case AppleLoginStarted:
-        yield* _mapProviderLoginStartedToState(
-            _authService.signInWithApple, 'apple');
-        break;
-      case FacebookLoginStarted:
-        yield* _mapProviderLoginStartedToState(
-            _authService.signInWithFacebook, 'facebook');
-        break;
-      case AnonymousLoginStarted:
-        yield* _mapProviderLoginStartedToState(
-            _authService.signInAnonymously, 'anonymous');
-        break;
-      case LogoutStarted:
-        yield* _mapLogoutStartedToState();
-        break;
-      case IsUserLoggedIn:
-        yield* _mapIsUserLoggedInToState();
-        break;
-      default:
-        yield state.copyWith(
-          status: LoginStatus.failure,
-          errorMessage: _errEvent,
-        );
+    if (event is LoginStarted) {
+      yield* _mapLoginStartedToState();
+    } else if (event is GoogleLoginStarted) {
+      yield* _mapProviderLoginStartedToState(
+          _authService.signInWithGoogle, 'google');
+    } else if (event is AppleLoginStarted) {
+      yield* _mapProviderLoginStartedToState(
+          _authService.signInWithApple, 'apple');
+    } else if (event is FacebookLoginStarted) {
+      yield* _mapProviderLoginStartedToState(
+          _authService.signInWithFacebook, 'facebook');
+    } else if (event is AnonymousLoginStarted) {
+      yield* _mapProviderLoginStartedToState(
+          _authService.signInAnonymously, 'anonymous');
+    } else if (event is LogoutStarted) {
+      yield* _mapLogoutStartedToState();
+    } else if (event is IsUserLoggedIn) {
+      yield* _mapIsUserLoggedInToState();
     }
   }
 
