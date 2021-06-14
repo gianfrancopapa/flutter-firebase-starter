@@ -18,18 +18,22 @@ class TeamScreen extends StatelessWidget {
       ),
       backgroundColor: AppColor.lightGrey,
       body: BlocBuilder<EmployeesBloc, EmployeesState>(
-        builder: (BuildContext context, EmployeesState state) =>
-            state is EmployeesLoadSuccess
-                ? EmployeesList(state.employees)
-                : state is EmployeesLoadEmpty
-                    ? Center(
-                        child: Text(
-                          _localizedStrings.noEmployees,
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                      )
-                    : const Center(child: CircularProgressIndicator()),
-      ),
+          builder: (BuildContext context, EmployeesState state) {
+        if (state.status == EmployeesStatus.loadSuccess) {
+          return EmployeesList(state.employees);
+        }
+
+        if (state.status == EmployeesStatus.loadEmpty) {
+          return Center(
+            child: Text(
+              _localizedStrings.noEmployees,
+              style: const TextStyle(fontSize: 20),
+            ),
+          );
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      }),
     );
   }
 }

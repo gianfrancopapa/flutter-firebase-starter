@@ -61,10 +61,12 @@ void main() {
 
   testWidgets('Bloc emits EmployeesLoadEmpty, screen shows message',
       (WidgetTester tester) async {
-    const loadingState = EmployeesLoadEmpty();
+    const loadingState = EmployeesState(status: EmployeesStatus.loadEmpty);
+
     whenListen(
       employeesBloc,
       Stream.value(loadingState),
+      initialState: const EmployeesState(status: EmployeesStatus.initial),
     );
 
     await tester.pumpApp(TeamScreen(), employeesBloc: employeesBloc);
@@ -81,11 +83,15 @@ void main() {
         .map((employee) => Employee.fromEntity(employee))
         .toList();
 
-    final loadingState = EmployeesLoadSuccess(employeesList);
+    final loadingState = EmployeesState(
+      status: EmployeesStatus.loadSuccess,
+      employees: employeesList,
+    );
 
     whenListen(
       employeesBloc,
       Stream.value(loadingState),
+      initialState: const EmployeesState(status: EmployeesStatus.initial),
     );
 
     await tester.pumpApp(TeamScreen(), employeesBloc: employeesBloc);
@@ -98,10 +104,12 @@ void main() {
   testWidgets(
       'Bloc emits EmployeesInitial, screen shows CircularProgressIndicator',
       (WidgetTester tester) async {
-    const loadingState = EmployeesInitial();
+    const loadingState = EmployeesState(status: EmployeesStatus.initial);
+
     whenListen(
       employeesBloc,
       Stream.value(loadingState),
+      initialState: const EmployeesState(status: EmployeesStatus.initial),
     );
 
     await tester.pumpApp(TeamScreen(), employeesBloc: employeesBloc);
@@ -114,10 +122,12 @@ void main() {
   testWidgets(
       'Bloc emits EmployeesLoadInProgress, screen shows CircularProgressIndicator',
       (WidgetTester tester) async {
-    const loadingState = EmployeesLoadInProgress();
+    const loadingState = EmployeesState(status: EmployeesStatus.loadInProgress);
+
     whenListen(
       employeesBloc,
       Stream.value(loadingState),
+      initialState: const EmployeesState(status: EmployeesStatus.initial),
     );
 
     await tester.pumpApp(TeamScreen(), employeesBloc: employeesBloc);
@@ -130,10 +140,15 @@ void main() {
   testWidgets(
       'Bloc emits EmployeesLoadFailure, screen shows CircularProgressIndicator',
       (WidgetTester tester) async {
-    const loadingState = EmployeesLoadFailure('error');
+    const loadingState = EmployeesState(
+      status: EmployeesStatus.loadFailure,
+      errorMessage: 'error',
+    );
+
     whenListen(
       employeesBloc,
       Stream.value(loadingState),
+      initialState: const EmployeesState(status: EmployeesStatus.initial),
     );
 
     await tester.pumpApp(TeamScreen(), employeesBloc: employeesBloc);

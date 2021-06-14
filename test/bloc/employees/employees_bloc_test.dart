@@ -35,7 +35,7 @@ void main() {
     'Employees BLoC',
     () {
       test('Initial state BLoC', () {
-        expect(employeesBloc.state, const EmployeesInitial());
+        expect(employeesBloc.state.status, EmployeesStatus.initial);
       });
 
       blocTest(
@@ -45,8 +45,10 @@ void main() {
           when(employeesRepository.getAll()).thenAnswer((_) async => []);
           bloc.add(const EmployeesLoaded());
         },
-        expect: () =>
-            [const EmployeesLoadInProgress(), const EmployeesLoadEmpty()],
+        expect: () => [
+          const EmployeesState(status: EmployeesStatus.loadInProgress),
+          const EmployeesState(status: EmployeesStatus.loadEmpty),
+        ],
       );
 
       blocTest(
@@ -59,8 +61,11 @@ void main() {
           bloc.add(const EmployeesLoaded());
         },
         expect: () => [
-          const EmployeesLoadInProgress(),
-          EmployeesLoadSuccess([employee]),
+          const EmployeesState(status: EmployeesStatus.loadInProgress),
+          EmployeesState(
+            status: EmployeesStatus.loadSuccess,
+            employees: [employee],
+          ),
         ],
       );
 
@@ -72,8 +77,11 @@ void main() {
           bloc.add(const EmployeesLoaded());
         },
         expect: () => [
-          const EmployeesLoadInProgress(),
-          const EmployeesLoadFailure(errMessage),
+          const EmployeesState(status: EmployeesStatus.loadInProgress),
+          const EmployeesState(
+            status: EmployeesStatus.loadFailure,
+            errorMessage: errMessage,
+          ),
         ],
       );
     },
