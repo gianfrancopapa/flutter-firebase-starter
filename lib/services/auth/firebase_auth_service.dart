@@ -1,32 +1,25 @@
-import 'dart:convert';
-import 'dart:math';
-import 'package:crypto/crypto.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:firebasestarter/services/auth/sign_in_services/apple/apple_sign_in_service.dart';
+import 'package:firebasestarter/services/auth/sign_in_services/facebook/facebook_sign_in_service.dart';
+import 'package:firebasestarter/services/auth/sign_in_services/google/googe_sign_in_service.dart';
+import 'package:firebasestarter/services/auth/sign_in_services/sign_in_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
-import 'package:firebasestarter/services/auth/facebook/facebook_auth_service.dart';
-import 'package:firebasestarter/services/auth/google/googe_auth_service.dart';
+
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-enum SignInMethods { email, anonymous, google, facebook, apple }
+import 'sign_in_services/sign_in_service.dart';
 
 class FirebaseAuthService implements AuthService {
   final Auth.FirebaseAuth _firebaseAuth;
-  final GoogleSignIn _googleSignIn;
-  final FacebookLogin _facebookLogin;
-  final GoogleAuthService _googleAuthService;
-  final FacebookAuthService _facebookAuthService;
-  SignInMethods _signInMethod;
+  SignInService _signInMethod;
+  SignInService _testingService;
 
-  FirebaseAuthService(
-    Auth.FirebaseAuth this._firebaseAuth, [
-    GoogleSignIn this._googleSignIn,
-    this._googleAuthService = const GoogleAuthService(),
-    FacebookLogin this._facebookLogin,
-    this._facebookAuthService = const FacebookAuthService(),
-  ]) {}
+  FirebaseAuthService(Auth.FirebaseAuth this._firebaseAuth,
+      {SignInService testingService}) {
+    _testingService = testingService;
+  }
 
   User _mapFirebaseUser(Auth.User user) {
     if (user == null) {
@@ -63,7 +56,6 @@ class FirebaseAuthService implements AuthService {
   @override
   Future<User> signInAnonymously() async {
     final userCredential = await _firebaseAuth.signInAnonymously();
-    _signInMethod = SignInMethods.anonymous;
     return _mapFirebaseUser(userCredential.user);
   }
 
@@ -73,7 +65,6 @@ class FirebaseAuthService implements AuthService {
       email: email,
       password: password,
     );
-    _signInMethod = SignInMethods.email;
     return _mapFirebaseUser(userCredential.user);
   }
 
@@ -93,7 +84,6 @@ class FirebaseAuthService implements AuthService {
         displayName: name + ' ' + lastName,
       );
       await userCredential.user.reload();
-      _signInMethod = SignInMethods.email;
       return _mapFirebaseUser(_firebaseAuth.currentUser);
     } catch (err) {
       throw err.toString();
@@ -105,107 +95,43 @@ class FirebaseAuthService implements AuthService {
     await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
-  @override
-  Future<User> signInWithGoogle() async {
-    try {
-      final signInMethod = _googleSignIn ?? GoogleSignIn();
-      final googleUser = await _googleAuthService.getGoogleUser(signInMethod);
-      final googleAuth = await _googleAuthService.getGoogleAuth(googleUser);
-      if (googleAuth != null) {
-        final googleCredential = _googleAuthService.getUserCredentials(
-            googleAuth.accessToken, googleAuth.idToken);
-
-        final userCredential =
-            await _firebaseAuth.signInWithCredential(googleCredential);
-        _signInMethod = SignInMethods.google;
-        return _mapFirebaseUser(userCredential.user);
-      }
-      return null;
-    } catch (error) {
-      throw error;
+  Future<User> _signInWithAService(SignInService service) async {
+    final firebaseCredential = await service.getFirebaseCredential();
+    if (firebaseCredential != null) {
+      final userCredential = await _firebaseAuth.signInWithCredential(
+        firebaseCredential,
+      );
+      _signInMethod = service;
+      return _mapFirebaseUser(userCredential.user);
     }
+    return null;
   }
 
   @override
-  Future<User> signInWithFacebook() async {
-    final signInMethod = _facebookLogin ?? FacebookLogin();
-    final response = await _facebookAuthService.signIn(signInMethod);
-    switch (response.status) {
-      case FacebookLoginStatus.success:
-        final accessToken = response.accessToken.token;
-        final userCredential = await _firebaseAuth.signInWithCredential(
-          _facebookAuthService.createFirebaseCredential(accessToken),
-        );
-        _signInMethod = SignInMethods.facebook;
-        return _mapFirebaseUser(userCredential.user);
-      case FacebookLoginStatus.cancel:
-        return null;
-      case FacebookLoginStatus.error:
-        throw Auth.FirebaseAuthException(
-          code: 'ERROR_FACEBOOK_LOGIN_FAILED',
-          message: response.error.developerMessage,
-        );
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  String generateNonce([int length = 32]) {
-    const charset =
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
-    final random = Random.secure();
-    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
-        .join();
-  }
-
-  String sha256ofString(String input) {
-    final bytes = utf8.encode(input);
-    final digest = sha256.convert(bytes);
-    return digest.toString();
+  Future<User> signInWithGoogle({GoogleSignIn googleLogin}) async {
+    final googleService =
+        _testingService ?? GoogleSignInService(signInMethod: googleLogin);
+    return _signInWithAService(googleService);
   }
 
   @override
-  Future<User> signInWithApple() async {
-    final rawNonce = generateNonce();
-    final nonce = sha256ofString(rawNonce);
+  Future<User> signInWithFacebook({FacebookLogin facebookLogin}) async {
+    final facebookService =
+        _testingService ?? FacebookSignInService(signInMethod: facebookLogin);
+    return _signInWithAService(facebookService);
+  }
 
-    final appleCredential = await SignInWithApple.getAppleIDCredential(
-      scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
-      nonce: nonce,
-    );
-
-    final oauthCredential = Auth.OAuthProvider('apple.com').credential(
-      idToken: appleCredential.identityToken,
-      rawNonce: rawNonce,
-    );
-
-    final userCredential =
-        await Auth.FirebaseAuth.instance.signInWithCredential(oauthCredential);
-    return _mapFirebaseUser(userCredential.user);
+  @override
+  Future<User> signInWithApple({AppleSignInService appleLogin}) async {
+    final appleService = _testingService ?? AppleSignInService();
+    return _signInWithAService(appleService);
   }
 
   @override
   Future<void> signOut() async {
-    switch (_signInMethod) {
-      case SignInMethods.anonymous:
-      case SignInMethods.apple:
-      case SignInMethods.email:
-        break;
-      case SignInMethods.facebook:
-        final facebookLogin = FacebookLogin();
-        await facebookLogin.logOut();
-        break;
-      case SignInMethods.google:
-        final googleSignIn = GoogleSignIn();
-        await googleSignIn.signOut();
-        break;
-    }
-    _firebaseAuth.signOut();
+    await _signInMethod?.signOut();
     _signInMethod = null;
-    return;
+    await _firebaseAuth.signOut();
   }
 
   @override
