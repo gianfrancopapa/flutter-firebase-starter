@@ -56,7 +56,7 @@ class AccountCreationBloc
     } catch (error) {
       yield state.copyWith(
         status: AccountCreationStatus.failure,
-        errorMessage: error,
+        errorMessage: error.message,
       );
     }
   }

@@ -19,8 +19,8 @@ void main() {
         bloc.add(const UserLoaded());
       },
       expect: () => [
-        const UserLoadInProgress(),
-        UserLoadSuccess(user),
+        const UserState(status: UserStatus.inProgress),
+        UserState(status: UserStatus.success, user: user),
       ],
     );
   });
