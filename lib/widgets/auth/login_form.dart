@@ -1,4 +1,4 @@
-import 'package:firebasestarter/bloc/create_account/create_account_bloc.dart';
+import 'package:firebasestarter/bloc/account_creation/account_creation_bloc.dart';
 import 'package:firebasestarter/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
@@ -22,7 +22,8 @@ class LoginForm extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) => BlocProvider(
-              create: (_) => CreateAccountBloc(), child: CreateAccountScreen()),
+              create: (_) => AccountCreationBloc(),
+              child: CreateAccountScreen()),
         ),
       );
 
