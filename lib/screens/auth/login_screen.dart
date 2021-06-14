@@ -26,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         body: BlocListener<LoginBloc, LoginState>(
           listener: (BuildContext context, LoginState state) {
-            if (state is LoginFailure) {
+            if (state.status == LoginStatus.failure) {
               DialogHelper.showAlertDialog(
                 context: context,
                 story: _determineAccessError(state, context),
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 btnAction: () => Navigator.pop(context),
               );
             }
-            if (state is LoginSuccess) {
+            if (state.status == LoginStatus.loginSuccess) {
               BlocProvider.of<UserBloc>(context)..add(const UserLoaded());
               Navigator.push(
                 context,
@@ -52,11 +52,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
 
-  String _determineAccessError(LoginFailure exception, BuildContext context) {
+  String _determineAccessError(LoginState exception, BuildContext context) {
     const error = 'Error:';
     var message;
     final _appLocalizations = AppLocalizations.of(context);
-    switch (exception.message) {
+    switch (exception.errorMessage) {
       case 'invalid-email':
         message = _appLocalizations.invalidEmail;
         break;
