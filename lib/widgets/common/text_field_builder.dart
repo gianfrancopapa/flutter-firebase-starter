@@ -5,6 +5,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 class TextFieldBuilder extends StatefulWidget {
   final String labelText;
   final void Function(String) onChanged;
+  final String value;
   final Stream<String> stream;
   final bool isPassword;
   final EdgeInsets margin;
@@ -18,6 +19,7 @@ class TextFieldBuilder extends StatefulWidget {
     this.labelText,
     this.onChanged,
     this.stream,
+    this.value,
     this.isPassword = false,
     this.margin = const EdgeInsets.all(0),
     this.prefix,
@@ -72,8 +74,7 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
         ),
       );
 
-  InputDecoration _decoration(AsyncSnapshot<String> snapshot) =>
-      InputDecoration(
+  InputDecoration _decoration() => InputDecoration(
         hintMaxLines: 1,
         helperText: '',
         suffixIcon: _showPasswordButton(),
@@ -95,28 +96,16 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
         border: UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey[400]),
         ),
-        errorText: autoValidate && snapshot.hasError ? snapshot.error : null,
+        // errorText: autoValidate && snapshot.hasError ? snapshot.error : null,
       );
 
-  TextField _textFieldWithoutInitialValue(AsyncSnapshot<String> snapshot) =>
-      TextField(
-        maxLines: widget.maxLines,
-        keyboardType: widget.maxLines > 1 ? TextInputType.multiline : null,
-        onTap: _setAutoValidation,
-        onChanged: widget.onChanged,
-        obscureText: isPassword,
-        style: const TextStyle(color: Colors.black),
-        decoration: _decoration(snapshot),
-      );
-
-  TextFormField _textFieldWithInitialValue(AsyncSnapshot<String> snapshot) =>
-      TextFormField(
+  TextFormField _textFieldWithInitialValue(String value) => TextFormField(
         maxLines: widget.maxLines,
         controller: TextEditingController.fromValue(
           TextEditingValue(
-            text: snapshot.data ?? '',
+            text: value ?? '',
             selection: TextSelection.fromPosition(
-              TextPosition(offset: snapshot.data?.length ?? 0),
+              TextPosition(offset: value.length ?? 0),
             ),
           ),
         ),
@@ -125,31 +114,24 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
         onChanged: widget.onChanged,
         onTap: _setAutoValidation,
         obscureText: isPassword,
-        decoration:
-            snapshot != null ? _decoration(snapshot) : const InputDecoration(),
+        decoration: _decoration(),
       );
 
   @override
-  Widget build(BuildContext context) => StreamBuilder<String>(
-        stream: widget.stream,
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot) =>
+  Widget build(BuildContext context) => Container(
+        alignment: Alignment.bottomCenter,
+        height: 80.0,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _label(),
+            Margin(0, 15.0),
             Container(
-          alignment: Alignment.bottomCenter,
-          height: 80.0,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _label(),
-              Margin(0, 15.0),
-              Container(
-                alignment: Alignment.bottomCenter,
-                height: 40.0,
-                child: widget.withInitialValue
-                    ? _textFieldWithInitialValue(snapshot)
-                    : _textFieldWithoutInitialValue(snapshot),
-              ),
-            ],
-          ),
+              alignment: Alignment.bottomCenter,
+              height: 40.0,
+              child: _textFieldWithInitialValue(widget.value),
+            ),
+          ],
         ),
       );
 }

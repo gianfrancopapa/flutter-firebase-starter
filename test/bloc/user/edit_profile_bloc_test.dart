@@ -26,7 +26,6 @@ void main() {
   UserBloc userBloc;
   MockStorageService storageService;
   MockImageService imageService;
-  MockEditProfileFormBloc editProfileFormBloc;
   final sameAsUsersImagePickedFile = PickedFile(Assets.somnioLogo);
   final randomPickedFile = PickedFile(Assets.somnioGreyLogoSvg);
 
@@ -36,13 +35,12 @@ void main() {
       userBloc = UserBloc(auth);
       storageService = MockStorageService();
       imageService = MockImageService();
-      editProfileFormBloc = MockEditProfileFormBloc();
     });
 
     test('Initial state BLoC', () {
       expect(
           EditProfileBloc(userBloc, auth, storageService, imageService,
-                  editProfileFormBloc, sameAsUsersImagePickedFile)
+                  sameAsUsersImagePickedFile)
               .state
               .status,
           EditProfileStatus.initial);
@@ -52,7 +50,7 @@ void main() {
       blocTest(
         'success',
         build: () => EditProfileBloc(userBloc, auth, storageService,
-            imageService, editProfileFormBloc, sameAsUsersImagePickedFile),
+            imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
           when(imageService.imgFromCamera())
               .thenAnswer((_) async => sameAsUsersImagePickedFile);
@@ -69,7 +67,7 @@ void main() {
       blocTest(
         'failure (null image)',
         build: () => EditProfileBloc(userBloc, auth, storageService,
-            imageService, editProfileFormBloc, sameAsUsersImagePickedFile),
+            imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
           when(imageService.imgFromCamera()).thenAnswer((_) async => null);
           bloc.add(PhotoWithCameraUploaded());
@@ -85,7 +83,7 @@ void main() {
       blocTest(
         'failure (exception)',
         build: () => EditProfileBloc(userBloc, auth, storageService,
-            imageService, editProfileFormBloc, sameAsUsersImagePickedFile),
+            imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
           when(imageService.imgFromCamera()).thenThrow(TEST_ERROR);
           bloc.add(PhotoWithCameraUploaded());
@@ -103,7 +101,7 @@ void main() {
       blocTest(
         'success',
         build: () => EditProfileBloc(userBloc, auth, storageService,
-            imageService, editProfileFormBloc, sameAsUsersImagePickedFile),
+            imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
           when(imageService.imgFromGallery())
               .thenAnswer((_) async => sameAsUsersImagePickedFile);
@@ -120,7 +118,7 @@ void main() {
       blocTest(
         'failure (null image)',
         build: () => EditProfileBloc(userBloc, auth, storageService,
-            imageService, editProfileFormBloc, sameAsUsersImagePickedFile),
+            imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
           when(imageService.imgFromGallery()).thenAnswer((_) async => null);
           bloc.add(PhotoWithLibraryUpdated());
@@ -136,7 +134,7 @@ void main() {
       blocTest(
         'failure (exception)',
         build: () => EditProfileBloc(userBloc, auth, storageService,
-            imageService, editProfileFormBloc, sameAsUsersImagePickedFile),
+            imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
           when(imageService.imgFromGallery()).thenThrow(TEST_ERROR);
           bloc.add(PhotoWithLibraryUpdated());
@@ -154,24 +152,42 @@ void main() {
       blocTest(
         'success without changes',
         build: () => EditProfileBloc(userBloc, auth, storageService,
-            imageService, editProfileFormBloc, sameAsUsersImagePickedFile),
+            imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
           final user = mockUser();
           when(auth.currentUser()).thenAnswer((_) async => user);
-          when(editProfileFormBloc.firstNameVal).thenReturn(TEST_FIRST_NAME);
-          when(editProfileFormBloc.lastNameVal).thenReturn(TEST_LAST_NAME);
+          bloc.add(FirstNameUpdated(value: TEST_FIRST_NAME));
+          bloc.add(LastNameUpdated(value: TEST_LAST_NAME));
+
           bloc.add(ProfileInfoUpdated());
         },
         expect: () => [
-          const EditProfileState(status: EditProfileStatus.inProgress),
-          const EditProfileState(status: EditProfileStatus.profileSuccess),
+          const EditProfileState(
+            status: EditProfileStatus.initial,
+            firstName: TEST_FIRST_NAME,
+          ),
+          const EditProfileState(
+            status: EditProfileStatus.initial,
+            firstName: TEST_FIRST_NAME,
+            lastName: TEST_LAST_NAME,
+          ),
+          const EditProfileState(
+            status: EditProfileStatus.inProgress,
+            firstName: TEST_FIRST_NAME,
+            lastName: TEST_LAST_NAME,
+          ),
+          const EditProfileState(
+            status: EditProfileStatus.profileSuccess,
+            firstName: TEST_FIRST_NAME,
+            lastName: TEST_LAST_NAME,
+          ),
         ],
       );
 
       blocTest(
         'failure',
         build: () => EditProfileBloc(userBloc, auth, storageService,
-            imageService, editProfileFormBloc, sameAsUsersImagePickedFile),
+            imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
           when(auth.currentUser()).thenThrow(TEST_ERROR);
           bloc.add(ProfileInfoUpdated());
@@ -187,14 +203,12 @@ void main() {
 
       blocTest(
         'success with changes',
-        build: () => EditProfileBloc(userBloc, auth, storageService,
-            imageService, editProfileFormBloc, randomPickedFile),
+        build: () => EditProfileBloc(
+            userBloc, auth, storageService, imageService, randomPickedFile),
         act: (bloc) {
           final user = mockUser();
 
           when(auth.currentUser()).thenAnswer((_) async => user);
-          when(editProfileFormBloc.firstNameVal).thenReturn(TEST_FIRST_NAME);
-          when(editProfileFormBloc.lastNameVal).thenReturn(TEST_FIRST_NAME);
 
           final extension = randomPickedFile.path.split('.').last;
           final path = '/users/${user.id}.${extension}';
@@ -209,8 +223,7 @@ void main() {
               .thenAnswer((realInvocation) => null);
 
           when(auth.changeProfile(
-                  firstName: editProfileFormBloc.firstNameVal,
-                  lastName: editProfileFormBloc.lastNameVal))
+                  firstName: TEST_FIRST_NAME, lastName: TEST_LAST_NAME))
               .thenAnswer((realInvocation) => null);
 
           bloc.add(ProfileInfoUpdated());
@@ -229,19 +242,14 @@ void main() {
     group('Current user loaded /', () {
       setUp(() {
         user = mockUser();
-        editProfileFormBloc = MockEditProfileFormBloc();
       });
 
       blocTest(
         'success',
         build: () => EditProfileBloc(userBloc, auth, storageService,
-            imageService, editProfileFormBloc, sameAsUsersImagePickedFile),
+            imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
           when(auth.currentUser()).thenAnswer((_) async => user);
-          when(editProfileFormBloc.onFirstNameChanged)
-              .thenReturn((element) => null);
-          when(editProfileFormBloc.onLastNameChanged)
-              .thenReturn((element) => null);
 
           bloc.add(const CurrentUserLoaded());
         },
@@ -255,13 +263,24 @@ void main() {
             status: EditProfileStatus.avatarSuccess,
             image: user.imageUrl,
           ),
+          EditProfileState(
+            status: EditProfileStatus.avatarSuccess,
+            image: user.imageUrl,
+            firstName: TEST_FIRST_NAME,
+          ),
+          EditProfileState(
+            status: EditProfileStatus.avatarSuccess,
+            image: user.imageUrl,
+            firstName: TEST_FIRST_NAME,
+            lastName: TEST_LAST_NAME,
+          ),
         ],
       );
 
       blocTest(
         'failure',
         build: () => EditProfileBloc(userBloc, auth, storageService,
-            imageService, editProfileFormBloc, sameAsUsersImagePickedFile),
+            imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
           when(auth.currentUser()).thenThrow(Exception());
           bloc.add(const CurrentUserLoaded());
