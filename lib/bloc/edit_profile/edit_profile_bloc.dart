@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
-import 'package:firebasestarter/bloc/forms/edit_profile_form.dart';
 import 'package:firebasestarter/bloc/user/user_bloc.dart';
 import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/models/user.dart';
@@ -17,20 +16,20 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   StorageService _storageService;
   ImageService _imageService;
   PickedFile _pickedPhoto;
-  EditProfileFormBloc form;
   UserBloc userBloc;
+
+  String firstName;
+  String lastName;
 
   EditProfileBloc(this.userBloc,
       [AuthService auth,
       StorageService storage,
       ImageService image,
-      EditProfileFormBloc formBloc,
       PickedFile fakePhoto])
       : super(const EditProfileState()) {
     _authService = auth ?? GetIt.I.get<AuthService>();
     _storageService = storage ?? GetIt.I.get<StorageService>();
     _imageService = image ?? GetIt.I.get<ImageService>();
-    form = formBloc ?? EditProfileFormBloc();
     _pickedPhoto = fakePhoto ?? null;
   }
 
@@ -44,6 +43,10 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       yield* _mapProfileInfoUpdatedToState();
     } else if (event is CurrentUserLoaded) {
       yield* _mapCurrentUserLoadedToState();
+    } else if (event is FirstNameUpdated) {
+      yield* _mapFirstNameUpdatedToState(event);
+    } else if (event is LastNameUpdated) {
+      yield* _mapLastNameUpdatedToState(event);
     }
   }
 
@@ -51,8 +54,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     yield state.copyWith(status: EditProfileStatus.inProgress);
     try {
       final user = await _authService.currentUser();
-      form.onFirstNameChanged(user.firstName);
-      form.onLastNameChanged(user.lastName);
+      add(FirstNameUpdated(value: user.firstName));
+      add(LastNameUpdated(value: user.lastName));
       yield state.copyWith(
         status: EditProfileStatus.currentUser,
         user: user,
@@ -113,8 +116,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     yield state.copyWith(status: EditProfileStatus.inProgress);
     try {
       final user = await _authService.currentUser();
-      if (user.firstName == form.firstNameVal &&
-          user.lastName == form.lastNameVal &&
+      if (user.firstName == state.firstName &&
+          user.lastName == state.lastName &&
           (_pickedPhoto == null || user.imageUrl == _pickedPhoto.path)) {
         yield state.copyWith(status: EditProfileStatus.profileSuccess);
         return;
@@ -123,8 +126,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         await _uploadProfilePicture(user);
       }
       await _authService.changeProfile(
-        firstName: form.firstNameVal,
-        lastName: form.lastNameVal,
+        firstName: state.firstName,
+        lastName: state.lastName,
       );
       yield state.copyWith(status: EditProfileStatus.profileSuccess);
       userBloc.add(const UserLoaded());
@@ -138,5 +141,15 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         errorMessage: error,
       );
     }
+  }
+
+  Stream<EditProfileState> _mapFirstNameUpdatedToState(
+      FirstNameUpdated event) async* {
+    yield state.copyWith(firstName: event.value);
+  }
+
+  Stream<EditProfileState> _mapLastNameUpdatedToState(
+      LastNameUpdated event) async* {
+    yield state.copyWith(lastName: event.value);
   }
 }
