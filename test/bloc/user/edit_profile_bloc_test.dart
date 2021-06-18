@@ -156,8 +156,8 @@ void main() {
         act: (bloc) {
           final user = mockUser();
           when(auth.currentUser()).thenAnswer((_) async => user);
-          bloc.add(FirstNameUpdated(value: TEST_FIRST_NAME));
-          bloc.add(LastNameUpdated(value: TEST_LAST_NAME));
+          // bloc.add(FirstNameUpdated(value: TEST_FIRST_NAME));
+          // bloc.add(LastNameUpdated(value: TEST_LAST_NAME));
 
           bloc.add(ProfileInfoUpdated());
         },

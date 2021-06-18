@@ -15,17 +15,13 @@ class EditProfileState extends Equatable {
   final String image;
   final String errorMessage;
   final User user;
-  final String firstName;
-  final String lastName;
 
-  const EditProfileState(
-      {EditProfileStatus this.status = EditProfileStatus.initial,
-      String this.image,
-      String this.errorMessage,
-      User this.user,
-      String this.firstName,
-      String this.lastName})
-      : assert(status != null);
+  const EditProfileState({
+    EditProfileStatus this.status = EditProfileStatus.initial,
+    String this.image,
+    String this.errorMessage,
+    User this.user,
+  }) : assert(status != null);
 
   EditProfileState copyWith(
       {EditProfileStatus status,
@@ -35,15 +31,13 @@ class EditProfileState extends Equatable {
       String firstName,
       String lastName}) {
     return EditProfileState(
-        status: status ?? this.status,
-        image: image ?? this.image,
-        errorMessage: errorMessage ?? this.errorMessage,
-        user: user ?? this.user,
-        firstName: firstName ?? this.firstName,
-        lastName: lastName ?? this.lastName);
+      status: status ?? this.status,
+      image: image ?? this.image,
+      errorMessage: errorMessage ?? this.errorMessage,
+      user: user ?? this.user,
+    );
   }
 
   @override
-  List<Object> get props =>
-      [status, errorMessage, image, user, firstName, lastName];
+  List<Object> get props => [status, errorMessage, image, user];
 }

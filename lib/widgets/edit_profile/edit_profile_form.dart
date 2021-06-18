@@ -10,37 +10,56 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-class EditProfileForm extends StatelessWidget {
-  final EditProfileBloc bloc;
+class EditProfileForm extends StatefulWidget {
   final _formKey = GlobalKey<FormBuilderState>();
+  final EditProfileBloc bloc;
 
   EditProfileForm(this.bloc);
 
-  bool _formIsValid() {
-    return _formKey.currentState.validate();
-  }
+  @override
+  _EditProfileFormState createState() => _EditProfileFormState();
+}
+
+class _EditProfileFormState extends State<EditProfileForm> {
+  bool _formEnabled = true;
 
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
         child: FormBuilder(
-          key: _formKey,
-          child: Column(
-            children: [
-              _FirstName(bloc),
-              Margin(0.0, 20.0),
-              _LastName(bloc),
-              Margin(0.0, 43.0),
-              _EditButton(
-                onTap: () {
-                  if (_formIsValid()) {
-                    bloc.add(ProfileInfoUpdated());
-                  }
-                },
-              )
-            ],
+      key: widget._formKey,
+      child: Column(
+        children: [
+          _FirstName(widget.bloc),
+          Margin(0.0, 20.0),
+          _LastName(widget.bloc),
+          Margin(0.0, 43.0),
+          _EditButton(
+            onTap: () {
+              _editProfile();
+            },
+            disabled: !_formEnabled,
           ),
-        ),
-      );
+        ],
+      ),
+      onChanged: () {
+        setState(() {
+          _formEnabled = widget._formKey.currentState.validate();
+        });
+      },
+    ));
+  }
+
+  void _editProfile() {
+    widget.bloc.add(
+      ProfileInfoUpdated(
+        firstName:
+            widget._formKey.currentState.fields['firstName'].value as String,
+        lastName:
+            widget._formKey.currentState.fields['lastName'].value as String,
+      ),
+    );
+  }
 }
 
 class _FirstName extends StatelessWidget {
@@ -63,7 +82,6 @@ class _FirstName extends StatelessWidget {
         ],
       ),
       initialValue: name,
-      onChanged: (firstName) => bloc.add(FirstNameUpdated(value: firstName)),
     );
   }
 }
@@ -92,23 +110,22 @@ class _LastName extends StatelessWidget {
         ],
       ),
       initialValue: name,
-      onChanged: (lastName) => bloc.add(LastNameUpdated(value: lastName)),
     );
   }
 }
 
 class _EditButton extends StatelessWidget {
   final Function() onTap;
+  final bool disabled;
 
-  const _EditButton({Function() this.onTap});
+  const _EditButton({Function() this.onTap, bool this.disabled = false});
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<EditProfileBloc>();
     return Button(
-      backgroundColor: AppColor.blue,
+      backgroundColor: disabled ? AppColor.grey : AppColor.blue,
       text: Strings.editProfile,
-      onTap: () => onTap(),
+      onTap: () => onTap != null ? onTap() : null,
     );
   }
 }

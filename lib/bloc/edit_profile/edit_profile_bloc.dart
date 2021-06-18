@@ -18,9 +18,6 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   PickedFile _pickedPhoto;
   UserBloc userBloc;
 
-  String firstName;
-  String lastName;
-
   EditProfileBloc(this.userBloc,
       [AuthService auth,
       StorageService storage,
@@ -40,13 +37,9 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     } else if (event is PhotoWithLibraryUpdated) {
       yield* _mapPhotoUploadedToState(_imageService.imgFromGallery);
     } else if (event is ProfileInfoUpdated) {
-      yield* _mapProfileInfoUpdatedToState();
+      yield* _mapProfileInfoUpdatedToState(event);
     } else if (event is CurrentUserLoaded) {
       yield* _mapCurrentUserLoadedToState();
-    } else if (event is FirstNameUpdated) {
-      yield* _mapFirstNameUpdatedToState(event);
-    } else if (event is LastNameUpdated) {
-      yield* _mapLastNameUpdatedToState(event);
     }
   }
 
@@ -54,8 +47,6 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     yield state.copyWith(status: EditProfileStatus.inProgress);
     try {
       final user = await _authService.currentUser();
-      add(FirstNameUpdated(value: user.firstName));
-      add(LastNameUpdated(value: user.lastName));
       yield state.copyWith(
         status: EditProfileStatus.currentUser,
         user: user,
@@ -112,12 +103,13 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     }
   }
 
-  Stream<EditProfileState> _mapProfileInfoUpdatedToState() async* {
+  Stream<EditProfileState> _mapProfileInfoUpdatedToState(
+      ProfileInfoUpdated event) async* {
     yield state.copyWith(status: EditProfileStatus.inProgress);
     try {
       final user = await _authService.currentUser();
-      if (user.firstName == state.firstName &&
-          user.lastName == state.lastName &&
+      if (user.firstName == event.firstName &&
+          user.lastName == event.lastName &&
           (_pickedPhoto == null || user.imageUrl == _pickedPhoto.path)) {
         yield state.copyWith(status: EditProfileStatus.profileSuccess);
         return;
@@ -126,8 +118,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         await _uploadProfilePicture(user);
       }
       await _authService.changeProfile(
-        firstName: state.firstName,
-        lastName: state.lastName,
+        firstName: event.firstName,
+        lastName: event.lastName,
       );
       yield state.copyWith(status: EditProfileStatus.profileSuccess);
       userBloc.add(const UserLoaded());
@@ -141,15 +133,5 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         errorMessage: error,
       );
     }
-  }
-
-  Stream<EditProfileState> _mapFirstNameUpdatedToState(
-      FirstNameUpdated event) async* {
-    yield state.copyWith(firstName: event.value);
-  }
-
-  Stream<EditProfileState> _mapLastNameUpdatedToState(
-      LastNameUpdated event) async* {
-    yield state.copyWith(lastName: event.value);
   }
 }
