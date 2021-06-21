@@ -1,5 +1,6 @@
 import 'package:firebasestarter/bloc/account_creation/account_creation_bloc.dart';
 import 'package:firebasestarter/bloc/forgot_password/forgot_password_bloc.dart';
+// import 'package:firebasestarter/bloc/forgot_password/forgot_password_event.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/constants/colors.dart';
@@ -111,6 +112,10 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _localizedStrings = AppLocalizations.of(context);
+    final emailAddress = context
+        .select<LoginBloc, String>((LoginBloc bloc) => bloc.state.emailAddress);
+    final password = context
+        .select<LoginBloc, String>((LoginBloc bloc) => bloc.state.password);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -119,15 +124,17 @@ class LoginForm extends StatelessWidget {
         _createAccountStory(context),
         Margin(0, 12.0),
         TextFieldBuilder(
-          stream: bloc.form.email,
+          value: emailAddress ?? '',
           labelText: _localizedStrings.email,
-          onChanged: (email) => bloc.form.onEmailChanged(email),
+          onChanged: (email) =>
+              bloc.add(EmailAddressUpdated(emailAddress: email)),
         ),
         Margin(0, 20.0),
         TextFieldBuilder(
-          stream: bloc.form.password,
+          value: password ?? '',
           labelText: _localizedStrings.password,
-          onChanged: (password) => bloc.form.onPasswordChanged(password),
+          onChanged: (password) =>
+              bloc.add(PasswordUpdated(password: password)),
           isPassword: true,
           showPasswordButton: true,
         ),

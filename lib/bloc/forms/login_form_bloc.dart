@@ -4,17 +4,18 @@ import 'package:rxdart/rxdart.dart';
 class LoginFormBloc with ValidationMixin {
   final _emailController = BehaviorSubject<String>.seeded('');
   final _passwordController = BehaviorSubject<String>.seeded('');
+  final String emailAddress;
+  final String password;
+  LoginFormBloc({this.emailAddress, this.password});
 
-  LoginFormBloc();
-
-  Stream<String> get email => _emailController.transform(emailTransfomer);
-  Stream<String> get password =>
-      _passwordController.transform(passwordTransfomer);
-  Stream<bool> get activateButton => Rx.combineLatest2<String, String, bool>(
-        email,
-        password,
-        (email, password) => true,
-      );
+  // Stream<String> get email => _emailController.transform(emailTransfomer);
+  // Stream<String> get password =>
+  //     _passwordController.transform(passwordTransfomer);
+  // Stream<bool> get activateButton => Rx.combineLatest2<String, String, bool>(
+  //       email,
+  //       password,
+  //       (email, password) => true,
+  //     );
 
   Function(void) get onEmailChanged => _emailController.sink.add;
   Function(void) get onPasswordChanged => _passwordController.sink.add;

@@ -7,22 +7,30 @@ class LoginState extends Equatable {
   final LoginStatus status;
   final User currentUser;
   final String errorMessage;
+  final String emailAddress;
+  final String password;
 
   const LoginState({
     LoginStatus this.status = LoginStatus.initial,
     User this.currentUser,
     String this.errorMessage,
+    String this.emailAddress,
+    String this.password,
   }) : assert(status != null);
 
   LoginState copyWith({
     LoginStatus status,
     User currentUser,
     String errorMessage,
+    String emailAddress,
+    String password,
   }) {
     return LoginState(
       status: status ?? this.status,
       currentUser: currentUser ?? this.currentUser,
       errorMessage: errorMessage ?? this.errorMessage,
+      emailAddress: emailAddress ?? this.emailAddress,
+      password: password ?? this.password,
     );
   }
 
@@ -31,5 +39,7 @@ class LoginState extends Equatable {
         status,
         currentUser,
         errorMessage,
+        emailAddress,
+        password,
       ];
 }

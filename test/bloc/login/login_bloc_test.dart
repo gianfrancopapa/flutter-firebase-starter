@@ -40,7 +40,7 @@ void main() {
         'Login started, success',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -62,7 +62,7 @@ void main() {
         'Login started, failure',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -84,7 +84,7 @@ void main() {
         'Google login started, success',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -101,7 +101,7 @@ void main() {
         'Google login started, failure',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -118,7 +118,7 @@ void main() {
         'Apple login started, success',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -135,7 +135,7 @@ void main() {
         'Apple login started, failure',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -152,7 +152,7 @@ void main() {
         'Facebook login started, success',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -169,7 +169,7 @@ void main() {
         'Facebook login started, failure',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -186,7 +186,7 @@ void main() {
         'Anonymous login started, success',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+//          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -203,7 +203,7 @@ void main() {
         'Anonymous login started, failure',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+////          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -220,7 +220,7 @@ void main() {
         'Logout started, success',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+////          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -237,7 +237,7 @@ void main() {
         'Logout started, failure',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+////          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -257,7 +257,7 @@ void main() {
         'IsUserLoggedIn started, success - logged in',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+//          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -274,7 +274,7 @@ void main() {
         'IsUserLoggedIn started, success - not logged in',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+//          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -291,7 +291,7 @@ void main() {
         'IsUserLoggedIn started, failure',
         build: () => LoginBloc(
           authService: auth,
-          form: form,
+//          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {

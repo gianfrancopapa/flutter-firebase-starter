@@ -10,16 +10,21 @@ import 'package:get_it/get_it.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   AuthService _authService;
   AnalyticsService _analyticsService;
-  LoginFormBloc form;
-
+  // LoginFormBloc form;
+  String emailAddress;
+  String password;
   LoginBloc({
     AuthService authService,
-    LoginFormBloc form,
+    // LoginFormBloc form,
+    String emailAddress,
+    String password,
     AnalyticsService analyticsService,
   }) : super(const LoginState()) {
     _authService = authService ?? GetIt.I<AuthService>();
     _analyticsService = analyticsService ?? GetIt.I<AnalyticsService>();
-    this.form = form ?? LoginFormBloc();
+    // this.emailForm = emailForm ?? ;
+    emailAddress = emailAddress ?? this.emailAddress;
+    password = password ?? this.password;
   }
 
   @override
@@ -42,6 +47,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield* _mapLogoutStartedToState();
     } else if (event is IsUserLoggedIn) {
       yield* _mapIsUserLoggedInToState();
+    } else if (event is EmailAddressUpdated) {
+      yield* _mapEmailAddressUpdatedToState(event.emailAddress);
+    } else if (event is PasswordUpdated) {
+      yield* _mapPasswordUpdatedToState(event.password);
     }
   }
 
@@ -49,8 +58,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     yield state.copyWith(status: LoginStatus.inProgress);
     try {
       final user = await _authService.signInWithEmailAndPassword(
-        form.emailValue,
-        form.passwordValue,
+        emailAddress,
+        password,
       );
       yield state.copyWith(
         status: LoginStatus.loginSuccess,
@@ -118,5 +127,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         errorMessage: 'Error while trying to verify if user is logged in',
       );
     }
+  }
+
+  Stream<LoginState> _mapEmailAddressUpdatedToState(
+      String emailAddress) async* {
+    yield state.copyWith(emailAddress: emailAddress);
+  }
+
+  Stream<LoginState> _mapPasswordUpdatedToState(String password) async* {
+    yield state.copyWith(password: password);
   }
 }

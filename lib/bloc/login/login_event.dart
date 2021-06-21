@@ -34,3 +34,19 @@ class LogoutStarted extends LoginEvent {
 class IsUserLoggedIn extends LoginEvent {
   const IsUserLoggedIn();
 }
+
+class EmailAddressUpdated extends LoginEvent {
+  final String emailAddress;
+  const EmailAddressUpdated({this.emailAddress});
+
+  @override
+  List<Object> get props => [emailAddress];
+}
+
+class PasswordUpdated extends LoginEvent {
+  final String password;
+  const PasswordUpdated({this.password});
+
+  @override
+  List<Object> get props => [password];
+}
