@@ -12,14 +12,14 @@ class ForgotPasswordBloc
   static const _recoverPasswordErr =
       'Error: Something went wrong while trying to recover password';
 
-  ForgotPasswordFormBloc form;
-
+  // ForgotPasswordFormBloc form;
+  String emailAddress;
   ForgotPasswordBloc({
     AuthService authService,
     ForgotPasswordFormBloc form,
   }) : super(const ForgotPasswordState()) {
     _authService = authService ?? GetIt.I<AuthService>();
-    this.form = form ?? ForgotPasswordFormBloc();
+    // this.form = form ?? ForgotPasswordFormBloc();
   }
 
   @override
@@ -27,13 +27,15 @@ class ForgotPasswordBloc
       ForgotPasswordEvent event) async* {
     if (event is PasswordReset) {
       yield* _mapPasswordResetToState();
+    } else if (event is EmailAddressUpdated) {
+      yield* _mapEmailAddressUpdated(emailAddress);
     }
   }
 
   Stream<ForgotPasswordState> _mapPasswordResetToState() async* {
     yield state.copyWith(status: ForgotPasswordStatus.inProgress);
     try {
-      await _authService.sendPasswordResetEmail(form.emailValue);
+      await _authService.sendPasswordResetEmail(emailAddress);
       yield state.copyWith(status: ForgotPasswordStatus.emailSent);
     } catch (e) {
       yield state.copyWith(
@@ -41,5 +43,9 @@ class ForgotPasswordBloc
         errorMessage: _recoverPasswordErr,
       );
     }
+  }
+
+  Stream<ForgotPasswordState> _mapEmailAddressUpdated(String email) async* {
+    yield state.copyWith(emailAddress: email);
   }
 }

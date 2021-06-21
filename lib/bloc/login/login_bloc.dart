@@ -1,7 +1,6 @@
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
-import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/bloc/login/login_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -20,6 +20,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     final _localizedStrings = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: CustomAppBar(
         title: _localizedStrings.forgotPassword,
@@ -44,6 +45,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Padding buildForgotPasswordForm(
       BuildContext context, ForgotPasswordBloc forgotPasswordBloc) {
     final _localizedStrings = AppLocalizations.of(context);
+    final emailAddress = context.select<ForgotPasswordBloc, String>(
+        (ForgotPasswordBloc bloc) => bloc.state.emailAddress);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 44.0),
       child: Column(
@@ -52,14 +55,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         children: [
           Margin(0.0, 131.0),
           TextFieldBuilder(
-            stream: forgotPasswordBloc.form.email,
+            value: emailAddress ?? '',
             labelText: _localizedStrings.email,
-            onChanged: (email) => forgotPasswordBloc.form.onEmailChanged(email),
+            onChanged: (email) => forgotPasswordBloc
+                .add(EmailAddressUpdated(emailAddress: email)),
           ),
           Margin(0.0, 41.0),
           Button(
             text: _localizedStrings.send,
-            onTap: () => forgotPasswordBloc.add(const PasswordReset()),
+            onTap: () => forgotPasswordBloc.add(PasswordReset(emailAddress)),
             backgroundColor: AppColor.blue,
           ),
         ],

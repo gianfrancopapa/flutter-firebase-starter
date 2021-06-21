@@ -36,7 +36,7 @@ void main() {
           when(form.emailValue).thenReturn('test@email.com');
           when(auth.sendPasswordResetEmail('test@email.com'))
               .thenAnswer((_) async => null);
-          bloc.add(const PasswordReset());
+          bloc.add(const PasswordReset(''));
         },
         expect: () => [
           const ForgotPasswordState(status: ForgotPasswordStatus.inProgress),
@@ -50,7 +50,7 @@ void main() {
         act: (bloc) {
           when(form.emailValue).thenReturn('test@email.com');
           when(auth.sendPasswordResetEmail('test@email.com')).thenThrow(error);
-          bloc.add(const PasswordReset());
+          bloc.add(const PasswordReset(''));
         },
         expect: () => [
           const ForgotPasswordState(status: ForgotPasswordStatus.inProgress),
