@@ -10,55 +10,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-class EditProfileForm extends StatefulWidget {
+class EditProfileForm extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
   final EditProfileBloc bloc;
 
   EditProfileForm(this.bloc);
 
   @override
-  _EditProfileFormState createState() => _EditProfileFormState();
-}
-
-class _EditProfileFormState extends State<EditProfileForm> {
-  bool _formEnabled = true;
-
-  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         child: FormBuilder(
-      key: widget._formKey,
+      key: _formKey,
       child: Column(
         children: [
-          _FirstName(widget.bloc),
+          _FirstName(bloc),
           Margin(0.0, 20.0),
-          _LastName(widget.bloc),
+          _LastName(bloc),
           Margin(0.0, 43.0),
           _EditButton(
             onTap: () {
               _editProfile();
             },
-            disabled: !_formEnabled,
           ),
         ],
       ),
       onChanged: () {
-        setState(() {
-          _formEnabled = widget._formKey.currentState.validate();
-        });
+        bloc.add(FormChanged(_formKey.currentState.validate()));
       },
     ));
   }
 
   void _editProfile() {
-    widget.bloc.add(
-      ProfileInfoUpdated(
-        firstName:
-            widget._formKey.currentState.fields['firstName'].value as String,
-        lastName:
-            widget._formKey.currentState.fields['lastName'].value as String,
-      ),
-    );
+    final _formIsValid = _formKey.currentState.validate();
+    bloc.add(FormChanged(_formIsValid));
+    if (_formIsValid) {
+      bloc.add(
+        ProfileInfoUpdated(
+          firstName: _formKey.currentState.fields['firstName'].value as String,
+          lastName: _formKey.currentState.fields['lastName'].value as String,
+        ),
+      );
+    }
   }
 }
 
@@ -122,10 +114,12 @@ class _EditButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final disabled =
+        context.select((EditProfileBloc bloc) => !bloc.state.formIsValid);
     return Button(
       backgroundColor: disabled ? AppColor.grey : AppColor.blue,
       text: Strings.editProfile,
-      onTap: () => onTap != null ? onTap() : null,
+      onTap: () => disabled ? null : onTap(),
     );
   }
 }

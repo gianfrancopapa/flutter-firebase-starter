@@ -40,6 +40,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       yield* _mapProfileInfoUpdatedToState(event);
     } else if (event is CurrentUserLoaded) {
       yield* _mapCurrentUserLoadedToState();
+    } else if (event is FormChanged) {
+      yield* _mapFormChangedToState(event);
     }
   }
 
@@ -133,5 +135,9 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         errorMessage: error,
       );
     }
+  }
+
+  Stream<EditProfileState> _mapFormChangedToState(FormChanged event) async* {
+    yield state.copyWith(formIsValid: event.formIsValid);
   }
 }

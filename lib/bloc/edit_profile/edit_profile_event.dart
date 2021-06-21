@@ -21,3 +21,9 @@ class PhotoWithLibraryUpdated extends EditProfileEvent {}
 class CurrentUserLoaded extends EditProfileEvent {
   const CurrentUserLoaded();
 }
+
+class FormChanged extends EditProfileEvent {
+  final formIsValid;
+
+  const FormChanged(bool this.formIsValid);
+}
