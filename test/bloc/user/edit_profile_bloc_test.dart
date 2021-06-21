@@ -156,30 +156,15 @@ void main() {
         act: (bloc) {
           final user = mockUser();
           when(auth.currentUser()).thenAnswer((_) async => user);
-          // bloc.add(FirstNameUpdated(value: TEST_FIRST_NAME));
-          // bloc.add(LastNameUpdated(value: TEST_LAST_NAME));
-
-          bloc.add(ProfileInfoUpdated());
+          bloc.add(ProfileInfoUpdated(
+              firstName: TEST_FIRST_NAME, lastName: TEST_LAST_NAME));
         },
         expect: () => [
           const EditProfileState(
-            status: EditProfileStatus.initial,
-            firstName: TEST_FIRST_NAME,
-          ),
-          const EditProfileState(
-            status: EditProfileStatus.initial,
-            firstName: TEST_FIRST_NAME,
-            lastName: TEST_LAST_NAME,
-          ),
-          const EditProfileState(
             status: EditProfileStatus.inProgress,
-            firstName: TEST_FIRST_NAME,
-            lastName: TEST_LAST_NAME,
           ),
           const EditProfileState(
             status: EditProfileStatus.profileSuccess,
-            firstName: TEST_FIRST_NAME,
-            lastName: TEST_LAST_NAME,
           ),
         ],
       );
@@ -262,18 +247,7 @@ void main() {
           EditProfileState(
             status: EditProfileStatus.avatarSuccess,
             image: user.imageUrl,
-          ),
-          EditProfileState(
-            status: EditProfileStatus.avatarSuccess,
-            image: user.imageUrl,
-            firstName: TEST_FIRST_NAME,
-          ),
-          EditProfileState(
-            status: EditProfileStatus.avatarSuccess,
-            image: user.imageUrl,
-            firstName: TEST_FIRST_NAME,
-            lastName: TEST_LAST_NAME,
-          ),
+          )
         ],
       );
 
