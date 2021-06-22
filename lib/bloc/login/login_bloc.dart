@@ -1,6 +1,7 @@
-import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
-import 'package:firebasestarter/services/auth/auth_service.dart';
+import 'package:firebasestarter/services/auth/user_mapper.dart';
+import 'package:somnio_firebase_authentication/src/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/bloc/login/login_state.dart';
@@ -48,9 +49,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> _mapLoginStartedToState() async* {
     yield state.copyWith(status: LoginStatus.inProgress);
     try {
-      final user = await _authService.signInWithEmailAndPassword(
-        form.emailValue,
-        form.passwordValue,
+      final user = mapFirebaseUser(
+        await _authService.signInWithEmailAndPassword(
+          form.emailValue,
+          form.passwordValue,
+        ),
       );
       yield state.copyWith(
         status: LoginStatus.loginSuccess,
@@ -71,7 +74,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     _analyticsService.logLogin(loginMethod);
     yield state.copyWith(status: LoginStatus.inProgress);
     try {
-      final user = await signInMethod();
+      final user = mapFirebaseUser(await signInMethod());
       if (user != null) {
         yield state.copyWith(
           status: LoginStatus.loginSuccess,
@@ -103,7 +106,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Stream<LoginState> _mapIsUserLoggedInToState() async* {
     yield state.copyWith(status: LoginStatus.inProgress);
     try {
-      final user = await _authService.currentUser();
+      final user = mapFirebaseUser(await _authService.currentUser());
       if (user != null) {
         yield state.copyWith(
           status: LoginStatus.loginSuccess,

@@ -1,9 +1,10 @@
-import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:firebasestarter/bloc/account_creation/account_creation_event.dart';
 import 'package:firebasestarter/bloc/account_creation/account_creation_state.dart';
 import 'package:firebasestarter/bloc/forms/create_account_form.dart';
+import 'package:firebasestarter/services/auth/user_mapper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:somnio_firebase_authentication/src/auth_service.dart';
 
 class AccountCreationBloc
     extends Bloc<AccountCreationEvent, AccountCreationState> {
@@ -49,7 +50,7 @@ class AccountCreationBloc
       );
       yield state.copyWith(
         status: AccountCreationStatus.success,
-        user: user,
+        user: mapFirebaseUser(user),
       );
     } catch (error) {
       yield state.copyWith(

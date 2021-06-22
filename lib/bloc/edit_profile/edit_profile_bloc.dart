@@ -4,12 +4,13 @@ import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
 import 'package:firebasestarter/bloc/user/user_bloc.dart';
 import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth_service.dart';
+import 'package:firebasestarter/services/auth/user_mapper.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:firebasestarter/services/storage/storage_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:somnio_firebase_authentication/src/auth_service.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   AuthService _authService;
@@ -48,7 +49,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   Stream<EditProfileState> _mapCurrentUserLoadedToState() async* {
     yield state.copyWith(status: EditProfileStatus.inProgress);
     try {
-      final user = await _authService.currentUser();
+      final user = mapFirebaseUser(await _authService.currentUser());
       yield state.copyWith(
         status: EditProfileStatus.currentUser,
         user: user,
@@ -109,7 +110,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       ProfileInfoUpdated event) async* {
     yield state.copyWith(status: EditProfileStatus.inProgress);
     try {
-      final user = await _authService.currentUser();
+      final user = mapFirebaseUser(await _authService.currentUser());
       if (user.firstName == event.firstName &&
           user.lastName == event.lastName &&
           (_pickedPhoto == null || user.imageUrl == _pickedPhoto.path)) {

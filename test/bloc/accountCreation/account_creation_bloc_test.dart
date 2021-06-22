@@ -4,17 +4,16 @@ import 'package:firebasestarter/bloc/account_creation/account_creation_event.dar
 import 'package:firebasestarter/bloc/account_creation/account_creation_state.dart';
 import 'package:firebasestarter/bloc/forms/create_account_form.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth_service.dart';
+import 'package:somnio_firebase_authentication/src/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart' as Auth;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-
-import '../../unit/auth/mocks/auth_mocks.dart';
-import '../user/mocks/user_mocks.dart';
 import 'mocks/account_creation_bloc_mocks.dart';
 
 void main() {
   AuthService auth;
   CreateAccountFormBloc form;
+  Auth.User firebaseUser;
   User user;
 
   const passwordMismatchError = 'Error: Passwords doesn\'t match.';
@@ -22,7 +21,25 @@ void main() {
   setUp(() {
     auth = MockAuthService();
     form = MockCreateAccountFormBloc();
-    user = MockUser();
+    final map = <String, dynamic>{
+      'id': '1',
+      'firstName': 'testName',
+      'lastName': 'testLastName',
+      'email': 'testEmail',
+      'emailVerified': false,
+      'imageUrl': 'testImage',
+      'isAnonymous': false,
+      'age': 0,
+      'phoneNumber': '',
+      'address': '',
+    };
+    user = User.fromJson(map);
+    firebaseUser = MockFirebaseUser();
+    when(firebaseUser.displayName).thenReturn('testName testLastName');
+    when(firebaseUser.uid).thenReturn('1');
+    when(firebaseUser.email).thenReturn('testEmail');
+    when(firebaseUser.photoURL).thenReturn('testImage');
+    when(firebaseUser.isAnonymous).thenReturn(false);
   });
 
   group(
@@ -48,7 +65,7 @@ void main() {
             lastName: 'testLastName',
             email: 'test@email.com',
             password: 'testPassword',
-          )).thenAnswer((realInvocation) async => user);
+          )).thenAnswer((_) async => firebaseUser);
           bloc.add(const AccountCreationRequested());
         },
         expect: () => [

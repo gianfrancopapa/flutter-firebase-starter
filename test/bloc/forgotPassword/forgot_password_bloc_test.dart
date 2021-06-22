@@ -3,11 +3,10 @@ import 'package:firebasestarter/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:firebasestarter/bloc/forgot_password/forgot_password_event.dart';
 import 'package:firebasestarter/bloc/forgot_password/forgot_password_state.dart';
 import 'package:firebasestarter/bloc/forms/forgot_password_form.dart';
-import 'package:firebasestarter/services/auth/auth_service.dart';
+import 'package:somnio_firebase_authentication/src/auth_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-
-import '../../unit/auth/mocks/auth_mocks.dart';
+import '../accountCreation/mocks/account_creation_bloc_mocks.dart';
 import 'mocks/forgot_password_bloc_mocks.dart';
 
 void main() {

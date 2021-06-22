@@ -1,8 +1,8 @@
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/analytics/firebase_analytics_service.dart';
 import 'package:firebasestarter/services/app_info/app_info.dart';
-import 'package:firebasestarter/services/auth/auth_service.dart';
-import 'package:firebasestarter/services/auth/firebase_auth_service.dart';
+import 'package:somnio_firebase_authentication/src/auth_service.dart';
+import 'package:somnio_firebase_authentication/src/firebase_auth_service.dart';
 import 'package:firebasestarter/services/image_picker/image_picker_service.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:firebasestarter/services/notifications/notifications_service.dart';

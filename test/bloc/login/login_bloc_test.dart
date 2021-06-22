@@ -8,7 +8,7 @@ import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import '../../unit/auth/mocks/auth_mocks.dart';
+import '../accountCreation/mocks/account_creation_bloc_mocks.dart';
 import '../user/mocks/user_mocks.dart';
 import 'mocks/login_bloc_mocks.dart';
 
@@ -17,6 +17,7 @@ void main() {
   MockFirebaseAuthService auth;
   LoginFormBloc form;
   User user;
+  Auth.User firebaseUser;
 
   final error = Auth.FirebaseAuthException(code: 'Error');
 
@@ -24,7 +25,25 @@ void main() {
     analyticsService = MockAnalyticsService();
     auth = MockFirebaseAuthService();
     form = MockLoginFormBloc();
-    user = MockUser();
+    final map = <String, dynamic>{
+      'id': '1',
+      'firstName': 'testName',
+      'lastName': 'testLastName',
+      'email': 'testEmail',
+      'emailVerified': false,
+      'imageUrl': 'testImage',
+      'isAnonymous': false,
+      'age': 0,
+      'phoneNumber': '',
+      'address': '',
+    };
+    user = User.fromJson(map);
+    firebaseUser = MockFirebaseUser();
+    when(firebaseUser.displayName).thenReturn('testName testLastName');
+    when(firebaseUser.uid).thenReturn('1');
+    when(firebaseUser.email).thenReturn('testEmail');
+    when(firebaseUser.photoURL).thenReturn('testImage');
+    when(firebaseUser.isAnonymous).thenReturn(false);
   });
 
   group(
@@ -49,7 +68,7 @@ void main() {
           when(auth.signInWithEmailAndPassword(
             'test@email.com',
             'testPassword',
-          )).thenAnswer((_) async => user);
+          )).thenAnswer((_) async => firebaseUser);
           bloc.add(const LoginStarted());
         },
         expect: () => [
@@ -88,7 +107,7 @@ void main() {
           analyticsService: analyticsService,
         ),
         act: (bloc) {
-          when(auth.signInWithGoogle()).thenAnswer((_) async => user);
+          when(auth.signInWithGoogle()).thenAnswer((_) async => firebaseUser);
           bloc.add(const GoogleLoginStarted());
         },
         expect: () => [
@@ -122,7 +141,7 @@ void main() {
           analyticsService: analyticsService,
         ),
         act: (bloc) {
-          when(auth.signInWithApple()).thenAnswer((_) async => user);
+          when(auth.signInWithApple()).thenAnswer((_) async => firebaseUser);
           bloc.add(const AppleLoginStarted());
         },
         expect: () => [
@@ -156,7 +175,7 @@ void main() {
           analyticsService: analyticsService,
         ),
         act: (bloc) {
-          when(auth.signInWithFacebook()).thenAnswer((_) async => user);
+          when(auth.signInWithFacebook()).thenAnswer((_) async => firebaseUser);
           bloc.add(const FacebookLoginStarted());
         },
         expect: () => [
@@ -190,7 +209,7 @@ void main() {
           analyticsService: analyticsService,
         ),
         act: (bloc) {
-          when(auth.signInAnonymously()).thenAnswer((_) async => user);
+          when(auth.signInAnonymously()).thenAnswer((_) async => firebaseUser);
           bloc.add(const AnonymousLoginStarted());
         },
         expect: () => [
@@ -261,7 +280,7 @@ void main() {
           analyticsService: analyticsService,
         ),
         act: (bloc) {
-          when(auth.currentUser()).thenAnswer((_) async => user);
+          when(auth.currentUser()).thenAnswer((_) async => firebaseUser);
           bloc.add(const IsUserLoggedIn());
         },
         expect: () => [

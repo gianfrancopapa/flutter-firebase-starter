@@ -9,19 +9,22 @@ import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../unit/auth/mocks/auth_mocks.dart';
+import '../accountCreation/mocks/account_creation_bloc_mocks.dart';
 import './mocks/edit_profile_mocks.dart';
-import './mocks/user_mocks.dart';
 import 'package:mockito/mockito.dart';
+import 'package:firebase_auth/firebase_auth.dart' as Auth;
 
-const TEST_FIRST_NAME = 'TestFirstName';
-const TEST_LAST_NAME = 'TestLastName';
-const TEST_ID = 'id';
-const TEST_URL = 'url';
+import 'mocks/user_mocks.dart';
+
+const TEST_FIRST_NAME = 'testName';
+const TEST_LAST_NAME = 'testLastName';
+const TEST_ID = '1';
+const TEST_URL = 'assets/somnio_logo.png';
 const TEST_ERROR = 'error';
 
 void main() {
   User user;
+  Auth.User firebaseUser;
   MockFirebaseAuthService auth;
   UserBloc userBloc;
   MockStorageService storageService;
@@ -35,6 +38,25 @@ void main() {
       userBloc = UserBloc(auth);
       storageService = MockStorageService();
       imageService = MockImageService();
+      final map = <String, dynamic>{
+        'id': '1',
+        'firstName': 'testName',
+        'lastName': 'testLastName',
+        'email': 'testEmail',
+        'emailVerified': false,
+        'imageUrl': 'assets/somnio_logo.png',
+        'isAnonymous': false,
+        'age': 0,
+        'phoneNumber': '',
+        'address': '',
+      };
+      user = User.fromJson(map);
+      firebaseUser = MockFirebaseUser();
+      when(firebaseUser.displayName).thenReturn('testName testLastName');
+      when(firebaseUser.uid).thenReturn('1');
+      when(firebaseUser.email).thenReturn('testEmail');
+      when(firebaseUser.photoURL).thenReturn('assets/somnio_logo.png');
+      when(firebaseUser.isAnonymous).thenReturn(false);
     });
 
     test('Initial state BLoC', () {
@@ -154,8 +176,7 @@ void main() {
         build: () => EditProfileBloc(userBloc, auth, storageService,
             imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
-          final user = mockUser();
-          when(auth.currentUser()).thenAnswer((_) async => user);
+          when(auth.currentUser()).thenAnswer((_) async => firebaseUser);
           bloc.add(ProfileInfoUpdated(
               firstName: TEST_FIRST_NAME, lastName: TEST_LAST_NAME));
         },
@@ -191,9 +212,7 @@ void main() {
         build: () => EditProfileBloc(
             userBloc, auth, storageService, imageService, randomPickedFile),
         act: (bloc) {
-          final user = mockUser();
-
-          when(auth.currentUser()).thenAnswer((_) async => user);
+          when(auth.currentUser()).thenAnswer((_) async => firebaseUser);
 
           final extension = randomPickedFile.path.split('.').last;
           final path = '/users/${user.id}.${extension}';
@@ -225,16 +244,12 @@ void main() {
     });
 
     group('Current user loaded /', () {
-      setUp(() {
-        user = mockUser();
-      });
-
       blocTest(
         'success',
         build: () => EditProfileBloc(userBloc, auth, storageService,
             imageService, sameAsUsersImagePickedFile),
         act: (bloc) {
-          when(auth.currentUser()).thenAnswer((_) async => user);
+          when(auth.currentUser()).thenAnswer((_) async => firebaseUser);
 
           bloc.add(const CurrentUserLoaded());
         },
@@ -273,13 +288,4 @@ void main() {
   tearDown(() {
     userBloc?.close();
   });
-}
-
-MockUser mockUser() {
-  final user = MockUser();
-  when(user.firstName).thenReturn(TEST_FIRST_NAME);
-  when(user.lastName).thenReturn(TEST_LAST_NAME);
-  when(user.imageUrl).thenReturn(Assets.somnioLogo);
-  when(user.id).thenReturn(TEST_ID);
-  return user;
 }
