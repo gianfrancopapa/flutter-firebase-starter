@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
+import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
-import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/bloc/login/login_state.dart';
@@ -15,7 +15,6 @@ import 'mocks/login_bloc_mocks.dart';
 void main() {
   AnalyticsService analyticsService;
   MockFirebaseAuthService auth;
-  LoginFormBloc form;
   User user;
 
   final error = Auth.FirebaseAuthException(code: 'Error');
@@ -23,8 +22,8 @@ void main() {
   setUp(() {
     analyticsService = MockAnalyticsService();
     auth = MockFirebaseAuthService();
-    form = MockLoginFormBloc();
     user = MockUser();
+    EquatableConfig.stringify = true;
   });
 
   group(
@@ -40,21 +39,28 @@ void main() {
         'Login started, success',
         build: () => LoginBloc(
           authService: auth,
-          // form: form,
           analyticsService: analyticsService,
-        ),
+        )
+          ..add(const EmailAddressUpdated(emailAddress: 'test@email.com'))
+          ..add(const PasswordUpdated(password: 'testPassword')),
         act: (bloc) {
-          when(form.emailValue).thenReturn('test@email.com');
-          when(form.passwordValue).thenReturn('testPassword');
           when(auth.signInWithEmailAndPassword(
             'test@email.com',
             'testPassword',
           )).thenAnswer((_) async => user);
           bloc.add(const LoginStarted());
         },
+        skip: 2,
         expect: () => [
-          const LoginState(status: LoginStatus.inProgress),
-          LoginState(status: LoginStatus.loginSuccess, currentUser: user),
+          const LoginState(
+              status: LoginStatus.inProgress,
+              emailAddress: 'test@email.com',
+              password: 'testPassword'),
+          LoginState(
+              status: LoginStatus.loginSuccess,
+              currentUser: user,
+              emailAddress: 'test@email.com',
+              password: 'testPassword'),
         ],
       );
 
@@ -62,21 +68,28 @@ void main() {
         'Login started, failure',
         build: () => LoginBloc(
           authService: auth,
-          // form: form,
           analyticsService: analyticsService,
-        ),
+        )
+          ..add(const EmailAddressUpdated(emailAddress: 'test@email.com'))
+          ..add(const PasswordUpdated(password: 'testPassword')),
         act: (bloc) {
-          when(form.emailValue).thenReturn('test@email.com');
-          when(form.passwordValue).thenReturn('testPassword');
           when(auth.signInWithEmailAndPassword(
             'test@email.com',
             'testPassword',
           )).thenThrow(error);
           bloc.add(const LoginStarted());
         },
+        skip: 2,
         expect: () => [
-          const LoginState(status: LoginStatus.inProgress),
-          LoginState(status: LoginStatus.failure, errorMessage: error.code),
+          const LoginState(
+              status: LoginStatus.inProgress,
+              emailAddress: 'test@email.com',
+              password: 'testPassword'),
+          LoginState(
+              status: LoginStatus.failure,
+              errorMessage: error.code,
+              emailAddress: 'test@email.com',
+              password: 'testPassword'),
         ],
       );
 
@@ -84,7 +97,6 @@ void main() {
         'Google login started, success',
         build: () => LoginBloc(
           authService: auth,
-          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -101,7 +113,6 @@ void main() {
         'Google login started, failure',
         build: () => LoginBloc(
           authService: auth,
-          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -118,7 +129,6 @@ void main() {
         'Apple login started, success',
         build: () => LoginBloc(
           authService: auth,
-          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -135,7 +145,6 @@ void main() {
         'Apple login started, failure',
         build: () => LoginBloc(
           authService: auth,
-          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -152,7 +161,6 @@ void main() {
         'Facebook login started, success',
         build: () => LoginBloc(
           authService: auth,
-          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -169,7 +177,6 @@ void main() {
         'Facebook login started, failure',
         build: () => LoginBloc(
           authService: auth,
-          // form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -186,7 +193,6 @@ void main() {
         'Anonymous login started, success',
         build: () => LoginBloc(
           authService: auth,
-//          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -203,7 +209,6 @@ void main() {
         'Anonymous login started, failure',
         build: () => LoginBloc(
           authService: auth,
-////          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -220,7 +225,6 @@ void main() {
         'Logout started, success',
         build: () => LoginBloc(
           authService: auth,
-////          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -237,7 +241,6 @@ void main() {
         'Logout started, failure',
         build: () => LoginBloc(
           authService: auth,
-////          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -257,7 +260,6 @@ void main() {
         'IsUserLoggedIn started, success - logged in',
         build: () => LoginBloc(
           authService: auth,
-//          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -274,7 +276,6 @@ void main() {
         'IsUserLoggedIn started, success - not logged in',
         build: () => LoginBloc(
           authService: auth,
-//          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {
@@ -291,7 +292,6 @@ void main() {
         'IsUserLoggedIn started, failure',
         build: () => LoginBloc(
           authService: auth,
-//          form: form,
           analyticsService: analyticsService,
         ),
         act: (bloc) {

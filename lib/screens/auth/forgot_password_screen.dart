@@ -63,7 +63,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           Margin(0.0, 41.0),
           Button(
             text: _localizedStrings.send,
-            onTap: () => forgotPasswordBloc.add(PasswordReset(emailAddress)),
+            onTap: () => forgotPasswordBloc.add(const PasswordReset()),
             backgroundColor: AppColor.blue,
           ),
         ],

@@ -9,21 +9,13 @@ import 'package:get_it/get_it.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   AuthService _authService;
   AnalyticsService _analyticsService;
-  // LoginFormBloc form;
-  String emailAddress;
-  String password;
+
   LoginBloc({
     AuthService authService,
-    // LoginFormBloc form,
-    String emailAddress,
-    String password,
     AnalyticsService analyticsService,
   }) : super(const LoginState()) {
     _authService = authService ?? GetIt.I<AuthService>();
     _analyticsService = analyticsService ?? GetIt.I<AnalyticsService>();
-    // this.emailForm = emailForm ?? ;
-    emailAddress = emailAddress ?? this.emailAddress;
-    password = password ?? this.password;
   }
 
   @override
@@ -57,8 +49,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     yield state.copyWith(status: LoginStatus.inProgress);
     try {
       final user = await _authService.signInWithEmailAndPassword(
-        emailAddress,
-        password,
+        state.emailAddress,
+        state.password,
       );
       yield state.copyWith(
         status: LoginStatus.loginSuccess,

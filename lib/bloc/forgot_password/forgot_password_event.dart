@@ -8,8 +8,7 @@ abstract class ForgotPasswordEvent extends Equatable {
 }
 
 class PasswordReset extends ForgotPasswordEvent {
-  final emailAddress;
-  const PasswordReset(String this.emailAddress);
+  const PasswordReset();
 }
 
 class EmailAddressUpdated extends ForgotPasswordEvent {
