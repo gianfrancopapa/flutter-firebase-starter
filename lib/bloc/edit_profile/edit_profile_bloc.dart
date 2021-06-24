@@ -3,14 +3,14 @@ import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
 import 'package:firebasestarter/bloc/user/user_bloc.dart';
 import 'package:firebasestarter/bloc/user/user_event.dart';
-import 'package:firebasestarter/models/user.dart';
+import 'package:firebasestarter/models/user.dart' as Starter;
 import 'package:firebasestarter/services/auth/user_mapper.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:firebasestarter/services/storage/storage_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:somnio_firebase_authentication/src/auth_service.dart';
+import 'package:somnio_firebase_authentication/somnio_firebase_authentication.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   AuthService _authService;
@@ -92,7 +92,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     }
   }
 
-  Future<void> _uploadProfilePicture(User user) async {
+  Future<void> _uploadProfilePicture(Starter.User user) async {
     try {
       if (_pickedPhoto == null) throw 'Error: Invalid photo';
       final extension = _pickedPhoto.path.split('.').last;

@@ -3,7 +3,7 @@ import 'package:firebasestarter/bloc/forgot_password/forgot_password_state.dart'
 import 'package:firebasestarter/bloc/forms/forgot_password_form.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:somnio_firebase_authentication/src/auth_service.dart';
+import 'package:somnio_firebase_authentication/somnio_firebase_authentication.dart';
 
 class ForgotPasswordBloc
     extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {

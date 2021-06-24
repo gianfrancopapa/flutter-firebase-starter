@@ -1,6 +1,6 @@
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/auth/user_mapper.dart';
-import 'package:somnio_firebase_authentication/src/auth_service.dart';
+import 'package:somnio_firebase_authentication/somnio_firebase_authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasestarter/bloc/forms/login_form_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';

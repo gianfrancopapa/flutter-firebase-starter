@@ -3,9 +3,8 @@ import 'package:firebasestarter/bloc/account_creation/account_creation_bloc.dart
 import 'package:firebasestarter/bloc/account_creation/account_creation_event.dart';
 import 'package:firebasestarter/bloc/account_creation/account_creation_state.dart';
 import 'package:firebasestarter/bloc/forms/create_account_form.dart';
-import 'package:firebasestarter/models/user.dart';
-import 'package:somnio_firebase_authentication/src/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart' as Auth;
+import 'package:firebasestarter/models/user.dart' as Starter;
+import 'package:somnio_firebase_authentication/somnio_firebase_authentication.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'mocks/account_creation_bloc_mocks.dart';
@@ -13,8 +12,8 @@ import 'mocks/account_creation_bloc_mocks.dart';
 void main() {
   AuthService auth;
   CreateAccountFormBloc form;
-  Auth.User firebaseUser;
-  User user;
+  User firebaseUser;
+  Starter.User user;
 
   const passwordMismatchError = 'Error: Passwords doesn\'t match.';
 
@@ -33,7 +32,7 @@ void main() {
       'phoneNumber': '',
       'address': '',
     };
-    user = User.fromJson(map);
+    user = Starter.User.fromJson(map);
     firebaseUser = MockFirebaseUser();
     when(firebaseUser.displayName).thenReturn('testName testLastName');
     when(firebaseUser.uid).thenReturn('1');

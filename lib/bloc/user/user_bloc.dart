@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/bloc/user/user_state.dart';
 import 'package:firebasestarter/services/auth/user_mapper.dart';
-import 'package:somnio_firebase_authentication/src/auth_service.dart';
+import 'package:somnio_firebase_authentication/somnio_firebase_authentication.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 

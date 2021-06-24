@@ -40,6 +40,7 @@ dependencies:
   somnio_firebase_authentication:
     git:
       url: https://github.com/somnio-software/somnio_firebase_authentication.git
+      ref: master
   repository:
     path: packages/repository
 
