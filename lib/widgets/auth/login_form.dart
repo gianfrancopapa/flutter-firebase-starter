@@ -10,7 +10,7 @@ import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:firebasestarter/widgets/common/text_field_builder.dart';
+// import 'package:firebasestarter/widgets/common/text_field_builder.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatelessWidget {
