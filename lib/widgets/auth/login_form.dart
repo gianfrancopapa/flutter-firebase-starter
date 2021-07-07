@@ -1,6 +1,5 @@
 import 'package:firebasestarter/bloc/account_creation/account_creation_bloc.dart';
 import 'package:firebasestarter/bloc/forgot_password/forgot_password_bloc.dart';
-// import 'package:firebasestarter/bloc/forgot_password/forgot_password_event.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/constants/colors.dart';
