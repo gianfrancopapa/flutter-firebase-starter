@@ -28,6 +28,8 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
   AnalyticsService _analyticsService;
   @override
   void initState() {
+    //TODO: refactor this to use RepositoryProvider
+
     _analyticsService = GetIt.I.get<AnalyticsService>();
     _analyticsService.logTutorialBegin();
     super.initState();
@@ -103,24 +105,23 @@ class OnBoardingScreenState extends State<OnBoardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    final _localizedStrings = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
       body: IntroductionScreen(
         pages: _pages(),
         onDone: () {
           _analyticsService.logTutorialComplete();
-          return Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => LoginScreen()),
-          );
+
+          return Navigator.of(context).pushReplacement(LoginScreen.route());
         },
         showSkipButton: true,
         skipFlex: 0,
         nextFlex: 0,
-        skip: Text(_localizedStrings.skip),
+        skip: Text(localizations.skip),
         next: const Icon(Icons.arrow_forward),
         done: Text(
-          _localizedStrings.done,
+          localizations.done,
           style: TextStyle(
             fontWeight: AppWeights.semiBold,
           ),

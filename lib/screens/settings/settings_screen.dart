@@ -13,10 +13,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SettingsScreen extends StatelessWidget {
-  Widget _somnioLogo() => SvgPicture.asset(
-        Assets.somnioGreyLogoSvg,
-        color: AppColor.grey,
-      );
+  const SettingsScreen({Key key}) : super(key: key);
+
+  static Route route() {
+    return MaterialPageRoute<void>(
+      builder: (_) => const SettingsScreen(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +27,10 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: _localizedStrings.settings),
       body: BlocListener<LoginBloc, LoginState>(
+        listenWhen: (_, current) => current.status == LoginStatus.logoutSuccess,
         listener: (BuildContext context, LoginState state) {
           if (state.status == LoginStatus.logoutSuccess) {
-            Navigator.popUntil(context, (route) => route.isFirst);
+            Navigator.of(context).popUntil((route) => route.isFirst);
           }
         },
         child: Container(
@@ -49,7 +53,10 @@ class SettingsScreen extends StatelessWidget {
               Margin(0.0, 200.0),
               AppVersion(),
               Margin(0.0, 20.45),
-              _somnioLogo(),
+              SvgPicture.asset(
+                Assets.somnioGreyLogoSvg,
+                color: AppColor.grey,
+              ),
             ],
           ),
         ),

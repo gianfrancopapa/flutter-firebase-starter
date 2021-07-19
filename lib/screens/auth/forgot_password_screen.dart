@@ -11,42 +11,57 @@ import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:firebasestarter/widgets/common/text_field_builder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
-  @override
-  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
-}
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({Key key}) : super(key: key);
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
-  @override
-  Widget build(BuildContext context) {
-    final _localizedStrings = AppLocalizations.of(context);
-
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: _localizedStrings.forgotPassword,
-      ),
-      body: BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
-        listener: (BuildContext context, ForgotPasswordState state) {
-          if (state.status == ForgotPasswordStatus.emailSent) {
-            DialogHelper.showAlertDialog(
-              context: context,
-              story: _localizedStrings.emailSent,
-              btnText: _localizedStrings.ok,
-              btnAction: () => Navigator.pop(context),
-            );
-          }
-        },
-        child: buildForgotPasswordForm(
-            context, context.read<ForgotPasswordBloc>()),
+  static Route route() {
+    return MaterialPageRoute<void>(
+      builder: (_) => BlocProvider<ForgotPasswordBloc>(
+        create: (_) => ForgotPasswordBloc(),
+        child: const ForgotPasswordScreen(),
       ),
     );
   }
 
-  Padding buildForgotPasswordForm(
-      BuildContext context, ForgotPasswordBloc forgotPasswordBloc) {
-    final _localizedStrings = AppLocalizations.of(context);
-    final emailAddress = context.select<ForgotPasswordBloc, String>(
-        (ForgotPasswordBloc bloc) => bloc.state.emailAddress);
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
+    return Scaffold(
+      appBar: CustomAppBar(
+        title: localizations.forgotPassword,
+      ),
+      body: BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
+        listenWhen: (_, current) =>
+            current.status == ForgotPasswordStatus.emailSent,
+        listener: (BuildContext context, ForgotPasswordState state) {
+          if (state.status == ForgotPasswordStatus.emailSent) {
+            DialogHelper.showAlertDialog(
+              context: context,
+              story: localizations.emailSent,
+              btnText: localizations.ok,
+              btnAction: () => Navigator.pop(context),
+            );
+          }
+        },
+        child: const _ForgotPasswordForm(
+          key: Key('forgotPasswordScreen_form'),
+        ),
+      ),
+    );
+  }
+}
+
+class _ForgotPasswordForm extends StatelessWidget {
+  const _ForgotPasswordForm({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
+    final emailAddress =
+        context.select((ForgotPasswordBloc bloc) => bloc.state.emailAddress);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 44.0),
       child: Column(
@@ -56,14 +71,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           Margin(0.0, 131.0),
           TextFieldBuilder(
             value: emailAddress ?? '',
-            labelText: _localizedStrings.email,
-            onChanged: (email) => forgotPasswordBloc
-                .add(EmailAddressUpdated(emailAddress: email)),
+            labelText: localizations.email,
+            onChanged: (email) {
+              context
+                  .read<ForgotPasswordBloc>()
+                  .add(EmailAddressUpdated(emailAddress: email));
+            },
           ),
           Margin(0.0, 41.0),
           Button(
-            text: _localizedStrings.send,
-            onTap: () => forgotPasswordBloc.add(const PasswordReset()),
+            text: localizations.send,
+            onTap: () {
+              context.read<ForgotPasswordBloc>().add(const PasswordReset());
+            },
             backgroundColor: AppColor.blue,
           ),
         ],
