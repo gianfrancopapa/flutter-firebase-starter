@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:firebasestarter/bloc/account_creation/account_creation_event.dart';
 import 'package:firebasestarter/bloc/account_creation/account_creation_state.dart';
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
+import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:firebasestarter/bloc/forgot_password/forgot_password_event.dart';
 import 'package:firebasestarter/bloc/forgot_password/forgot_password_state.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_event.dart';
