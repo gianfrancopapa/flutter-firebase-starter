@@ -17,28 +17,28 @@ class LoginProviderButtonsSection extends StatelessWidget {
   const LoginProviderButtonsSection(this.bloc);
 
   List<Map<String, dynamic>> _buttonsData(context) {
-    final _localizedStrings = AppLocalizations.of(context);
+    final localization = AppLocalizations.of(context);
     return [
       {
-        _text: _localizedStrings.googleSignIn,
+        _text: localization.googleSignIn,
         _asset: Assets.googleLogo,
         _onTap: () => bloc.add(const GoogleLoginStarted()),
         _last: false,
       },
       {
-        _text: _localizedStrings.facebookSignIn,
+        _text: localization.facebookSignIn,
         _asset: Assets.facebookLogo,
         _onTap: () => bloc.add(const FacebookLoginStarted()),
         _last: false,
       },
       {
-        _text: _localizedStrings.appleIdSignIn,
+        _text: localization.appleIdSignIn,
         _asset: Assets.appleLogo,
         _onTap: () => bloc.add(const AppleLoginStarted()),
         _last: false,
       },
       {
-        _text: _localizedStrings.anonymousSignIn,
+        _text: localization.anonymousSignIn,
         _asset: Assets.anonLogin,
         _onTap: () => bloc.add(const AnonymousLoginStarted()),
         _last: true,
