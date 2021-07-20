@@ -1,4 +1,6 @@
-import 'package:equatable/equatable.dart';
+part of 'edit_profile_bloc.dart';
+
+enum PhotoUploadMethod { CAMERA, GALLERY }
 
 abstract class EditProfileEvent extends Equatable {
   const EditProfileEvent();
@@ -7,23 +9,38 @@ abstract class EditProfileEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ProfileInfoUpdated extends EditProfileEvent {
-  final firstName;
-  final lastName;
-
-  ProfileInfoUpdated({String this.firstName, String this.lastName}) {}
+class EditProfileInfoUpdated extends EditProfileEvent {
+  const EditProfileInfoUpdated();
 }
 
-class PhotoWithCameraUploaded extends EditProfileEvent {}
+class EditProfileFirstNameChanged extends EditProfileEvent {
+  const EditProfileFirstNameChanged(this.name);
 
-class PhotoWithLibraryUpdated extends EditProfileEvent {}
+  final String name;
 
-class CurrentUserLoaded extends EditProfileEvent {
-  const CurrentUserLoaded();
+  @override
+  List<Object> get props => [name];
 }
 
-class FormChanged extends EditProfileEvent {
-  final formIsValid;
+class EditProfileLastNameChanged extends EditProfileEvent {
+  const EditProfileLastNameChanged(this.lastName);
 
-  const FormChanged(bool this.formIsValid);
+  final String lastName;
+
+  @override
+  List<Object> get props => [lastName];
+}
+
+class EditProfilePhotoUpdated extends EditProfileEvent {
+  const EditProfilePhotoUpdated({@required this.method})
+      : assert(method != null);
+
+  final PhotoUploadMethod method;
+
+  @override
+  List<Object> get props => [method];
+}
+
+class EditProfileCurrentUserLoaded extends EditProfileEvent {
+  const EditProfileCurrentUserLoaded();
 }

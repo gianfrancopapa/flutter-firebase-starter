@@ -1,45 +1,46 @@
-import 'package:equatable/equatable.dart';
-import 'package:firebasestarter/models/user.dart';
+part of 'edit_profile_bloc.dart';
 
 enum EditProfileStatus {
   initial,
-  inProgress,
+  loading,
   profileSuccess,
   avatarSuccess,
   failure,
-  currentUser
+  valid,
+  invalid,
 }
 
 class EditProfileState extends Equatable {
   final EditProfileStatus status;
-  final String image;
-  final String errorMessage;
   final User user;
-  final bool formIsValid;
+  final FirstName firstName;
+  final LastName lastName;
+  final PickedFile image;
 
   const EditProfileState({
-    EditProfileStatus this.status = EditProfileStatus.initial,
-    String this.image,
-    String this.errorMessage,
-    User this.user,
-    bool this.formIsValid = true,
+    @required EditProfileStatus this.status,
+    this.user,
+    this.firstName,
+    this.lastName,
+    this.image,
   }) : assert(status != null);
 
-  EditProfileState copyWith(
-      {EditProfileStatus status,
-      String image,
-      String errorMessage,
-      User user,
-      bool formIsValid}) {
+  EditProfileState copyWith({
+    EditProfileStatus status,
+    User user,
+    FirstName firstName,
+    LastName lastName,
+    PickedFile image,
+  }) {
     return EditProfileState(
       status: status ?? this.status,
-      image: image ?? this.image,
-      errorMessage: errorMessage ?? this.errorMessage,
       user: user ?? this.user,
-      formIsValid: formIsValid ?? this.formIsValid,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      image: image ?? this.image,
     );
   }
 
   @override
-  List<Object> get props => [status, errorMessage, image, user, formIsValid];
+  List<Object> get props => [status, user, firstName, lastName, image];
 }
