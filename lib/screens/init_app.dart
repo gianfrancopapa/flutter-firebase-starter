@@ -10,30 +10,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'splash.dart';
 
 class DetermineAccessScreen extends StatelessWidget {
-  Widget _checkIfUserIsLoggedIn() => BlocBuilder<LoginBloc, LoginState>(
-        builder: (context, state) {
-          if (state.status == LoginStatus.initial) {
-            return Splash();
-          }
-          if (state.status == LoginStatus.loginSuccess) {
-            return HomeScreen(state.currentUser);
-          }
-          return LoginScreen();
-        },
-      );
+  @override
+  Widget build(BuildContext context) {
+    final status = context.select((InitAppBloc bloc) => bloc.state.status);
+
+    if (status == InitAppStatus.firstTime) return OnBoardingScreen();
+
+    if (status == InitAppStatus.notFirstTime) {
+      return const _DetermineAccessScreen();
+    }
+
+    return Splash();
+  }
+}
+
+class _DetermineAccessScreen extends StatelessWidget {
+  const _DetermineAccessScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<InitAppBloc, InitAppState>(
-      builder: (context, initAppState) {
-        if (initAppState.status == InitAppStatus.firstTime) {
-          return OnBoardingScreen();
-        }
-        if (initAppState.status == InitAppStatus.notFirstTime) {
-          return _checkIfUserIsLoggedIn();
-        }
-        return Splash();
-      },
-    );
+    final state = context.watch<LoginBloc>().state;
+
+    if (state.status == LoginStatus.initial) return Splash();
+
+    if (state.status == LoginStatus.loginSuccess) {
+      return HomeScreen(state.currentUser);
+    }
+
+    return const LoginScreen();
   }
 }

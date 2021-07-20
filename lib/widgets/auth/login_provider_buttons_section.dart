@@ -12,9 +12,7 @@ class LoginProviderButtonsSection extends StatelessWidget {
   static const _onTap = 'onTap';
   static const _last = 'last';
 
-  final LoginBloc bloc;
-
-  const LoginProviderButtonsSection(this.bloc);
+  const LoginProviderButtonsSection({Key key}) : super(key: key);
 
   List<Map<String, dynamic>> _buttonsData(context) {
     final localization = AppLocalizations.of(context);
@@ -22,25 +20,33 @@ class LoginProviderButtonsSection extends StatelessWidget {
       {
         _text: localization.googleSignIn,
         _asset: Assets.googleLogo,
-        _onTap: () => bloc.add(const GoogleLoginStarted()),
+        _onTap: () {
+          context.read<LoginBloc>().add(const GoogleLoginStarted());
+        },
         _last: false,
       },
       {
         _text: localization.facebookSignIn,
         _asset: Assets.facebookLogo,
-        _onTap: () => bloc.add(const FacebookLoginStarted()),
+        _onTap: () {
+          context.read<LoginBloc>().add(const FacebookLoginStarted());
+        },
         _last: false,
       },
       {
         _text: localization.appleIdSignIn,
         _asset: Assets.appleLogo,
-        _onTap: () => bloc.add(const AppleLoginStarted()),
+        _onTap: () {
+          context.read<LoginBloc>().add(const AppleLoginStarted());
+        },
         _last: false,
       },
       {
         _text: localization.anonymousSignIn,
         _asset: Assets.anonLogin,
-        _onTap: () => bloc.add(const AnonymousLoginStarted()),
+        _onTap: () {
+          context.read<LoginBloc>().add(const AnonymousLoginStarted());
+        },
         _last: true,
       }
     ];
