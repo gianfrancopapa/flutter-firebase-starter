@@ -20,19 +20,21 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     _index = 0;
     _screens = [
-      TeamScreen(),
-      ProfileScreen(),
+      const TeamScreen(),
+      const ProfileScreen(),
     ];
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: _screens[_index],
-        backgroundColor: AppColor.lightGrey,
-        bottomNavigationBar: BottomNavBar(
-          _index,
-          (int index) => setState(() => _index = index),
-        ),
-      );
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _screens[_index],
+      backgroundColor: AppColor.lightGrey,
+      bottomNavigationBar: BottomNavBar(
+        _index,
+        (int index) => setState(() => _index = index),
+      ),
+    );
+  }
 }

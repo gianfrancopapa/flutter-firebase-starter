@@ -8,32 +8,47 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TeamScreen extends StatelessWidget {
+  const TeamScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final _localizedStrings = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: CustomAppBar(
         goBack: false,
-        title: _localizedStrings.employees,
+        title: localizations.employees,
       ),
       backgroundColor: AppColor.lightGrey,
-      body: BlocBuilder<EmployeesBloc, EmployeesState>(
-          builder: (BuildContext context, EmployeesState state) {
-        if (state.status == EmployeesStatus.loadSuccess) {
-          return EmployeesList(state.employees);
-        }
-
-        if (state.status == EmployeesStatus.loadEmpty) {
-          return Center(
-            child: Text(
-              _localizedStrings.noEmployees,
-              style: const TextStyle(fontSize: 20),
-            ),
-          );
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      }),
+      body: const _EmployeesList(
+        key: Key('teamScreen_employeesList'),
+      ),
     );
+  }
+}
+
+class _EmployeesList extends StatelessWidget {
+  const _EmployeesList({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
+    final state = context.watch<EmployeesBloc>().state;
+
+    if (state.status == EmployeesStatus.loadSuccess) {
+      return EmployeesList(state.employees);
+    }
+
+    if (state.status == EmployeesStatus.loadEmpty) {
+      return Center(
+        child: Text(
+          localizations.noEmployees,
+          style: const TextStyle(fontSize: 20),
+        ),
+      );
+    }
+
+    return const Center(child: CircularProgressIndicator());
   }
 }
