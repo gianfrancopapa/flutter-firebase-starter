@@ -9,49 +9,51 @@ import 'package:firebasestarter/constants/strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-class ProfileScreen extends StatefulWidget {
-  @override
-  _ProfileScreenState createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  Widget _settingsIcon() => InkWell(
-        onTap: () async {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SettingsScreen(),
-            ),
-          );
-        },
-        child: Container(
-          margin: const EdgeInsets.only(right: 15.0),
-          child: const Icon(
-            Feather.settings,
-            color: AppColor.white,
-            size: 20.0,
-          ),
-        ),
-      );
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(
-          goBack: false,
-          title: Strings.myProfile,
-          suffixWidget: _settingsIcon(),
-        ),
-        body: BlocBuilder<UserBloc, UserState>(
-          builder: (BuildContext context, UserState state) {
-            if (state.status == UserStatus.failure) {
-              return Center(child: Text(state.errorMessage));
-            }
-            if (state.status == UserStatus.success) {
-              return UserInfoSection(state.user);
-            }
-            return const Center(child: CircularProgressIndicator());
+      appBar: CustomAppBar(
+        goBack: false,
+        title: Strings.myProfile,
+        suffixWidget: InkWell(
+          onTap: () {
+            Navigator.of(context).push(SettingsScreen.route());
           },
-        ));
+          child: Container(
+            margin: const EdgeInsets.only(right: 15.0),
+            child: const Icon(
+              Feather.settings,
+              color: AppColor.white,
+              size: 20.0,
+            ),
+          ),
+        ),
+      ),
+      body: const _UserInfoSection(
+        key: Key('userProfileScreen_userInfoSection'),
+      ),
+    );
+  }
+}
+
+class _UserInfoSection extends StatelessWidget {
+  const _UserInfoSection({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final state = context.watch<UserBloc>().state;
+
+    if (state.status == UserStatus.failure) {
+      return Center(child: Text(context.read<UserBloc>().state.errorMessage));
+    }
+
+    if (state.status == UserStatus.success) {
+      return UserInfoSection(state.user);
+    }
+
+    return const Center(child: CircularProgressIndicator());
   }
 }

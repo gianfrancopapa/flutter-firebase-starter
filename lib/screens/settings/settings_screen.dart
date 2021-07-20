@@ -13,6 +13,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({Key key}) : super(key: key);
+
+  static Route route() {
+    return MaterialPageRoute<void>(
+      builder: (_) => const SettingsScreen(),
+    );
+  }
+
   Widget _somnioLogo() => SvgPicture.asset(
         Assets.somnioGreyLogoSvg,
         color: AppColor.grey,

@@ -1,13 +1,9 @@
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
-import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
-import 'package:firebasestarter/bloc/user/user_bloc.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/screens/profile/edit_profile_screen.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:firebasestarter/widgets/profile/profile_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -46,17 +42,9 @@ class UserInfoSection extends StatelessWidget {
       );
 
   Widget _editIcon(BuildContext context) => InkWell(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => BlocProvider<EditProfileBloc>(
-              create: (BuildContext context) =>
-                  EditProfileBloc(context.read<UserBloc>())
-                    ..add(const CurrentUserLoaded()),
-              child: EditProfileScreen(),
-            ),
-          ),
-        ),
+        onTap: () {
+          Navigator.of(context).push(EditProfileScreen.route());
+        },
         child: Container(
           margin: const EdgeInsets.only(right: 44.0),
           padding: const EdgeInsets.all(3.0),
