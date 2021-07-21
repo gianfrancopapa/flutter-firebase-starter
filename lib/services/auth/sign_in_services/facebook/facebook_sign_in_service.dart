@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
-import 'package:firebasestarter/services/auth/sign_in_services/sign_in_service.dart';
+import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
-class FacebookSignInService implements SignInService {
+class FacebookSignInService implements ISignInService {
   FacebookAuth _facebookServices;
 
   FacebookSignInService({FacebookAuth signInMethod}) {

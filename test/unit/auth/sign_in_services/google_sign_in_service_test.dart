@@ -1,5 +1,5 @@
-import 'package:firebasestarter/services/auth/sign_in_services/google/googe_sign_in_service.dart';
-import 'package:firebasestarter/services/auth/sign_in_services/sign_in_service.dart';
+import 'package:firebasestarter/services/auth/sign_in_services/google/google_sign_in_service.dart';
+import 'package:firebasestarter/services/auth/sign_in_services/sign_in_service_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '.././mocks/auth_mocks.dart';
@@ -11,7 +11,7 @@ void main() async {
     GoogleSignIn _googleSignIn;
     GoogleSignInAccount _googleAccount;
     GoogleSignInAuthentication _googleAuth;
-    SignInService _googleSignInService;
+    ISignInService _googleSignInService;
 
     setUp(() {
       _googleSignIn = MockGoogleSignIn();
