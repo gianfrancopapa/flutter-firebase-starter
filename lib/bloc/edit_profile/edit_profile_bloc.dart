@@ -1,8 +1,7 @@
 import 'dart:io';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
-import 'package:firebasestarter/bloc/user/user_bloc.dart';
-import 'package:firebasestarter/bloc/user/user_event.dart';
+import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
