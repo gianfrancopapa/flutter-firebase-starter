@@ -12,7 +12,7 @@ enum LoginStatus {
 
 class LoginState extends Equatable {
   final LoginStatus status;
-  final LoginError error;
+  final AuthError error;
   final User user;
   final Email email;
   final Password password;
@@ -27,7 +27,7 @@ class LoginState extends Equatable {
 
   LoginState copyWith({
     LoginStatus status,
-    LoginError error,
+    AuthError error,
     User user,
     Email email,
     Password password,

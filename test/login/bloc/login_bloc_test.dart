@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebasestarter/bloc/forms/models/models.dart';
+import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
@@ -120,7 +120,7 @@ void main() {
               email: email.value,
               password: password.value,
             ),
-          ).thenThrow(LoginError.ERROR);
+          ).thenThrow(AuthError.ERROR);
 
           return LoginBloc(
             authService: mockAuthService,
@@ -137,7 +137,7 @@ void main() {
             status: LoginStatus.failure,
             email: email,
             password: password,
-            error: LoginError.ERROR,
+            error: AuthError.ERROR,
           ),
         ],
       );
@@ -204,7 +204,7 @@ void main() {
             mockAuthService.signInWithSocialMedia(
               method: SocialMediaMethod.GOOGLE,
             ),
-          ).thenThrow(LoginError.ERROR);
+          ).thenThrow(AuthError.ERROR);
 
           return LoginBloc(
             authService: mockAuthService,
@@ -221,7 +221,7 @@ void main() {
             status: LoginStatus.failure,
             email: Email.pure(),
             password: Password.pure(),
-            error: LoginError.ERROR,
+            error: AuthError.ERROR,
           ),
         ],
       );
@@ -266,7 +266,7 @@ void main() {
         'emits [loading, failure] when authService.signOut throws',
         act: (bloc) => bloc.add(const LogoutRequested()),
         build: () {
-          when(mockAuthService.signOut()).thenThrow(LoginError.ERROR);
+          when(mockAuthService.signOut()).thenThrow(AuthError.ERROR);
 
           return LoginBloc(
             authService: mockAuthService,
@@ -283,7 +283,7 @@ void main() {
             status: LoginStatus.failure,
             email: Email.pure(),
             password: Password.pure(),
-            error: LoginError.ERROR,
+            error: AuthError.ERROR,
           ),
         ],
       );
@@ -359,7 +359,7 @@ void main() {
         'emits [loading, failure] when authService.currentUser throws',
         act: (bloc) => bloc.add(const LoginIsSessionPersisted()),
         build: () {
-          when(mockAuthService.currentUser()).thenThrow(LoginError.ERROR);
+          when(mockAuthService.currentUser()).thenThrow(AuthError.ERROR);
 
           return LoginBloc(
             authService: mockAuthService,
@@ -376,7 +376,7 @@ void main() {
             status: LoginStatus.failure,
             email: Email.pure(),
             password: Password.pure(),
-            error: LoginError.ERROR,
+            error: AuthError.ERROR,
           ),
         ],
       );

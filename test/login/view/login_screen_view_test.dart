@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebasestarter/bloc/forms/forms.dart';
+import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:flutter/foundation.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import '../../widget/test_bench.dart';
+import '../../helpers/test_bench.dart';
 
 class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
     implements LoginBloc {}

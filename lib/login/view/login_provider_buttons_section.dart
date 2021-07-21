@@ -1,7 +1,6 @@
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
-import 'package:firebasestarter/widgets/auth/auth_service_button.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -68,7 +67,7 @@ class LoginProviderButtonsSection extends StatelessWidget {
   Widget build(BuildContext context) => Column(
         children: [
           for (final info in _buttonsData(context)) ...[
-            AuthServiceButton(
+            LoginServiceButton(
               text: info[_text],
               backgroundColor: Colors.white,
               textColor: Colors.black,

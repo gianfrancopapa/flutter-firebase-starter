@@ -182,28 +182,28 @@ class FirebaseAuthService implements AuthService {
     }
   }
 
-  LoginError _determineError(Auth.FirebaseAuthException exception) {
+  AuthError _determineError(Auth.FirebaseAuthException exception) {
     switch (exception.code) {
       case 'invalid-email':
-        return LoginError.INVALID_EMAIL;
+        return AuthError.INVALID_EMAIL;
       case 'user-disabled':
-        return LoginError.USER_DISABLED;
+        return AuthError.USER_DISABLED;
       case 'user-not-found':
-        return LoginError.USER_NOT_FOUND;
+        return AuthError.USER_NOT_FOUND;
       case 'wrong-password':
-        return LoginError.WRONG_PASSWORD;
+        return AuthError.WRONG_PASSWORD;
       case 'email-already-in-use':
       case 'account-exists-with-different-credential':
-        return LoginError.EMAIL_ALREADY_IN_USE;
+        return AuthError.EMAIL_ALREADY_IN_USE;
       case 'invalid-credential':
-        return LoginError.INVALID_CREDENTIAL;
+        return AuthError.INVALID_CREDENTIAL;
       case 'operation-not-allowed':
-        return LoginError.OPERATION_NOT_ALLOWED;
+        return AuthError.OPERATION_NOT_ALLOWED;
       case 'weak-password':
-        return LoginError.WEAK_PASSWORD;
+        return AuthError.WEAK_PASSWORD;
       case 'ERROR_MISSING_GOOGLE_AUTH_TOKEN':
       default:
-        return LoginError.ERROR;
+        return AuthError.ERROR;
     }
   }
 }

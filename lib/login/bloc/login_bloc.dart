@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebasestarter/bloc/forms/models/email.dart';
-import 'package:firebasestarter/bloc/forms/models/password.dart';
+import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
@@ -56,7 +55,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
 
       yield state.copyWith(status: LoginStatus.loggedIn, user: user);
-    } on LoginError catch (e) {
+    } on AuthError catch (e) {
       yield state.copyWith(status: LoginStatus.failure, error: e);
     }
   }
@@ -72,7 +71,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           await _authService.signInWithSocialMedia(method: event.method);
 
       yield state.copyWith(status: LoginStatus.loggedIn, user: user);
-    } on LoginError catch (e) {
+    } on AuthError catch (e) {
       yield state.copyWith(status: LoginStatus.failure, error: e);
     }
   }
@@ -85,7 +84,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       await _authService.signOut();
 
       yield state.copyWith(status: LoginStatus.loggedOut);
-    } on LoginError catch (e) {
+    } on AuthError catch (e) {
       yield state.copyWith(status: LoginStatus.failure, error: e);
     }
   }
@@ -102,7 +101,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
 
       yield state.copyWith(status: LoginStatus.loggedOut);
-    } on LoginError catch (e) {
+    } on AuthError catch (e) {
       yield state.copyWith(status: LoginStatus.failure, error: e);
     }
   }

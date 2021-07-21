@@ -1,15 +1,14 @@
-import 'package:firebasestarter/bloc/user/user_bloc.dart';
-import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/screens/auth/forgot_password_screen.dart';
+import 'package:firebasestarter/forgot_password/view/forgot_password_screen.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/login/view/login_provider_buttons_section.dart';
+import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
 import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter/material.dart';
-import 'package:firebasestarter/screens/home.dart';
+import 'package:firebasestarter/home/view/home_screen.dart';
 import 'package:firebasestarter/utils/dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -48,12 +47,7 @@ class LoginScreen extends StatelessWidget {
           if (state.status == LoginStatus.loggedIn) {
             context.read<UserBloc>().add(const UserLoaded());
 
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomeScreen(state.user),
-              ),
-            );
+            Navigator.of(context).push(HomeScreen.route());
           }
         },
         child: const _LoginForm(
@@ -63,32 +57,32 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  String _determineAccessError(LoginError error, BuildContext context) {
+  String _determineAccessError(AuthError error, BuildContext context) {
     var message = 'Error: ';
     final _appLocalizations = AppLocalizations.of(context);
     switch (error) {
-      case LoginError.INVALID_EMAIL:
+      case AuthError.INVALID_EMAIL:
         message += _appLocalizations.invalidEmail;
         break;
-      case LoginError.USER_DISABLED:
+      case AuthError.USER_DISABLED:
         message += _appLocalizations.userDisabled;
         break;
-      case LoginError.USER_NOT_FOUND:
+      case AuthError.USER_NOT_FOUND:
         message += _appLocalizations.userNotFound;
         break;
-      case LoginError.WRONG_PASSWORD:
+      case AuthError.WRONG_PASSWORD:
         message += _appLocalizations.wrongPassword;
         break;
-      case LoginError.EMAIL_ALREADY_IN_USE:
+      case AuthError.EMAIL_ALREADY_IN_USE:
         message += _appLocalizations.emailAlreadyInUse;
         break;
-      case LoginError.INVALID_CREDENTIAL:
+      case AuthError.INVALID_CREDENTIAL:
         message += _appLocalizations.invalidCredential;
         break;
-      case LoginError.OPERATION_NOT_ALLOWED:
+      case AuthError.OPERATION_NOT_ALLOWED:
         message += _appLocalizations.operationNotAllowed;
         break;
-      case LoginError.WEAK_PASSWORD:
+      case AuthError.WEAK_PASSWORD:
         message += _appLocalizations.weakPassword;
         break;
       default:

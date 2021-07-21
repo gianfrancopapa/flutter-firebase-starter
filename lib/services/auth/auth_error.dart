@@ -1,4 +1,4 @@
-enum LoginError {
+enum AuthError {
   INVALID_EMAIL,
   USER_DISABLED,
   USER_NOT_FOUND,

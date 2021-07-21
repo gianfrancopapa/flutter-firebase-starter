@@ -1,5 +1,6 @@
-import 'package:firebasestarter/services/shared_preferences/local_persistance_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'local_persistance_interface.dart';
 
 class MySharedPreferences implements LocalPersistanceService {
   SharedPreferences _prefs;

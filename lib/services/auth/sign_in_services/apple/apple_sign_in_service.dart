@@ -1,10 +1,12 @@
 import 'package:firebase_auth_platform_interface/src/providers/oauth.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'dart:convert';
 import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
+
+import '../../auth.dart';
+import 'apple_credentials.dart';
 
 class AppleSignInService implements ISignInService {
   AppleCredentials _parameterInstance;
