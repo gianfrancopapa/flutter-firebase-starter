@@ -1,10 +1,9 @@
+import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_bloc.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_state.dart';
-import 'package:firebasestarter/bloc/login/login_bloc.dart';
-import 'package:firebasestarter/bloc/login/login_state.dart';
-import 'package:firebasestarter/screens/auth/login_screen.dart';
+import 'package:firebasestarter/login/view/login_screen.dart';
 import 'package:firebasestarter/screens/onboarding/onboarding_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'splash.dart';
@@ -33,9 +32,7 @@ class _DetermineAccessScreen extends StatelessWidget {
 
     if (state.status == LoginStatus.initial) return Splash();
 
-    if (state.status == LoginStatus.loginSuccess) {
-      return HomeScreen(state.currentUser);
-    }
+    if (state.status == LoginStatus.loggedIn) return HomeScreen(state.user);
 
     return const LoginScreen();
   }

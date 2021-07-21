@@ -32,7 +32,7 @@ void main() {
         build: () => ForgotPasswordBloc(authService: auth)
           ..add(const EmailAddressUpdated(emailAddress: 'test@email.com')),
         act: (bloc) {
-          when(auth.sendPasswordResetEmail('test@email.com'))
+          when(auth.sendPasswordResetEmail(email: 'test@email.com'))
               .thenAnswer((_) async => null);
           bloc.add(const PasswordReset());
         },
@@ -52,7 +52,8 @@ void main() {
         build: () => ForgotPasswordBloc(authService: auth)
           ..add(const EmailAddressUpdated(emailAddress: 'test@email.com')),
         act: (bloc) {
-          when(auth.sendPasswordResetEmail('test@email.com')).thenThrow(error);
+          when(auth.sendPasswordResetEmail(email: 'test@email.com'))
+              .thenThrow(error);
           bloc.add(const PasswordReset());
         },
         skip: 1,

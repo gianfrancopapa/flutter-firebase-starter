@@ -6,10 +6,10 @@ import 'package:firebasestarter/bloc/forgot_password/forgot_password_event.dart'
 import 'package:firebasestarter/bloc/forgot_password/forgot_password_state.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_event.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_state.dart';
-import 'package:firebasestarter/bloc/login/login_event.dart';
-import 'package:firebasestarter/bloc/login/login_state.dart';
+
 import 'package:firebasestarter/bloc/user/user_event.dart';
 import 'package:firebasestarter/bloc/user/user_state.dart';
+import 'package:firebasestarter/login/login.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mocktail/mocktail.dart';

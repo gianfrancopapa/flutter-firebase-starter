@@ -1,6 +1,6 @@
-import 'package:firebasestarter/bloc/login/login_bloc.dart';
-import 'package:firebasestarter/bloc/login/login_event.dart';
+import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/constants/assets.dart';
+import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/widgets/auth/auth_service_button.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,11 @@ class LoginProviderButtonsSection extends StatelessWidget {
         _text: localization.googleSignIn,
         _asset: Assets.googleLogo,
         _onTap: () {
-          context.read<LoginBloc>().add(const GoogleLoginStarted());
+          context.read<LoginBloc>().add(
+                const LoginWithSocialMediaRequested(
+                  method: SocialMediaMethod.GOOGLE,
+                ),
+              );
         },
         _last: false,
       },
@@ -29,7 +33,11 @@ class LoginProviderButtonsSection extends StatelessWidget {
         _text: localization.facebookSignIn,
         _asset: Assets.facebookLogo,
         _onTap: () {
-          context.read<LoginBloc>().add(const FacebookLoginStarted());
+          context.read<LoginBloc>().add(
+                const LoginWithSocialMediaRequested(
+                  method: SocialMediaMethod.FACEBOOK,
+                ),
+              );
         },
         _last: false,
       },
@@ -37,7 +45,11 @@ class LoginProviderButtonsSection extends StatelessWidget {
         _text: localization.appleIdSignIn,
         _asset: Assets.appleLogo,
         _onTap: () {
-          context.read<LoginBloc>().add(const AppleLoginStarted());
+          context.read<LoginBloc>().add(
+                const LoginWithSocialMediaRequested(
+                  method: SocialMediaMethod.APPLE,
+                ),
+              );
         },
         _last: false,
       },
@@ -45,7 +57,7 @@ class LoginProviderButtonsSection extends StatelessWidget {
         _text: localization.anonymousSignIn,
         _asset: Assets.anonLogin,
         _onTap: () {
-          context.read<LoginBloc>().add(const AnonymousLoginStarted());
+          context.read<LoginBloc>().add(const LoginAnonymouslyRequested());
         },
         _last: true,
       }

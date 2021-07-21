@@ -30,7 +30,7 @@ class ForgotPasswordBloc
   Stream<ForgotPasswordState> _mapPasswordResetToState() async* {
     yield state.copyWith(status: ForgotPasswordStatus.inProgress);
     try {
-      await _authService.sendPasswordResetEmail(state.emailAddress);
+      await _authService.sendPasswordResetEmail(email: state.emailAddress);
       yield state.copyWith(status: ForgotPasswordStatus.emailSent);
     } catch (e) {
       yield state.copyWith(

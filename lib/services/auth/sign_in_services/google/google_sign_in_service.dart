@@ -1,8 +1,8 @@
-import 'package:firebasestarter/services/auth/sign_in_services/sign_in_service.dart';
+import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 
-class GoogleSignInService implements SignInService {
+class GoogleSignInService implements ISignInService {
   GoogleSignIn _parameterInstance;
 
   GoogleSignInService({GoogleSignIn signInMethod}) {

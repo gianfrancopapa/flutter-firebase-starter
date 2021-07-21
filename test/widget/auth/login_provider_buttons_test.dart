@@ -1,11 +1,12 @@
-import 'package:firebasestarter/bloc/login/login_bloc.dart';
-import 'package:firebasestarter/widgets/auth/login_provider_buttons_section.dart';
+import 'package:bloc_test/bloc_test.dart';
+import 'package:firebasestarter/login/login.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../test_bench.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'mocks/login_provider_button_mocks.dart';
+class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
+    implements LoginBloc {}
 
 void main() {
   group('LoginProviderButtonsSection', () {

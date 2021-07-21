@@ -1,12 +1,10 @@
 import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:firebasestarter/widgets/settings/app_version.dart';
 import 'package:flutter/material.dart';
-import 'package:firebasestarter/bloc/login/login_bloc.dart';
-import 'package:firebasestarter/bloc/login/login_event.dart';
-import 'package:firebasestarter/bloc/login/login_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,9 +25,9 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(title: _localizedStrings.settings),
       body: BlocListener<LoginBloc, LoginState>(
-        listenWhen: (_, current) => current.status == LoginStatus.logoutSuccess,
+        listenWhen: (_, current) => current.status == LoginStatus.loggedOut,
         listener: (BuildContext context, LoginState state) {
-          if (state.status == LoginStatus.logoutSuccess) {
+          if (state.status == LoginStatus.loggedOut) {
             Navigator.of(context).popUntil((route) => route.isFirst);
           }
         },
@@ -48,7 +46,7 @@ class SettingsScreen extends StatelessWidget {
                 backgroundColor: AppColor.blue,
                 text: _localizedStrings.logout,
                 onTap: () =>
-                    context.read<LoginBloc>().add(const LogoutStarted()),
+                    context.read<LoginBloc>().add(const LogoutRequested()),
               ),
               Margin(0.0, 200.0),
               AppVersion(),

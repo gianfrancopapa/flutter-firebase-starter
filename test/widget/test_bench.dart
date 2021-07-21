@@ -2,10 +2,9 @@ import 'package:firebasestarter/bloc/employees/employees_bloc.dart';
 import 'package:firebasestarter/bloc/employees/employees_event.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_bloc.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_event.dart';
-import 'package:firebasestarter/bloc/login/login_bloc.dart';
-import 'package:firebasestarter/bloc/login/login_event.dart';
 import 'package:firebasestarter/bloc/user/user_bloc.dart';
 import 'package:firebasestarter/bloc/user/user_event.dart';
+import 'package:firebasestarter/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -38,7 +37,7 @@ extension TestBench on WidgetTester {
           BlocProvider<LoginBloc>(
             create: (_) {
               final bloc = loginBloc ?? MockLoginBloc();
-              return bloc..add(const IsUserLoggedIn());
+              return bloc;
             },
           ),
           BlocProvider<UserBloc>(

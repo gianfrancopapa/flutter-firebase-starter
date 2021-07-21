@@ -9,7 +9,7 @@ class Password extends Equatable {
 
   final String value;
 
-  bool get valid => value.isNotEmpty;
+  bool get valid => value.length > 4;
 
   @override
   List<Object> get props => [value];
