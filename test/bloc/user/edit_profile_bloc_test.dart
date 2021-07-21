@@ -4,7 +4,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_state.dart';
-import 'package:firebasestarter/bloc/user/user_bloc.dart';
+import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -32,7 +32,7 @@ void main() {
   group('Edit profile bloc /', () {
     setUp(() {
       auth = MockFirebaseAuthService();
-      userBloc = UserBloc(auth);
+      userBloc = UserBloc(authService: auth);
       storageService = MockStorageService();
       imageService = MockImageService();
     });

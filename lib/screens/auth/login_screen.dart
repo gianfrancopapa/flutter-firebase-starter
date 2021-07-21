@@ -1,6 +1,5 @@
 import 'package:firebasestarter/bloc/login/login_event.dart';
-import 'package:firebasestarter/bloc/user/user_bloc.dart';
-import 'package:firebasestarter/bloc/user/user_event.dart';
+import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/screens/auth/forgot_password_screen.dart';
 import 'package:firebasestarter/widgets/auth/login_provider_buttons_section.dart';

@@ -3,8 +3,7 @@ import 'package:firebasestarter/screens/settings/settings_screen.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
 import 'package:firebasestarter/widgets/profile/user_info_section.dart';
 import 'package:flutter/material.dart';
-import 'package:firebasestarter/bloc/user/user_bloc.dart';
-import 'package:firebasestarter/bloc/user/user_state.dart';
+import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/constants/strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -47,7 +46,7 @@ class _UserInfoSection extends StatelessWidget {
     final status = context.select((UserBloc bloc) => bloc.state.status);
 
     if (status == UserStatus.failure) {
-      return Center(child: Text(context.read<UserBloc>().state.errorMessage));
+      return const Center(child: Text('Error'));
     }
 
     if (status == UserStatus.success) {

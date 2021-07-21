@@ -1,6 +1,6 @@
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_bloc.dart';
 import 'package:firebasestarter/bloc/edit_profile/edit_profile_event.dart';
-import 'package:firebasestarter/bloc/user/user_bloc.dart';
+import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/screens/profile/edit_profile_screen.dart';

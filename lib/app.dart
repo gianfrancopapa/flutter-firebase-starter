@@ -4,8 +4,8 @@ import 'package:firebasestarter/bloc/init_app/init_app_bloc.dart';
 import 'package:firebasestarter/bloc/init_app/init_app_event.dart';
 import 'package:firebasestarter/bloc/login/login_bloc.dart';
 import 'package:firebasestarter/bloc/login/login_event.dart';
-import 'package:firebasestarter/bloc/user/user_bloc.dart';
-import 'package:firebasestarter/bloc/user/user_event.dart';
+import 'package:firebasestarter/services/auth/auth_service.dart';
+import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/data_source/firebase_employee_database.dart';
 import 'package:firebasestarter/screens/init_app.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
@@ -36,7 +36,9 @@ class _AppState extends State<App> {
                 LoginBloc()..add(const IsUserLoggedIn()),
           ),
           BlocProvider(
-            create: (_) => UserBloc()..add(const UserLoaded()),
+            create: (_) => UserBloc(
+              authService: GetIt.I.get<AuthService>(),
+            )..add(const UserLoaded()),
           ),
           BlocProvider(
             create: (context) => EmployeesBloc(

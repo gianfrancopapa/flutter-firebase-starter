@@ -1,6 +1,5 @@
 import 'package:firebasestarter/bloc/account_creation/account_creation_event.dart';
-import 'package:firebasestarter/bloc/user/user_bloc.dart';
-import 'package:firebasestarter/bloc/user/user_event.dart';
+import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/screens/home.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
