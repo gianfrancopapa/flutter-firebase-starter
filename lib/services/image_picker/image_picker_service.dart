@@ -1,5 +1,6 @@
-import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'image_picker.dart';
 
 class PickImageService implements ImageService {
   final _imagePicker = ImagePicker();

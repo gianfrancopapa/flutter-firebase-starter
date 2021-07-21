@@ -1,6 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebasestarter/app.dart';
-import 'package:firebasestarter/bloc/bloc_observer.dart';
+import 'package:firebasestarter/app/bloc_observer.dart';
 import 'package:firebasestarter/locator.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:flutter/foundation.dart';

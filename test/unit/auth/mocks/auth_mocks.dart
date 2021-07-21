@@ -1,7 +1,7 @@
 import 'package:firebasestarter/services/auth/sign_in_services/apple/apple_credentials.dart';
 import 'package:firebasestarter/services/auth/sign_in_services/apple/apple_sign_in_service.dart';
 import 'package:firebasestarter/services/auth/sign_in_services/facebook/facebook_sign_in_service.dart';
-import 'package:firebasestarter/services/auth/sign_in_services/google/googe_sign_in_service.dart';
+import 'package:firebasestarter/services/auth/sign_in_services/google/google_sign_in_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/mockito.dart';
