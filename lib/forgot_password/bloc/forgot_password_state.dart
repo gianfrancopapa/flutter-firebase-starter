@@ -11,6 +11,12 @@ class ForgotPasswordState extends Equatable {
     this.email,
   }) : assert(status != null);
 
+  ForgotPasswordState.initial()
+      : this(
+          status: ForgotPasswordStatus.initial,
+          email: Email.pure(),
+        );
+
   ForgotPasswordState copyWith({ForgotPasswordStatus status, Email email}) {
     return ForgotPasswordState(
       status: status ?? this.status,

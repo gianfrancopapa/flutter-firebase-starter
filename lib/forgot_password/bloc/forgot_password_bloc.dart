@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebasestarter/forms/models/email.dart';
+import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
-import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,13 +13,14 @@ class ForgotPasswordBloc
     @required AuthService authService,
   })  : assert(authService != null),
         _authService = authService,
-        super(const ForgotPasswordState(status: ForgotPasswordStatus.initial));
+        super(ForgotPasswordState.initial());
 
   final AuthService _authService;
 
   @override
   Stream<ForgotPasswordState> mapEventToState(
-      ForgotPasswordEvent event) async* {
+    ForgotPasswordEvent event,
+  ) async* {
     if (event is ForgotPasswordResetRequested) {
       yield* _mapForgotPasswordResetRequestedToState();
     } else if (event is ForgotPasswordEmailChanged) {
