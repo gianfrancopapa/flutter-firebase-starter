@@ -12,7 +12,8 @@ class SignUpRequested extends SignUpEvent {
 }
 
 class SignUpFirstNameChanged extends SignUpEvent {
-  const SignUpFirstNameChanged({this.firstName});
+  const SignUpFirstNameChanged({@required this.firstName})
+      : assert(firstName != null);
 
   final String firstName;
 
@@ -21,7 +22,8 @@ class SignUpFirstNameChanged extends SignUpEvent {
 }
 
 class SignUpLastNameChanged extends SignUpEvent {
-  const SignUpLastNameChanged({this.lastName});
+  const SignUpLastNameChanged({@required this.lastName})
+      : assert(lastName != null);
 
   final String lastName;
 
@@ -30,7 +32,7 @@ class SignUpLastNameChanged extends SignUpEvent {
 }
 
 class SignUpEmailChanged extends SignUpEvent {
-  const SignUpEmailChanged({this.email});
+  const SignUpEmailChanged({@required this.email}) : assert(email != null);
 
   final String email;
 
@@ -39,7 +41,8 @@ class SignUpEmailChanged extends SignUpEvent {
 }
 
 class SignUpPasswordChanged extends SignUpEvent {
-  const SignUpPasswordChanged({this.password});
+  const SignUpPasswordChanged({@required this.password})
+      : assert(password != null);
 
   final String password;
 
@@ -48,7 +51,8 @@ class SignUpPasswordChanged extends SignUpEvent {
 }
 
 class SignUpPasswordConfirmationChanged extends SignUpEvent {
-  const SignUpPasswordConfirmationChanged({this.passwordConfirmation});
+  const SignUpPasswordConfirmationChanged({@required this.passwordConfirmation})
+      : assert(passwordConfirmation != null);
 
   final String passwordConfirmation;
 
