@@ -12,16 +12,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc({@required AuthService authService})
       : assert(authService != null),
         _authService = authService,
-        super(
-          SignUpState(
-            status: SignUpStatus.initial,
-            firstName: FirstName.pure(),
-            lastName: LastName.pure(),
-            email: Email.pure(),
-            password: Password.pure(),
-            passwordConfirmation: Password.pure(),
-          ),
-        );
+        super(SignUpState.initial());
 
   final AuthService _authService;
 
