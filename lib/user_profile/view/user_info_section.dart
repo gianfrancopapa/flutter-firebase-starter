@@ -1,5 +1,5 @@
 import 'package:firebasestarter/constants/colors.dart';
-import 'package:firebasestarter/edit_profile/view/edit_profile_screen.dart';
+import 'package:firebasestarter/edit_profile/edit_profile.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/user_profile/user_profile.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';

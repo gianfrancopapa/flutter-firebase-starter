@@ -1,9 +1,8 @@
 import 'package:firebase_analytics/observer.dart';
-import 'package:firebasestarter/app/bloc/app_bloc.dart';
 import 'package:firebasestarter/data_source/data_source.dart';
 import 'package:firebasestarter/employees/employees.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/app/view/determine_access_screen.dart';
+import 'package:firebasestarter/app/app.dart';
 import 'package:firebasestarter/services/analytics/analyitics.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/services/notifications/notifications_service.dart';
@@ -14,7 +13,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:repository/repository.dart';
-
 import 'services/shared_preferences/local_persistance_interface.dart';
 
 class App extends StatefulWidget {

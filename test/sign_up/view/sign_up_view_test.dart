@@ -1,6 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/forms/forms.dart';
-import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:flutter/material.dart';
@@ -23,14 +22,10 @@ class MockUserEvent extends Fake implements UserEvent {}
 
 class MockUserState extends Fake implements UserState {}
 
-class MockUser extends Mock implements User {}
-
 void main() {
   group('SignUpView', () {
     SignUpBloc mockSignUpBloc;
     UserBloc mockUserBloc;
-
-    User mockUser;
 
     setUp(() {
       registerFallbackValue<SignUpState>(MockSignUpState());
@@ -56,8 +51,6 @@ void main() {
 
       when(() => mockUserBloc.state)
           .thenReturn(const UserState(status: UserStatus.initial));
-
-      mockUser = MockUser();
     });
 
     test('is a route', () {
