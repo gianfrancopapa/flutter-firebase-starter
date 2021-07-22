@@ -149,6 +149,27 @@ void main() {
       },
     );
 
+    testWidgets(
+      'shows a Dialog when mockLoginBloc emits failure',
+      (tester) async {
+        whenListen(
+          loginBloc,
+          Stream.value(
+            const LoginState(status: LoginStatus.failure),
+          ),
+        );
+
+        await tester.pumpApp(
+          const LoginScreen(),
+          loginBloc: loginBloc,
+        );
+
+        await tester.pump();
+
+        expect(find.byType(Dialog), findsOneWidget);
+      },
+    );
+
     // testWidgets('navigates to ForgotPasswordScreen', (tester) async {
     //   await tester.pumpApp(
     //     const LoginScreen(),
