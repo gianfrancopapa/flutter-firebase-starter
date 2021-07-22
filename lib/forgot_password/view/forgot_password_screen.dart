@@ -64,11 +64,11 @@ class _ForgotPasswordForm extends StatelessWidget {
         children: [
           Margin(0.0, 131.0),
           const _EmailTextField(
-            key: Key('forgotPasswordScreen_form_button'),
+            key: Key('forgotPasswordScreen_form_emailTextField'),
           ),
           Margin(0.0, 41.0),
           const _ForgotPasswordTextButton(
-            key: Key('forgotPasswordScreen_form_button'),
+            key: Key('forgotPasswordScreen_form_forgotPasswordButton'),
           ),
         ],
       ),
