@@ -3,13 +3,12 @@ import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/constants/weights.dart';
 import 'package:firebasestarter/login/view/login_screen.dart';
 import 'package:firebasestarter/onboarding/cubit/onboarding_cubit.dart';
+import 'package:firebasestarter/onboarding/view/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'onboarding_screen.dart';
 
 class OnboardingPages extends StatelessWidget {
   const OnboardingPages({Key key}) : super(key: key);

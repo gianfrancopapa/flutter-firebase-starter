@@ -1,6 +1,6 @@
 part of 'onboarding_cubit.dart';
 
-enum OnboardingStatus { initial, completed }
+enum OnboardingStatus { initial, initiated, completed }
 
 class OnboardingState extends Equatable {
   final OnboardingStatus status;
