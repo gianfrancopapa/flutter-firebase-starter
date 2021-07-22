@@ -16,27 +16,16 @@ class MockLoginState extends Fake implements LoginState {}
 
 class MockLoginEvent extends Fake implements LoginEvent {}
 
-class MockUser extends Mock implements User {}
-
 void main() {
   LoginBloc loginBloc;
-  User user;
 
   setUp(() {
     registerFallbackValue<LoginState>(MockLoginState());
     registerFallbackValue<LoginEvent>(MockLoginEvent());
 
     loginBloc = MockLoginBloc();
-    user = MockUser();
 
-    when(() => loginBloc.state).thenReturn(
-      LoginState(
-        status: LoginStatus.loggedIn,
-        email: Email.pure(),
-        password: Password.pure(),
-        user: user,
-      ),
-    );
+    when(() => loginBloc.state).thenReturn(LoginState.initial());
   });
 
   group('LoginScreenView', () {
@@ -155,7 +144,7 @@ void main() {
         whenListen(
           loginBloc,
           Stream.value(
-            const LoginState(status: LoginStatus.failure),
+            LoginState.initial().copyWith(status: LoginStatus.failure),
           ),
         );
 
