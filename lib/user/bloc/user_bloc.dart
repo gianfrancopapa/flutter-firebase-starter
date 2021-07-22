@@ -30,7 +30,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       final user = await _authService.currentUser();
 
       yield state.copyWith(status: UserStatus.success, user: user);
-    } on Exception {
+    } on AuthError {
       yield state.copyWith(status: UserStatus.failure);
     }
   }
