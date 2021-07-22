@@ -31,6 +31,11 @@ class ForgotPasswordBloc
   Stream<ForgotPasswordState> _mapForgotPasswordResetRequestedToState() async* {
     yield state.copyWith(status: ForgotPasswordStatus.loading);
 
+    if (!(state.email?.valid ?? false)) {
+      yield state.copyWith(status: ForgotPasswordStatus.failure);
+      return;
+    }
+
     try {
       await _authService.sendPasswordResetEmail(email: state.email.value);
 
@@ -43,6 +48,13 @@ class ForgotPasswordBloc
   Stream<ForgotPasswordState> _mapForgotPasswordEmailChangedToState(
     ForgotPasswordEmailChanged event,
   ) async* {
-    yield state.copyWith(email: Email.dirty(event.email));
+    final email = Email.dirty(event.email);
+
+    yield state.copyWith(
+      email: email,
+      status: email.valid
+          ? ForgotPasswordStatus.valid
+          : ForgotPasswordStatus.invalid,
+    );
   }
 }

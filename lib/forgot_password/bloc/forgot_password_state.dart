@@ -1,6 +1,6 @@
 part of 'forgot_password_bloc.dart';
 
-enum ForgotPasswordStatus { initial, loading, success, failure }
+enum ForgotPasswordStatus { initial, loading, success, failure, valid, invalid }
 
 class ForgotPasswordState extends Equatable {
   final ForgotPasswordStatus status;
