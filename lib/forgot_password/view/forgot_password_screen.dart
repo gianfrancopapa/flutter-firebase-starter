@@ -106,13 +106,24 @@ class _ForgotPasswordTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
 
+    final status =
+        context.select((ForgotPasswordBloc bloc) => bloc.state.status);
+    final isNotValid = status != ForgotPasswordStatus.valid;
+
     return TextButton(
+      style: ButtonStyle(
+        backgroundColor: isNotValid
+            ? MaterialStateProperty.all(Colors.grey)
+            : MaterialStateProperty.all(Colors.blue),
+      ),
       child: Text(localizations.send),
-      onPressed: () {
-        context
-            .read<ForgotPasswordBloc>()
-            .add(const ForgotPasswordResetRequested());
-      },
+      onPressed: isNotValid
+          ? null
+          : () {
+              context
+                  .read<ForgotPasswordBloc>()
+                  .add(const ForgotPasswordResetRequested());
+            },
     );
   }
 }
