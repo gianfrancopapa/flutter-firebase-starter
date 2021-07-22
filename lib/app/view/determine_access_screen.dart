@@ -1,8 +1,7 @@
 import 'package:firebasestarter/app/app.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/home/view/home_screen.dart';
+import 'package:firebasestarter/home/home.dart';
 import 'package:flutter/material.dart';
-import 'package:firebasestarter/login/view/login_screen.dart';
 import 'package:firebasestarter/onboarding/view/onboarding_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

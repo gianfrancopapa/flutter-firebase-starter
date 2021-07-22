@@ -21,6 +21,16 @@ class SignUpState extends Equatable {
     this.user,
   }) : assert(status != null);
 
+  SignUpState.initial()
+      : this(
+          status: SignUpStatus.initial,
+          firstName: FirstName.pure(),
+          lastName: LastName.pure(),
+          email: Email.pure(),
+          password: Password.pure(),
+          passwordConfirmation: Password.pure(),
+        );
+
   SignUpState copyWith({
     SignUpStatus status,
     User user,

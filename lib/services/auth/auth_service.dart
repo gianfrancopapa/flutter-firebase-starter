@@ -35,5 +35,5 @@ abstract class AuthService {
     String photoURL,
   });
 
-  Future<bool> deleteAccount();
+  Future<void> deleteAccount();
 }

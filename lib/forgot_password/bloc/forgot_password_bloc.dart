@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebasestarter/forms/models/email.dart';
+import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
-import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,13 +13,14 @@ class ForgotPasswordBloc
     @required AuthService authService,
   })  : assert(authService != null),
         _authService = authService,
-        super(const ForgotPasswordState(status: ForgotPasswordStatus.initial));
+        super(ForgotPasswordState.initial());
 
   final AuthService _authService;
 
   @override
   Stream<ForgotPasswordState> mapEventToState(
-      ForgotPasswordEvent event) async* {
+    ForgotPasswordEvent event,
+  ) async* {
     if (event is ForgotPasswordResetRequested) {
       yield* _mapForgotPasswordResetRequestedToState();
     } else if (event is ForgotPasswordEmailChanged) {
@@ -30,6 +30,11 @@ class ForgotPasswordBloc
 
   Stream<ForgotPasswordState> _mapForgotPasswordResetRequestedToState() async* {
     yield state.copyWith(status: ForgotPasswordStatus.loading);
+
+    if (!(state.email?.valid ?? false)) {
+      yield state.copyWith(status: ForgotPasswordStatus.failure);
+      return;
+    }
 
     try {
       await _authService.sendPasswordResetEmail(email: state.email.value);
@@ -43,6 +48,13 @@ class ForgotPasswordBloc
   Stream<ForgotPasswordState> _mapForgotPasswordEmailChangedToState(
     ForgotPasswordEmailChanged event,
   ) async* {
-    yield state.copyWith(email: Email.dirty(event.email));
+    final email = Email.dirty(event.email);
+
+    yield state.copyWith(
+      email: email,
+      status: email.valid
+          ? ForgotPasswordStatus.valid
+          : ForgotPasswordStatus.invalid,
+    );
   }
 }

@@ -25,6 +25,13 @@ class LoginState extends Equatable {
     this.password,
   }) : assert(status != null);
 
+  LoginState.initial()
+      : this(
+          status: LoginStatus.initial,
+          email: Email.pure(),
+          password: Password.pure(),
+        );
+
   LoginState copyWith({
     LoginStatus status,
     AuthError error,

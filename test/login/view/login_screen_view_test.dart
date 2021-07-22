@@ -1,7 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/models/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,27 +14,16 @@ class MockLoginState extends Fake implements LoginState {}
 
 class MockLoginEvent extends Fake implements LoginEvent {}
 
-class MockUser extends Mock implements User {}
-
 void main() {
   LoginBloc loginBloc;
-  User user;
 
   setUp(() {
     registerFallbackValue<LoginState>(MockLoginState());
     registerFallbackValue<LoginEvent>(MockLoginEvent());
 
     loginBloc = MockLoginBloc();
-    user = MockUser();
 
-    when(() => loginBloc.state).thenReturn(
-      LoginState(
-        status: LoginStatus.loggedIn,
-        email: Email.pure(),
-        password: Password.pure(),
-        user: user,
-      ),
-    );
+    when(() => loginBloc.state).thenReturn(LoginState.initial());
   });
 
   group('LoginScreenView', () {
@@ -146,6 +133,27 @@ void main() {
             const LoginWithEmailAndPasswordRequested(),
           ),
         );
+      },
+    );
+
+    testWidgets(
+      'shows a Dialog when mockLoginBloc emits failure',
+      (tester) async {
+        whenListen(
+          loginBloc,
+          Stream.value(
+            LoginState.initial().copyWith(status: LoginStatus.failure),
+          ),
+        );
+
+        await tester.pumpApp(
+          const LoginScreen(),
+          loginBloc: loginBloc,
+        );
+
+        await tester.pump();
+
+        expect(find.byType(Dialog), findsOneWidget);
       },
     );
 

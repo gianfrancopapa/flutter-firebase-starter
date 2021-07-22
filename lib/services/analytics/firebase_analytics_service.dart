@@ -1,5 +1,4 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-
 import 'analytics_service.dart';
 
 class FirebaseAnalyticsService implements AnalyticsService {

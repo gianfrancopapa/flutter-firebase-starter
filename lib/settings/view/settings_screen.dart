@@ -50,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
                     context.read<LoginBloc>().add(const LogoutRequested()),
               ),
               Margin(0.0, 200.0),
-              AppVersion(),
+              const AppVersion(),
               Margin(0.0, 20.45),
               SvgPicture.asset(
                 Assets.somnioGreyLogoSvg,
