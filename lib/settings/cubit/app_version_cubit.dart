@@ -17,15 +17,8 @@ class AppVersionCubit extends Cubit<AppVersionState> {
 
   final AppInfo _appInfo;
 
-  Future<void> appVersion() async {
-    emit(state.copyWith(appVersion: await _appInfo?.getVersionNumber()));
-  }
-
-  void showVersion(String appVersion) {
-    if (appVersion != null && appVersion.isNotEmpty) {
-      emit(state.copyWith(showVersion: true));
-    } else {
-      emit(state.copyWith(showVersion: false));
-    }
+  void appVersion() async {
+    final version = await _appInfo?.getVersionNumber();
+    emit(state.copyWith(appVersion: version));
   }
 }

@@ -1,17 +1,14 @@
 part of 'app_version_cubit.dart';
 
 class AppVersionState extends Equatable {
-  const AppVersionState({this.showVersion, this.appVersion});
+  const AppVersionState({this.appVersion});
 
-  final bool showVersion;
   final String appVersion;
 
   @override
-  List<Object> get props => [showVersion, appVersion];
+  List<Object> get props => [appVersion];
 
-  AppVersionState copyWith({bool showVersion, String appVersion}) {
-    return AppVersionState(
-        showVersion: showVersion ?? this.showVersion,
-        appVersion: appVersion ?? this.appVersion);
+  AppVersionState copyWith({String appVersion}) {
+    return AppVersionState(appVersion: appVersion ?? this.appVersion);
   }
 }
