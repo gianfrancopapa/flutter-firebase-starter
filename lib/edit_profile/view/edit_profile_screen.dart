@@ -97,7 +97,7 @@ class _ProfileImage extends StatelessWidget {
     final image = context.select((EditProfileBloc bloc) => bloc.state.imageURL);
     final validImage = image != null;
 
-    return ProfileImage(
+    return UserProfileImage(
       editable: true,
       onTap: () => showModalBottomSheet(
         context: context,

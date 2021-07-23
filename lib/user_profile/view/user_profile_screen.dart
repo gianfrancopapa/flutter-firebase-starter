@@ -8,8 +8,8 @@ import 'package:firebasestarter/constants/strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key key}) : super(key: key);
+class UserProfileScreen extends StatelessWidget {
+  const UserProfileScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +46,22 @@ class _UserInfoSection extends StatelessWidget {
     final state = context.watch<UserBloc>().state;
 
     if (state.status == UserStatus.failure) {
-      return const Center(child: Text('Error'));
+      return const Center(
+        key: Key('userProfileScreen_userInfoSection_errorText'),
+        child: Text('Error'),
+      );
     }
 
     if (state.status == UserStatus.success) {
-      return UserInfoSection(user: state.user);
+      return UserInfoSection(
+        key: const Key('userProfileScreen_userInfoSection_section'),
+        user: state.user,
+      );
     }
 
-    return const Center(child: CircularProgressIndicator());
+    return const Center(
+      key: Key('userProfileScreen_userInfoSection_loadingSpinner'),
+      child: CircularProgressIndicator(),
+    );
   }
 }

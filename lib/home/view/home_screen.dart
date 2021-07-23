@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _index = 0;
     _screens = [
       const EmployeesScreen(),
-      const ProfileScreen(),
+      const UserProfileScreen(),
     ];
     super.initState();
   }
