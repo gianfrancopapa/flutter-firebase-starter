@@ -81,6 +81,7 @@ void main() {
     group('EditProfileUserRequested', () {
       blocTest<EditProfileBloc, EditProfileState>(
         'calls authService.currentUser',
+        act: (bloc) => bloc.add(const EditProfileUserRequested()),
         build: () {
           when(() => mockAuthService.currentUser())
               .thenAnswer((_) async => mockUser);
@@ -92,7 +93,7 @@ void main() {
           );
         },
         verify: (_) {
-          mockAuthService.currentUser();
+          verify(() => mockAuthService.currentUser()).called(1);
         },
       );
 
