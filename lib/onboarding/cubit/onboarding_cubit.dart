@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:firebasestarter/onboarding/onboarding.dart';
 import 'package:firebasestarter/services/analytics/analyitics.dart';
 import 'package:flutter/widgets.dart';
 import 'package:equatable/equatable.dart';
