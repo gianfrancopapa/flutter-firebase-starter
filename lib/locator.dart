@@ -6,7 +6,6 @@ import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/services/image_picker/image_picker_service.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:firebasestarter/services/notifications/notifications_service.dart';
-import 'package:firebasestarter/services/remote_config/remote_config.dart';
 import 'package:firebasestarter/services/shared_preferences/local_persistance_interface.dart';
 import 'package:firebasestarter/services/shared_preferences/shared_preferences.dart';
 import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
