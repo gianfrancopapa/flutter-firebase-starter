@@ -1,11 +1,25 @@
+import 'package:flutter/foundation.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AppleCredentials {
-  Future<AuthorizationCredentialAppleID> getAppleCredentials(
-      List<AppleIDAuthorizationScopes> scopes, String nonce) async {
-    return SignInWithApple.getAppleIDCredential(
-      scopes: scopes,
-      nonce: nonce,
-    );
+  const AppleCredentials();
+
+  Future<AuthorizationCredentialAppleID> getAppleCredentials({
+    @required List<AppleIDAuthorizationScopes> scopes,
+    @required String token,
+  }) async {
+    assert(scopes != null);
+    assert(token != null);
+
+    try {
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: scopes,
+        nonce: token,
+      );
+
+      return credential;
+    } on Exception {
+      throw Exception('ERROR_APPLE_ID_CREDENTIAL');
+    }
   }
 }

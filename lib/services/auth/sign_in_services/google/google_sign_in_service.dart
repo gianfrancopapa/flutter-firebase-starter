@@ -1,28 +1,28 @@
 import 'package:firebasestarter/services/auth/auth.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 
 class GoogleSignInService implements ISignInService {
-  GoogleSignIn _parameterInstance;
+  GoogleSignInService({@required GoogleSignIn googleSignIn})
+      : assert(googleSignIn != null),
+        _googleSignIn = googleSignIn;
 
-  GoogleSignInService({GoogleSignIn signInMethod}) {
-    _parameterInstance = signInMethod;
-  }
+  final GoogleSignIn _googleSignIn;
 
-  GoogleSignIn _generateGoogleSignInInstance() {
-    return _parameterInstance ?? GoogleSignIn();
-  }
-
-  Future<GoogleSignInAccount> _getGoogleUser() {
-    final googleSignIn = _generateGoogleSignInInstance();
-    return googleSignIn.signIn();
+  Future<GoogleSignInAccount> _getGoogleUser() async {
+    final result = await _googleSignIn.signIn();
+    return result;
   }
 
   Future<GoogleSignInAuthentication> _getGoogleAuth(
-      GoogleSignInAccount googleUser) {
+    GoogleSignInAccount googleUser,
+  ) async {
     if (googleUser != null) {
-      return googleUser.authentication;
+      final result = await googleUser.authentication;
+      return result;
     }
+
     return null;
   }
 
@@ -45,19 +45,21 @@ class GoogleSignInService implements ISignInService {
   Future<Auth.OAuthCredential> getFirebaseCredential() async {
     try {
       final googleUser = await _getGoogleUser();
+
       final googleAuth = await _getGoogleAuth(googleUser);
+
       if (googleAuth != null) {
         return _getUserCredentials(googleAuth.accessToken, googleAuth.idToken);
       }
+
       return null;
-    } catch (error) {
-      throw error;
+    } on Exception {
+      throw Auth.FirebaseAuthException(code: 'ERROR_GOOGLE_LOGIN');
     }
   }
 
   @override
   Future<void> signOut() async {
-    final googleSignIn = _generateGoogleSignInInstance();
-    await googleSignIn.signOut();
+    await _googleSignIn.signOut();
   }
 }
