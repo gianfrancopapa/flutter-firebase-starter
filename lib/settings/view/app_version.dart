@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebasestarter/services/app_info/app_info.dart';
 import 'package:firebasestarter/services/remote_config/remote_config.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:flutter/foundation.dart';
@@ -5,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:firebasestarter/settings/settings.dart';
+import 'package:package_info/package_info.dart';
 
 class AppVersion extends StatelessWidget {
   const AppVersion({Key key}) : super(key: key);
@@ -12,25 +16,32 @@ class AppVersion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => AppVersionCubit(
-          remoteConfigService: GetIt.I.get<RemoteConfigService>()),
-      child: BlocListener<AppVersionCubit, AppVersionState>(
-        listener: (context, state) {
-          if (state.showVersion) {
-            return Text(
-              state.appVersion,
-              style: const TextStyle(
-                color: AppColor.grey,
-                fontSize: 20.0,
-                fontWeight: FontWeight.w400,
-              ),
-            );
-          } else {
-            return SizedBox();
-          }
-        },
-      ),
-    );
+        create: (_) => AppVersionCubit(appInfo: GetIt.I.get<AppInfo>()),
+        child: TextAppVersion());
+  }
+}
+
+class TextAppVersion extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AppVersionCubit, AppVersionState>(
+        buildWhen: (previous, current) =>
+            previous.appVersion != current.appVersion,
+        builder: (context, state) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                context.read<AppVersionCubit>().state.appVersion,
+                style: const TextStyle(
+                  color: AppColor.grey,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w400,
+                ),
+              )
+            ],
+          );
+        });
   }
 }
 
