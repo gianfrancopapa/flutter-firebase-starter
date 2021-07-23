@@ -126,7 +126,7 @@ void main() {
 
       verify(
         () => mockEditProfileBloc
-            .add(const EditProfileFirstNameChanged('myFirstName')),
+            .add(const EditProfileFirstNameChanged(firstName: 'myFirstName')),
       ).called(1);
     });
 
@@ -147,7 +147,7 @@ void main() {
 
       verify(
         () => mockEditProfileBloc
-            .add(const EditProfileLastNameChanged('myLastName')),
+            .add(const EditProfileLastNameChanged(lastName: 'myLastName')),
       ).called(1);
     });
 

@@ -76,7 +76,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   Stream<EditProfileState> _mapEditProfileFirstNameChangedToState(
     EditProfileFirstNameChanged event,
   ) async* {
-    final firstName = FirstName.dirty(event.name);
+    final firstName = FirstName.dirty(event.firstName);
 
     yield state.copyWith(
       firstName: firstName,
