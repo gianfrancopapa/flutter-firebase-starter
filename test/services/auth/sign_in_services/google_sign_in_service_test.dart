@@ -1,65 +1,87 @@
-// import 'package:firebasestarter/services/auth/sign_in_services/google/google_sign_in_service.dart';
-// import 'package:firebasestarter/services/auth/sign_in_services/sign_in_service_interface.dart';
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
-// import '.././mocks/auth_mocks.dart';
-// import 'package:mockito/mockito.dart';
-// import 'package:firebase_auth/firebase_auth.dart' as Auth;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebasestarter/services/auth/auth.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mockito/mockito.dart';
 
-// void main() async {
-//   group('Google Sign in service /', () {
-//     GoogleSignIn _googleSignIn;
-//     GoogleSignInAccount _googleAccount;
-//     GoogleSignInAuthentication _googleAuth;
-//     ISignInService _googleSignInService;
+class MockGoogleSignIn extends Mock implements GoogleSignIn {}
 
-//     setUp(() {
-//       _googleSignIn = MockGoogleSignIn();
-//       _googleAccount = MockGoogleSignInAccount();
-//       _googleAuth = MockGoogleSignInAuthentication();
-//       _googleSignInService = GoogleSignInService(signInMethod: _googleSignIn);
-//     });
+class MockGoogleSignInAccount extends Mock implements GoogleSignInAccount {}
 
-//     test('Success', () async {
-//       final credential = Auth.GoogleAuthProvider.credential(
-//         idToken: 'abcd1234',
-//         accessToken: 'abcd1234',
-//       );
+class MockGoogleSignInAuthentication extends Mock
+    implements GoogleSignInAuthentication {}
 
-//       when(_googleSignIn.signIn()).thenAnswer((_) async => _googleAccount);
+void main() {
+  group('GoogleSignInService', () {
+    GoogleSignIn mockGoogleSignIn;
+    GoogleSignInAccount mockGoogleSignInAccount;
+    GoogleSignInAuthentication mockGoogleSignInAuthentication;
 
-//       when(_googleAccount.authentication).thenAnswer((_) async => _googleAuth);
+    GoogleSignInService subject;
 
-//       when(_googleAuth.accessToken).thenReturn(credential.accessToken);
+    setUp(() {
+      mockGoogleSignIn = MockGoogleSignIn();
+      mockGoogleSignInAccount = MockGoogleSignInAccount();
+      mockGoogleSignInAuthentication = MockGoogleSignInAuthentication();
 
-//       when(_googleAuth.idToken).thenReturn(credential.idToken);
+      subject = GoogleSignInService(googleSignIn: mockGoogleSignIn);
 
-//       final obtainedCredential =
-//           await _googleSignInService.getFirebaseCredential();
+      when(mockGoogleSignIn.signIn())
+          .thenAnswer((_) async => mockGoogleSignInAccount);
 
-//       expect(obtainedCredential.accessToken, credential.accessToken);
-//       expect(obtainedCredential.idToken, credential.idToken);
-//     });
+      when(mockGoogleSignInAccount.authentication)
+          .thenAnswer((_) async => mockGoogleSignInAuthentication);
 
-//     test('Cancelled by user', () async {
-//       when(_googleSignIn.signIn()).thenAnswer((_) => null);
+      when(mockGoogleSignInAuthentication.idToken).thenReturn('idToken');
+      when(mockGoogleSignInAuthentication.accessToken)
+          .thenReturn('accessToken');
+    });
 
-//       expect(await _googleSignInService.getFirebaseCredential(), null);
-//     });
+    test('throwsAssertionError when googleSignIn is null', () {
+      expect(
+        () => GoogleSignInService(googleSignIn: null),
+        throwsAssertionError,
+      );
+    });
 
-//     test('No google auth', () async {
-//       when(_googleSignIn.signIn()).thenAnswer((_) async => _googleAccount);
+    group('.getFirebaseCredential', () {
+      test('completes', () {
+        expect(subject.getFirebaseCredential(), completes);
+      });
 
-//       when(_googleAccount.authentication).thenAnswer((_) async => _googleAuth);
+      test('fails when googleSignIn.signIn throws', () {
+        when(mockGoogleSignIn.signIn()).thenThrow(Exception());
 
-//       when(_googleAuth.accessToken).thenReturn(null);
+        expect(
+          subject.getFirebaseCredential(),
+          throwsA(
+            isA<FirebaseAuthException>(),
+          ),
+        );
+      });
 
-//       when(_googleAuth.idToken).thenReturn(null);
+      test('fails when googleSignInAccount.authentication throws', () {
+        when(mockGoogleSignInAccount.authentication).thenThrow(Exception());
 
-//       expect(() async => _googleSignInService.getFirebaseCredential(),
-//           throwsException);
-//     });
-//   });
-// }
+        expect(
+          subject.getFirebaseCredential(),
+          throwsA(
+            isA<FirebaseAuthException>(),
+          ),
+        );
+      });
+    });
 
-void main() {}
+    group('.signOut', () {
+      test('calls ', () async {
+        await subject.signOut();
+
+        verify(mockGoogleSignIn.signOut()).called(1);
+      });
+
+      test('completes', () {
+        expect(subject.signOut(), completes);
+      });
+    });
+  });
+}
