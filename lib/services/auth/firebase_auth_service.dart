@@ -153,18 +153,17 @@ class FirebaseAuthService implements AuthService {
 
   @override
   Future<bool> changeProfile({
-    @required String firstName,
-    @required String lastName,
-    @required String photoURL,
+    String firstName,
+    String lastName,
+    String photoURL,
   }) async {
-    assert(firstName != null);
-    assert(lastName != null);
-    assert(photoURL != null);
-
     try {
       final user = _firebaseAuth.currentUser;
-      await user.updateDisplayName('$firstName $lastName');
-      if (photoURL != null) {
+      if (user.displayName != '$firstName $lastName') {
+        await user.updateDisplayName('$firstName $lastName');
+      }
+
+      if (photoURL != null && photoURL != user.photoURL) {
         await user.updatePhotoURL(photoURL);
       }
       return true;
