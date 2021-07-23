@@ -1,5 +1,4 @@
-import 'package:firebasestarter/onboarding/cubit/onboarding_cubit.dart';
-import 'package:firebasestarter/onboarding/view/onboarding_pages.dart';
+import 'package:firebasestarter/onboarding/onboarding.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
