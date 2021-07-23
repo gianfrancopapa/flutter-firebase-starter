@@ -26,14 +26,12 @@ dependencies:
   cloud_firestore: ^1.0.3
   google_sign_in: ^4.5.9
   sign_in_with_apple: ^3.0.0
-  crypto: ^2.1.5
   flutter_facebook_auth: ^3.3.3-no-nullsafety
   introduction_screen: ^1.0.9
   package_info: ^0.4.3+4
   flutter_launcher_icons: ^0.8.1
   shared_preferences: ^2.0.5
   image_picker: ^0.7.3
-  flutter_feather_icons: ^1.0.3
   cached_network_image: ^2.5.0
   auto_size_text: ^2.1.0
   string_validator: ^0.1.4
@@ -55,8 +53,6 @@ dev_dependencies:
   flutter_native_splash: ^0.3.0
   flutter_test:
     sdk: flutter
-  build_runner:
-  built_value_generator:
   test: ^1.15.7
   mockito: ^4.1.4
   mocktail: ^0.1.3
