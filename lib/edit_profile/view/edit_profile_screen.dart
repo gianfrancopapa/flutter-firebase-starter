@@ -224,7 +224,7 @@ class _FirstNameTextField extends StatelessWidget {
       onChanged: (firstName) {
         context
             .read<EditProfileBloc>()
-            .add(EditProfileFirstNameChanged(firstName));
+            .add(EditProfileFirstNameChanged(firstName: firstName));
       },
       decoration: InputDecoration(
         errorBorder: const UnderlineInputBorder(
@@ -249,7 +249,7 @@ class _LastNameTextField extends StatelessWidget {
       onChanged: (lastName) {
         context
             .read<EditProfileBloc>()
-            .add(EditProfileLastNameChanged(lastName));
+            .add(EditProfileLastNameChanged(lastName: lastName));
       },
       decoration: InputDecoration(
         errorBorder: const UnderlineInputBorder(

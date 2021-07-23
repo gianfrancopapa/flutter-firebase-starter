@@ -14,16 +14,18 @@ class EditProfileInfoUpdated extends EditProfileEvent {
 }
 
 class EditProfileFirstNameChanged extends EditProfileEvent {
-  const EditProfileFirstNameChanged(this.name);
+  const EditProfileFirstNameChanged({@required this.firstName})
+      : assert(firstName != null);
 
-  final String name;
+  final String firstName;
 
   @override
-  List<Object> get props => [name];
+  List<Object> get props => [firstName];
 }
 
 class EditProfileLastNameChanged extends EditProfileEvent {
-  const EditProfileLastNameChanged(this.lastName);
+  const EditProfileLastNameChanged({@required this.lastName})
+      : assert(lastName != null);
 
   final String lastName;
 
