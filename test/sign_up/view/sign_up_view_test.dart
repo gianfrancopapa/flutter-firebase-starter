@@ -194,7 +194,14 @@ void main() {
 
     testWidgets('adds SignUpRequested when status is valid', (tester) async {
       when(() => mockSignUpBloc.state).thenReturn(
-        mockSignUpBloc.state.copyWith(status: SignUpStatus.valid),
+        mockSignUpBloc.state.copyWith(
+          firstName: FirstName.dirty('firstName'),
+          lastName: LastName.dirty('lastName'),
+          email: Email.dirty('email@gmail.com'),
+          password: Password.dirty('Password01'),
+          passwordConfirmation: Password.dirty('Password01'),
+          status: SignUpStatus.valid,
+        ),
       );
 
       await tester.pumpApp(

@@ -183,6 +183,7 @@ class _PasswordTextField extends StatelessWidget {
     final password = context.select((SignUpBloc bloc) => bloc.state.password);
 
     return TextField(
+      obscureText: true,
       decoration: InputDecoration(
         labelText: localizations.password,
         errorBorder: const UnderlineInputBorder(
@@ -209,6 +210,7 @@ class _PasswordConfirmationTextField extends StatelessWidget {
         context.select((SignUpBloc bloc) => bloc.state.password);
 
     return TextField(
+      obscureText: true,
       decoration: InputDecoration(
         labelText: localizations.passwordConfirmation,
         errorBorder: const UnderlineInputBorder(
