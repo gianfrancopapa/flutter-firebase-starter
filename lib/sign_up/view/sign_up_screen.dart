@@ -1,6 +1,6 @@
-import 'package:firebasestarter/home/view/home_screen.dart';
+import 'package:firebasestarter/home/home.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
-import 'package:firebasestarter/sign_up/bloc/sign_up_bloc.dart';
+import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';

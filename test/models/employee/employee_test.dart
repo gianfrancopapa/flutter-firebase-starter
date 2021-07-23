@@ -38,12 +38,12 @@ void main() {
     expect(json['avatarAsset'], employee.avatarAsset);
   }
 
-  group('Employee class', () {
+  group('Employee', () {
     test('constructor', () {
       testEmployee(employee);
     });
 
-    test('from JSON', () {
+    test('fromJson', () {
       final employeeJSON = {
         'id': employee.id,
         'firstName': employee.firstName,
@@ -63,8 +63,9 @@ void main() {
       testEmployee(resultEmployee);
     });
 
-    test('toJSON', () {
+    test('toJson', () {
       final employeeJSON = employee.toEntity().toJson();
+
       testJSON(employeeJSON);
     });
   });

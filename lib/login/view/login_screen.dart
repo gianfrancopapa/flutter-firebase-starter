@@ -1,14 +1,13 @@
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/forgot_password/view/forgot_password_screen.dart';
+import 'package:firebasestarter/forgot_password/forgot_password.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
-import 'package:firebasestarter/login/view/login_provider_buttons_section.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
 import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter/material.dart';
-import 'package:firebasestarter/home/view/home_screen.dart';
+import 'package:firebasestarter/home/home.dart';
 import 'package:firebasestarter/utils/dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -97,102 +96,98 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.select((LoginBloc bloc) => bloc.state.user);
-
-    return user == null
-        ? const CircularProgressIndicator()
-        : Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 44.0),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 44.0),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Margin(0, 47.0),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(ForgotPasswordScreen.route());
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Margin(0, 47.0),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(ForgotPasswordScreen.route());
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context).createAccount,
-                          style: const TextStyle(
-                            color: AppColor.skyBlue,
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        const Icon(
-                          Icons.keyboard_arrow_right_outlined,
-                          color: AppColor.skyBlue,
-                          size: 15.0,
-                        )
-                      ],
+                  Text(
+                    AppLocalizations.of(context).createAccount,
+                    style: const TextStyle(
+                      color: AppColor.skyBlue,
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                  Margin(0, 12.0),
-                  const _EmailTextField(
-                    key: Key('loginScreen_loginForm_emailTextField'),
-                  ),
-                  Margin(0, 20.0),
-                  const _PasswordTextField(
-                    key: Key('loginScreen_loginForm_passwordTextField'),
-                  ),
-                  Margin(0, 27.5),
-                  const _ForgotPasswordButton(
-                    key: Key('loginScreen_loginForm_forgotPasswordButton'),
-                  ),
-                  Margin(0, 21.0),
-                  const _LoginButton(
-                    key: Key('loginScreen_loginForm_loginButton'),
-                  ),
-                  Margin(0, 26.0),
-                  Center(
-                    child: SizedBox(
-                      height: 20.0,
-                      width: double.infinity,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            color: AppColor.grey,
-                            height: 0.5,
-                            width: MediaQuery.of(context).size.width / 3,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 0.0,
-                              horizontal: 5.0,
-                            ),
-                            child: Text(
-                              'OR',
-                              style: TextStyle(
-                                color: AppColor.grey,
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            color: AppColor.grey,
-                            height: 0.5,
-                            width: MediaQuery.of(context).size.width / 3,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Margin(0, 20.0),
-                  const Center(
-                    child: LoginProviderButtonsSection(),
-                  ),
-                  Margin(0, 40.0),
+                  const Icon(
+                    Icons.keyboard_arrow_right_outlined,
+                    color: AppColor.skyBlue,
+                    size: 15.0,
+                  )
                 ],
               ),
             ),
-          );
+            Margin(0, 12.0),
+            const _EmailTextField(
+              key: Key('loginScreen_loginForm_emailTextField'),
+            ),
+            Margin(0, 20.0),
+            const _PasswordTextField(
+              key: Key('loginScreen_loginForm_passwordTextField'),
+            ),
+            Margin(0, 27.5),
+            const _ForgotPasswordButton(
+              key: Key('loginScreen_loginForm_forgotPasswordButton'),
+            ),
+            Margin(0, 21.0),
+            const _LoginButton(
+              key: Key('loginScreen_loginForm_loginButton'),
+            ),
+            Margin(0, 26.0),
+            Center(
+              child: SizedBox(
+                height: 20.0,
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      color: AppColor.grey,
+                      height: 0.5,
+                      width: MediaQuery.of(context).size.width / 3,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 0.0,
+                        horizontal: 5.0,
+                      ),
+                      child: Text(
+                        'OR',
+                        style: TextStyle(
+                          color: AppColor.grey,
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      color: AppColor.grey,
+                      height: 0.5,
+                      width: MediaQuery.of(context).size.width / 3,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Margin(0, 20.0),
+            const Center(
+              child: LoginProviderButtonsSection(),
+            ),
+            Margin(0, 40.0),
+          ],
+        ),
+      ),
+    );
   }
 }
 

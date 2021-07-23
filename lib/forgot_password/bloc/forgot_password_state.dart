@@ -1,6 +1,6 @@
 part of 'forgot_password_bloc.dart';
 
-enum ForgotPasswordStatus { initial, loading, success, failure }
+enum ForgotPasswordStatus { initial, loading, success, failure, valid, invalid }
 
 class ForgotPasswordState extends Equatable {
   final ForgotPasswordStatus status;
@@ -10,6 +10,12 @@ class ForgotPasswordState extends Equatable {
     @required this.status,
     this.email,
   }) : assert(status != null);
+
+  ForgotPasswordState.initial()
+      : this(
+          status: ForgotPasswordStatus.initial,
+          email: Email.pure(),
+        );
 
   ForgotPasswordState copyWith({ForgotPasswordStatus status, Email email}) {
     return ForgotPasswordState(

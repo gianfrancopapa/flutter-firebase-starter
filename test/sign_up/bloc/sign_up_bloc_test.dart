@@ -8,6 +8,7 @@ import 'package:mockito/mockito.dart';
 
 class MockAuthService extends Mock implements AuthService {}
 
+// ignore: must_be_immutable
 class MockUser extends Mock implements User {}
 
 void main() {
@@ -26,6 +27,10 @@ void main() {
       setUp(() {
         mockAuthService = MockAuthService();
         mockUser = MockUser();
+      });
+
+      test('throwsAssertionError when authService is null', () {
+        expect(() => SignUpBloc(authService: null), throwsAssertionError);
       });
 
       test('has valid initial state', () {

@@ -64,11 +64,11 @@ class _ForgotPasswordForm extends StatelessWidget {
         children: [
           Margin(0.0, 131.0),
           const _EmailTextField(
-            key: Key('forgotPasswordScreen_form_button'),
+            key: Key('forgotPasswordScreen_form_emailTextField'),
           ),
           Margin(0.0, 41.0),
           const _ForgotPasswordTextButton(
-            key: Key('forgotPasswordScreen_form_button'),
+            key: Key('forgotPasswordScreen_form_forgotPasswordButton'),
           ),
         ],
       ),
@@ -106,13 +106,24 @@ class _ForgotPasswordTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
 
+    final status =
+        context.select((ForgotPasswordBloc bloc) => bloc.state.status);
+    final isNotValid = status != ForgotPasswordStatus.valid;
+
     return TextButton(
+      style: ButtonStyle(
+        backgroundColor: isNotValid
+            ? MaterialStateProperty.all(Colors.grey)
+            : MaterialStateProperty.all(Colors.blue),
+      ),
       child: Text(localizations.send),
-      onPressed: () {
-        context
-            .read<ForgotPasswordBloc>()
-            .add(const ForgotPasswordResetRequested());
-      },
+      onPressed: isNotValid
+          ? null
+          : () {
+              context
+                  .read<ForgotPasswordBloc>()
+                  .add(const ForgotPasswordResetRequested());
+            },
     );
   }
 }

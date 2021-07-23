@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:bloc_test/bloc_test.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/edit_profile/edit_profile.dart';

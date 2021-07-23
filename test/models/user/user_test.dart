@@ -47,12 +47,14 @@ User createUser() {
 }
 
 void main() {
-  group('User class', () {
+  group('User', () {
     test('constructor', () {
       final user = createUser();
+
       testUser(user);
     });
-    test('from JSON', () {
+
+    test('fromJson', () {
       const userJSON = <String, dynamic>{
         'id': testId,
         'firstName': testFirstName,
@@ -70,7 +72,7 @@ void main() {
       testUser(user);
     });
 
-    test('toJSON', () {
+    test('toJson', () {
       final user = createUser();
       final userJSON = user.toJson();
 

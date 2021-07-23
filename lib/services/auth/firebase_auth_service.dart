@@ -119,6 +119,8 @@ class FirebaseAuthService implements AuthService {
   Future<User> signInWithSocialMedia({
     @required SocialMediaMethod method,
   }) async {
+    assert(method != null);
+
     try {
       final service = _signInServiceFactory.getService(method: method);
       final firebaseCredential = await service.getFirebaseCredential();
@@ -141,8 +143,8 @@ class FirebaseAuthService implements AuthService {
   Future<void> signOut() async {
     try {
       final service = _signInServiceFactory.signInMethod;
-      service?.signOut();
 
+      await service?.signOut();
       await _firebaseAuth.signOut();
     } on Auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
@@ -172,11 +174,10 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<bool> deleteAccount() async {
+  Future<void> deleteAccount() async {
     try {
       final user = _firebaseAuth.currentUser;
       await user.delete();
-      return true;
     } on Auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }

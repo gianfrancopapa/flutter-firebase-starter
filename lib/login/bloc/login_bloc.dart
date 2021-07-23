@@ -17,13 +17,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         assert(analyticsService != null),
         _authService = authService,
         _analyticsService = analyticsService,
-        super(
-          LoginState(
-            status: LoginStatus.initial,
-            email: Email.pure(),
-            password: Password.pure(),
-          ),
-        );
+        super(LoginState.initial());
 
   final AuthService _authService;
   final AnalyticsService _analyticsService;

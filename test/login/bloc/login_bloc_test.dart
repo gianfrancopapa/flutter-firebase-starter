@@ -11,6 +11,7 @@ class MockAnalyticsService extends Mock implements AnalyticsService {}
 
 class MockFirebaseAuthService extends Mock implements FirebaseAuthService {}
 
+// ignore: must_be_immutable
 class MockUser extends Mock implements User {}
 
 void main() {

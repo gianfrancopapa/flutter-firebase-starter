@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/forms/forms.dart';
-import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
+import 'package:firebasestarter/user/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,15 +16,23 @@ class MockSignUpState extends Fake implements SignUpState {}
 
 class MockSignUpEvent extends Fake implements SignUpEvent {}
 
-class MockUser extends Mock implements User {}
+class MockUserBloc extends MockBloc<UserEvent, UserState> implements UserBloc {}
+
+class MockUserEvent extends Fake implements UserEvent {}
+
+class MockUserState extends Fake implements UserState {}
 
 void main() {
   group('SignUpView', () {
     SignUpBloc mockSignUpBloc;
+    UserBloc mockUserBloc;
 
     setUp(() {
       registerFallbackValue<SignUpState>(MockSignUpState());
       registerFallbackValue<SignUpEvent>(MockSignUpEvent());
+
+      registerFallbackValue<UserEvent>(MockUserEvent());
+      registerFallbackValue<UserState>(MockUserState());
 
       mockSignUpBloc = MockSignUpBloc();
 
@@ -38,6 +46,11 @@ void main() {
           passwordConfirmation: Password.pure(),
         ),
       );
+
+      mockUserBloc = MockUserBloc();
+
+      when(() => mockUserBloc.state)
+          .thenReturn(const UserState(status: UserStatus.initial));
     });
 
     test('is a route', () {
@@ -223,5 +236,54 @@ void main() {
         verifyNever(() => mockSignUpBloc.add(const SignUpRequested()));
       },
     );
+
+    testWidgets(
+      'shows a Dialog when mockSignUpBloc emits [failure]',
+      (tester) async {
+        whenListen(
+          mockSignUpBloc,
+          Stream.value(
+            SignUpState.initial().copyWith(status: SignUpStatus.failure),
+          ),
+        );
+
+        await tester.pumpApp(
+          BlocProvider.value(
+            value: mockSignUpBloc,
+            child: const SignUpScreen(),
+          ),
+        );
+
+        await tester.pump();
+
+        expect(find.byType(Dialog), findsOneWidget);
+      },
+    );
+
+    /// Need to add MockNavigator to avoid this failing test
+
+    // testWidgets(
+    //   'adds UserLoaded when mockSignUpBloc emits [success]',
+    //   (tester) async {
+    //     whenListen(
+    //       mockSignUpBloc,
+    //       Stream.value(
+    //         SignUpState.initial().copyWith(status: SignUpStatus.success),
+    //       ),
+    //     );
+
+    //     await tester.pumpApp(
+    //       BlocProvider.value(
+    //         value: mockSignUpBloc,
+    //         child: const SignUpScreen(),
+    //       ),
+    //       userBloc: mockUserBloc,
+    //     );
+
+    //     await tester.pump();
+
+    //     verify(() => mockUserBloc.add(const UserLoaded())).called(1);
+    //   },
+    // );
   });
 }

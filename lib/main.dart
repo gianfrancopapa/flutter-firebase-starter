@@ -29,5 +29,5 @@ void main() async {
     );
   }
 
-  runApp(App());
+  runApp(const App());
 }

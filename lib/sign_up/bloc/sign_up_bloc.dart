@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth_service.dart';
+import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,16 +12,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc({@required AuthService authService})
       : assert(authService != null),
         _authService = authService,
-        super(
-          SignUpState(
-            status: SignUpStatus.initial,
-            firstName: FirstName.pure(),
-            lastName: LastName.pure(),
-            email: Email.pure(),
-            password: Password.pure(),
-            passwordConfirmation: Password.pure(),
-          ),
-        );
+        super(SignUpState.initial());
 
   final AuthService _authService;
 
