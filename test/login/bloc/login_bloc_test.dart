@@ -163,7 +163,7 @@ void main() {
 
       blocTest<LoginBloc, LoginState>(
         'emits [loading, loggedIn] when '
-        'authService.signInWithSocialMedia succeeds',
+        'authService.signInWithSocialMedia succeeds and returns user',
         act: (bloc) => bloc.add(
           const LoginWithSocialMediaRequested(method: SocialMediaMethod.GOOGLE),
         ),
@@ -191,6 +191,30 @@ void main() {
             email: Email.pure(),
             password: Password.pure(),
           ),
+        ],
+      );
+
+      blocTest<LoginBloc, LoginState>(
+        'emits [loading, loggedOut] when '
+        'authService.signInWithSocialMedia succeeds and returns null',
+        act: (bloc) => bloc.add(
+          const LoginWithSocialMediaRequested(method: SocialMediaMethod.GOOGLE),
+        ),
+        build: () {
+          when(
+            mockAuthService.signInWithSocialMedia(
+              method: SocialMediaMethod.GOOGLE,
+            ),
+          ).thenAnswer((_) async => null);
+
+          return LoginBloc(
+            authService: mockAuthService,
+            analyticsService: mockAnalyticsService,
+          );
+        },
+        expect: () => <LoginState>[
+          LoginState.initial().copyWith(status: LoginStatus.loading),
+          LoginState.initial().copyWith(status: LoginStatus.loggedOut),
         ],
       );
 
