@@ -1,58 +1,102 @@
-// import 'package:firebasestarter/services/auth/sign_in_services/facebook/facebook_sign_in_service.dart';
-// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-// import 'package:flutter_test/flutter_test.dart';
-// import '.././mocks/auth_mocks.dart';
-// import 'package:mockito/mockito.dart';
-// import 'package:firebase_auth/firebase_auth.dart' as Auth;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebasestarter/services/auth/auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 
-// void main() {
-//   group('Facebook sign in service /', () {
-//     FacebookAuth _facebook;
-//     LoginResult _loginResult;
-//     AccessToken _accessToken;
-//     FacebookSignInService _facebookSignInService;
+class MockFacebookAuth extends Mock implements FacebookAuth {}
 
-//     setUp(() {
-//       _facebook = MockFacebookLogin();
-//       _loginResult = MockFacebookLoginResult();
-//       _accessToken = MockFacebookAccessToken();
-//       _facebookSignInService = FacebookSignInService(signInMethod: _facebook);
+class MockLoginResult extends Mock implements LoginResult {}
 
-//       when(_facebook.login(loginBehavior: LoginBehavior.nativeWithFallback))
-//           .thenAnswer((_) async => _loginResult);
-//     });
+class MockAccessToken extends Mock implements AccessToken {}
 
-//     test('Success', () async {
-//       when(_loginResult.status).thenReturn(LoginStatus.success);
+void main() {
+  group('FacebookSignInService', () {
+    FacebookAuth mockFacebookAuth;
+    LoginResult mockLoginResult;
+    AccessToken mockAccessToken;
 
-//       when(_loginResult.accessToken).thenReturn(_accessToken);
+    FacebookSignInService subject;
 
-//       when(_accessToken.token).thenReturn('abcd1234');
+    setUp(() {
+      mockFacebookAuth = MockFacebookAuth();
+      mockLoginResult = MockLoginResult();
+      mockAccessToken = MockAccessToken();
 
-//       final credential = Auth.FacebookAuthProvider.credential('abcd1234');
+      subject = FacebookSignInService(facebookAuth: mockFacebookAuth);
 
-//       final obtainedCredential =
-//           await _facebookSignInService.getFirebaseCredential();
+      when(mockLoginResult.accessToken).thenReturn(mockAccessToken);
 
-//       expect(obtainedCredential.accessToken, credential.accessToken);
-//     });
+      when(mockAccessToken.token).thenReturn('token');
+    });
 
-//     test('Cancelled by user', () async {
-//       when(_loginResult.status).thenReturn(LoginStatus.cancelled);
+    test('throwsAssertionError when facebookAuth is null', () {
+      expect(
+        () => FacebookSignInService(facebookAuth: null),
+        throwsAssertionError,
+      );
+    });
 
-//       expect(await _facebookSignInService.getFirebaseCredential(), null);
-//     });
+    group('.getFirebaseCredential', () {
+      test('completes when LoginStatus.success', () {
+        when(mockLoginResult.status).thenReturn(LoginStatus.success);
 
-//     test('Facebook Error', () async {
-//       const error = 'error';
+        when(
+          mockFacebookAuth.login(
+              loginBehavior: LoginBehavior.nativeWithFallback),
+        ).thenAnswer((_) async => mockLoginResult);
 
-//       when(_loginResult.status).thenReturn(LoginStatus.failed);
+        expect(subject.getFirebaseCredential(), completes);
+      });
 
-//       when(_loginResult.message).thenReturn(error);
+      test('completes when LoginStatus.failed', () {
+        when(mockLoginResult.status).thenReturn(LoginStatus.cancelled);
 
-//       expect(_facebookSignInService.getFirebaseCredential(), throwsException);
-//     });
-//   });
-// }
+        when(
+          mockFacebookAuth.login(
+              loginBehavior: LoginBehavior.nativeWithFallback),
+        ).thenAnswer((_) async => mockLoginResult);
 
-void main() {}
+        expect(subject.getFirebaseCredential(), completes);
+      });
+
+      test('throws when LoginStatus.failed', () {
+        when(mockLoginResult.status).thenReturn(LoginStatus.failed);
+
+        when(
+          mockFacebookAuth.login(
+              loginBehavior: LoginBehavior.nativeWithFallback),
+        ).thenAnswer((_) async => mockLoginResult);
+
+        expect(
+          subject.getFirebaseCredential(),
+          throwsA(isA<FirebaseAuthException>()),
+        );
+      });
+
+      test('throws when facebookAuth.login throws', () {
+        when(
+          mockFacebookAuth.login(
+              loginBehavior: LoginBehavior.nativeWithFallback),
+        ).thenThrow(FirebaseAuthException(code: ''));
+
+        expect(
+          subject.getFirebaseCredential(),
+          throwsA(isA<FirebaseAuthException>()),
+        );
+      });
+    });
+
+    group('.signOut', () {
+      test('calls facebookAuth.logOut', () async {
+        await subject.signOut();
+
+        verify(mockFacebookAuth.logOut());
+      });
+
+      test('completes', () async {
+        expect(subject.signOut(), completes);
+      });
+    });
+  });
+}

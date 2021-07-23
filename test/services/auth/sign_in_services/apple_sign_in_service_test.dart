@@ -1,57 +1,79 @@
-// import 'package:firebasestarter/services/auth/sign_in_services/apple/apple_credentials.dart';
-// import 'package:firebasestarter/services/auth/sign_in_services/apple/apple_sign_in_service.dart';
-// import 'package:flutter_test/flutter_test.dart';
-// import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-// import '.././mocks/auth_mocks.dart';
-// import 'package:mockito/mockito.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebasestarter/services/auth/auth.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-// void main() {
-//   group('Apple sign in service /', () {
-//     AppleSignInService _appleSignInService;
-//     AppleCredentials _appleCredentials;
+class MockAppleCredentials extends Mock implements AppleCredentials {}
 
-//     setUp(() {
-//       _appleCredentials = MockAppleCredentials();
-//       _appleSignInService = AppleSignInService(signInMethod: _appleCredentials);
-//     });
+// ignore: must_be_immutable
+class MockAuthorizationCredentialAppleID extends Mock
+    implements AuthorizationCredentialAppleID {}
 
-//     test('Success', () async {
-//       final credential = AuthorizationCredentialAppleID(
-//         userIdentifier: 'userIdentifier',
-//         givenName: 'givenName',
-//         familyName: 'familyName',
-//         authorizationCode: 'authorizationCode',
-//         email: 'email',
-//         identityToken: 'identityToken',
-//         state: 'state',
-//       );
+void main() {
+  group('AppleSignInService', () {
+    AppleCredentials mockAppleCredentials;
+    AuthorizationCredentialAppleID mockAuthorizationCredential;
 
-//       when(_appleCredentials.getAppleCredentials([
-//         AppleIDAuthorizationScopes.email,
-//         AppleIDAuthorizationScopes.fullName
-//       ], 'abcd1234'))
-//           .thenAnswer((_) async => credential);
+    AppleSignInService subject;
 
-//       final obtainedCredential = await _appleSignInService
-//           .getFirebaseCredential(testingNonce: 'abcd1234');
+    setUp(() {
+      mockAppleCredentials = MockAppleCredentials();
+      mockAuthorizationCredential = MockAuthorizationCredentialAppleID();
 
-//       expect(obtainedCredential.idToken, credential.identityToken);
-//       expect(obtainedCredential.rawNonce, 'abcd1234');
-//     });
+      when(mockAuthorizationCredential.identityToken).thenReturn('idToken');
 
-//     test('Cancelled by user', () async {
-//       when(_appleCredentials.getAppleCredentials([
-//         AppleIDAuthorizationScopes.email,
-//         AppleIDAuthorizationScopes.fullName
-//       ], 'abcd1234'))
-//           .thenAnswer((_) async => null);
+      subject = AppleSignInService(appleCredentials: mockAppleCredentials);
+    });
 
-//       expect(
-//           await _appleSignInService.getFirebaseCredential(
-//               testingNonce: 'abcd1234'),
-//           null);
-//     });
-//   });
-// }
+    test('throwsAssertionError when appleCredentials is null', () {
+      expect(
+        () => AppleSignInService(appleCredentials: null),
+        throwsAssertionError,
+      );
+    });
 
-void main() {}
+    group(
+      '.getFirebaseCredential',
+      () {
+        test('completes when appleCredentials.getAppleCredentials succeeds',
+            () {
+          when(
+            mockAppleCredentials.getAppleCredentials(
+              scopes: [
+                AppleIDAuthorizationScopes.email,
+                AppleIDAuthorizationScopes.fullName,
+              ],
+              token: anyNamed('token'),
+            ),
+          ).thenAnswer((_) async => mockAuthorizationCredential);
+
+          expect(subject.getFirebaseCredential(), completes);
+        });
+
+        test('fails when appleCredentials.getAppleCredentials throws', () {
+          when(
+            mockAppleCredentials.getAppleCredentials(
+              scopes: [
+                AppleIDAuthorizationScopes.email,
+                AppleIDAuthorizationScopes.fullName,
+              ],
+              token: anyNamed('token'),
+            ),
+          ).thenThrow(Exception());
+
+          expect(
+            subject.getFirebaseCredential(),
+            throwsA(isA<FirebaseAuthException>()),
+          );
+        });
+      },
+    );
+
+    group('.signOut', () {
+      test('completes', () {
+        expect(subject.signOut(), completes);
+      });
+    });
+  });
+}

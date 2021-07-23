@@ -10,8 +10,10 @@ import 'package:firebasestarter/services/shared_preferences/local_persistance_in
 import 'package:firebasestarter/services/shared_preferences/shared_preferences.dart';
 import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
 import 'package:firebasestarter/services/storage/storage_service.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
+import 'package:google_sign_in/google_sign_in.dart';
 
 final getIt = GetIt.instance;
 
@@ -21,17 +23,22 @@ void initServices() {
 
   _serviceFactory.addService(
     method: SocialMediaMethod.APPLE,
-    constructor: () => AppleSignInService(),
+    constructor: () =>
+        AppleSignInService(appleCredentials: const AppleCredentials()),
   );
 
   _serviceFactory.addService(
     method: SocialMediaMethod.FACEBOOK,
-    constructor: () => FacebookSignInService(),
+    constructor: () => FacebookSignInService(
+      facebookAuth: FacebookAuth.instance,
+    ),
   );
 
   _serviceFactory.addService(
     method: SocialMediaMethod.GOOGLE,
-    constructor: () => GoogleSignInService(),
+    constructor: () => GoogleSignInService(
+      googleSignIn: GoogleSignIn(),
+    ),
   );
 
   GetIt.I.registerSingleton<AnalyticsService>(FirebaseAnalyticsService());

@@ -2,6 +2,7 @@ import 'package:firebase_auth_platform_interface/src/providers/oauth.dart';
 import 'dart:convert';
 import 'dart:math';
 import 'package:crypto/crypto.dart';
+import 'package:flutter/foundation.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 
@@ -9,56 +10,74 @@ import '../../auth.dart';
 import 'apple_credentials.dart';
 
 class AppleSignInService implements ISignInService {
-  AppleCredentials _parameterInstance;
+  AppleSignInService({@required AppleCredentials appleCredentials})
+      : assert(appleCredentials != null),
+        _appleCredentials = appleCredentials;
 
-  AppleSignInService({AppleCredentials signInMethod}) {
-    _parameterInstance = signInMethod;
-  }
+  static const _charset =
+      '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+  static const _authProvider = 'apple.com';
 
-  AppleCredentials _generateAppleCredentialsInstance() {
-    return _parameterInstance ?? AppleCredentials();
-  }
+  final AppleCredentials _appleCredentials;
 
-  String _generateNonce([int length = 32]) {
-    const charset =
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+  /// Generates a random token
+  String _generateRawRandomToken([int length = 32]) {
     final random = Random.secure();
-    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
-        .join();
+
+    return List.generate(
+      length,
+      (_) => _charset[random.nextInt(_charset.length)],
+    ).join();
   }
 
-  String _sha256ofString(String input) {
-    final bytes = utf8.encode(input);
+  /// Encrypts the token
+  String _rawTokenToSha256({@required String rawToken}) {
+    assert(rawToken != null);
+
+    final bytes = utf8.encode(rawToken);
     final digest = sha256.convert(bytes);
     return digest.toString();
   }
 
-  @override
-  Future<OAuthCredential> getFirebaseCredential({String testingNonce}) async {
-    final rawNonce = _generateNonce();
-    final nonce = _sha256ofString(rawNonce);
-    final credentialsGetter = _generateAppleCredentialsInstance();
+  /// Creates a Firebase credential
+  Auth.OAuthCredential _createCredential({
+    @required idToken,
+    @required rawToken,
+  }) {
+    assert(idToken != null);
+    assert(rawToken != null);
 
-    final appleCredential = await credentialsGetter.getAppleCredentials(
-      [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
-      testingNonce ?? nonce,
+    return Auth.OAuthProvider(_authProvider).credential(
+      idToken: idToken,
+      rawNonce: rawToken,
     );
-
-    final firebaseCredentials = appleCredential != null
-        ? Auth.OAuthProvider('apple.com').credential(
-            idToken: appleCredential.identityToken,
-            rawNonce: testingNonce ?? rawNonce,
-          )
-        : null;
-
-    return firebaseCredentials;
   }
 
   @override
-  Future<void> signOut() {
-    return null;
+  Future<OAuthCredential> getFirebaseCredential() async {
+    final rawToken = _generateRawRandomToken();
+    final token = _rawTokenToSha256(rawToken: rawToken);
+
+    try {
+      final appleCredential = await _appleCredentials.getAppleCredentials(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        token: token,
+      );
+
+      return _createCredential(
+        idToken: appleCredential.identityToken,
+        rawToken: rawToken,
+      );
+    } on Exception {
+      throw Auth.FirebaseAuthException(code: 'ERROR_APPLE_LOGIN');
+    }
+  }
+
+  @override
+  Future<void> signOut() async {
+    await Future.delayed(const Duration(milliseconds: 1));
   }
 }

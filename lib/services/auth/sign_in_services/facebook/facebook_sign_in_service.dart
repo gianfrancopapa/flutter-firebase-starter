@@ -1,44 +1,50 @@
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
 import 'package:firebasestarter/services/auth/auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class FacebookSignInService implements ISignInService {
-  FacebookAuth _facebookServices;
+  FacebookSignInService({
+    @required FacebookAuth facebookAuth,
+  })  : assert(facebookAuth != null),
+        _facebookAuth = facebookAuth;
 
-  FacebookSignInService({FacebookAuth signInMethod}) {
-    _facebookServices = signInMethod ?? FacebookAuth.instance;
+  final FacebookAuth _facebookAuth;
+
+  Future<LoginResult> _facebookSignIn() async {
+    final res = await _facebookAuth.login(
+      loginBehavior: LoginBehavior.nativeWithFallback,
+    );
+
+    return res;
   }
 
-  Future<LoginResult> _facebookSignIn() {
-    return _facebookServices.login(
-        loginBehavior: LoginBehavior.nativeWithFallback);
-  }
-
-  Auth.OAuthCredential _createFirebaseCredential(String facebookToken) {
+  Auth.OAuthCredential _createCredential(String facebookToken) {
     return Auth.FacebookAuthProvider.credential(facebookToken);
   }
 
   @override
   Future<Auth.OAuthCredential> getFirebaseCredential() async {
-    final result = await _facebookSignIn();
-    switch (result.status) {
-      case LoginStatus.success:
-        final accessToken = result.accessToken.token;
-        return _createFirebaseCredential(accessToken);
-      case LoginStatus.cancelled:
-        return null;
-      case LoginStatus.failed:
-        throw Auth.FirebaseAuthException(
-          code: 'ERROR_FACEBOOK_LOGIN_FAILED',
-          message: result.message,
-        );
-      default:
-        throw UnimplementedError();
+    try {
+      final result = await _facebookSignIn();
+
+      if (result.status == LoginStatus.success) {
+        return _createCredential(result.accessToken.token);
+      }
+
+      if (result.status == LoginStatus.cancelled) return null;
+
+      throw Auth.FirebaseAuthException(
+        code: 'ERROR_FACEBOOK_LOGIN_FAILED',
+        message: result.message,
+      );
+    } on Exception {
+      throw Auth.FirebaseAuthException(code: 'ERROR_FACEBOOK_LOGIN_FAILED');
     }
   }
 
   @override
   Future<void> signOut() async {
-    await _facebookServices.logOut();
+    await _facebookAuth.logOut();
   }
 }
