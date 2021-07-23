@@ -106,10 +106,12 @@ class _FirstNameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     final firstName = context.select((SignUpBloc bloc) => bloc.state.firstName);
 
     return TextField(
       decoration: InputDecoration(
+        labelText: localizations.firstName,
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.red),
         ),
