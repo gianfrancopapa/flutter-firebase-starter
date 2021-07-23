@@ -382,39 +382,6 @@ void main() {
       const lastName = 'lastNameUpdated';
       const photoURL = 'photoURLUpdated';
 
-      test('throwsAssertionError when firstName is null', () {
-        expect(
-          () => subject.changeProfile(
-            firstName: null,
-            lastName: lastName,
-            photoURL: photoURL,
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      test('throwsAssertionError when lastName is null', () {
-        expect(
-          () => subject.changeProfile(
-            firstName: firstName,
-            lastName: null,
-            photoURL: photoURL,
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      test('throwsAssertionError when photoURL is null', () {
-        expect(
-          () => subject.changeProfile(
-            firstName: firstName,
-            lastName: lastName,
-            photoURL: null,
-          ),
-          throwsAssertionError,
-        );
-      });
-
       test(
         'succeeds when user.updateDisplayName '
         'user.updatePhotoURL succeeds',
