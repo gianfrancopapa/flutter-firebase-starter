@@ -64,7 +64,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final user =
           await _authService.signInWithSocialMedia(method: event.method);
 
-      yield state.copyWith(status: LoginStatus.loggedIn, user: user);
+      if (user != null) {
+        yield state.copyWith(status: LoginStatus.loggedIn, user: user);
+      } else {
+        yield state.copyWith(status: LoginStatus.loggedOut);
+      }
     } on AuthError catch (e) {
       yield state.copyWith(status: LoginStatus.failure, error: e);
     }
