@@ -17,8 +17,8 @@ class AppVersion extends StatelessWidget {
   }
 }
 
-class TextAppVersion extends StatelessWidget {
-  const TextAppVersion({Key key}) : super(key: key);
+class _TextAppVersion extends StatelessWidget {
+  const _TextAppVersion({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
