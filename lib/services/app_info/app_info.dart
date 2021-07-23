@@ -1,36 +1,9 @@
-import 'package:package_info/package_info.dart';
+import 'package:firebasestarter/services/app_info/app_info_service.dart';
 
-class AppInfo {
-  Future<String> getAppName() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    return packageInfo.appName;
-  }
-
-  Future<String> getVersionNumber() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    return packageInfo.version;
-  }
-
-  Future<String> getPackageName() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    return packageInfo.packageName;
-  }
-
-  Future<String> getBuildNumber() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    return packageInfo.buildNumber;
-  }
-
-  Future<Flavor> getCurrentFlavor() async {
-    final packageName = await getPackageName();
-    if (packageName.endsWith('dev')) {
-      return Flavor.DEVELOPMENT;
-    } else if (packageName.endsWith('staging')) {
-      return Flavor.STAGING;
-    } else {
-      return Flavor.PRODUCTION;
-    }
-  }
+abstract class AppInfo {
+  Future<String> getAppName();
+  Future<String> getVersionNumber();
+  Future<String> getPackageName();
+  Future<String> getBuildNumber();
+  Future<Flavor> getCurrentFlavor();
 }
-
-enum Flavor { DEVELOPMENT, STAGING, PRODUCTION }

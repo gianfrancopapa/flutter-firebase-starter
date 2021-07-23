@@ -1,6 +1,7 @@
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
 import 'package:firebasestarter/services/analytics/firebase_analytics_service.dart';
 import 'package:firebasestarter/services/app_info/app_info.dart';
+import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/services/image_picker/image_picker_service.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
@@ -34,7 +35,7 @@ void initServices() {
   );
 
   GetIt.I.registerSingleton<AnalyticsService>(FirebaseAnalyticsService());
-  GetIt.I.registerLazySingleton<AppInfo>(() => AppInfo());
+  GetIt.I.registerLazySingleton<AppInfo>(() => AppInfoService());
   GetIt.I.registerLazySingleton<AuthService>(
     () => FirebaseAuthService(
       authService: _firebaseAuth,
