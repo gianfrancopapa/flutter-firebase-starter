@@ -180,8 +180,20 @@ class _LoginForm extends StatelessWidget {
               ),
             ),
             Margin(0, 20.0),
-            const Center(
-              child: LoginProviderButtonsSection(),
+            const LoginWithGoogleButton(
+              key: Key('loginScreen_loginForm_loginWithGoogleButton'),
+            ),
+            Margin(0.0, 14.0),
+            const LoginWithFacebookButton(
+              key: Key('loginScreen_loginForm_loginWithFacebookButton'),
+            ),
+            Margin(0.0, 14.0),
+            const LoginWithAppleButton(
+              key: Key('loginScreen_loginForm_loginWithAppleButton'),
+            ),
+            Margin(0.0, 14.0),
+            const LoginAnonymouslyButton(
+              key: Key('loginScreen_loginForm_loginAnonymouslyButton'),
             ),
             Margin(0, 40.0),
           ],
