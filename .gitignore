@@ -24,7 +24,6 @@
 #.vscode/
 .fvm/flutter_sdk
 .fvm/fvm_config.json
-.vscode/launch.json
 
 # Flutter/Dart/Pub related
 pubspec.lock

@@ -10,7 +10,7 @@ class DetermineAccessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final status = context.select((AppBloc bloc) => bloc.state.status);
 
-    if (status == AppStatus.firstTime) return OnBoardingScreen();
+    if (status == AppStatus.firstTime) return const OnBoardingScreen();
 
     if (status == AppStatus.notFirstTime) {
       return const _DetermineAccessScreen();
