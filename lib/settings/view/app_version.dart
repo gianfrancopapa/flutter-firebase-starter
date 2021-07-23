@@ -23,10 +23,7 @@ class _TextAppVersion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<AppVersionCubit>().appVersion();
-    return BlocBuilder<AppVersionCubit, AppVersionState>(
-        buildWhen: (previous, current) =>
-            previous.appVersion != current.appVersion,
-        builder: (context, state) {
+  final appVersion = context.select((AppVersionCubit cubit) => cubit.state.appVersion,);
           return state.appVersion != null
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
