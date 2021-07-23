@@ -1,5 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/login/login.dart';
+import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -133,6 +134,95 @@ void main() {
             const LoginWithEmailAndPasswordRequested(),
           ),
         );
+      },
+    );
+
+    testWidgets(
+      'adds LoginWithSocialMediaRequested with Google',
+      (tester) async {
+        await tester.pumpApp(
+          const LoginScreen(),
+          loginBloc: loginBloc,
+        );
+
+        final loginWithGoogleButtonFinder = find
+            .byKey(const Key('loginScreen_loginForm_loginWithGoogleButton'));
+
+        await tester.tap(loginWithGoogleButtonFinder);
+
+        verify(
+          () => loginBloc.add(
+            const LoginWithSocialMediaRequested(
+              method: SocialMediaMethod.GOOGLE,
+            ),
+          ),
+        ).called(1);
+      },
+    );
+
+    testWidgets(
+      'adds LoginWithSocialMediaRequested with Facebook',
+      (tester) async {
+        await tester.pumpApp(
+          const LoginScreen(),
+          loginBloc: loginBloc,
+        );
+
+        final loginWithFacebookButtonFinder = find.byKey(
+          const Key('loginScreen_loginForm_loginWithFacebookButton'),
+        );
+
+        await tester.tap(loginWithFacebookButtonFinder);
+
+        verify(
+          () => loginBloc.add(
+            const LoginWithSocialMediaRequested(
+              method: SocialMediaMethod.FACEBOOK,
+            ),
+          ),
+        ).called(1);
+      },
+    );
+
+    testWidgets(
+      'adds LoginWithSocialMediaRequested with Apple',
+      (tester) async {
+        await tester.pumpApp(
+          const LoginScreen(),
+          loginBloc: loginBloc,
+        );
+
+        final loginWithAppleButtonFinder =
+            find.byKey(const Key('loginScreen_loginForm_loginWithAppleButton'));
+
+        await tester.tap(loginWithAppleButtonFinder);
+
+        verify(
+          () => loginBloc.add(
+            const LoginWithSocialMediaRequested(
+              method: SocialMediaMethod.APPLE,
+            ),
+          ),
+        ).called(1);
+      },
+    );
+
+    testWidgets(
+      'adds LoginAnonymouslyRequested',
+      (tester) async {
+        await tester.pumpApp(
+          const LoginScreen(),
+          loginBloc: loginBloc,
+        );
+
+        final loginAnonymouslyButtonFinder = find.byKey(
+          const Key('loginScreen_loginForm_loginAnonymouslyButton'),
+        );
+
+        await tester.tap(loginAnonymouslyButtonFinder);
+
+        verify(() => loginBloc.add(const LoginAnonymouslyRequested()))
+            .called(1);
       },
     );
 

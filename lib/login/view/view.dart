@@ -1,3 +1,2 @@
 export 'login_screen.dart';
-export 'login_provider_buttons_section.dart';
-export 'login_service_button.dart';
+export 'login_with_social_media_button.dart';
