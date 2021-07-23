@@ -1,6 +1,7 @@
 import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/login/login.dart';
+import 'package:firebasestarter/services/app_info/app_info.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:firebasestarter/settings/settings.dart';
@@ -9,13 +10,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_it/get_it.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
-      builder: (_) => const SettingsScreen(),
+      builder: (_) => BlocProvider(
+        create: (_) =>
+            AppVersionCubit(appInfo: GetIt.I.get<AppInfo>())..appVersion(),
+        child: const SettingsScreen(),
+      ),
     );
   }
 
