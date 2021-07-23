@@ -1,13 +1,10 @@
-import 'dart:io';
-
 import 'package:firebasestarter/services/remote_config/remote_config.dart';
 import 'package:firebasestarter/constants/colors.dart';
-import 'package:firebasestarter/settings/cubit/app_version_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:package_info/package_info.dart';
+import 'package:firebasestarter/settings/settings.dart';
 
 class AppVersion extends StatelessWidget {
   const AppVersion({Key key}) : super(key: key);
