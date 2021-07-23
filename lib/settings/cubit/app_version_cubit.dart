@@ -15,7 +15,7 @@ class AppVersionCubit extends Cubit<AppVersionState> {
   final AppInfo _appInfo;
 
   void appVersion() async {
-    final version = await _appInfo?.getVersionNumber();
+    final version = await _appInfo.getVersionNumber();
     emit(state.copyWith(appVersion: version));
   }
 }
