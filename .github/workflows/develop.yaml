@@ -22,7 +22,7 @@ jobs:
         run: flutter format --set-exit-if-changed .
 
       # Statically analyze the Dart code for any errors.
-      - name: analize linter errors
+      - name: analyze linter errors
         run: flutter analyze .
 
       # Run widget tests for our flutter project.

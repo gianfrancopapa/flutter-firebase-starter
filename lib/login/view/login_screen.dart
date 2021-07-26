@@ -2,6 +2,7 @@ import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
+import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
 import 'package:firebasestarter/widgets/common/button.dart';
@@ -106,7 +107,7 @@ class _LoginForm extends StatelessWidget {
             Margin(0, 47.0),
             InkWell(
               onTap: () {
-                Navigator.of(context).push(ForgotPasswordScreen.route());
+                Navigator.of(context).push(SignUpScreen.route());
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
