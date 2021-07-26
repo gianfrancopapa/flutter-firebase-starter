@@ -1,5 +1,5 @@
+import 'package:firebasestarter/employees/widgets/employee_card.dart';
 import 'package:firebasestarter/models/employee.dart';
-import 'package:firebasestarter/widgets/team/employee_card.dart';
 import 'package:flutter/material.dart';
 
 class EmployeesList extends StatelessWidget {
