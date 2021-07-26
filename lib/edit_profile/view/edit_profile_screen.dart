@@ -284,7 +284,7 @@ class _UpdateProfileButton extends StatelessWidget {
 }
 
 class _AppBar extends CustomAppBar {
-  const _AppBar({Key key});
+  const _AppBar();
 
   @override
   Widget build(BuildContext context) {
