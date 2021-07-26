@@ -33,6 +33,7 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final status = context.select((EditProfileBloc bloc) => bloc.state.status);
     return MultiBlocListener(
       listeners: [
         BlocListener<UserBloc, UserState>(
@@ -64,7 +65,17 @@ class EditProfileScreen extends StatelessWidget {
         ),
       ],
       child: Scaffold(
-        appBar: CustomAppBar(title: AppLocalizations.of(context).editProfile),
+        appBar: CustomAppBar(
+          title: AppLocalizations.of(context).editProfile,
+          suffixWidget: status == EditProfileStatus.loading
+              ? const Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
+                )
+              : Container(),
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 44.0),
