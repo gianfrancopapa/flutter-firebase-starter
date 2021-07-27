@@ -28,7 +28,7 @@ class CustomAppBar extends PreferredSize {
                   size: 30.0,
                 ),
               )
-            : null,
+            : const SizedBox(),
         title: Text(
           title,
           style: const TextStyle(
