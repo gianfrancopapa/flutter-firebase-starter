@@ -36,7 +36,6 @@ dependencies:
   auto_size_text: ^2.1.0
   string_validator: ^0.1.4
   flutter_local_notifications: ^5.0.0
-  get_it: ^5.0.6
   flutter_icons: ^1.1.0
   flutter_svg: ^0.19.3
   equatable: ^1.2.6
