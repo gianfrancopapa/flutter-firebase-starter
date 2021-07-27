@@ -1,13 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/constants/strings.dart';
 import 'package:firebasestarter/edit_profile/edit_profile.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
-import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:firebasestarter/services/image_picker/image_picker.dart';
-import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
-import 'package:firebasestarter/services/storage/storage_service.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/user_profile/user_profile.dart';
 import 'package:firebasestarter/utils/dialog.dart';

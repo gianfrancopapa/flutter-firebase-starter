@@ -1,7 +1,6 @@
 import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/services/app_info/app_info.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
