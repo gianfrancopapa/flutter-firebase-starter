@@ -1,10 +1,8 @@
 import 'package:firebasestarter/constants/colors.dart';
-import 'package:firebasestarter/edit_profile/edit_profile.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/user_profile/user_profile.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserInfoSection extends StatelessWidget {
@@ -16,7 +14,8 @@ class UserInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _localizedStrings = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context);
+
     return SizedBox(
       width: double.infinity,
       child: Column(
@@ -27,21 +26,19 @@ class UserInfoSection extends StatelessWidget {
           UserProfileImage(image: user.imageUrl),
           Margin(0.0, 43.0),
           _UserInfoItem(
-            title: _localizedStrings.firstName,
+            title: localizations.firstName,
             data: user.firstName,
           ),
-          Margin(0.0, 12.0),
+          Margin(0.0, 10.0),
           _UserInfoItem(
-            title: _localizedStrings.lastName,
+            title: localizations.lastName,
             data: user.lastName,
           ),
-          Margin(0.0, 12.0),
+          Margin(0.0, 10.0),
           _UserInfoItem(
-            title: _localizedStrings.email,
+            title: localizations.email,
             data: user.email,
           ),
-          Margin(0.0, 80.0),
-          const _EditIcon(),
         ],
       ),
     );
@@ -86,39 +83,6 @@ class _UserInfoItem extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _EditIcon extends StatelessWidget {
-  const _EditIcon({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerRight,
-      width: double.infinity,
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(EditProfileScreen.route());
-        },
-        child: Container(
-          margin: const EdgeInsets.only(right: 44.0),
-          padding: const EdgeInsets.all(3.0),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColor.blue,
-          ),
-          alignment: Alignment.center,
-          height: 50.0,
-          width: 50.0,
-          child: const Icon(
-            Feather.edit,
-            size: 22.0,
-            color: AppColor.white,
-          ),
-        ),
       ),
     );
   }

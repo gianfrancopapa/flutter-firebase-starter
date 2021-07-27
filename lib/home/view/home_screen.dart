@@ -1,4 +1,3 @@
-import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/employees/employees.dart';
 import 'package:firebasestarter/home/home.dart';
 import 'package:flutter/material.dart';
@@ -18,28 +17,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _index;
-  List<Widget> _screens;
+  int _index = 0;
 
-  @override
-  void initState() {
-    _index = 0;
-    _screens = [
-      const EmployeesScreen(),
-      const UserProfileScreen(),
-    ];
-    super.initState();
+  Widget _bottomNavigationBar() {
+    return StarterBottomNavigationBar(
+      index: _index,
+      updateIndex: (int index) => setState(() => _index = index),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _screens[_index],
-      backgroundColor: AppColor.lightGrey,
-      bottomNavigationBar: StarterBottomNavigationBar(
-        index: _index,
-        updateIndex: (int index) => setState(() => _index = index),
-      ),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: _index == 0
+          ? EmployeesScreen(bottomNavigationBar: _bottomNavigationBar())
+          : UserProfileScreen(bottomNavigationBar: _bottomNavigationBar()),
     );
   }
 }
