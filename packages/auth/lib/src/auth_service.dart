@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:firebasestarter/models/user.dart';
 import 'package:flutter/foundation.dart';
+
+import 'auth.dart';
 
 enum SocialMediaMethod { GOOGLE, FACEBOOK, APPLE }
 

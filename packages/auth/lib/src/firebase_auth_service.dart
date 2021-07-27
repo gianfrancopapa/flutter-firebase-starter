@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart' as Auth;
-import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:flutter/foundation.dart';
+import 'auth.dart';
 
 class FirebaseAuthService implements AuthService {
   FirebaseAuthService({
