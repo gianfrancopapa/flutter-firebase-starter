@@ -366,7 +366,7 @@ void main() {
           firstName: FirstName.dirty(updatedFirstName),
           lastName: LastName.dirty(updatedLastName),
           imageURL: imageUrl,
-          user: User.fromEntity(_mockUserEntity),
+          user: mockOldUser,
         ),
         act: (bloc) => bloc.add(const EditProfileInfoUpdated()),
         build: () {
@@ -397,7 +397,7 @@ void main() {
           firstName: FirstName.dirty(updatedFirstName),
           lastName: LastName.dirty(updatedLastName),
           imageURL: oldImageUrl,
-          user: User.fromEntity(_mockUserEntity),
+          user: mockOldUser,
         ),
         act: (bloc) => bloc.add(const EditProfileInfoUpdated()),
         build: () {
@@ -464,7 +464,7 @@ void main() {
           firstName: FirstName.dirty(updatedFirstName),
           lastName: LastName.dirty(updatedLastName),
           imageURL: imageUrl,
-          user: User.fromEntity(_mockUserEntity),
+          user: mockOldUser,
         ),
         act: (bloc) => bloc.add(const EditProfileInfoUpdated()),
         build: () {
@@ -488,14 +488,14 @@ void main() {
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: User.fromEntity(_mockUserEntity),
+            user: mockOldUser,
           ),
           EditProfileState(
             status: EditProfileStatus.failure,
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: User.fromEntity(_mockUserEntity),
+            user: mockOldUser,
           ),
         ],
       );
