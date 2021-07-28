@@ -24,7 +24,9 @@ class MockEditProfileEvent extends Fake implements EditProfileEvent {}
 
 class MockEditProfileState extends Fake implements EditProfileState {}
 
-class MockUser extends Mock implements UserEntity {}
+class MockUser extends Mock implements User {}
+
+class MockUserEntity extends Mock implements UserEntity {}
 
 class MockPickedFile extends Mock implements PickedFile {}
 
@@ -40,7 +42,8 @@ void main() {
 
     EditProfileBloc mockEditProfileBloc;
 
-    UserEntity mockUser;
+    UserEntity mockUserEntity;
+    User mockUser;
 
     PickedFile mockPickedFile;
 
@@ -59,10 +62,15 @@ void main() {
       );
 
       mockUser = MockUser();
+      mockUserEntity = MockUserEntity();
 
       when(() => mockUser.firstName).thenReturn(firstName);
       when(() => mockUser.lastName).thenReturn(lastName);
       when(() => mockUser.imageUrl).thenReturn(imageUrl);
+
+      when(() => mockUserEntity.firstName).thenReturn(firstName);
+      when(() => mockUserEntity.lastName).thenReturn(lastName);
+      when(() => mockUserEntity.imageUrl).thenReturn(imageUrl);
 
       mockPickedFile = MockPickedFile();
 
@@ -84,7 +92,7 @@ void main() {
         act: (bloc) => bloc.add(const EditProfileUserRequested()),
         build: () {
           when(() => mockAuthService.currentUser())
-              .thenAnswer((_) async => mockUser);
+              .thenAnswer((_) async => mockUserEntity);
 
           return EditProfileBloc(
             authService: mockAuthService,
@@ -102,7 +110,7 @@ void main() {
         act: (bloc) => bloc.add(const EditProfileUserRequested()),
         build: () {
           when(() => mockAuthService.currentUser())
-              .thenAnswer((_) async => mockUser);
+              .thenAnswer((_) async => mockUserEntity);
 
           return EditProfileBloc(
             authService: mockAuthService,
@@ -121,7 +129,7 @@ void main() {
             firstName: FirstName.dirty(firstName),
             lastName: LastName.dirty(lastName),
             imageURL: imageUrl,
-            user: User.fromEntity(mockUser),
+            user: User.fromEntity(mockUserEntity),
           ),
         ],
       );
@@ -317,15 +325,22 @@ void main() {
       const oldLastName = 'oldLastName';
       const oldImageUrl = 'https://old-image.com';
 
-      UserEntity mockOldUser;
+      User mockOldUser;
+      UserEntity _mockUserEntity;
 
       setUp(() {
         mockOldUser = MockUser();
+        _mockUserEntity = MockUserEntity();
 
         when(() => mockOldUser.id).thenReturn(userId);
         when(() => mockOldUser.firstName).thenReturn(oldName);
         when(() => mockOldUser.lastName).thenReturn(oldLastName);
         when(() => mockOldUser.imageUrl).thenReturn(oldImageUrl);
+
+        when(() => _mockUserEntity.id).thenReturn(userId);
+        when(() => _mockUserEntity.firstName).thenReturn(updatedFirstName);
+        when(() => _mockUserEntity.lastName).thenReturn(updatedLastName);
+        when(() => _mockUserEntity.imageUrl).thenReturn(imageUrl);
 
         when(() => mockUser.id).thenReturn(userId);
         when(() => mockUser.firstName).thenReturn(updatedFirstName);
@@ -333,7 +348,7 @@ void main() {
         when(() => mockUser.imageUrl).thenReturn(imageUrl);
 
         when(() => mockAuthService.currentUser())
-            .thenAnswer((_) async => mockUser);
+            .thenAnswer((_) async => _mockUserEntity);
 
         when(
           () => mockStorageService.uploadFile(File(imageUrl), path),
@@ -351,7 +366,7 @@ void main() {
           firstName: FirstName.dirty(updatedFirstName),
           lastName: LastName.dirty(updatedLastName),
           imageURL: imageUrl,
-          user: User.fromEntity(mockOldUser),
+          user: User.fromEntity(_mockUserEntity),
         ),
         act: (bloc) => bloc.add(const EditProfileInfoUpdated()),
         build: () {
@@ -382,7 +397,7 @@ void main() {
           firstName: FirstName.dirty(updatedFirstName),
           lastName: LastName.dirty(updatedLastName),
           imageURL: oldImageUrl,
-          user: User.fromEntity(mockOldUser),
+          user: User.fromEntity(_mockUserEntity),
         ),
         act: (bloc) => bloc.add(const EditProfileInfoUpdated()),
         build: () {
@@ -414,7 +429,7 @@ void main() {
           firstName: FirstName.dirty(updatedFirstName),
           lastName: LastName.dirty(updatedLastName),
           imageURL: imageUrl,
-          user: User.fromEntity(mockOldUser),
+          user: mockOldUser,
         ),
         act: (bloc) => bloc.add(const EditProfileInfoUpdated()),
         build: () {
@@ -430,14 +445,14 @@ void main() {
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: User.fromEntity(mockOldUser),
+            user: mockOldUser,
           ),
           EditProfileState(
             status: EditProfileStatus.success,
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: User.fromEntity(mockOldUser),
+            user: User.fromEntity(_mockUserEntity),
           ),
         ],
       );
@@ -449,7 +464,7 @@ void main() {
           firstName: FirstName.dirty(updatedFirstName),
           lastName: LastName.dirty(updatedLastName),
           imageURL: imageUrl,
-          user: User.fromEntity(mockOldUser),
+          user: User.fromEntity(_mockUserEntity),
         ),
         act: (bloc) => bloc.add(const EditProfileInfoUpdated()),
         build: () {
@@ -473,14 +488,14 @@ void main() {
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: User.fromEntity(mockOldUser),
+            user: User.fromEntity(_mockUserEntity),
           ),
           EditProfileState(
             status: EditProfileStatus.failure,
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: User.fromEntity(mockOldUser),
+            user: User.fromEntity(_mockUserEntity),
           ),
         ],
       );

@@ -6,10 +6,6 @@ class UserEntity extends Equatable {
   final String lastName;
   final String email;
   final String imageUrl;
-  final bool isAnonymous;
-  final int age;
-  final String phoneNumber;
-  final String address;
 
   const UserEntity({
     this.id,
@@ -17,10 +13,6 @@ class UserEntity extends Equatable {
     this.lastName,
     this.email,
     this.imageUrl,
-    this.isAnonymous,
-    this.age,
-    this.phoneNumber,
-    this.address,
   });
 
   static UserEntity fromJson(Map<String, dynamic> json) => UserEntity(
@@ -29,33 +21,16 @@ class UserEntity extends Equatable {
         lastName: json['lastName'],
         email: json['email'],
         imageUrl: json['imageUrl'],
-        isAnonymous: json['isAnonymous'],
-        age: json['age'],
-        phoneNumber: json['phoneNumber'],
-        address: json['address'],
       );
 
   Map<String, dynamic> toJson() => {
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
-        'age': age,
-        'address': address,
-        'phoneNumber': phoneNumber,
       };
 
   @override
-  List<Object> get props => [
-        id,
-        firstName,
-        lastName,
-        email,
-        imageUrl,
-        isAnonymous,
-        age,
-        phoneNumber,
-        address
-      ];
+  List<Object> get props => [id, firstName, lastName, email, imageUrl];
 
   @override
   bool get stringify => false;

@@ -7,10 +7,9 @@ class User extends Equatable {
   final String lastName;
   final String email;
   final String imageUrl;
-  final bool isAnonymous;
-  final int age;
-  final String phoneNumber;
-  final String address;
+  // final int age;
+  // final String phoneNumber;
+  // final String address;
 
   const User({
     this.id,
@@ -18,10 +17,9 @@ class User extends Equatable {
     this.lastName,
     this.email,
     this.imageUrl,
-    this.isAnonymous,
-    this.age,
-    this.phoneNumber,
-    this.address,
+    // this.age,
+    // this.phoneNumber,
+    // this.address,
   });
 
   static User fromJson(Map<String, dynamic> json) => User(
@@ -30,31 +28,30 @@ class User extends Equatable {
         lastName: json['lastName'],
         email: json['email'],
         imageUrl: json['imageUrl'],
-        isAnonymous: json['isAnonymous'],
-        age: json['age'],
-        phoneNumber: json['phoneNumber'],
-        address: json['address'],
+        // age: json['age'],
+        // phoneNumber: json['phoneNumber'],
+        // address: json['address'],
       );
 
   Map<String, dynamic> toJson() => {
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
-        'age': age,
-        'address': address,
-        'phoneNumber': phoneNumber,
+        // 'age': age,
+        // 'address': address,
+        // 'phoneNumber': phoneNumber,
       };
 
   static User fromEntity(UserEntity entity) => User(
-      id: entity.id,
-      firstName: entity.firstName,
-      lastName: entity.lastName,
-      email: entity.email,
-      age: entity.age,
-      phoneNumber: entity.phoneNumber,
-      address: entity.address,
-      imageUrl: entity.imageUrl,
-      isAnonymous: entity.isAnonymous);
+        id: entity.id,
+        firstName: entity.firstName,
+        lastName: entity.lastName,
+        email: entity.email,
+        // age: entity.age,
+        // phoneNumber: entity.phoneNumber,
+        // address: entity.address,
+        imageUrl: entity.imageUrl,
+      );
 
   @override
   List<Object> get props => [
@@ -63,10 +60,9 @@ class User extends Equatable {
         lastName,
         email,
         imageUrl,
-        isAnonymous,
-        age,
-        phoneNumber,
-        address
+        // age,
+        // phoneNumber,
+        // address
       ];
 
   @override
