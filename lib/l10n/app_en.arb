@@ -389,7 +389,7 @@
   "missingAuthToken" : "Missing Google auth token.",
   "@missingAuthToken":{ 
       "description": ""
-  },
+  }
 
  
 }
