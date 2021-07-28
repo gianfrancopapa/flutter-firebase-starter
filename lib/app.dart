@@ -28,35 +28,15 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    final _serviceFactory = SignInServiceFactory();
-
-    _serviceFactory.addService(
-      method: SocialMediaMethod.APPLE,
-      constructor: () =>
-          AppleSignInService(appleCredentials: const AppleCredentials()),
-    );
-
-    _serviceFactory.addService(
-      method: SocialMediaMethod.FACEBOOK,
-      constructor: () => FacebookSignInService(
-        facebookAuth: FacebookAuth.instance,
-      ),
-    );
-
-    _serviceFactory.addService(
-      method: SocialMediaMethod.GOOGLE,
-      constructor: () => GoogleSignInService(
-        googleSignIn: GoogleSignIn(),
-      ),
-    );
-
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider.value(value: MySharedPreferences()),
         RepositoryProvider.value(
-            value: FirebaseAuthService(
-                authService: FirebaseAuth.instance,
-                signInServiceFactory: _serviceFactory)),
+            value: FirebaseInitService().init([
+          SocialMediaMethod.APPLE,
+          SocialMediaMethod.FACEBOOK,
+          SocialMediaMethod.GOOGLE
+        ])),
         RepositoryProvider.value(value: SignInServiceFactory()),
         RepositoryProvider.value(value: FirebaseAnalyticsService()),
         RepositoryProvider.value(value: FirebaseStorageService()),

@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
+import 'package:auth/auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/mockito.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class MockGoogleSignIn extends Mock implements GoogleSignIn {}
 
@@ -55,7 +55,7 @@ void main() {
         expect(
           subject.getFirebaseCredential(),
           throwsA(
-            isA<FirebaseAuthException>(),
+            isA<auth.FirebaseAuthException>(),
           ),
         );
       });
@@ -66,7 +66,7 @@ void main() {
         expect(
           subject.getFirebaseCredential(),
           throwsA(
-            isA<FirebaseAuthException>(),
+            isA<auth.FirebaseAuthException>(),
           ),
         );
       });

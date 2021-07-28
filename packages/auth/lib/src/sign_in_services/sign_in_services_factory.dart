@@ -1,6 +1,6 @@
 part of auth;
 
-typedef ISignInService BuildSignInService();
+typedef BuildSignInService = ISignInService Function();
 
 class SignInServiceFactory {
   SignInServiceFactory();

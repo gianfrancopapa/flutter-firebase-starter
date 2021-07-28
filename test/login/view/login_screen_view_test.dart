@@ -1,11 +1,10 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-
+import 'package:auth/auth.dart';
 import '../../helpers/test_bench.dart';
 
 class MockLoginBloc extends MockBloc<LoginEvent, LoginState>

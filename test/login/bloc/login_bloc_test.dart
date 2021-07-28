@@ -2,8 +2,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/analytics/analytics_service.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
+import 'package:auth/auth.dart';
+import 'package:firebasestarter/services/analytics/analyitics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -12,7 +12,7 @@ class MockAnalyticsService extends Mock implements AnalyticsService {}
 class MockFirebaseAuthService extends Mock implements FirebaseAuthService {}
 
 // ignore: must_be_immutable
-class MockUser extends Mock implements User {}
+class MockUser extends Mock implements UserEntity {}
 
 void main() {
   group(
@@ -20,7 +20,7 @@ void main() {
     () {
       AnalyticsService mockAnalyticsService;
       FirebaseAuthService mockAuthService;
-      User mockUser;
+      UserEntity mockUser;
 
       final email = Email.dirty('test@gmail.com');
       final password = Password.dirty('Password01');
@@ -103,7 +103,7 @@ void main() {
             status: LoginStatus.loggedIn,
             email: email,
             password: password,
-            user: mockUser,
+            user: User.fromEntity(mockUser),
           ),
         ],
       );
@@ -191,7 +191,7 @@ void main() {
           ),
           LoginState(
             status: LoginStatus.loggedIn,
-            user: mockUser,
+            user: User.fromEntity(mockUser),
             email: Email.pure(),
             password: Password.pure(),
           ),
@@ -285,7 +285,7 @@ void main() {
           LoginState.initial().copyWith(status: LoginStatus.loading),
           LoginState.initial().copyWith(
             status: LoginStatus.loggedIn,
-            user: mockUser,
+            user: User.fromEntity(mockUser),
           )
         ],
       );
@@ -409,7 +409,7 @@ void main() {
             status: LoginStatus.loggedIn,
             email: Email.pure(),
             password: Password.pure(),
-            user: mockUser,
+            user: User.fromEntity(mockUser),
           ),
         ],
       );

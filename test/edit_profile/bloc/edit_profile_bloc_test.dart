@@ -4,12 +4,12 @@ import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/edit_profile/edit_profile.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/services/image_picker/image_picker.dart';
 import 'package:firebasestarter/services/storage/storage_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:auth/auth.dart';
 
 class MockAuthService extends Mock implements AuthService {}
 
@@ -24,7 +24,7 @@ class MockEditProfileEvent extends Fake implements EditProfileEvent {}
 
 class MockEditProfileState extends Fake implements EditProfileState {}
 
-class MockUser extends Mock implements User {}
+class MockUser extends Mock implements UserEntity {}
 
 class MockPickedFile extends Mock implements PickedFile {}
 
@@ -40,7 +40,7 @@ void main() {
 
     EditProfileBloc mockEditProfileBloc;
 
-    User mockUser;
+    UserEntity mockUser;
 
     PickedFile mockPickedFile;
 
@@ -121,7 +121,7 @@ void main() {
             firstName: FirstName.dirty(firstName),
             lastName: LastName.dirty(lastName),
             imageURL: imageUrl,
-            user: mockUser,
+            user: User.fromEntity(mockUser),
           ),
         ],
       );
@@ -317,7 +317,7 @@ void main() {
       const oldLastName = 'oldLastName';
       const oldImageUrl = 'https://old-image.com';
 
-      User mockOldUser;
+      UserEntity mockOldUser;
 
       setUp(() {
         mockOldUser = MockUser();
@@ -351,7 +351,7 @@ void main() {
           firstName: FirstName.dirty(updatedFirstName),
           lastName: LastName.dirty(updatedLastName),
           imageURL: imageUrl,
-          user: mockOldUser,
+          user: User.fromEntity(mockOldUser),
         ),
         act: (bloc) => bloc.add(const EditProfileInfoUpdated()),
         build: () {
@@ -382,7 +382,7 @@ void main() {
           firstName: FirstName.dirty(updatedFirstName),
           lastName: LastName.dirty(updatedLastName),
           imageURL: oldImageUrl,
-          user: mockOldUser,
+          user: User.fromEntity(mockOldUser),
         ),
         act: (bloc) => bloc.add(const EditProfileInfoUpdated()),
         build: () {
@@ -414,7 +414,7 @@ void main() {
           firstName: FirstName.dirty(updatedFirstName),
           lastName: LastName.dirty(updatedLastName),
           imageURL: imageUrl,
-          user: mockOldUser,
+          user: User.fromEntity(mockOldUser),
         ),
         act: (bloc) => bloc.add(const EditProfileInfoUpdated()),
         build: () {
@@ -430,14 +430,14 @@ void main() {
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: mockOldUser,
+            user: User.fromEntity(mockOldUser),
           ),
           EditProfileState(
             status: EditProfileStatus.success,
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: mockUser,
+            user: User.fromEntity(mockOldUser),
           ),
         ],
       );
@@ -449,7 +449,7 @@ void main() {
           firstName: FirstName.dirty(updatedFirstName),
           lastName: LastName.dirty(updatedLastName),
           imageURL: imageUrl,
-          user: mockOldUser,
+          user: User.fromEntity(mockOldUser),
         ),
         act: (bloc) => bloc.add(const EditProfileInfoUpdated()),
         build: () {
@@ -473,14 +473,14 @@ void main() {
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: mockOldUser,
+            user: User.fromEntity(mockOldUser),
           ),
           EditProfileState(
             status: EditProfileStatus.failure,
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: mockOldUser,
+            user: User.fromEntity(mockOldUser),
           ),
         ],
       );

@@ -1,22 +1,22 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:auth/auth.dart';
 
 class MockAuthService extends Mock implements AuthService {}
 
 // ignore: must_be_immutable
-class MockUser extends Mock implements User {}
+class MockUser extends Mock implements UserEntity {}
 
 void main() {
   group(
     'SignUpBloc',
     () {
       AuthService mockAuthService;
-      User mockUser;
+      UserEntity mockUser;
 
       final firstName = FirstName.dirty('firstName');
       final lastName = LastName.dirty('lastName');
@@ -110,7 +110,7 @@ void main() {
           ),
           SignUpState(
             status: SignUpStatus.success,
-            user: mockUser,
+            user: User.fromEntity(mockUser),
             firstName: firstName,
             lastName: lastName,
             email: email,
