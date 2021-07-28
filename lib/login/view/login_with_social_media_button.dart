@@ -1,6 +1,6 @@
+import 'package:auth/auth.dart';
 import 'package:firebasestarter/constants/assets.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,23 +1,20 @@
-import 'dart:async';
-import 'package:flutter/foundation.dart';
-
-import 'auth.dart';
+part of auth;
 
 enum SocialMediaMethod { GOOGLE, FACEBOOK, APPLE }
 
 abstract class AuthService {
-  Stream<User> get onAuthStateChanged;
+  Stream<UserEntity> get onAuthStateChanged;
 
-  Future<User> currentUser();
+  Future<UserEntity> currentUser();
 
-  Future<User> signInAnonymously();
+  Future<UserEntity> signInAnonymously();
 
-  Future<User> signInWithEmailAndPassword({
+  Future<UserEntity> signInWithEmailAndPassword({
     @required String email,
     @required String password,
   });
 
-  Future<User> createUserWithEmailAndPassword({
+  Future<UserEntity> createUserWithEmailAndPassword({
     @required String name,
     @required String lastName,
     @required String email,
@@ -26,7 +23,8 @@ abstract class AuthService {
 
   Future<void> sendPasswordResetEmail({@required String email});
 
-  Future<User> signInWithSocialMedia({@required SocialMediaMethod method});
+  Future<UserEntity> signInWithSocialMedia(
+      {@required SocialMediaMethod method});
 
   Future<void> signOut();
 

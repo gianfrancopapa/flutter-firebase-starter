@@ -1,6 +1,6 @@
-import 'package:equatable/equatable.dart';
+part of auth;
 
-class User extends Equatable {
+class UserEntity extends Equatable {
   final String id;
   final String firstName;
   final String lastName;
@@ -11,7 +11,7 @@ class User extends Equatable {
   final String phoneNumber;
   final String address;
 
-  const User({
+  const UserEntity({
     this.id,
     this.firstName,
     this.lastName,
@@ -23,7 +23,7 @@ class User extends Equatable {
     this.address,
   });
 
-  static User fromJson(Map<String, dynamic> json) => User(
+  static UserEntity fromJson(Map<String, dynamic> json) => UserEntity(
         id: json['id'],
         firstName: json['firstName'],
         lastName: json['lastName'],

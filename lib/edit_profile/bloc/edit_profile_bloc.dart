@@ -1,8 +1,8 @@
 import 'dart:io';
+import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:firebasestarter/services/storage/storage_service.dart';
 import 'package:flutter/foundation.dart';
@@ -61,7 +61,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       final image = user.imageUrl;
 
       yield state.copyWith(
-        user: user,
+        user: _toUser(user),
         firstName: firstName,
         lastName: lastName,
         imageURL: image,
@@ -193,7 +193,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       }
 
       if (needToUpdateImage || needToUpdateDisplayName) {
-        return await _authService.currentUser();
+        return _toUser(await _authService.currentUser());
       }
 
       return user;
@@ -217,4 +217,6 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
     return EditProfileStatus.invalid;
   }
+
+  User _toUser(UserEntity entity) => User.fromEntity(entity);
 }

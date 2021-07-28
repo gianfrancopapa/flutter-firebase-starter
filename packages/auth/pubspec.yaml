@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_auth: ^1.0.1
+  firebase_auth_web:
   equatable: ^1.2.6
   google_sign_in: ^4.5.9
   sign_in_with_apple: ^3.0.0

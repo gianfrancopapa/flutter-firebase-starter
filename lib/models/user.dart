@@ -1,3 +1,4 @@
+import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
@@ -43,6 +44,17 @@ class User extends Equatable {
         'address': address,
         'phoneNumber': phoneNumber,
       };
+
+  static User fromEntity(UserEntity entity) => User(
+      id: entity.id,
+      firstName: entity.firstName,
+      lastName: entity.lastName,
+      email: entity.email,
+      age: entity.age,
+      phoneNumber: entity.phoneNumber,
+      address: entity.address,
+      imageUrl: entity.imageUrl,
+      isAnonymous: entity.isAnonymous);
 
   @override
   List<Object> get props => [

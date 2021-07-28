@@ -1,12 +1,11 @@
+import 'package:auth/auth.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
 import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebasestarter/utils/dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({Key key}) : super(key: key);
@@ -14,8 +13,8 @@ class ForgotPasswordScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute<void>(
       builder: (_) => BlocProvider<ForgotPasswordBloc>(
-        create: (_) => ForgotPasswordBloc(
-          authService: GetIt.I.get<AuthService>(),
+        create: (context) => ForgotPasswordBloc(
+          authService: context.read<FirebaseAuthService>(),
         ),
         child: const ForgotPasswordScreen(),
       ),

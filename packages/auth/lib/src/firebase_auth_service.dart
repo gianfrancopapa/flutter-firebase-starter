@@ -1,20 +1,18 @@
-import 'package:firebase_auth/firebase_auth.dart' as Auth;
-import 'package:flutter/foundation.dart';
-import 'auth.dart';
+part of auth;
 
 class FirebaseAuthService implements AuthService {
   FirebaseAuthService({
-    @required Auth.FirebaseAuth authService,
+    @required auth.FirebaseAuth authService,
     @required SignInServiceFactory signInServiceFactory,
   })  : assert(authService != null),
         assert(signInServiceFactory != null),
         _firebaseAuth = authService,
         _signInServiceFactory = signInServiceFactory;
 
-  final Auth.FirebaseAuth _firebaseAuth;
+  final auth.FirebaseAuth _firebaseAuth;
   final SignInServiceFactory _signInServiceFactory;
 
-  User _mapFirebaseUser(Auth.User user) {
+  UserEntity _mapFirebaseUser(auth.User user) {
     if (user == null) {
       return null;
     }
@@ -34,30 +32,30 @@ class FirebaseAuthService implements AuthService {
       'phoneNumber': '',
       'address': '',
     };
-    return User.fromJson(map);
+    return UserEntity.fromJson(map);
   }
 
   @override
-  Stream<User> get onAuthStateChanged =>
+  Stream<UserEntity> get onAuthStateChanged =>
       _firebaseAuth.authStateChanges().map(_mapFirebaseUser);
 
   @override
-  Future<User> currentUser() async {
+  Future<UserEntity> currentUser() async {
     return _mapFirebaseUser(_firebaseAuth.currentUser);
   }
 
   @override
-  Future<User> signInAnonymously() async {
+  Future<UserEntity> signInAnonymously() async {
     try {
       final userCredential = await _firebaseAuth.signInAnonymously();
       return _mapFirebaseUser(userCredential.user);
-    } on Auth.FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
   }
 
   @override
-  Future<User> signInWithEmailAndPassword({
+  Future<UserEntity> signInWithEmailAndPassword({
     @required String email,
     @required String password,
   }) async {
@@ -71,13 +69,13 @@ class FirebaseAuthService implements AuthService {
       );
 
       return _mapFirebaseUser(userCredential.user);
-    } on Auth.FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
   }
 
   @override
-  Future<User> createUserWithEmailAndPassword({
+  Future<UserEntity> createUserWithEmailAndPassword({
     @required String name,
     @required String lastName,
     @required String email,
@@ -98,7 +96,7 @@ class FirebaseAuthService implements AuthService {
       await userCredential.user.reload();
 
       return _mapFirebaseUser(_firebaseAuth.currentUser);
-    } on Auth.FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
   }
@@ -109,13 +107,13 @@ class FirebaseAuthService implements AuthService {
 
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
-    } on Auth.FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
   }
 
   @override
-  Future<User> signInWithSocialMedia({
+  Future<UserEntity> signInWithSocialMedia({
     @required SocialMediaMethod method,
   }) async {
     assert(method != null);
@@ -133,7 +131,7 @@ class FirebaseAuthService implements AuthService {
       }
 
       return null;
-    } on Auth.FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
   }
@@ -145,7 +143,7 @@ class FirebaseAuthService implements AuthService {
 
       await service?.signOut();
       await _firebaseAuth.signOut();
-    } on Auth.FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
   }
@@ -166,7 +164,7 @@ class FirebaseAuthService implements AuthService {
         await user.updatePhotoURL(photoURL);
       }
       return true;
-    } on Auth.FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
   }
@@ -176,12 +174,12 @@ class FirebaseAuthService implements AuthService {
     try {
       final user = _firebaseAuth.currentUser;
       await user.delete();
-    } on Auth.FirebaseAuthException catch (e) {
+    } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
   }
 
-  AuthError _determineError(Auth.FirebaseAuthException exception) {
+  AuthError _determineError(auth.FirebaseAuthException exception) {
     switch (exception.code) {
       case 'invalid-email':
         return AuthError.INVALID_EMAIL;

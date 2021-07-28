@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart';
-import '../auth.dart';
+part of auth;
 
 typedef ISignInService BuildSignInService();
 

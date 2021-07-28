@@ -1,3 +1,4 @@
+import 'package:auth/auth.dart';
 import 'package:firebasestarter/home/home.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:firebasestarter/user/user.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebasestarter/utils/dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key key}) : super(key: key);
@@ -15,7 +15,8 @@ class SignUpScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute<void>(
       builder: (_) => BlocProvider<SignUpBloc>(
-        create: (_) => SignUpBloc(authService: GetIt.I.get<AuthService>()),
+        create: (context) =>
+            SignUpBloc(authService: context.read<FirebaseAuthService>()),
         child: const SignUpScreen(),
       ),
     );

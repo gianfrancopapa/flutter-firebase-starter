@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
+part of auth;
 
 abstract class ISignInService {
-  Future<OAuthCredential> getFirebaseCredential();
+  Future<auth.OAuthCredential> getFirebaseCredential();
 
   Future<void> signOut();
 }

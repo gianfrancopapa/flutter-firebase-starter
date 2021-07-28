@@ -1,9 +1,9 @@
+import 'package:auth/auth.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/constants/strings.dart';
 import 'package:firebasestarter/edit_profile/edit_profile.dart';
-import 'package:firebasestarter/services/auth/auth_service.dart';
-import 'package:firebasestarter/services/image_picker/image_service.dart';
-import 'package:firebasestarter/services/storage/storage_service.dart';
+import 'package:firebasestarter/services/image_picker/image_picker.dart';
+import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/user_profile/user_profile.dart';
 import 'package:firebasestarter/utils/dialog.dart';
@@ -13,7 +13,6 @@ import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({Key key}) : super(key: key);
@@ -21,10 +20,10 @@ class EditProfileScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute<void>(
       builder: (_) => BlocProvider<EditProfileBloc>(
-        create: (_) => EditProfileBloc(
-          authService: GetIt.I<AuthService>(),
-          imageService: GetIt.I<ImageService>(),
-          storageService: GetIt.I<StorageService>(),
+        create: (context) => EditProfileBloc(
+          authService: context.read<FirebaseAuthService>(),
+          imageService: context.read<PickImageService>(),
+          storageService: context.read<FirebaseStorageService>(),
         )..add(const EditProfileUserRequested()),
         child: const EditProfileScreen(),
       ),

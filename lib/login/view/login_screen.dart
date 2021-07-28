@@ -1,7 +1,7 @@
+import 'package:auth/auth.dart';
 import 'package:firebasestarter/constants/colors.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/widgets/common/app_bar.dart';
