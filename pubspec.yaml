@@ -43,6 +43,8 @@ dependencies:
   flutter_form_builder: ^6.0.0-nullsafety.1
   repository:
     path: packages/repository
+  firebase_starter_ui:
+    path: packages/firebase_starter_ui
 
 flutter_icons:
   android: true
@@ -61,8 +63,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
-  assets:
-    - assets/
 
 flutter_native_splash:
   color: "#42a5f5"

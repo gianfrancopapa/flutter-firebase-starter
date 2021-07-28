@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 /// Namespace for Default Firebase Starter Font Weights
-abstract class FFFontWeight {
+abstract class FSFontWeight {
   /// FontWeight value of `w900`
   static const FontWeight black = FontWeight.w900;
 

@@ -1,5 +1,4 @@
-import 'package:firebasestarter/constants/colors.dart';
-import 'package:firebasestarter/widgets/common/margin.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
@@ -25,7 +24,7 @@ class StarterBottomNavigationBar extends StatelessWidget {
       child: SizedBox(
         child: Icon(
           icon,
-          color: selectedIndex ? AppColor.blue : AppColor.grey,
+          color: selectedIndex ? FSColors.blue : FSColors.grey,
         ),
       ),
     );
@@ -38,7 +37,7 @@ class StarterBottomNavigationBar extends StatelessWidget {
         elevation: 0.0,
         child: Container(
           decoration: const BoxDecoration(
-            color: AppColor.lightGrey,
+            color: FSColors.lightGrey,
             border: Border(
               top: BorderSide(color: Color(0xffC1C1C1), width: 1.0),
             ),
@@ -50,7 +49,7 @@ class StarterBottomNavigationBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _item(0, Feather.home),
-                Margin(150.0, 0.0),
+                const SizedBox(width: 150.0),
                 _item(1, Feather.user),
               ],
             ),

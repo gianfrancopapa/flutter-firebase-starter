@@ -1,4 +1,4 @@
-import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends PreferredSize {
@@ -19,10 +19,12 @@ class CustomAppBar extends PreferredSize {
 
   @override
   Widget build(BuildContext context) => AppBar(
-        backgroundColor: AppColor.blue,
+        backgroundColor: FSColors.blue,
         leading: goBack
             ? InkWell(
-                onTap: () => Navigator.pop(context),
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
                 child: const Icon(
                   Icons.keyboard_arrow_left,
                   size: 30.0,
@@ -32,7 +34,7 @@ class CustomAppBar extends PreferredSize {
         title: Text(
           title,
           style: const TextStyle(
-            color: AppColor.white,
+            color: FSColors.white,
             fontSize: 23.0,
             fontWeight: FontWeight.w400,
           ),

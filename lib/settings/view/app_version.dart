@@ -1,4 +1,4 @@
-import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +19,7 @@ class AppVersion extends StatelessWidget {
               Text(
                 appVersion,
                 style: const TextStyle(
-                  color: AppColor.grey,
+                  color: FSColors.grey,
                   fontSize: 20.0,
                   fontWeight: FontWeight.w400,
                 ),

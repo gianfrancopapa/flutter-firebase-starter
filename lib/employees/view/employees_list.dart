@@ -1,8 +1,7 @@
-import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/models/employee.dart';
 import 'package:firebasestarter/utils/screen_size.dart';
 import 'package:flutter/material.dart';
-import 'package:firebasestarter/constants/assets.dart';
 
 class EmployeesList extends StatelessWidget {
   final List<Employee> employees;
@@ -34,12 +33,12 @@ class _EmployeeCard extends StatelessWidget {
         height: 40.0,
         width: 40.0,
         decoration: BoxDecoration(
-          color: AppColor.white,
+          color: FSColors.white,
           shape: BoxShape.circle,
           image: DecorationImage(
             image: employee?.avatarAsset?.contains('http') ?? false
                 ? NetworkImage(employee.avatarAsset)
-                : const AssetImage(Assets.anonLogin),
+                : const AssetImage(FSAssetImage.anonLogin),
           ),
         ),
       );
@@ -51,7 +50,7 @@ class _EmployeeCard extends StatelessWidget {
           employee.firstName + ' ' + employee.lastName,
           textAlign: TextAlign.start,
           style: const TextStyle(
-            color: Colors.black,
+            color: FSColors.black,
             fontSize: 15.0,
             fontWeight: FontWeight.w500,
           ),
@@ -65,11 +64,11 @@ class _EmployeeCard extends StatelessWidget {
         height: _cardSize(context).height,
         width: _cardSize(context).width,
         decoration: BoxDecoration(
-          color: AppColor.white,
+          color: FSColors.white,
           borderRadius: BorderRadius.circular(5.0),
           boxShadow: <BoxShadow>[
             const BoxShadow(
-              color: Colors.black12,
+              color: FSColors.black,
               offset: Offset(0.0, 5.0),
               blurRadius: 3.0,
             ),

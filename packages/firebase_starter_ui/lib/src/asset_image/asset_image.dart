@@ -1,6 +1,7 @@
-class Assets {
-  Assets._();
-  static const root = 'assets/';
+class FSAssetImage {
+  FSAssetImage._();
+  static const root = '../../../assets/images/';
+
   static const String employeesRoute = root + 'employees/';
 
   //Splash Screen

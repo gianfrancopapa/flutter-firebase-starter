@@ -1,3 +1,4 @@
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:flutter/material.dart';
 
 class LoadingIndicator extends StatelessWidget {
@@ -18,13 +19,13 @@ class LoadingIndicator extends StatelessWidget {
             loadingMessage ?? '',
             textAlign: TextAlign.center,
             style: const TextStyle(
-              color: Colors.black,
+              color: FSColors.black,
               fontSize: 24,
             ),
           ),
           const SizedBox(height: 24),
           const CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
+            valueColor: AlwaysStoppedAnimation<Color>(FSColors.black),
           ),
         ],
       ),

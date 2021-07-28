@@ -32,7 +32,7 @@ abstract class FSColors {
   static const Color veryLightGrey = Color(0xFFF7F7F7);
 
   /// Light Grey
-  static const Color lightGrey = Color(0xFFF9FAF9);
+  static const Color lightGrey = Color(0xffF5F5F5);
 
   /// The medium light grey color.
   static const Color mediumLightGrey = Color(0xFFF0F0F0);
@@ -71,7 +71,7 @@ abstract class FSColors {
   static const Color purple = Colors.purple;
 
   /// Dark Blue
-  static const Color darkBlue = Color(0xFF30333E);
+  static const Color darkBlue = Color(0xff1E6AD3);
 
   /// Fluro Color
   static const Color fluroGreen = Color(0xFF21F77C);
@@ -87,6 +87,12 @@ abstract class FSColors {
 
   /// Green Accent
   static const Color greenAccent = Colors.greenAccent;
+
+  static const skyBlue = Color(0xff09A7FE);
+
+  static const blue = Color(0xff1681E3);
+
+  static const blueMarine = Color(0xff001738);
 }
 
 //TODO: add new colors to gallery
