@@ -51,5 +51,5 @@ void main() async {
           authService: FirebaseAuth.instance,
           signInServiceFactory: _serviceFactory,),
     );
-  });
+  },);
 }
