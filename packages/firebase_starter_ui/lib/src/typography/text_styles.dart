@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:flutter/widgets.dart';
 
