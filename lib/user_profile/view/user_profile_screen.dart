@@ -1,13 +1,13 @@
-import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/edit_profile/edit_profile.dart';
 import 'package:firebasestarter/settings/settings.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/user_profile/user_profile.dart';
-import 'package:firebasestarter/widgets/common/app_bar.dart';
+import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:firebasestarter/constants/strings.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({Key key, @required this.bottomNavigationBar})
@@ -18,10 +18,12 @@ class UserProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: CustomAppBar(
         goBack: false,
-        title: Strings.myProfile,
+        title: localizations.myProfile,
         suffixWidget: InkWell(
           onTap: () {
             Navigator.of(context).push(SettingsScreen.route());
@@ -30,7 +32,7 @@ class UserProfileScreen extends StatelessWidget {
             margin: const EdgeInsets.only(right: 15.0),
             child: const Icon(
               Feather.settings,
-              color: AppColor.white,
+              color: FSColors.white,
               size: 20.0,
             ),
           ),
@@ -92,7 +94,7 @@ class _EditIcon extends StatelessWidget {
         child: const Icon(
           Feather.edit,
           size: 22.0,
-          color: AppColor.white,
+          color: FSColors.white,
         ),
       ),
     );

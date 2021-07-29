@@ -195,6 +195,8 @@ void main() {
         final loginWithAppleButtonFinder =
             find.byKey(const Key('loginScreen_loginForm_loginWithAppleButton'));
 
+        await tester.ensureVisible(loginWithAppleButtonFinder);
+
         await tester.tap(loginWithAppleButtonFinder);
 
         verify(
@@ -218,6 +220,8 @@ void main() {
         final loginAnonymouslyButtonFinder = find.byKey(
           const Key('loginScreen_loginForm_loginAnonymouslyButton'),
         );
+
+        await tester.ensureVisible(loginAnonymouslyButtonFinder);
 
         await tester.tap(loginAnonymouslyButtonFinder);
 

@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebasestarter/constants/assets.dart';
-import 'package:firebasestarter/constants/weights.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/login/view/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,7 +23,7 @@ class OnboardingPages extends StatelessWidget {
           child: AutoSizeText(
             title,
             maxLines: 2,
-            style: const TextStyle(color: Colors.black, fontSize: 25),
+            style: const TextStyle(color: FSColors.black, fontSize: 25),
           )),
       bodyWidget: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -53,20 +52,32 @@ class OnboardingPages extends StatelessWidget {
       _page(
         title: _localizedStrings.welcome,
         bodyText: _localizedStrings.pageOne,
-        asset: Asset(name: Assets.somnioLogo, width: 160.0, height: 160.0),
-        color: Colors.white,
+        asset: Asset(
+          name: FSAssetImage.somnioLogo,
+          width: 160.0,
+          height: 160.0,
+        ),
+        color: FSColors.white,
       ),
       _page(
         title: _localizedStrings.options,
         bodyText: _localizedStrings.pageTwo,
-        asset: Asset(name: Assets.onboarding2, width: 120.0, height: 120.0),
-        color: Colors.white,
+        asset: Asset(
+          name: FSAssetImage.onboarding2,
+          width: 120.0,
+          height: 120.0,
+        ),
+        color: FSColors.white,
       ),
       _page(
         title: _localizedStrings.documentationOnConfluence,
         bodyText: _localizedStrings.pageThree,
-        asset: Asset(name: Assets.onboarding3, width: null, height: 30.0),
-        color: Colors.white,
+        asset: Asset(
+          name: FSAssetImage.onboarding3,
+          width: null,
+          height: 30.0,
+        ),
+        color: FSColors.white,
       ),
     ];
   }
@@ -99,8 +110,8 @@ class OnboardingPages extends StatelessWidget {
           next: const Icon(Icons.arrow_forward),
           done: Text(
             localizations.done,
-            style: TextStyle(
-              fontWeight: AppWeights.semiBold,
+            style: const TextStyle(
+              fontWeight: FSFontWeight.semiBold,
             ),
           ),
           dotsDecorator: const DotsDecorator(

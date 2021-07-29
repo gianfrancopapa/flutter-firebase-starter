@@ -1,12 +1,10 @@
-import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:firebasestarter/user/user.dart';
-import 'package:firebasestarter/widgets/common/app_bar.dart';
-import 'package:firebasestarter/widgets/common/button.dart';
-import 'package:firebasestarter/widgets/common/margin.dart';
+import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/home/home.dart';
 import 'package:firebasestarter/utils/dialog.dart';
@@ -25,7 +23,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.lightGrey,
+      backgroundColor: FSColors.lightGrey,
       appBar: const CustomAppBar(
         title: 'Login',
         goBack: false,
@@ -104,7 +102,7 @@ class _LoginForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Margin(0, 47.0),
+            const SizedBox(height: 47.0),
             InkWell(
               onTap: () {
                 Navigator.of(context).push(SignUpScreen.route());
@@ -115,36 +113,36 @@ class _LoginForm extends StatelessWidget {
                   Text(
                     AppLocalizations.of(context).createAccount,
                     style: const TextStyle(
-                      color: AppColor.skyBlue,
+                      color: FSColors.skyBlue,
                       fontSize: 13.0,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
                   const Icon(
                     Icons.keyboard_arrow_right_outlined,
-                    color: AppColor.skyBlue,
+                    color: FSColors.skyBlue,
                     size: 15.0,
                   )
                 ],
               ),
             ),
-            Margin(0, 12.0),
+            const SizedBox(height: 12.0),
             const _EmailTextField(
               key: Key('loginScreen_loginForm_emailTextField'),
             ),
-            Margin(0, 20.0),
+            const SizedBox(height: 20.0),
             const _PasswordTextField(
               key: Key('loginScreen_loginForm_passwordTextField'),
             ),
-            Margin(0, 27.5),
+            const SizedBox(height: 27.0),
             const _ForgotPasswordButton(
               key: Key('loginScreen_loginForm_forgotPasswordButton'),
             ),
-            Margin(0, 21.0),
+            const SizedBox(height: 21.0),
             const _LoginButton(
               key: Key('loginScreen_loginForm_loginButton'),
             ),
-            Margin(0, 26.0),
+            const SizedBox(height: 26.0),
             Center(
               child: SizedBox(
                 height: 20.0,
@@ -153,7 +151,7 @@ class _LoginForm extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      color: AppColor.grey,
+                      color: FSColors.grey,
                       height: 0.5,
                       width: MediaQuery.of(context).size.width / 3,
                     ),
@@ -165,14 +163,14 @@ class _LoginForm extends StatelessWidget {
                       child: Text(
                         'OR',
                         style: TextStyle(
-                          color: AppColor.grey,
+                          color: FSColors.grey,
                           fontSize: 13.0,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
                     Container(
-                      color: AppColor.grey,
+                      color: FSColors.grey,
                       height: 0.5,
                       width: MediaQuery.of(context).size.width / 3,
                     ),
@@ -180,23 +178,23 @@ class _LoginForm extends StatelessWidget {
                 ),
               ),
             ),
-            Margin(0, 20.0),
+            const SizedBox(height: 20.0),
             const LoginWithGoogleButton(
               key: Key('loginScreen_loginForm_loginWithGoogleButton'),
             ),
-            Margin(0.0, 14.0),
+            const SizedBox(height: 14.0),
             const LoginWithFacebookButton(
               key: Key('loginScreen_loginForm_loginWithFacebookButton'),
             ),
-            Margin(0.0, 14.0),
+            const SizedBox(height: 14.0),
             const LoginWithAppleButton(
               key: Key('loginScreen_loginForm_loginWithAppleButton'),
             ),
-            Margin(0.0, 14.0),
+            const SizedBox(height: 14.0),
             const LoginAnonymouslyButton(
               key: Key('loginScreen_loginForm_loginAnonymouslyButton'),
             ),
-            Margin(0, 40.0),
+            const SizedBox(height: 40.0),
           ],
         ),
       ),
@@ -217,7 +215,7 @@ class _EmailTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: localizations.email,
         errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: BorderSide(color: FSColors.red),
         ),
         errorText: email.valid ? null : 'Invalid email',
       ),
@@ -242,7 +240,7 @@ class _PasswordTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: localizations.password,
         errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: BorderSide(color: FSColors.red),
         ),
         errorText: password.valid ? null : 'Invalid password',
       ),
@@ -263,16 +261,20 @@ class _LoginButton extends StatelessWidget {
     final status = context.select((LoginBloc bloc) => bloc.state.status);
     final isNotValid = status != LoginStatus.valid;
 
-    return Button(
-      backgroundColor: isNotValid ? AppColor.grey : AppColor.blue,
-      text: localizations.login,
-      onTap: isNotValid
+    return FSTextButton(
+      style: ButtonStyle(
+        backgroundColor: isNotValid
+            ? MaterialStateProperty.all(FSColors.grey)
+            : MaterialStateProperty.all(FSColors.blue),
+      ),
+      onPressed: isNotValid
           ? null
           : () {
               context
                   .read<LoginBloc>()
                   .add(const LoginWithEmailAndPasswordRequested());
             },
+      child: Text(localizations.login),
     );
   }
 }
@@ -292,7 +294,7 @@ class _ForgotPasswordButton extends StatelessWidget {
           AppLocalizations.of(context).didYouForgetYourPassword,
           textAlign: TextAlign.center,
           style: const TextStyle(
-            color: AppColor.blue,
+            color: FSColors.blue,
             fontSize: 13.0,
             fontWeight: FontWeight.w400,
           ),
