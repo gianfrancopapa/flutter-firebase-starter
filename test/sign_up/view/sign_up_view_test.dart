@@ -215,6 +215,8 @@ void main() {
         const Key('signUpScreen_signUpForm_signUpTextButton'),
       );
 
+      await tester.ensureVisible(signUpTextButtonFinder);
+
       await tester.tap(signUpTextButtonFinder);
 
       verify(() => mockSignUpBloc.add(const SignUpRequested())).called(1);
@@ -237,6 +239,8 @@ void main() {
         final signUpTextButtonFinder = find.byKey(
           const Key('signUpScreen_signUpForm_signUpTextButton'),
         );
+
+        await tester.ensureVisible(signUpTextButtonFinder);
 
         await tester.tap(signUpTextButtonFinder);
 
