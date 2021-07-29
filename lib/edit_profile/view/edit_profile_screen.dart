@@ -265,13 +265,14 @@ class _UpdateProfileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
-
     final status = context.select((EditProfileBloc bloc) => bloc.state.status);
     final isInvalid = status == EditProfileStatus.invalid;
-    return Button(
-      backgroundColor: isInvalid ? AppColor.grey : AppColor.blue,
-      text: Strings.editProfile,
-      onTap: isInvalid
+
+    return TextButton(
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(
+              isInvalid ? FSColors.grey : FSColors.blue)),
+      onPressed: isInvalid
           ? null
           : () {
               context
