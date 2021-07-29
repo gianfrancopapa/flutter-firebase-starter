@@ -1,5 +1,4 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebasestarter/home/home.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/user_profile/user_profile.dart';
@@ -50,9 +49,18 @@ void main() {
           BlocProvider.value(
             value: mockUserBloc,
             child: UserProfileScreen(
-              bottomNavigationBar: StarterBottomNavigationBar(
-                index: 0,
-                updateIndex: (_) {},
+              bottomNavigationBar: BottomNavigationBar(
+                onTap: (_) {},
+                items: const [
+                  BottomNavigationBarItem(
+                    label: 'test1',
+                    icon: Icon(Icons.verified_user),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'test2',
+                    icon: Icon(Icons.verified_user),
+                  ),
+                ],
               ),
             ),
           ),
@@ -77,9 +85,18 @@ void main() {
           BlocProvider.value(
             value: mockUserBloc,
             child: UserProfileScreen(
-              bottomNavigationBar: StarterBottomNavigationBar(
-                index: 0,
-                updateIndex: (_) {},
+              bottomNavigationBar: BottomNavigationBar(
+                onTap: (_) {},
+                items: const [
+                  BottomNavigationBarItem(
+                    label: 'test1',
+                    icon: Icon(Icons.verified_user),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'test2',
+                    icon: Icon(Icons.verified_user),
+                  ),
+                ],
               ),
             ),
           ),
@@ -108,9 +125,18 @@ void main() {
           BlocProvider.value(
             value: mockUserBloc,
             child: UserProfileScreen(
-              bottomNavigationBar: StarterBottomNavigationBar(
-                index: 0,
-                updateIndex: (_) {},
+              bottomNavigationBar: BottomNavigationBar(
+                onTap: (_) {},
+                items: const [
+                  BottomNavigationBarItem(
+                    label: 'test1',
+                    icon: Icon(Icons.verified_user),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'test2',
+                    icon: Icon(Icons.verified_user),
+                  ),
+                ],
               ),
             ),
           ),

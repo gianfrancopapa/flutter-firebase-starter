@@ -30,6 +30,8 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return MultiBlocListener(
       listeners: [
         BlocListener<UserBloc, UserState>(
@@ -61,7 +63,7 @@ class EditProfileScreen extends StatelessWidget {
         ),
       ],
       child: Scaffold(
-        appBar: const _AppBar(),
+        appBar: CustomAppBar(title: localizations.editProfile),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 44.0),
@@ -260,21 +262,16 @@ class _LastNameTextField extends StatelessWidget {
 
 class _UpdateProfileButton extends StatelessWidget {
   const _UpdateProfileButton({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
 
     final status = context.select((EditProfileBloc bloc) => bloc.state.status);
     final isInvalid = status == EditProfileStatus.invalid;
-
-    return FSTextButton(
-      style: ButtonStyle(
-        backgroundColor: isInvalid
-            ? MaterialStateProperty.all(FSColors.grey)
-            : MaterialStateProperty.all(FSColors.blue),
-      ),
-      onPressed: isInvalid
+    return Button(
+      backgroundColor: isInvalid ? AppColor.grey : AppColor.blue,
+      text: Strings.editProfile,
+      onTap: isInvalid
           ? null
           : () {
               context
@@ -282,27 +279,6 @@ class _UpdateProfileButton extends StatelessWidget {
                   .add(const EditProfileInfoUpdated());
             },
       child: Text(localizations.editProfile),
-    );
-  }
-}
-
-class _AppBar extends CustomAppBar {
-  const _AppBar();
-
-  @override
-  Widget build(BuildContext context) {
-    final status = context.select((EditProfileBloc bloc) => bloc.state.status);
-
-    return CustomAppBar(
-      title: AppLocalizations.of(context).editProfile,
-      suffixWidget: status == EditProfileStatus.loading
-          ? const Padding(
-              padding: EdgeInsets.all(10.0),
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(FSColors.white),
-              ),
-            )
-          : const SizedBox(),
     );
   }
 }
