@@ -1,33 +1,58 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasestarter/app.dart';
-import 'package:firebasestarter/app/bloc_observer.dart';
-import 'package:firebasestarter/locator.dart';
-import 'package:firebasestarter/services/analytics/analytics_service.dart';
-import 'package:flutter/foundation.dart';
-
-import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebasestarter/bootstrap.dart';
+import 'package:firebasestarter/data_source/firebase_employee_database.dart';
+import 'package:firebasestarter/services/analytics/firebase_analytics_service.dart';
+import 'package:firebasestarter/services/app_info/app_info_service.dart';
+import 'package:firebasestarter/services/auth/auth.dart';
+import 'package:firebasestarter/services/image_picker/image_picker.dart';
+import 'package:firebasestarter/services/notifications/notifications_service.dart';
+import 'package:firebasestarter/services/shared_preferences/shared_preferences.dart';
+import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:get_it/get_it.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:repository/repository.dart';
 
 void main() async {
-  Bloc.observer = SimpleBlocObserver();
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-  initServices();
-  GetIt.I.get<AnalyticsService>().logAppOpen();
+  bootstrap(
+    () async {
+      final _serviceFactory = SignInServiceFactory();
 
-  if (kIsWeb) {
-    // initialiaze the facebook javascript SDK
-    FacebookAuth.i.webInitialize(
-      appId: '234963458267270',
-      cookie: true,
-      xfbml: true,
-      version: 'v9.0',
-    );
-  }
+      _serviceFactory.addService(
+        method: SocialMediaMethod.APPLE,
+        constructor: () =>
+            AppleSignInService(appleCredentials: const AppleCredentials()),
+      );
 
-  runApp(const App());
+      _serviceFactory.addService(
+        method: SocialMediaMethod.FACEBOOK,
+        constructor: () => FacebookSignInService(
+          facebookAuth: FacebookAuth.instance,
+        ),
+      );
+
+      _serviceFactory.addService(
+        method: SocialMediaMethod.GOOGLE,
+        constructor: () => GoogleSignInService(
+          googleSignIn: GoogleSignIn(),
+        ),
+      );
+
+      return App(
+        sharedPreferences: MySharedPreferences(),
+        firebaseAnalytics: FirebaseAnalytics(),
+        firebaseAnalyticsService: FirebaseAnalyticsService(),
+        pickImageService: PickImageService(),
+        appInfoService: AppInfoService(),
+        firebaseStorageService: FirebaseStorageService(),
+        employeesRepository: EmployeesRepository(FirebaseEmployeeDatabase()),
+        notificationService: NotificationService(),
+        authService: FirebaseAuthService(
+          authService: FirebaseAuth.instance,
+          signInServiceFactory: _serviceFactory,
+        ),
+      );
+    },
+  );
 }

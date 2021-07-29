@@ -1,13 +1,12 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/services/app_info/app_info.dart';
+import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:firebasestarter/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get_it/get_it.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key key}) : super(key: key);
@@ -15,8 +14,9 @@ class SettingsScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute<void>(
       builder: (_) => BlocProvider(
-        create: (_) =>
-            AppVersionCubit(appInfo: GetIt.I.get<AppInfo>())..appVersion(),
+        create: (context) =>
+            AppVersionCubit(appInfo: context.read<AppInfoService>())
+              ..appVersion(),
         child: const SettingsScreen(),
       ),
     );
