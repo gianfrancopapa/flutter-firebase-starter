@@ -18,18 +18,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:repository/repository.dart';
 
 class App extends StatelessWidget {
-  const App(
-      {Key key,
-      @required FirebaseAuthService authService,
-      @required MySharedPreferences sharedPreferences,
-      @required FirebaseAnalyticsService firebaseAnalyticsService,
-      @required FirebaseStorageService firebaseStorageService,
-      @required NotificationService notificationService,
-      @required AppInfoService appInfoService,
-      @required PickImageService pickImageService,
-      @required FirebaseAnalytics firebaseAnalytics,
-      @required EmployeesRepository employeesRepository,})
-      : assert(authService != null),
+  const App({
+    Key key,
+    @required FirebaseAuthService authService,
+    @required MySharedPreferences sharedPreferences,
+    @required FirebaseAnalyticsService firebaseAnalyticsService,
+    @required FirebaseStorageService firebaseStorageService,
+    @required NotificationService notificationService,
+    @required AppInfoService appInfoService,
+    @required PickImageService pickImageService,
+    @required FirebaseAnalytics firebaseAnalytics,
+    @required EmployeesRepository employeesRepository,
+  })  : assert(authService != null),
         assert(sharedPreferences != null),
         assert(firebaseAnalyticsService != null),
         assert(firebaseStorageService != null),

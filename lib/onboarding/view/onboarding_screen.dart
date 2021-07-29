@@ -18,7 +18,8 @@ class OnBoardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => OnboardingCubit(
-            analyticsService: context.read<FirebaseAnalyticsService>(),),
+              analyticsService: context.read<FirebaseAnalyticsService>(),
+            ),
         child: const OnboardingPages());
   }
 }

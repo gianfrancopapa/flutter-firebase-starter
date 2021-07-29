@@ -15,41 +15,44 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:repository/repository.dart';
 
 void main() async {
-  bootstrap(() async {
-    final _serviceFactory = SignInServiceFactory();
+  bootstrap(
+    () async {
+      final _serviceFactory = SignInServiceFactory();
 
-    _serviceFactory.addService(
-      method: SocialMediaMethod.APPLE,
-      constructor: () =>
-          AppleSignInService(appleCredentials: const AppleCredentials()),
-    );
+      _serviceFactory.addService(
+        method: SocialMediaMethod.APPLE,
+        constructor: () =>
+            AppleSignInService(appleCredentials: const AppleCredentials()),
+      );
 
-    _serviceFactory.addService(
-      method: SocialMediaMethod.FACEBOOK,
-      constructor: () => FacebookSignInService(
-        facebookAuth: FacebookAuth.instance,
-      ),
-    );
+      _serviceFactory.addService(
+        method: SocialMediaMethod.FACEBOOK,
+        constructor: () => FacebookSignInService(
+          facebookAuth: FacebookAuth.instance,
+        ),
+      );
 
-    _serviceFactory.addService(
-      method: SocialMediaMethod.GOOGLE,
-      constructor: () => GoogleSignInService(
-        googleSignIn: GoogleSignIn(),
-      ),
-    );
+      _serviceFactory.addService(
+        method: SocialMediaMethod.GOOGLE,
+        constructor: () => GoogleSignInService(
+          googleSignIn: GoogleSignIn(),
+        ),
+      );
 
-    return App(
-      sharedPreferences: MySharedPreferences(),
-      firebaseAnalytics: FirebaseAnalytics(),
-      firebaseAnalyticsService: FirebaseAnalyticsService(),
-      pickImageService: PickImageService(),
-      appInfoService: AppInfoService(),
-      firebaseStorageService: FirebaseStorageService(),
-      employeesRepository: EmployeesRepository(FirebaseEmployeeDatabase()),
-      notificationService: NotificationService(),
-      authService: FirebaseAuthService(
+      return App(
+        sharedPreferences: MySharedPreferences(),
+        firebaseAnalytics: FirebaseAnalytics(),
+        firebaseAnalyticsService: FirebaseAnalyticsService(),
+        pickImageService: PickImageService(),
+        appInfoService: AppInfoService(),
+        firebaseStorageService: FirebaseStorageService(),
+        employeesRepository: EmployeesRepository(FirebaseEmployeeDatabase()),
+        notificationService: NotificationService(),
+        authService: FirebaseAuthService(
           authService: FirebaseAuth.instance,
-          signInServiceFactory: _serviceFactory,),
-    );
-  },);
+          signInServiceFactory: _serviceFactory,
+        ),
+      );
+    },
+  );
 }
