@@ -28,7 +28,7 @@ class App extends StatelessWidget {
       @required AppInfoService appInfoService,
       @required PickImageService pickImageService,
       @required FirebaseAnalytics firebaseAnalytics,
-      @required EmployeesRepository employeesRepository})
+      @required EmployeesRepository employeesRepository,})
       : assert(authService != null),
         assert(sharedPreferences != null),
         assert(firebaseAnalyticsService != null),
