@@ -95,28 +95,23 @@ class App extends StatelessWidget {
               ..add(const EmployeesLoaded()),
           ),
         ],
-        child: const FirebaseStarter(),
+        child: FirebaseStarter(
+          firebaseAnalytics: _firebaseAnalytics,
+        ),
       ),
     );
   }
 }
 
-class FirebaseStarter extends StatefulWidget {
-  const FirebaseStarter({Key key}) : super(key: key);
+class FirebaseStarter extends StatelessWidget {
+  const FirebaseStarter({
+    Key key,
+    @required FirebaseAnalytics firebaseAnalytics,
+  })  : assert(firebaseAnalytics != null),
+        _firebaseAnalytics = firebaseAnalytics,
+        super(key: key);
 
-  @override
-  _FirebaseStarterState createState() => _FirebaseStarterState();
-}
-
-class _FirebaseStarterState extends State<FirebaseStarter> {
-  NotificationService _notificationService;
-
-  @override
-  void initState() {
-    _notificationService = context.read<NotificationService>();
-    _notificationService.configure();
-    super.initState();
-  }
+  final FirebaseAnalytics _firebaseAnalytics;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +126,7 @@ class _FirebaseStarterState extends State<FirebaseStarter> {
       home: DetermineAccessScreen(),
       navigatorObservers: [
         FirebaseAnalyticsObserver(
-          analytics: context.read<FirebaseAnalytics>(),
+          analytics: _firebaseAnalytics,
         ),
       ],
     );
