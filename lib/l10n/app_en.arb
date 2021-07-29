@@ -1,0 +1,395 @@
+{
+  "lastName": "Last Name",
+  "@lastName": {
+      "description": ""
+  },
+
+  "email": "Email",
+  "@email": {
+      "description": ""
+  },
+
+  "settings": "Settings",
+  "@settings": {
+      "description": ""
+  },
+
+  "editEmployee": "Edit Employee",
+  "@editEmployee": {
+      "description": ""
+  },
+
+  "description": "Description",
+  "@description": {
+      "description": ""
+  },
+
+  "password": "Password",
+  "@password": {
+      "description": ""
+  },
+
+  "login": "Login",
+  "@login": {
+      "description": ""
+  },
+
+  "dontYouHaveAccount": "Don't you have an account?",
+  "@dontYouHaveAccount": {
+      "description": ""
+  },
+
+
+  "createOne": "Create one",
+  "@createOne": {
+      "description": ""
+  },
+
+  "firstName": "First Name",
+  "@firstName": {
+      "description": ""
+  },
+
+  "passwordConfirmation": "Confirm Password",
+  "@passwordConfirmation": {
+      "description": ""
+  },
+
+  "createAccount": "Create Account",
+  "@createAccount": {
+      "description": ""
+  },
+
+  "employees": "Employees",
+  "@employees": {
+      "description": ""
+  },
+
+  "logout": "Logout",
+  "@logout": {
+      "description": ""
+  },
+
+  "configuration": "Configuration",
+  "@configuration": {
+      "description": ""
+  },
+
+  "version": "Version",
+  "@version": {
+      "description": ""
+  },
+
+  "appName": "App Name",
+  "@appName": {
+      "description": ""
+  },
+
+  "buildNumber": "Build Number",
+  "@buildNumber": {
+      "description": ""
+  },
+
+  "packageName": "Package Name",
+  "@packageName": {
+      "description": ""
+  },
+
+  "forgotPassword": "Forgot Password",
+  "@forgotPassword": {
+      "description": ""
+  },
+
+  "send": "Send",
+  "@send": {
+      "description": ""
+  },
+
+  "emailSent": "Email Sent",
+  "@emailSent": {
+      "description": ""
+  },
+
+  "checkInbox": "Check your email inbox",
+  "@checkInbox": {
+      "description": ""
+  },
+
+   "myProfile": "Profile",
+  "@myProfile": {
+      "description": ""
+  },
+
+  "editProfile": "Edit Profile",
+  "@editProfile": {
+      "description": ""
+  },
+
+  "employeeAddedSuccessfully": "Employee has been created successfully",
+  "@employeeAddedSuccessfully": {
+      "description": ""
+  },
+
+  "ok": "Ok",
+  "@ok": {
+      "description": ""
+  },
+
+
+  "employeeUpdatedSuccessfully": "Employee has been updated successfully",
+  "@employeeUpdatedSuccessfully": {
+      "description": ""
+  },
+
+  "update": "Update",
+  "@update": {
+      "description": ""
+  },
+
+  "home": "Home",
+  "@home": {
+      "description": ""
+  },
+
+  "addEmployee": "Add Employee",
+  "@addEmployee": {
+      "description": ""
+  },
+
+  "name": "Name",
+  "@name": {
+      "description": ""
+  },
+
+  "phone": "Phone",
+  "@phone": {
+      "description": ""
+  },
+
+  "address": "Address",
+  "@address": {
+      "description": ""
+  },
+
+  "age": "Age",
+  "@age": {
+      "description": ""
+  },
+
+  "admin": "Admin",
+  "@admin": {
+      "description": ""
+  },
+
+  "create": "Create",
+  "@create": {
+      "description": ""
+  },
+
+  "addNewEmployee": "Add new employee",
+  "@addNewEmployee": {
+      "description": ""
+  },
+
+  "doYouWantToDeleteThisUser": "Do you want delete this user?",
+  "@doYouWantToDeleteThisUser": {
+      "description": ""
+  },
+
+  "yes": "Yes",
+  "@yes": {
+      "description": ""
+  },
+
+  "no": "No",
+  "@no": {
+      "description": ""
+  },
+
+  "delete": "Delete",
+  "@delete": {
+      "description": ""
+  },
+
+  "sector": "Sector",
+  "@sector": {
+      "description": ""
+  },
+
+  "phoneNumber": "Phone Number",
+  "@phoneNumber": {
+      "description": ""
+  },
+
+  "charge": "Charge: ",
+  "@charge": {
+      "description": ""
+  },
+
+  "signIn": "Sign In",
+  "@signIn": {
+      "description": ""
+  },
+
+  "filters": "Filters",
+  "@filters": {
+      "description": ""
+  },
+
+  "clear": "Clear",
+  "@clear": {
+      "description": ""
+  },
+
+  "applyFilters": "Apply Filters",
+  "@applyFilters": {
+      "description": ""
+  },
+
+  "workingArea": "Working Area",
+  "@workingArea": {
+      "description": ""
+  },
+
+  "didYouForgetYourPassword": "Did you forget your password?",
+  "@didYouForgetYourPassword": {
+      "description": ""
+  },
+
+  "optionTwo": "Option 2",
+  "@optionTwo": {
+      "description": ""
+  },
+
+  "optionThree": "Option 3",
+  "@optionThree": {
+      "description": ""
+  },
+
+  "welcome": "Welcome to Flutter Boilerplate",
+  "@welcome": {
+      "description": ""
+  },
+
+  "pageOne": "A Somnios's applications to to be reused when creating a new app",
+  "@pageOne":{
+      "description": ""
+  },
+
+  "options": "Options",
+  "@options":{
+      "description": ""
+  },
+
+  "pageTwo": "Explore and reuse generic functions to let you start coding, as soon as possible",
+  "@pageTwo":{
+      "description": ""
+  },
+
+  "documentationOnConfluence": "Documentation on Confluence",
+  "@documentationOnConfluence":{
+      "description": ""
+  },
+
+  "pageThree": "You can find some documentation on Confluence in order to find information about this app",
+  "@pageThree":{
+      "description": ""
+  },
+
+  "skip": "Skip",
+  "@skip":{
+      "description": ""
+  },
+
+  "done": "Done",
+  "@done":{
+      "description": ""
+  },
+
+  "googleSignIn": "Sign in with Google",
+  "@googleSignIn":{
+      "description": ""
+  },
+
+  "facebookSignIn": "Sign in with Facebook",
+  "@facebookSignIn":{
+      "description": ""
+  },
+
+  "appleIdSignIn": "Sign in with Apple ID",
+  "@appleIdSignIn":{
+      "description": ""
+  },
+
+  "anonymousSignIn": "Sign in anonymously",
+  "@anonymousSignIn":{
+      "description": ""
+  },
+
+  "noEmployees": "No employees found",
+  "@noEmployees":{
+      "description": ""
+  },
+
+  "invalidEmail": "Invalid email.",
+  "@invalidEmail":{
+      "description": ""
+  },
+
+  "userDisabled": "This user has been disabled.",
+  "@userDisabled":{
+      "description": ""
+  },
+
+  "userNotFound": "There is no user linked with this email.",
+   "@userNotFound":{
+      "description": ""
+  },
+
+  "wrongPassword": "The password is invalid or the user does not have a password.",
+  "@wrongPassword":{
+      "description": ""
+  }, 
+
+  "emailAlreadyInUse" : "An account with this email already exists.",
+  "@emailAlreadyInUse":{
+      "description": ""
+  },
+
+  "invalidCredential" : "Invalid credential.",
+  "@invalidCredential":{
+      "description": ""
+  }, 
+  
+  "selectProfilePicture" : "Select your profile picture.",
+  "@selectProfilePicture":{ 
+      "description": ""
+  },
+
+  "gallery" : "Gallery",
+  "@gallery":{ 
+      "description": ""
+  },
+
+  "camera" : "Camera",
+  "@camera":{ 
+      "description": ""
+  },
+
+  "operationNotAllowed" : "You do not have permission to perform this action.",
+  "@operationNotAllowed":{
+      "description": ""
+  }, 
+
+  "weakPassword" : "Insert a password with at least 6 characters that contains at least one uppercase letter and one number.",
+  "@weakPassword":{
+      "description": ""
+  }, 
+
+  "missingAuthToken" : "Missing Google auth token.",
+  "@missingAuthToken":{ 
+      "description": ""
+  }
+
+ 
+}

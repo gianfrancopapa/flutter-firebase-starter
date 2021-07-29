@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebasestarter/constants/assets.dart';
-import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -31,12 +30,12 @@ class UserProfileImage extends StatelessWidget {
   Widget _assetImage(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: FSColors.white,
         shape: BoxShape.circle,
         image: DecorationImage(
           image: image != null && image.isNotEmpty
               ? Image.file(File(image)).image
-              : const AssetImage(Assets.somnioLogo),
+              : const AssetImage(FSAssetImage.somnioLogo),
           fit: BoxFit.fitHeight,
         ),
       ),
@@ -51,13 +50,13 @@ class UserProfileImage extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColor.blue,
+            color: FSColors.blue,
           ),
           height: 35.0,
           width: 35.0,
           child: const Icon(
             Icons.edit,
-            color: AppColor.white,
+            color: FSColors.white,
             size: 20.0,
           ),
         ),

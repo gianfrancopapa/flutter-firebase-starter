@@ -1,5 +1,5 @@
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:firebasestarter/constants/assets.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key key}) : super(key: key);
@@ -10,12 +10,12 @@ class SplashScreen extends StatelessWidget {
       body: Align(
         alignment: Alignment.center,
         child: Image(
-          image: AssetImage(Assets.somnioLogo),
+          image: AssetImage(FSAssetImage.somnioLogo),
           height: 220.0,
           width: 220.0,
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: FSColors.white,
     );
   }
 }

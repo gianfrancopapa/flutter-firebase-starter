@@ -1,13 +1,10 @@
-import 'package:firebasestarter/constants/assets.dart';
-import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/services/app_info/app_info.dart';
-import 'package:firebasestarter/widgets/common/app_bar.dart';
-import 'package:firebasestarter/widgets/common/margin.dart';
+import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:firebasestarter/settings/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:firebasestarter/widgets/common/button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
@@ -48,19 +45,21 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.25,
               ),
-              Button(
-                height: 52.0,
-                backgroundColor: AppColor.blue,
-                text: _localizedStrings.logout,
-                onTap: () =>
-                    context.read<LoginBloc>().add(const LogoutRequested()),
+              FSTextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(FSColors.blue),
+                ),
+                onPressed: () {
+                  context.read<LoginBloc>().add(const LogoutRequested());
+                },
+                child: Text(_localizedStrings.logout),
               ),
-              Margin(0.0, 200.0),
+              const SizedBox(height: 200.0),
               const AppVersion(),
-              Margin(0.0, 20.45),
+              const SizedBox(height: 20.45),
               SvgPicture.asset(
-                Assets.somnioGreyLogoSvg,
-                color: AppColor.grey,
+                FSAssetImage.somnioGreyLogoSvg,
+                color: FSColors.grey,
               ),
             ],
           ),

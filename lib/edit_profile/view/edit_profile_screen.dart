@@ -1,5 +1,4 @@
-import 'package:firebasestarter/constants/colors.dart';
-import 'package:firebasestarter/constants/strings.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/edit_profile/edit_profile.dart';
 import 'package:firebasestarter/services/auth/auth_service.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
@@ -7,9 +6,7 @@ import 'package:firebasestarter/services/storage/storage_service.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/user_profile/user_profile.dart';
 import 'package:firebasestarter/utils/dialog.dart';
-import 'package:firebasestarter/widgets/common/app_bar.dart';
-import 'package:firebasestarter/widgets/common/button.dart';
-import 'package:firebasestarter/widgets/common/margin.dart';
+import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,11 +69,11 @@ class EditProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 44.0),
             child: Column(
               children: [
-                Margin(0.0, 60.0),
+                const SizedBox(height: 60.0),
                 const _ProfileImage(
                   key: Key('editProfileScreen_profileImage'),
                 ),
-                Margin(0.0, 45.0),
+                const SizedBox(height: 45.0),
                 const _EditProfileForm(
                   key: Key('editProfileScreen_form'),
                 ),
@@ -103,7 +100,7 @@ class _ProfileImage extends StatelessWidget {
       editable: true,
       onTap: () => showModalBottomSheet(
         context: context,
-        backgroundColor: Colors.white,
+        backgroundColor: FSColors.white,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15.0),
@@ -197,13 +194,13 @@ class _EditProfileForm extends StatelessWidget {
                     'editProfileScreen_editProfileForm_firstNameTextField',
                   ),
                 ),
-                Margin(0.0, 20.0),
+                const SizedBox(height: 20.0),
                 const _LastNameTextField(
                   key: Key(
                     'editProfileScreen_editProfileForm_lastNameTextField',
                   ),
                 ),
-                Margin(0.0, 43.0),
+                const SizedBox(height: 43.0),
                 const _UpdateProfileButton(
                   key: Key('updateProfileScreen_editProfileForm_button'),
                 ),
@@ -230,7 +227,7 @@ class _FirstNameTextField extends StatelessWidget {
       },
       decoration: InputDecoration(
         errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: BorderSide(color: FSColors.red),
         ),
         errorText: firstName.valid ? null : 'Invalid first name',
       ),
@@ -255,7 +252,7 @@ class _LastNameTextField extends StatelessWidget {
       },
       decoration: InputDecoration(
         errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.red),
+          borderSide: BorderSide(color: FSColors.red),
         ),
         errorText: lastName.valid ? null : 'Invalid last name',
       ),
@@ -267,18 +264,22 @@ class _UpdateProfileButton extends StatelessWidget {
   const _UpdateProfileButton({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
     final status = context.select((EditProfileBloc bloc) => bloc.state.status);
     final isInvalid = status == EditProfileStatus.invalid;
-    return Button(
-      backgroundColor: isInvalid ? AppColor.grey : AppColor.blue,
-      text: Strings.editProfile,
-      onTap: isInvalid
+
+    return TextButton(
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(
+              isInvalid ? FSColors.grey : FSColors.blue)),
+      onPressed: isInvalid
           ? null
           : () {
               context
                   .read<EditProfileBloc>()
                   .add(const EditProfileInfoUpdated());
             },
+      child: Text(localizations.editProfile),
     );
   }
 }

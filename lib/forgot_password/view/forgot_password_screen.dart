@@ -1,7 +1,7 @@
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
 import 'package:firebasestarter/services/auth/auth.dart';
-import 'package:firebasestarter/widgets/common/app_bar.dart';
-import 'package:firebasestarter/widgets/common/margin.dart';
+import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebasestarter/utils/dialog.dart';
@@ -62,11 +62,11 @@ class _ForgotPasswordForm extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Margin(0.0, 131.0),
+          const SizedBox(height: 131.0),
           const _EmailTextField(
             key: Key('forgotPasswordScreen_form_emailTextField'),
           ),
-          Margin(0.0, 41.0),
+          const SizedBox(height: 41.0),
           const _ForgotPasswordTextButton(
             key: Key('forgotPasswordScreen_form_forgotPasswordButton'),
           ),
@@ -86,7 +86,9 @@ class _EmailTextField extends StatelessWidget {
     return TextField(
       decoration: InputDecoration(
         border: UnderlineInputBorder(
-          borderSide: BorderSide(color: email.valid ? Colors.blue : Colors.red),
+          borderSide: BorderSide(
+            color: email.valid ? FSColors.blue : FSColors.red,
+          ),
         ),
         errorText: email.valid ? null : 'Error: Invalid email',
       ),
@@ -113,8 +115,8 @@ class _ForgotPasswordTextButton extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         backgroundColor: isNotValid
-            ? MaterialStateProperty.all(Colors.grey)
-            : MaterialStateProperty.all(Colors.blue),
+            ? MaterialStateProperty.all(FSColors.grey)
+            : MaterialStateProperty.all(FSColors.blue),
       ),
       child: Text(localizations.send),
       onPressed: isNotValid
