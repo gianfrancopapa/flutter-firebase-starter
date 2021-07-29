@@ -1,8 +1,6 @@
 class FSAssetImage {
   FSAssetImage._();
-  static const root = '../../../assets/images/';
-
-  static const String employeesRoute = root + 'employees/';
+  static const root = 'packages/firebase_starter_ui/assets/images/';
 
   //Splash Screen
   static const String somnioLogo = root + 'somnio_logo.png';
@@ -12,9 +10,8 @@ class FSAssetImage {
   static const String onboarding3 = root + 'confluence_logo.png';
 
   //User
-  static const String anonUser = root + 'anonymousUser.png';
+  static const String anonUser = root + 'anonymous_user.png';
   static const String anonLogin = root + 'anon_login.png';
-  static const String userAvatar = 'avatar/userAvatar.jpg';
 
   //Google
   static const String googleLogo = root + 'google_logo.png';

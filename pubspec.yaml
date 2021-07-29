@@ -48,7 +48,7 @@ dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/ic_launcher.jpg"
+  image_path: "packages/firebase_starter_ui/assets/images/ic_launcher.jpg"
 
 dev_dependencies:
   flutter_native_splash: ^1.2.0
@@ -60,10 +60,12 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - packages/firebase_starter_ui/assets/images/
 
 flutter_native_splash:
   color: "#42a5f5"
-  image: assets/somnio_logo.png
+  image: packages/firebase_starter_ui/assets/images/somnio_logo.png
   color_dark: "#042a49"
-  image_dark: assets/somnio_logo.png
+  image_dark: packages/firebase_starter_ui/assets/images/somnio_logo.png
   web: false
