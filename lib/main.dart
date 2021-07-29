@@ -49,7 +49,7 @@ void main() async {
       notificationService: NotificationService(),
       authService: FirebaseAuthService(
           authService: FirebaseAuth.instance,
-          signInServiceFactory: _serviceFactory),
+          signInServiceFactory: _serviceFactory,),
     );
   });
 }
