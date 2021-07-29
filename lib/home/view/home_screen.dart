@@ -1,4 +1,4 @@
-import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/employees/employees.dart';
 import 'package:firebasestarter/home/home.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,7 @@ class _BottomNavigationBar extends StatelessWidget {
         elevation: 0.0,
         child: Container(
           decoration: const BoxDecoration(
-            color: AppColor.lightGrey,
+            color: FSColors.lightGrey,
             border: Border(
               top: BorderSide(color: Color(0xffC1C1C1), width: 1.0),
             ),
@@ -74,7 +74,7 @@ class _BottomNavigationBar extends StatelessWidget {
                   child: SizedBox(
                     child: Icon(
                       Feather.home,
-                      color: index == _index1 ? AppColor.blue : AppColor.grey,
+                      color: index == _index1 ? FSColors.blue : FSColors.grey,
                     ),
                   ),
                 ),
@@ -86,7 +86,7 @@ class _BottomNavigationBar extends StatelessWidget {
                   child: SizedBox(
                     child: Icon(
                       Feather.home,
-                      color: index == _index2 ? AppColor.blue : AppColor.grey,
+                      color: index == _index2 ? FSColors.blue : FSColors.grey,
                     ),
                   ),
                 ),

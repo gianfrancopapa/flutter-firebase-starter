@@ -1,7 +1,6 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
-import 'package:firebasestarter/data_source/data_source.dart';
 import 'package:firebasestarter/employees/employees.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/app/app.dart';
@@ -18,84 +17,101 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:repository/repository.dart';
 
-class App extends StatefulWidget {
-  const App({Key key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({
+    Key key,
+    @required FirebaseAuthService authService,
+    @required MySharedPreferences sharedPreferences,
+    @required FirebaseAnalyticsService firebaseAnalyticsService,
+    @required FirebaseStorageService firebaseStorageService,
+    @required NotificationService notificationService,
+    @required AppInfoService appInfoService,
+    @required PickImageService pickImageService,
+    @required FirebaseAnalytics firebaseAnalytics,
+    @required EmployeesRepository employeesRepository,
+  })  : assert(authService != null),
+        assert(sharedPreferences != null),
+        assert(firebaseAnalyticsService != null),
+        assert(firebaseStorageService != null),
+        assert(notificationService != null),
+        assert(appInfoService != null),
+        assert(pickImageService != null),
+        assert(firebaseAnalytics != null),
+        assert(employeesRepository != null),
+        _authService = authService,
+        _sharedPreferences = sharedPreferences,
+        _firebaseAnalyticsService = firebaseAnalyticsService,
+        _firebaseStorageService = firebaseStorageService,
+        _notificationService = notificationService,
+        _appInfoService = appInfoService,
+        _pickImageService = pickImageService,
+        _firebaseAnalytics = firebaseAnalytics,
+        _employeesRepository = employeesRepository,
+        super(key: key);
 
-  @override
-  _AppState createState() => _AppState();
-}
+  final FirebaseAuthService _authService;
+  final MySharedPreferences _sharedPreferences;
+  final FirebaseAnalyticsService _firebaseAnalyticsService;
+  final FirebaseStorageService _firebaseStorageService;
+  final NotificationService _notificationService;
+  final AppInfoService _appInfoService;
+  final PickImageService _pickImageService;
+  final FirebaseAnalytics _firebaseAnalytics;
+  final EmployeesRepository _employeesRepository;
 
-class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider.value(value: MySharedPreferences()),
-        RepositoryProvider.value(
-            value: FirebaseInitService().init([
-          SocialMediaMethod.APPLE,
-          SocialMediaMethod.FACEBOOK,
-          SocialMediaMethod.GOOGLE
-        ])),
-        RepositoryProvider.value(value: SignInServiceFactory()),
-        RepositoryProvider.value(value: FirebaseAnalyticsService()),
-        RepositoryProvider.value(value: FirebaseStorageService()),
-        RepositoryProvider.value(value: NotificationService()),
-        RepositoryProvider.value(value: AppInfoService()),
-        RepositoryProvider.value(value: PickImageService()),
-        RepositoryProvider.value(value: FirebaseAnalytics()),
-        RepositoryProvider.value(
-          value: EmployeesRepository(
-            FirebaseEmployeeDatabase(),
-          ),
-        ),
+        RepositoryProvider.value(value: _sharedPreferences),
+        RepositoryProvider.value(value: _authService),
+        RepositoryProvider.value(value: _firebaseAnalyticsService),
+        RepositoryProvider.value(value: _firebaseStorageService),
+        RepositoryProvider.value(value: _notificationService),
+        RepositoryProvider.value(value: _appInfoService),
+        RepositoryProvider.value(value: _pickImageService),
+        RepositoryProvider.value(value: _firebaseAnalytics),
+        RepositoryProvider.value(value: _employeesRepository),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<AppBloc>(
-            create: (context) => AppBloc(
-                localPersistanceService: context.read<MySharedPreferences>())
-              ..add(const AppIsFirstTimeLaunched()),
+            create: (context) =>
+                AppBloc(localPersistanceService: _sharedPreferences)
+                  ..add(const AppIsFirstTimeLaunched()),
           ),
           BlocProvider<LoginBloc>(
             create: (context) => LoginBloc(
-              authService: context.read<FirebaseAuthService>(),
-              analyticsService: context.read<FirebaseAnalyticsService>(),
+              authService: _authService,
+              analyticsService: _firebaseAnalyticsService,
             )..add(const LoginIsSessionPersisted()),
           ),
           BlocProvider(
             create: (context) =>
-                UserBloc(authService: context.read<FirebaseAuthService>())
-                  ..add(const UserLoaded()),
+                UserBloc(authService: _authService)..add(const UserLoaded()),
           ),
           BlocProvider(
-            create: (context) => EmployeesBloc(
-              context.read<EmployeesRepository>(),
-            )..add(const EmployeesLoaded()),
+            create: (context) => EmployeesBloc(_employeesRepository)
+              ..add(const EmployeesLoaded()),
           ),
         ],
-        child: const FirebaseStarter(),
+        child: FirebaseStarter(
+          firebaseAnalytics: _firebaseAnalytics,
+        ),
       ),
     );
   }
 }
 
-class FirebaseStarter extends StatefulWidget {
-  const FirebaseStarter({Key key}) : super(key: key);
+class FirebaseStarter extends StatelessWidget {
+  const FirebaseStarter({
+    Key key,
+    @required FirebaseAnalytics firebaseAnalytics,
+  })  : assert(firebaseAnalytics != null),
+        _firebaseAnalytics = firebaseAnalytics,
+        super(key: key);
 
-  @override
-  _FirebaseStarterState createState() => _FirebaseStarterState();
-}
-
-class _FirebaseStarterState extends State<FirebaseStarter> {
-  NotificationService _notificationService;
-
-  @override
-  void initState() {
-    _notificationService = context.read<NotificationService>();
-    _notificationService.configure();
-    super.initState();
-  }
+  final FirebaseAnalytics _firebaseAnalytics;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +126,7 @@ class _FirebaseStarterState extends State<FirebaseStarter> {
       home: DetermineAccessScreen(),
       navigatorObservers: [
         FirebaseAnalyticsObserver(
-          analytics: context.read<FirebaseAnalytics>(),
+          analytics: _firebaseAnalytics,
         ),
       ],
     );

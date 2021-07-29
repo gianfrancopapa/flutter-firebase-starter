@@ -1,7 +1,6 @@
-import 'package:firebasestarter/constants/colors.dart';
+import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/user_profile/user_profile.dart';
-import 'package:firebasestarter/widgets/common/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -22,19 +21,19 @@ class UserInfoSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Margin(0.0, 30.0),
+          const SizedBox(height: 30.0),
           UserProfileImage(image: user.imageUrl),
-          Margin(0.0, 43.0),
+          const SizedBox(height: 43.0),
           _UserInfoItem(
             title: localizations.firstName,
             data: user.firstName,
           ),
-          Margin(0.0, 10.0),
+          const SizedBox(height: 10.0),
           _UserInfoItem(
             title: localizations.lastName,
             data: user.lastName,
           ),
-          Margin(0.0, 10.0),
+          const SizedBox(height: 10.0),
           _UserInfoItem(
             title: localizations.email,
             data: user.email,
@@ -68,16 +67,16 @@ class _UserInfoItem extends StatelessWidget {
             title,
             textAlign: TextAlign.start,
             style: const TextStyle(
-              color: Colors.black,
+              color: FSColors.black,
               fontSize: 18.0,
               fontWeight: FontWeight.w500,
             ),
           ),
-          Margin(0.0, 6.0),
+          const SizedBox(height: 6.0),
           Text(
             data,
             style: const TextStyle(
-              color: AppColor.grey,
+              color: FSColors.grey,
               fontSize: 14.0,
               fontWeight: FontWeight.w400,
             ),
