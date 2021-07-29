@@ -1,6 +1,6 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/services/app_info/app_info.dart';
+import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:firebasestarter/settings/settings.dart';
 import 'package:flutter/material.dart';
