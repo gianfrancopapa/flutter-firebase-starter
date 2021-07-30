@@ -18,7 +18,7 @@ class FirebaseInitService {
     socialMediasAuth.forEach((element) {
       if (_services.containsKey(element)) {
         _serviceFactory.addService(
-            method: element, constructor: () => _services[element]);
+            method: element, constructor: () => _services[element],);
       }
     });
 
