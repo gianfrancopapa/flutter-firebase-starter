@@ -24,6 +24,6 @@ class FirebaseInitService {
 
     return FirebaseAuthService(
         authService: FirebaseAuth.instance,
-        signInServiceFactory: _serviceFactory);
+        signInServiceFactory: _serviceFactory,);
   }
 }
