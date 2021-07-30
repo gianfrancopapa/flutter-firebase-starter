@@ -1,7 +1,7 @@
+import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -51,7 +51,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         password: state.password.value,
       );
 
-      yield state.copyWith(status: SignUpStatus.success, user: user);
+      yield state.copyWith(status: SignUpStatus.success, user: _toUser(user));
     } catch (error) {
       yield state.copyWith(status: SignUpStatus.failure);
     }
@@ -132,4 +132,6 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
     return SignUpStatus.invalid;
   }
+
+  User _toUser(UserEntity entity) => User.fromEntity(entity);
 }

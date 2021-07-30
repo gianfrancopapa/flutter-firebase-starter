@@ -1,3 +1,4 @@
+import 'package:auth/auth.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasestarter/app.dart';
@@ -5,7 +6,6 @@ import 'package:firebasestarter/bootstrap.dart';
 import 'package:firebasestarter/data_source/firebase_employee_database.dart';
 import 'package:firebasestarter/services/analytics/firebase_analytics_service.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/services/image_picker/image_picker.dart';
 import 'package:firebasestarter/services/notifications/notifications_service.dart';
 import 'package:firebasestarter/services/shared_preferences/shared_preferences.dart';

@@ -4,12 +4,12 @@ import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/edit_profile/edit_profile.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/services/image_picker/image_picker.dart';
 import 'package:firebasestarter/services/storage/storage_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:auth/auth.dart';
 
 class MockAuthService extends Mock implements AuthService {}
 
@@ -26,6 +26,8 @@ class MockEditProfileState extends Fake implements EditProfileState {}
 
 class MockUser extends Mock implements User {}
 
+class MockUserEntity extends Mock implements UserEntity {}
+
 class MockPickedFile extends Mock implements PickedFile {}
 
 void main() {
@@ -40,6 +42,7 @@ void main() {
 
     EditProfileBloc mockEditProfileBloc;
 
+    UserEntity mockUserEntity;
     User mockUser;
 
     PickedFile mockPickedFile;
@@ -59,10 +62,15 @@ void main() {
       );
 
       mockUser = MockUser();
+      mockUserEntity = MockUserEntity();
 
       when(() => mockUser.firstName).thenReturn(firstName);
       when(() => mockUser.lastName).thenReturn(lastName);
       when(() => mockUser.imageUrl).thenReturn(imageUrl);
+
+      when(() => mockUserEntity.firstName).thenReturn(firstName);
+      when(() => mockUserEntity.lastName).thenReturn(lastName);
+      when(() => mockUserEntity.imageUrl).thenReturn(imageUrl);
 
       mockPickedFile = MockPickedFile();
 
@@ -84,7 +92,7 @@ void main() {
         act: (bloc) => bloc.add(const EditProfileUserRequested()),
         build: () {
           when(() => mockAuthService.currentUser())
-              .thenAnswer((_) async => mockUser);
+              .thenAnswer((_) async => mockUserEntity);
 
           return EditProfileBloc(
             authService: mockAuthService,
@@ -102,7 +110,7 @@ void main() {
         act: (bloc) => bloc.add(const EditProfileUserRequested()),
         build: () {
           when(() => mockAuthService.currentUser())
-              .thenAnswer((_) async => mockUser);
+              .thenAnswer((_) async => mockUserEntity);
 
           return EditProfileBloc(
             authService: mockAuthService,
@@ -121,7 +129,7 @@ void main() {
             firstName: FirstName.dirty(firstName),
             lastName: LastName.dirty(lastName),
             imageURL: imageUrl,
-            user: mockUser,
+            user: User.fromEntity(mockUserEntity),
           ),
         ],
       );
@@ -318,14 +326,21 @@ void main() {
       const oldImageUrl = 'https://old-image.com';
 
       User mockOldUser;
+      UserEntity _mockUserEntity;
 
       setUp(() {
         mockOldUser = MockUser();
+        _mockUserEntity = MockUserEntity();
 
         when(() => mockOldUser.id).thenReturn(userId);
         when(() => mockOldUser.firstName).thenReturn(oldName);
         when(() => mockOldUser.lastName).thenReturn(oldLastName);
         when(() => mockOldUser.imageUrl).thenReturn(oldImageUrl);
+
+        when(() => _mockUserEntity.id).thenReturn(userId);
+        when(() => _mockUserEntity.firstName).thenReturn(updatedFirstName);
+        when(() => _mockUserEntity.lastName).thenReturn(updatedLastName);
+        when(() => _mockUserEntity.imageUrl).thenReturn(imageUrl);
 
         when(() => mockUser.id).thenReturn(userId);
         when(() => mockUser.firstName).thenReturn(updatedFirstName);
@@ -333,7 +348,7 @@ void main() {
         when(() => mockUser.imageUrl).thenReturn(imageUrl);
 
         when(() => mockAuthService.currentUser())
-            .thenAnswer((_) async => mockUser);
+            .thenAnswer((_) async => _mockUserEntity);
 
         when(
           () => mockStorageService.uploadFile(File(imageUrl), path),
@@ -437,7 +452,7 @@ void main() {
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: mockUser,
+            user: User.fromEntity(_mockUserEntity),
           ),
         ],
       );

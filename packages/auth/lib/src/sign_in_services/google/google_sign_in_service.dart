@@ -1,7 +1,4 @@
-import 'package:firebasestarter/services/auth/auth.dart';
-import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart' as Auth;
+part of auth;
 
 class GoogleSignInService implements ISignInService {
   GoogleSignInService({@required GoogleSignIn googleSignIn})
@@ -26,15 +23,15 @@ class GoogleSignInService implements ISignInService {
     return null;
   }
 
-  Auth.OAuthCredential _getUserCredentials(String accessToken, String idToken) {
+  auth.OAuthCredential _getUserCredentials(String accessToken, String idToken) {
     if (accessToken != null || idToken != null) {
-      final credential = Auth.GoogleAuthProvider.credential(
+      final credential = auth.GoogleAuthProvider.credential(
         idToken: idToken,
         accessToken: accessToken,
       );
       return credential;
     } else {
-      throw Auth.FirebaseAuthException(
+      throw auth.FirebaseAuthException(
         code: 'ERROR_MISSING_GOOGLE_AUTH_TOKEN',
         message: 'Missing Google Auth Token',
       );
@@ -42,7 +39,7 @@ class GoogleSignInService implements ISignInService {
   }
 
   @override
-  Future<Auth.OAuthCredential> getFirebaseCredential() async {
+  Future<auth.OAuthCredential> getFirebaseCredential() async {
     try {
       final googleUser = await _getGoogleUser();
 
@@ -54,7 +51,7 @@ class GoogleSignInService implements ISignInService {
 
       return null;
     } on Exception {
-      throw Auth.FirebaseAuthException(code: 'ERROR_GOOGLE_LOGIN');
+      throw auth.FirebaseAuthException(code: 'ERROR_GOOGLE_LOGIN');
     }
   }
 

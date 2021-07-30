@@ -2,7 +2,7 @@
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
+import 'package:auth/auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

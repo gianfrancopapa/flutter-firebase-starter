@@ -1,7 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart' as Auth;
-import 'package:firebasestarter/services/auth/auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+part of auth;
 
 class FacebookSignInService implements ISignInService {
   FacebookSignInService({
@@ -19,12 +16,12 @@ class FacebookSignInService implements ISignInService {
     return res;
   }
 
-  Auth.OAuthCredential _createCredential(String facebookToken) {
-    return Auth.FacebookAuthProvider.credential(facebookToken);
+  auth.OAuthCredential _createCredential(String facebookToken) {
+    return auth.FacebookAuthProvider.credential(facebookToken);
   }
 
   @override
-  Future<Auth.OAuthCredential> getFirebaseCredential() async {
+  Future<auth.OAuthCredential> getFirebaseCredential() async {
     try {
       final result = await _facebookSignIn();
 
@@ -34,12 +31,12 @@ class FacebookSignInService implements ISignInService {
 
       if (result.status == LoginStatus.cancelled) return null;
 
-      throw Auth.FirebaseAuthException(
+      throw auth.FirebaseAuthException(
         code: 'ERROR_FACEBOOK_LOGIN_FAILED',
         message: result.message,
       );
     } on Exception {
-      throw Auth.FirebaseAuthException(code: 'ERROR_FACEBOOK_LOGIN_FAILED');
+      throw auth.FirebaseAuthException(code: 'ERROR_FACEBOOK_LOGIN_FAILED');
     }
   }
 

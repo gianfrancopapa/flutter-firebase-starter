@@ -1,6 +1,6 @@
+import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/forms/forms.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

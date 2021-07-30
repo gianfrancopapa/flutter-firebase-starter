@@ -1,6 +1,6 @@
+import 'package:auth/auth.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -8,12 +8,12 @@ import 'package:mockito/mockito.dart';
 class MockAuthService extends Mock implements AuthService {}
 
 // ignore: must_be_immutable
-class MockUser extends Mock implements User {}
+class MockUser extends Mock implements UserEntity {}
 
 void main() {
   group('UserBloc', () {
     AuthService authService;
-    User user;
+    UserEntity user;
 
     setUp(() {
       authService = MockAuthService();
@@ -48,7 +48,7 @@ void main() {
         const UserState(status: UserStatus.loading),
         UserState(
           status: UserStatus.success,
-          user: user,
+          user: User.fromEntity(user),
         ),
       ],
     );

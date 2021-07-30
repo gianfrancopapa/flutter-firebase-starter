@@ -1,6 +1,6 @@
+import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

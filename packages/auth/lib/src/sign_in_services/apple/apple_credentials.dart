@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+part of auth;
 
 class AppleCredentials {
   const AppleCredentials();

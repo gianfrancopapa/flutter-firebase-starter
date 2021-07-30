@@ -1,14 +1,13 @@
-import 'package:auth/auth.dart';
-import 'package:equatable/equatable.dart';
+part of auth;
 
-class User extends Equatable {
+class UserEntity extends Equatable {
   final String id;
   final String firstName;
   final String lastName;
   final String email;
   final String imageUrl;
 
-  const User({
+  const UserEntity({
     this.id,
     this.firstName,
     this.lastName,
@@ -16,7 +15,7 @@ class User extends Equatable {
     this.imageUrl,
   });
 
-  static User fromJson(Map<String, dynamic> json) => User(
+  static UserEntity fromJson(Map<String, dynamic> json) => UserEntity(
         id: json['id'],
         firstName: json['firstName'],
         lastName: json['lastName'],
@@ -30,22 +29,8 @@ class User extends Equatable {
         'email': email,
       };
 
-  static User fromEntity(UserEntity entity) => User(
-        id: entity.id,
-        firstName: entity.firstName,
-        lastName: entity.lastName,
-        email: entity.email,
-        imageUrl: entity.imageUrl,
-      );
-
   @override
-  List<Object> get props => [
-        id,
-        firstName,
-        lastName,
-        email,
-        imageUrl,
-      ];
+  List<Object> get props => [id, firstName, lastName, email, imageUrl];
 
   @override
   bool get stringify => false;

@@ -1,8 +1,8 @@
+import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -50,7 +50,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         password: state.password.value,
       );
 
-      yield state.copyWith(status: LoginStatus.loggedIn, user: user);
+      yield state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user));
     } on AuthError catch (e) {
       yield state.copyWith(status: LoginStatus.failure, error: e);
     }
@@ -67,7 +67,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           await _authService.signInWithSocialMedia(method: event.method);
 
       if (user != null) {
-        yield state.copyWith(status: LoginStatus.loggedIn, user: user);
+        yield state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user));
       } else {
         yield state.copyWith(status: LoginStatus.loggedOut);
       }
@@ -82,7 +82,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       final user = await _authService.signInAnonymously();
 
-      yield state.copyWith(status: LoginStatus.loggedIn, user: user);
+      yield state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user));
     } on AuthError catch (e) {
       yield state.copyWith(status: LoginStatus.failure, error: e);
     }
@@ -108,7 +108,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final user = await _authService.currentUser();
 
       if (user != null) {
-        yield state.copyWith(status: LoginStatus.loggedIn, user: user);
+        yield state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user));
         return;
       }
 
@@ -148,4 +148,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     return LoginStatus.invalid;
   }
+
+  User _toUser(UserEntity entity) => User.fromEntity(entity);
 }

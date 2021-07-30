@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/auth/auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -29,9 +29,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       final user = await _authService.currentUser();
 
-      yield state.copyWith(status: UserStatus.success, user: user);
+      yield state.copyWith(status: UserStatus.success, user: _toUser(user));
     } on AuthError {
       yield state.copyWith(status: UserStatus.failure);
     }
   }
+
+  User _toUser(UserEntity entity) => User.fromEntity(entity);
 }
