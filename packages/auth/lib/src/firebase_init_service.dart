@@ -3,7 +3,7 @@ part of auth;
 class FirebaseInitService {
   final Map<SocialMediaMethod, ISignInService> _services = {
     SocialMediaMethod.APPLE:
-        AppleSignInService(appleCredentials: const AppleCredentials()),
+        AppleSignInService(appleCredentials: const AppleCredentials(),),
     SocialMediaMethod.FACEBOOK: FacebookSignInService(
       facebookAuth: FacebookAuth.instance,
     ),
