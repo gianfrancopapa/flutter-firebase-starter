@@ -67,13 +67,13 @@ class EditProfileScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 44.0),
             child: Column(
-              children: [
-                const SizedBox(height: 60.0),
-                const _ProfileImage(
+              children: const [
+                SizedBox(height: 60.0),
+                _ProfileImage(
                   key: Key('editProfileScreen_profileImage'),
                 ),
-                const SizedBox(height: 45.0),
-                const _EditProfileForm(
+                SizedBox(height: 45.0),
+                _EditProfileForm(
                   key: Key('editProfileScreen_form'),
                 ),
               ],
@@ -136,7 +136,7 @@ class _ProfileImage extends StatelessWidget {
                 onTap: () {
                   context.read<EditProfileBloc>().add(
                         const EditProfilePhotoUpdated(
-                          method: PhotoUploadMethod.CAMERA,
+                          method: PhotoUploadMethod.camera,
                         ),
                       );
                   Navigator.pop(context);
@@ -157,8 +157,7 @@ class _ProfileImage extends StatelessWidget {
                 onTap: () {
                   context.read<EditProfileBloc>().add(
                         const EditProfilePhotoUpdated(
-                          method: PhotoUploadMethod.GALLERY,
-                        ),
+                            method: PhotoUploadMethod.gallery),
                       );
                   Navigator.of(context).pop();
                 },
@@ -187,20 +186,20 @@ class _EditProfileForm extends StatelessWidget {
         ? const CircularProgressIndicator()
         : SingleChildScrollView(
             child: Column(
-              children: [
-                const _FirstNameTextField(
+              children: const [
+                _FirstNameTextField(
                   key: Key(
                     'editProfileScreen_editProfileForm_firstNameTextField',
                   ),
                 ),
-                const SizedBox(height: 20.0),
-                const _LastNameTextField(
+                SizedBox(height: 20.0),
+                _LastNameTextField(
                   key: Key(
                     'editProfileScreen_editProfileForm_lastNameTextField',
                   ),
                 ),
-                const SizedBox(height: 43.0),
-                const _UpdateProfileButton(
+                SizedBox(height: 43.0),
+                _UpdateProfileButton(
                   key: Key('updateProfileScreen_editProfileForm_button'),
                 ),
               ],

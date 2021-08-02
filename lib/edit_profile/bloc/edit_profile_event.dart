@@ -1,6 +1,6 @@
 part of 'edit_profile_bloc.dart';
 
-enum PhotoUploadMethod { CAMERA, GALLERY }
+enum PhotoUploadMethod { camera, gallery }
 
 abstract class EditProfileEvent extends Equatable {
   const EditProfileEvent();

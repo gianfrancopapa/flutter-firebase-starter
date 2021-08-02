@@ -17,7 +17,7 @@ class EditProfileState extends Equatable {
   final String imageURL;
 
   const EditProfileState({
-    @required EditProfileStatus this.status,
+    @required this.status,
     this.user,
     this.firstName,
     this.lastName,
