@@ -116,12 +116,6 @@ class _ForgotPasswordTextButton extends StatelessWidget {
             ? MaterialStateProperty.all(FSColors.grey)
             : MaterialStateProperty.all(FSColors.blue),
       ),
-      child: Text(
-        localizations.send,
-        style: const TextStyle(
-          color: FSColors.white,
-        ),
-      ),
       onPressed: isNotValid
           ? null
           : () {
@@ -129,6 +123,12 @@ class _ForgotPasswordTextButton extends StatelessWidget {
                   .read<ForgotPasswordBloc>()
                   .add(const ForgotPasswordResetRequested());
             },
+      child: Text(
+        localizations.send,
+        style: const TextStyle(
+          color: FSColors.white,
+        ),
+      ),
     );
   }
 }

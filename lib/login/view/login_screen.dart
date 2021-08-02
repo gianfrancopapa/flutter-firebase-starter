@@ -26,10 +26,7 @@ class LoginScreen extends StatelessWidget {
       onWillPop: () async => false,
       child: Scaffold(
         backgroundColor: FSColors.lightGrey,
-        appBar: const CustomAppBar(
-          title: 'Login',
-          goBack: false,
-        ),
+        appBar: CustomAppBar(title: 'Login', goBack: false),
         body: BlocListener<LoginBloc, LoginState>(
           listenWhen: (prev, current) =>
               (prev.status != current.status) &&
