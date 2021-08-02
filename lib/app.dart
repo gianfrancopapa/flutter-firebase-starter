@@ -124,7 +124,7 @@ class FirebaseStarter extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: DetermineAccessScreen(),
+      home: const DetermineAccessScreen(),
       navigatorObservers: [
         FirebaseAnalyticsObserver(
           analytics: _firebaseAnalytics,
