@@ -24,6 +24,8 @@ class Employee extends Equatable {
     this.description,
   });
 
+  bool get isAvatarFromNetwork => (avatarAsset ?? '').contains('http');
+
   static Employee fromEntity(EmployeeEntity entity) => Employee(
         id: entity.id,
         firstName: entity.firstName,

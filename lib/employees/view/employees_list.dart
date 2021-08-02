@@ -1,83 +1,100 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/models/employee.dart';
-import 'package:firebasestarter/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 
 class EmployeesList extends StatelessWidget {
+  const EmployeesList({Key key, @required this.employees})
+      : assert(employees != null);
+
   final List<Employee> employees;
 
-  const EmployeesList({Key key, this.employees}) : super(key: key);
-
   @override
-  Widget build(BuildContext context) => ListView.builder(
-        padding: const EdgeInsets.fromLTRB(44.0, 22.0, 44.0, 0.0),
-        itemCount: employees?.length ?? 0,
-        itemBuilder: (BuildContext context, int i) => _EmployeeCard(
-          employees[i],
-        ),
-      );
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: FSSpacing.s40),
+      itemCount: employees.length,
+      itemBuilder: (_, i) => _EmployeeCard(employee: employees[i]),
+    );
+  }
 }
 
 class _EmployeeCard extends StatelessWidget {
+  const _EmployeeCard({@required this.employee}) : assert(employee != null);
+
   final Employee employee;
-  final _screenSize = ScreenSize();
-  _EmployeeCard(this.employee);
-
-  Size _cardSize(BuildContext context) => _screenSize.getSize(
-        context: context,
-        designHeight: 63.0,
-        designWidth: 287.0,
-      );
-
-  Widget _employeePhoto() => Container(
-        height: 40.0,
-        width: 40.0,
-        decoration: BoxDecoration(
-          color: FSColors.white,
-          shape: BoxShape.circle,
-          image: DecorationImage(
-            image: employee?.avatarAsset?.contains('http') ?? false
-                ? NetworkImage(employee.avatarAsset)
-                : const AssetImage(FSAssetImage.anonLogin),
-          ),
-        ),
-      );
-
-  Widget _employeName(BuildContext context) => Container(
-        width: _cardSize(context).width / 1.8,
-        alignment: Alignment.centerLeft,
-        child: Text(
-          employee.firstName + ' ' + employee.lastName,
-          textAlign: TextAlign.start,
-          style: const TextStyle(
-            color: FSColors.black,
-            fontSize: 15.0,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      );
 
   @override
-  Widget build(BuildContext context) => Container(
-        padding: const EdgeInsets.symmetric(vertical: 7.0, horizontal: 22.0),
-        margin: const EdgeInsets.only(bottom: 22.0),
-        height: _cardSize(context).height,
-        width: _cardSize(context).width,
-        decoration: BoxDecoration(
-          color: FSColors.white,
-          borderRadius: BorderRadius.circular(5.0),
-          boxShadow: const <BoxShadow>[
-            BoxShadow(
-              color: FSColors.black,
-              offset: Offset(0.0, 5.0),
-              blurRadius: 3.0,
-            ),
-          ],
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: FSSpacing.s20),
+      decoration: BoxDecoration(
+        color: FSColors.white,
+        borderRadius: BorderRadius.circular(FSSpacing.s4),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: FSColors.black.withOpacity(0.3),
+            offset: const Offset(FSSpacing.s0, FSSpacing.s4),
+            blurRadius: FSSpacing.s2,
+          ),
+        ],
+      ),
+      child: FSListTile(
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: FSSpacing.s6,
+          horizontal: FSSpacing.s20,
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [_employeePhoto(), _employeName(context)],
+        leading: _EmployeeImage(
+          employee: employee,
         ),
-      );
+        title: Center(
+          child: _EmployeeDisplayName(
+            employee: employee,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _EmployeeImage extends StatelessWidget {
+  const _EmployeeImage({Key key, @required this.employee}) : super(key: key);
+
+  final Employee employee;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: FSSpacing.s40,
+      width: FSSpacing.s40,
+      decoration: BoxDecoration(
+        color: FSColors.white,
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          image: employee.isAvatarFromNetwork
+              ? NetworkImage(employee.avatarAsset)
+              : const AssetImage(FSAssetImage.anonLogin),
+        ),
+      ),
+    );
+  }
+}
+
+class _EmployeeDisplayName extends StatelessWidget {
+  const _EmployeeDisplayName({Key key, @required this.employee})
+      : super(key: key);
+
+  final Employee employee;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      employee.firstName + ' ' + employee.lastName,
+      textAlign: TextAlign.start,
+      style: const TextStyle(
+        color: FSColors.black,
+        fontSize: FSSpacing.s16,
+        fontWeight: FontWeight.w500,
+      ),
+    );
+  }
 }

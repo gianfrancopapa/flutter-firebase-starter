@@ -24,6 +24,11 @@ abstract class LoginWithSocialMediaButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FSTextButton(
       style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(FSSpacing.s10)),
+          ),
+        ),
         backgroundColor: MaterialStateProperty.all(FSColors.white),
       ),
       onPressed: () {
@@ -110,6 +115,11 @@ class LoginAnonymouslyButton extends StatelessWidget {
 
     return FSTextButton(
       style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(FSSpacing.s10)),
+          ),
+        ),
         backgroundColor: MaterialStateProperty.all(FSColors.white),
       ),
       onPressed: () {

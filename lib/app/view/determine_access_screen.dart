@@ -11,6 +11,7 @@ class DetermineAccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AppBloc, AppState>(
+      listenWhen: (prev, current) => prev.status != current.status,
       listener: (context, state) {
         if (state.status == AppStatus.authenticated) {
           Navigator.of(context).push(HomeScreen.route());

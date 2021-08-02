@@ -277,7 +277,10 @@ class _UpdateProfileButton extends StatelessWidget {
                   .read<EditProfileBloc>()
                   .add(const EditProfileInfoUpdated());
             },
-      child: Text(localizations.editProfile),
+      child: Text(
+        localizations.editProfile,
+        style: const TextStyle(color: FSColors.white),
+      ),
     );
   }
 }

@@ -28,41 +28,36 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: CustomAppBar(title: _localizedStrings.settings),
-      body: BlocListener<AppBloc, AppState>(
-        listenWhen: (_, current) => current.status == AppStatus.unauthenticated,
-        listener: (BuildContext context, AppState state) {
-          if (state.status == AppStatus.unauthenticated) {
-            Navigator.of(context).popUntil((route) => route.isFirst);
-          }
-        },
-        child: Container(
-          alignment: Alignment.center,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.25,
+      body: Container(
+        alignment: Alignment.center,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.25,
+            ),
+            FSTextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(FSColors.blue),
               ),
-              FSTextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(FSColors.blue),
-                ),
-                onPressed: () {
-                  context.read<AppBloc>().add(const AppLogoutRequsted());
-                },
-                child: Text(_localizedStrings.logout),
+              onPressed: () {
+                context.read<AppBloc>().add(const AppLogoutRequsted());
+              },
+              child: Text(
+                _localizedStrings.logout,
+                style: const TextStyle(color: FSColors.white),
               ),
-              const SizedBox(height: 200.0),
-              const AppVersion(),
-              const SizedBox(height: 20.45),
-              SvgPicture.asset(
-                FSAssetImage.somnioGreyLogoSvg,
-                color: FSColors.grey,
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 200.0),
+            const AppVersion(),
+            const SizedBox(height: 20.45),
+            SvgPicture.asset(
+              FSAssetImage.somnioGreyLogoSvg,
+              color: FSColors.grey,
+            ),
+          ],
         ),
       ),
     );

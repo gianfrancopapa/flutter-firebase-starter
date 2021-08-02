@@ -22,34 +22,35 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: FSColors.lightGrey,
-      appBar: CustomAppBar(
-        title: 'Login',
-        goBack: false,
-      ),
-      body: BlocListener<LoginBloc, LoginState>(
-        listenWhen: (_, current) =>
-            current.status == LoginStatus.failure ||
-            current.status == LoginStatus.loggedIn,
-        listener: (BuildContext context, LoginState state) {
-          if (state.status == LoginStatus.failure) {
-            DialogHelper.showAlertDialog(
-              context: context,
-              story: _determineAccessError(state.error, context),
-              btnText: 'Close',
-              btnAction: () => Navigator.pop(context),
-            );
-          }
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: FSColors.lightGrey,
+        appBar: CustomAppBar(title: 'Login', goBack: false),
+        body: BlocListener<LoginBloc, LoginState>(
+          listenWhen: (prev, current) =>
+              (prev.status != current.status) &&
+              (current.status == LoginStatus.failure ||
+                  current.status == LoginStatus.loggedIn),
+          listener: (BuildContext context, LoginState state) {
+            if (state.status == LoginStatus.failure) {
+              DialogHelper.showAlertDialog(
+                context: context,
+                story: _determineAccessError(state.error, context),
+                btnText: 'Close',
+                btnAction: () => Navigator.pop(context),
+              );
+            }
 
-          if (state.status == LoginStatus.loggedIn) {
-            context.read<UserBloc>().add(const UserLoaded());
+            if (state.status == LoginStatus.loggedIn) {
+              context.read<UserBloc>().add(const UserLoaded());
 
-            Navigator.of(context).push(HomeScreen.route());
-          }
-        },
-        child: const _LoginForm(
-          key: Key('loginScreen_loginForm'),
+              Navigator.of(context).push(HomeScreen.route());
+            }
+          },
+          child: const _LoginForm(
+            key: Key('loginScreen_loginForm'),
+          ),
         ),
       ),
     );
@@ -95,36 +96,38 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 44.0),
       child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(height: 47.0),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).push(SignUpScreen.route());
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    AppLocalizations.of(context).createAccount,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(SignUpScreen.route());
+                  },
+                  child: Text(
+                    localizations.createAccount,
                     style: const TextStyle(
                       color: FSColors.skyBlue,
                       fontSize: 13.0,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  const Icon(
-                    Icons.keyboard_arrow_right_outlined,
-                    color: FSColors.skyBlue,
-                    size: 15.0,
-                  )
-                ],
-              ),
+                ),
+                const Icon(
+                  Icons.keyboard_arrow_right_outlined,
+                  color: FSColors.skyBlue,
+                  size: 15.0,
+                )
+              ],
             ),
             const SizedBox(height: 12.0),
             const _EmailTextField(
@@ -263,6 +266,11 @@ class _LoginButton extends StatelessWidget {
 
     return FSTextButton(
       style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(FSSpacing.s10)),
+          ),
+        ),
         backgroundColor: isNotValid
             ? MaterialStateProperty.all(FSColors.grey)
             : MaterialStateProperty.all(FSColors.blue),
@@ -274,7 +282,10 @@ class _LoginButton extends StatelessWidget {
                   .read<LoginBloc>()
                   .add(const LoginWithEmailAndPasswordRequested());
             },
-      child: Text(localizations.login),
+      child: Text(
+        localizations.login,
+        style: const TextStyle(color: FSColors.white),
+      ),
     );
   }
 }
