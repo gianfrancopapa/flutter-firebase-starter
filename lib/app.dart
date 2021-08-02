@@ -117,13 +117,13 @@ class FirebaseStarter extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: DetermineAccessScreen(),
+      home: const DetermineAccessScreen(),
       navigatorObservers: [
         FirebaseAnalyticsObserver(
           analytics: _firebaseAnalytics,

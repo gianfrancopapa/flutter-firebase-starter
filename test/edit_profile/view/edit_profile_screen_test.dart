@@ -235,7 +235,7 @@ void main() {
 
         verify(
           () => mockEditProfileBloc.add(
-            const EditProfilePhotoUpdated(method: PhotoUploadMethod.CAMERA),
+            const EditProfilePhotoUpdated(method: PhotoUploadMethod.camera),
           ),
         ).called(1);
       },
@@ -271,7 +271,7 @@ void main() {
 
         verify(
           () => mockEditProfileBloc.add(
-            const EditProfilePhotoUpdated(method: PhotoUploadMethod.GALLERY),
+            const EditProfilePhotoUpdated(method: PhotoUploadMethod.gallery),
           ),
         ).called(1);
       },

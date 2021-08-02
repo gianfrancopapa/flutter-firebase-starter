@@ -6,10 +6,11 @@ class ImagePickerButton extends StatelessWidget {
   final Widget child;
 
   const ImagePickerButton({
+    Key key,
     this.dispatchImageFromGallery,
     this.dispatchImageFromCamera,
     this.child,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -136,12 +136,12 @@ class BuildImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
+      alignment: Alignment.bottomCenter,
       child: Image.asset(
         asset.name,
         width: asset.width,
         height: asset.height,
       ),
-      alignment: Alignment.bottomCenter,
     );
   }
 }

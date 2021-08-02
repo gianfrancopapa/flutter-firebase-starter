@@ -6,9 +6,7 @@ class MySharedPreferences implements LocalPersistanceService {
   SharedPreferences _prefs;
 
   Future<SharedPreferences> _getInstance() async {
-    if (_prefs == null) {
-      _prefs = await SharedPreferences.getInstance();
-    }
+    _prefs ??= await SharedPreferences.getInstance();
     return _prefs;
   }
 

@@ -24,7 +24,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: FSColors.lightGrey,
-      appBar: const CustomAppBar(
+      appBar: CustomAppBar(
         title: 'Login',
         goBack: false,
       ),

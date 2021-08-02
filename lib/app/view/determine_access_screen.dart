@@ -6,6 +6,8 @@ import 'package:firebasestarter/onboarding/view/onboarding_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetermineAccessScreen extends StatelessWidget {
+  const DetermineAccessScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final status = context.select((AppBloc bloc) => bloc.state.status);

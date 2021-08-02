@@ -60,9 +60,9 @@ void main() {
 
       test('supports value comparison', () {
         expect(
-          EditProfilePhotoUpdated(method: PhotoUploadMethod.CAMERA),
+          EditProfilePhotoUpdated(method: PhotoUploadMethod.camera),
           equals(
-            EditProfilePhotoUpdated(method: PhotoUploadMethod.CAMERA),
+            EditProfilePhotoUpdated(method: PhotoUploadMethod.camera),
           ),
         );
       });

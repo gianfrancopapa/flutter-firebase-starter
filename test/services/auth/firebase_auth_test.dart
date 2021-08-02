@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebasestarter/models/user.dart' as Model;
+import 'package:firebasestarter/models/user.dart' as model;
 import 'package:auth/auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -15,7 +15,7 @@ class MockOAuthCredential extends Mock implements OAuthCredential {}
 class MockFirebaseUser extends Mock implements User {}
 
 // ignore: must_be_immutable
-class MockModelUser extends Mock implements Model.User {}
+class MockModelUser extends Mock implements model.User {}
 
 // ignore: must_be_immutable
 class MockFirebaseAuthException extends Mock implements FirebaseAuthException {}
@@ -33,7 +33,7 @@ void main() {
 
     UserCredential mockUserCredential;
     OAuthCredential mockOAuthCredential;
-    Model.User mockModelUser;
+    model.User mockModelUser;
     User mockFirebaseUser;
 
     setUp(() {

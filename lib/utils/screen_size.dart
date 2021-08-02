@@ -37,7 +37,8 @@ class ScreenSize {
       return _getPercentage(((designSize - 1) * 100) / designSize);
     } else if (percentageToAdjust * designSize > designSize + 1) {
       return _getPercentage(((designSize + 1) * 100) / designSize);
-    } else
+    } else {
       return percentageToAdjust;
+    }
   }
 }

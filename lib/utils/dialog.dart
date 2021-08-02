@@ -28,11 +28,11 @@ abstract class DialogHelper {
                 backgroundColor:
                     MaterialStateProperty.all<Color>(FSColors.blueGrey),
               ),
+              onPressed: btnAction,
               child: Text(
                 btnText,
                 style: const TextStyle(color: FSColors.white),
               ),
-              onPressed: btnAction,
             ),
             btnText2 != null
                 ? TextButton(
@@ -40,11 +40,11 @@ abstract class DialogHelper {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(FSColors.blueGrey),
                     ),
+                    onPressed: btnAction2,
                     child: Text(
                       btnText2,
                       style: const TextStyle(color: FSColors.white),
                     ),
-                    onPressed: btnAction2,
                   )
                 : const SizedBox(
                     height: 0.0,
