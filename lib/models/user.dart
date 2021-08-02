@@ -16,6 +16,14 @@ class User extends Equatable {
     this.imageUrl,
   });
 
+  static const empty = User(
+    id: '-1',
+    firstName: null,
+    lastName: null,
+    email: null,
+    imageUrl: null,
+  );
+
   static User fromJson(Map<String, dynamic> json) => User(
         id: json['id'],
         firstName: json['firstName'],
