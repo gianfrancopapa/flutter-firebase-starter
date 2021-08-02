@@ -21,10 +21,6 @@ class LoginAnonymouslyRequested extends LoginEvent {
   const LoginAnonymouslyRequested();
 }
 
-class LogoutRequested extends LoginEvent {
-  const LogoutRequested();
-}
-
 class LoginIsSessionPersisted extends LoginEvent {
   const LoginIsSessionPersisted();
 }

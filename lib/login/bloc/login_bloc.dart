@@ -30,8 +30,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield* _mapLoginWithSocialMediaRequestedToState(event);
     } else if (event is LoginAnonymouslyRequested) {
       yield* _mapLoginAnonymouslyRequestedToState();
-    } else if (event is LogoutRequested) {
-      yield* _mapLogoutRequestedToState();
     } else if (event is LoginIsSessionPersisted) {
       yield* _mapLoginIsSessionPersistedToState();
     } else if (event is LoginEmailChanged) {
@@ -83,19 +81,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final user = await _authService.signInAnonymously();
 
       yield state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user));
-    } on AuthError catch (e) {
-      yield state.copyWith(status: LoginStatus.failure, error: e);
-    }
-  }
-
-  Stream<LoginState> _mapLogoutRequestedToState() async* {
-    yield state.copyWith(status: LoginStatus.loading);
-    _analyticsService.logLogout();
-
-    try {
-      await _authService.signOut();
-
-      yield state.copyWith(status: LoginStatus.loggedOut);
     } on AuthError catch (e) {
       yield state.copyWith(status: LoginStatus.failure, error: e);
     }

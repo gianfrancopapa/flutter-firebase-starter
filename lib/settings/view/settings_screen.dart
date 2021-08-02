@@ -1,5 +1,5 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
-import 'package:firebasestarter/login/login.dart';
+import 'package:firebasestarter/app/app.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:firebasestarter/settings/settings.dart';
@@ -28,10 +28,10 @@ class SettingsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: CustomAppBar(title: _localizedStrings.settings),
-      body: BlocListener<LoginBloc, LoginState>(
-        listenWhen: (_, current) => current.status == LoginStatus.loggedOut,
-        listener: (BuildContext context, LoginState state) {
-          if (state.status == LoginStatus.loggedOut) {
+      body: BlocListener<AppBloc, AppState>(
+        listenWhen: (_, current) => current.status == AppStatus.unauthenticated,
+        listener: (BuildContext context, AppState state) {
+          if (state.status == AppStatus.unauthenticated) {
             Navigator.of(context).popUntil((route) => route.isFirst);
           }
         },
@@ -50,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.all(FSColors.blue),
                 ),
                 onPressed: () {
-                  context.read<LoginBloc>().add(const LogoutRequested());
+                  context.read<AppBloc>().add(const AppLogoutRequsted());
                 },
                 child: Text(_localizedStrings.logout),
               ),

@@ -14,12 +14,19 @@ class Asset {
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({Key key}) : super(key: key);
 
+  static Route route() {
+    return MaterialPageRoute<void>(
+      builder: (_) => BlocProvider(
+        create: (context) => OnboardingCubit(
+          analyticsService: context.read<FirebaseAnalyticsService>(),
+        ),
+        child: const OnBoardingScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => OnboardingCubit(
-              analyticsService: context.read<FirebaseAnalyticsService>(),
-            ),
-        child: const OnboardingPages());
+    return const OnboardingPages();
   }
 }

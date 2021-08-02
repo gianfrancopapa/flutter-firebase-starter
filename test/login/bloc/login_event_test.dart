@@ -38,17 +38,6 @@ void main() {
       });
     });
 
-    group('LogoutRequested', () {
-      test('supports value comparison', () {
-        expect(
-          LogoutRequested(),
-          equals(
-            LogoutRequested(),
-          ),
-        );
-      });
-    });
-
     group('LoginIsSessionPersisted', () {
       test('supports value comparison', () {
         expect(

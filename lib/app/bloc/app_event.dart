@@ -10,3 +10,16 @@ abstract class AppEvent extends Equatable {
 class AppIsFirstTimeLaunched extends AppEvent {
   const AppIsFirstTimeLaunched();
 }
+
+class AppUserChanged extends AppEvent {
+  const AppUserChanged({@required this.user}) : assert(user != null);
+
+  final User user;
+
+  @override
+  List<Object> get props => [user];
+}
+
+class AppLogoutRequsted extends AppEvent {
+  const AppLogoutRequsted();
+}

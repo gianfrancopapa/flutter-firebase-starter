@@ -76,22 +76,23 @@ class App extends StatelessWidget {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<AppBloc>(
-            create: (context) =>
-                AppBloc(localPersistanceService: _sharedPreferences)
-                  ..add(const AppIsFirstTimeLaunched()),
+            create: (_) => AppBloc(
+              authService: _authService,
+              localPersistanceService: _sharedPreferences,
+            )..add(const AppIsFirstTimeLaunched()),
           ),
           BlocProvider<LoginBloc>(
-            create: (context) => LoginBloc(
+            create: (_) => LoginBloc(
               authService: _authService,
               analyticsService: _firebaseAnalyticsService,
             )..add(const LoginIsSessionPersisted()),
           ),
           BlocProvider(
-            create: (context) =>
+            create: (_) =>
                 UserBloc(authService: _authService)..add(const UserLoaded()),
           ),
           BlocProvider(
-            create: (context) => EmployeesBloc(_employeesRepository)
+            create: (_) => EmployeesBloc(_employeesRepository)
               ..add(const EmployeesLoaded()),
           ),
         ],
