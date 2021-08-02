@@ -311,69 +311,6 @@ void main() {
       );
 
       blocTest<LoginBloc, LoginState>(
-        'calls authService.signOut',
-        act: (bloc) => bloc.add(const LogoutRequested()),
-        build: () {
-          return LoginBloc(
-            authService: mockAuthService,
-            analyticsService: mockAnalyticsService,
-          );
-        },
-        verify: (_) {
-          verify(mockAuthService.signOut()).called(1);
-        },
-      );
-
-      blocTest<LoginBloc, LoginState>(
-        'emits [loading, loggedOut] when authService.signOut succeeds',
-        act: (bloc) => bloc.add(const LogoutRequested()),
-        build: () {
-          return LoginBloc(
-            authService: mockAuthService,
-            analyticsService: mockAnalyticsService,
-          );
-        },
-        expect: () => <LoginState>[
-          LoginState(
-            status: LoginStatus.loading,
-            email: Email.pure(),
-            password: Password.pure(),
-          ),
-          LoginState(
-            status: LoginStatus.loggedOut,
-            email: Email.pure(),
-            password: Password.pure(),
-          ),
-        ],
-      );
-
-      blocTest<LoginBloc, LoginState>(
-        'emits [loading, failure] when authService.signOut throws',
-        act: (bloc) => bloc.add(const LogoutRequested()),
-        build: () {
-          when(mockAuthService.signOut()).thenThrow(AuthError.ERROR);
-
-          return LoginBloc(
-            authService: mockAuthService,
-            analyticsService: mockAnalyticsService,
-          );
-        },
-        expect: () => <LoginState>[
-          LoginState(
-            status: LoginStatus.loading,
-            email: Email.pure(),
-            password: Password.pure(),
-          ),
-          LoginState(
-            status: LoginStatus.failure,
-            email: Email.pure(),
-            password: Password.pure(),
-            error: AuthError.ERROR,
-          ),
-        ],
-      );
-
-      blocTest<LoginBloc, LoginState>(
         'calls authService.currentUser',
         act: (bloc) => bloc.add(const LoginIsSessionPersisted()),
         build: () {
