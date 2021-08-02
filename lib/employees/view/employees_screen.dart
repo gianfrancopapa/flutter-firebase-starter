@@ -49,7 +49,7 @@ class _EmployeesList extends StatelessWidget {
         );
       }
 
-      return EmployeesList(state.employees);
+      return EmployeesList(employees: state.employees);
     }
 
     return const Center(child: CircularProgressIndicator());

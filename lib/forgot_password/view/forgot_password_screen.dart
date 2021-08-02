@@ -106,7 +106,6 @@ class _ForgotPasswordTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
-
     final status =
         context.select((ForgotPasswordBloc bloc) => bloc.state.status);
     final isNotValid = status != ForgotPasswordStatus.valid;
@@ -117,7 +116,12 @@ class _ForgotPasswordTextButton extends StatelessWidget {
             ? MaterialStateProperty.all(FSColors.grey)
             : MaterialStateProperty.all(FSColors.blue),
       ),
-      child: Text(localizations.send),
+      child: Text(
+        localizations.send,
+        style: const TextStyle(
+          color: FSColors.white,
+        ),
+      ),
       onPressed: isNotValid
           ? null
           : () {

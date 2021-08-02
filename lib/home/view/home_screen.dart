@@ -85,7 +85,7 @@ class _BottomNavigationBar extends StatelessWidget {
                   },
                   child: SizedBox(
                     child: Icon(
-                      Feather.home,
+                      Feather.user,
                       color: index == _index2 ? FSColors.blue : FSColors.grey,
                     ),
                   ),

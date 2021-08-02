@@ -31,9 +31,10 @@ class SignUpScreen extends StatelessWidget {
         title: localizations.createAccount,
       ),
       body: BlocListener<SignUpBloc, SignUpState>(
-        listenWhen: (_, current) =>
-            current.status == SignUpStatus.failure ||
-            current.status == SignUpStatus.success,
+        listenWhen: (prev, current) =>
+            (prev.status != current.status) &&
+            (current.status == SignUpStatus.failure ||
+                current.status == SignUpStatus.success),
         listener: (BuildContext context, SignUpState state) {
           if (state.status == SignUpStatus.failure) {
             DialogHelper.showAlertDialog(

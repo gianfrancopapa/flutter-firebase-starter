@@ -18,27 +18,29 @@ class CustomAppBar extends PreferredSize {
   Size get preferredSize => Size.fromHeight(height);
 
   @override
-  Widget build(BuildContext context) => AppBar(
-        backgroundColor: FSColors.blue,
-        leading: goBack
-            ? InkWell(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Icon(
-                  Icons.keyboard_arrow_left,
-                  size: 30.0,
-                ),
-              )
-            : const SizedBox(),
-        title: Text(
-          title,
-          style: const TextStyle(
-            color: FSColors.white,
-            fontSize: 23.0,
-            fontWeight: FontWeight.w400,
-          ),
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: FSColors.blue,
+      leading: goBack
+          ? InkWell(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: const Icon(
+                Icons.keyboard_arrow_left,
+                size: 30.0,
+              ),
+            )
+          : const SizedBox(),
+      title: Text(
+        title,
+        style: const TextStyle(
+          color: FSColors.white,
+          fontSize: 23.0,
+          fontWeight: FontWeight.w400,
         ),
-        actions: [suffixWidget ?? const SizedBox()],
-      );
+      ),
+      actions: [suffixWidget ?? const SizedBox()],
+    );
+  }
 }
