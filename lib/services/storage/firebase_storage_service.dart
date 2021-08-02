@@ -15,7 +15,7 @@ class FirebaseStorageService implements StorageService {
       );
       await storageRef.putFile(file, metadata);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -26,7 +26,7 @@ class FirebaseStorageService implements StorageService {
       await _firebaseStorage.ref(storagePath).writeToFile(downloadToFile);
       return downloadToFile.path;
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -36,7 +36,7 @@ class FirebaseStorageService implements StorageService {
       final url = await _firebaseStorage.ref(storagePath).getDownloadURL();
       return url;
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

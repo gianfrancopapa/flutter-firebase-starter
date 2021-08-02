@@ -18,11 +18,11 @@ class AppInfoService extends AppInfo {
   Future<Flavor> getCurrentFlavor() async {
     final packageName = await getPackageName();
     if (packageName.endsWith('dev')) {
-      return Flavor.DEVELOPMENT;
+      return Flavor.development;
     } else if (packageName.endsWith('staging')) {
-      return Flavor.STAGING;
+      return Flavor.staging;
     } else {
-      return Flavor.PRODUCTION;
+      return Flavor.production;
     }
   }
 
@@ -39,4 +39,4 @@ class AppInfoService extends AppInfo {
   }
 }
 
-enum Flavor { DEVELOPMENT, STAGING, PRODUCTION }
+enum Flavor { development, staging, production }

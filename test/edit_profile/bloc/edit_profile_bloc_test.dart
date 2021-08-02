@@ -261,7 +261,7 @@ void main() {
       blocTest<EditProfileBloc, EditProfileState>(
         'emits updated imageURL and invalid status',
         act: (bloc) => bloc.add(
-          const EditProfilePhotoUpdated(method: PhotoUploadMethod.CAMERA),
+          const EditProfilePhotoUpdated(method: PhotoUploadMethod.camera),
         ),
         build: () {
           when(() => mockImageService.imgFromCamera())
@@ -286,7 +286,7 @@ void main() {
       blocTest<EditProfileBloc, EditProfileState>(
         'emits updated imageURL and valid status',
         act: (bloc) => bloc.add(
-          const EditProfilePhotoUpdated(method: PhotoUploadMethod.CAMERA),
+          const EditProfilePhotoUpdated(method: PhotoUploadMethod.camera),
         ),
         seed: () => EditProfileState(
           status: EditProfileStatus.initial,

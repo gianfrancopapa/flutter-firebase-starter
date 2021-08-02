@@ -7,12 +7,16 @@ class CustomAppBar extends PreferredSize {
   final String title;
   final Widget suffixWidget;
 
-  const CustomAppBar({
+  CustomAppBar({
+    Key key,
     this.height = kToolbarHeight,
     this.title,
     this.goBack = true,
     this.suffixWidget,
-  });
+  }) : super(
+            key: key,
+            child: Container(),
+            preferredSize: const Size.fromHeight(kToolbarHeight));
 
   @override
   Size get preferredSize => Size.fromHeight(height);

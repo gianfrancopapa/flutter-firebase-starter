@@ -74,11 +74,6 @@ class LoginWithGoogleButton extends LoginWithSocialMediaButton {
   String text(BuildContext context) {
     return AppLocalizations.of(context).googleSignIn;
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return super.build(context);
-  }
 }
 
 class LoginWithFacebookButton extends LoginWithSocialMediaButton {
@@ -94,11 +89,6 @@ class LoginWithFacebookButton extends LoginWithSocialMediaButton {
   String text(BuildContext context) {
     return AppLocalizations.of(context).facebookSignIn;
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return super.build(context);
-  }
 }
 
 class LoginWithAppleButton extends LoginWithSocialMediaButton {
@@ -113,11 +103,6 @@ class LoginWithAppleButton extends LoginWithSocialMediaButton {
   @override
   String text(BuildContext context) {
     return AppLocalizations.of(context).appleIdSignIn;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return super.build(context);
   }
 }
 

@@ -1,3 +1,5 @@
+# include: package:flutter_lints/flutter.yaml
+
 analyzer:
   exclude: [build/**]
   errors:
@@ -51,3 +53,7 @@ linter:
     - avoid_bool_literals_in_conditional_expressions
     - sized_box_for_whitespace
     - unnecessary_await_in_return
+    - comment_references
+    - one_member_abstracts
+    - package_api_docs
+    - sort_child_properties_last

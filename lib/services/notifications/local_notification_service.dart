@@ -15,8 +15,6 @@ class LocalNotificationService {
   Function(Map<String, dynamic>) get _onSelected =>
       _didReceivedLocalNotificationSubject.sink.add;
 
-  var initializationSettings;
-
   static final LocalNotificationService _singleton =
       LocalNotificationService._internal();
 

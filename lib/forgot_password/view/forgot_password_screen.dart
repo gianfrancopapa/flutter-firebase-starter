@@ -60,13 +60,13 @@ class _ForgotPasswordForm extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 131.0),
-          const _EmailTextField(
+        children: const [
+          SizedBox(height: 131.0),
+          _EmailTextField(
             key: Key('forgotPasswordScreen_form_emailTextField'),
           ),
-          const SizedBox(height: 41.0),
-          const _ForgotPasswordTextButton(
+          SizedBox(height: 41.0),
+          _ForgotPasswordTextButton(
             key: Key('forgotPasswordScreen_form_forgotPasswordButton'),
           ),
         ],

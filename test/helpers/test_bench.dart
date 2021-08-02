@@ -55,7 +55,7 @@ extension TestBench on WidgetTester {
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
+          localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,

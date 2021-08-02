@@ -101,7 +101,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     try {
       Future<PickedFile> Function() uploadMethod;
 
-      if (event.method == PhotoUploadMethod.CAMERA) {
+      if (event.method == PhotoUploadMethod.camera) {
         uploadMethod = _imageService.imgFromCamera;
       } else {
         uploadMethod = _imageService.imgFromGallery;
@@ -174,7 +174,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
       if (needToUpdateImage) {
         final extension = imageUrl.split('.').last;
-        final path = '/users/${user.id}.${extension}';
+        final path = '/users/${user.id}.$extension';
         final file = File(imageUrl);
 
         await _storageService.uploadFile(file, path);
