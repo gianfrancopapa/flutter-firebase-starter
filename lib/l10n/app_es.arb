@@ -25,7 +25,7 @@
 
   "employees": "Empleados",
 
-  "logout": "Logout",
+  "logout": "Cerrar sesión",
 
   "configuration": "Configuración",
 
@@ -153,6 +153,11 @@
 
   "gallery" : "Galería",
 
-  "camera" : "Cámara"
+  "camera" : "Cámara",
 
+  "deleteAccount" : "Eliminar cuenta",
+
+  "deleteAccountConfirmation" : "Esta acción eliminará definitivamente el usaurio y no podrá recuperar su información. ¿Desea continuar?",
+
+  "askReauthentication" : "Para poder eliminar el usuario tiene que volver a iniciar sesión. ¿Desea cerrar sesión?" 
 }

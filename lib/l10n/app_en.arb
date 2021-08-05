@@ -389,6 +389,21 @@
   "missingAuthToken" : "Missing Google auth token.",
   "@missingAuthToken":{ 
       "description": ""
+  },
+
+  "deleteAccount"  : "Delete account",
+  "@deleteAccount" : {
+      "description" : ""
+  },
+
+  "deleteAccountConfirmation"  : "This action permanently deletes the user, do you want to continue?",
+  "@deleteAccountConfirmation" : {
+      "description" : ""
+  },
+
+  "askReauthentication"  : "In order to delete the user, you have to log in again. Do you want to log out?",
+  "@askReauthentication" : {
+      "description" : ""
   }
 
  

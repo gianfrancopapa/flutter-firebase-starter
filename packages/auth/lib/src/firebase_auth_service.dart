@@ -36,8 +36,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Stream<UserEntity> get onAuthStateChanged =>
-      _firebaseAuth.authStateChanges().map(_mapFirebaseUser);
+  Stream<UserEntity> get onAuthStateChanged => _firebaseAuth.authStateChanges().map(_mapFirebaseUser);
 
   @override
   Future<UserEntity> currentUser() async {
@@ -198,6 +197,8 @@ class FirebaseAuthService implements AuthService {
         return AuthError.OPERATION_NOT_ALLOWED;
       case 'weak-password':
         return AuthError.WEAK_PASSWORD;
+      case 'requires-recent-login':
+        return AuthError.REQUIRES_RECENT_LOGIN;
       case 'ERROR_MISSING_GOOGLE_AUTH_TOKEN':
       default:
         return AuthError.ERROR;

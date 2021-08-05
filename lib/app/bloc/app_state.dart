@@ -6,6 +6,7 @@ enum AppStatus {
   authenticated,
   unauthenticated,
   failure,
+  requiresReauthenticate,
 }
 
 class AppState extends Equatable {

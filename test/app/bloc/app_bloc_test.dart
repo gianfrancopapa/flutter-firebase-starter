@@ -7,8 +7,7 @@ import 'package:firebasestarter/services/shared_preferences/local_persistance_in
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-class MockLocalPersistanceService extends Mock
-    implements LocalPersistanceService {}
+class MockLocalPersistanceService extends Mock implements LocalPersistanceService {}
 
 class MockAuthService extends Mock implements AuthService {}
 
@@ -29,8 +28,7 @@ void main() {
       mockLocalPersistanceService = MockLocalPersistanceService();
       mockAuthService = MockAuthService();
 
-      when(mockAuthService.onAuthStateChanged)
-          .thenAnswer((_) => Stream.empty());
+      when(mockAuthService.onAuthStateChanged).thenAnswer((_) => Stream.empty());
     });
 
     test('throwsAssertionError when authService is null', () {
@@ -78,8 +76,7 @@ void main() {
           );
         },
         verify: (_) {
-          verify(mockLocalPersistanceService.getValue('is_first_time'))
-              .called(1);
+          verify(mockLocalPersistanceService.getValue('is_first_time')).called(1);
         },
       );
 
@@ -88,8 +85,7 @@ void main() {
         'returns true',
         act: (bloc) => bloc.add(AppIsFirstTimeLaunched()),
         build: () {
-          when(mockLocalPersistanceService.getValue('is_first_time'))
-              .thenAnswer((_) async => true);
+          when(mockLocalPersistanceService.getValue('is_first_time')).thenAnswer((_) async => true);
 
           return AppBloc(
             authService: mockAuthService,
@@ -97,8 +93,7 @@ void main() {
           );
         },
         verify: (_) {
-          verify(mockLocalPersistanceService.setValue('is_first_time', false))
-              .called(1);
+          verify(mockLocalPersistanceService.setValue('is_first_time', false)).called(1);
         },
         expect: () => <AppState>[
           AppState(status: AppStatus.firstTime),
@@ -110,8 +105,7 @@ void main() {
         'returns false',
         act: (bloc) => bloc.add(AppIsFirstTimeLaunched()),
         build: () {
-          when(mockLocalPersistanceService.getValue('is_first_time'))
-              .thenAnswer((_) async => false);
+          when(mockLocalPersistanceService.getValue('is_first_time')).thenAnswer((_) async => false);
 
           return AppBloc(
             authService: mockAuthService,
@@ -127,8 +121,7 @@ void main() {
         'emits [failure] when localPersistanceService.getValue throws',
         act: (bloc) => bloc.add(AppIsFirstTimeLaunched()),
         build: () {
-          when(mockLocalPersistanceService.getValue('is_first_time'))
-              .thenThrow(Exception());
+          when(mockLocalPersistanceService.getValue('is_first_time')).thenThrow(Exception());
 
           return AppBloc(
             authService: mockAuthService,
@@ -164,8 +157,7 @@ void main() {
         'User is empty and isNotFirstTime',
         act: (bloc) => bloc.add(AppUserChanged(user: User.empty)),
         build: () {
-          when(mockLocalPersistanceService.getValue('is_first_time'))
-              .thenAnswer((_) async => false);
+          when(mockLocalPersistanceService.getValue('is_first_time')).thenAnswer((_) async => false);
 
           return AppBloc(
             authService: mockAuthService,
@@ -233,6 +225,66 @@ void main() {
         expect: () => <AppState>[
           AppState(status: AppStatus.failure),
         ],
+      );
+    });
+
+    group('AppDeleteAccountRequested', () {
+      blocTest<AppBloc, AppState>(
+        'calls authService.deleteAccount',
+        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        build: () {
+          return AppBloc(
+            authService: mockAuthService,
+            localPersistanceService: mockLocalPersistanceService,
+          );
+        },
+        verify: (_) {
+          verify(mockAuthService.deleteAccount()).called(1);
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'emits [unauthenticated] when authService.deleteAccount succeeds',
+        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        build: () {
+          when(mockAuthService.deleteAccount()).thenAnswer((_) async => null);
+
+          return AppBloc(
+            authService: mockAuthService,
+            localPersistanceService: mockLocalPersistanceService,
+          );
+        },
+        expect: () => <AppState>[
+          AppState(
+            status: AppStatus.unauthenticated,
+            user: User.empty,
+          ),
+        ],
+      );
+      blocTest<AppBloc, AppState>(
+        'emits [failure] when authService.deleteAccount throws',
+        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        build: () {
+          when(mockAuthService.deleteAccount()).thenThrow(AuthError.ERROR);
+          return AppBloc(
+            authService: mockAuthService,
+            localPersistanceService: mockLocalPersistanceService,
+          );
+        },
+        expect: () => <AppState>[AppState(status: AppStatus.failure)],
+      );
+
+      blocTest<AppBloc, AppState>(
+        'emits [requiresReauthenticate] when authService.deleteAccount throws REQUIRES_RECENT_LOGIN',
+        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        build: () {
+          when(mockAuthService.deleteAccount()).thenThrow(AuthError.REQUIRES_RECENT_LOGIN);
+          return AppBloc(
+            authService: mockAuthService,
+            localPersistanceService: mockLocalPersistanceService,
+          );
+        },
+        expect: () => <AppState>[AppState(status: AppStatus.requiresReauthenticate)],
       );
     });
   });

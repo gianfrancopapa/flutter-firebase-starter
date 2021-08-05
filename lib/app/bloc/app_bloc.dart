@@ -44,13 +44,16 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       yield* _mapAppUserChangedToState(event);
     } else if (event is AppLogoutRequsted) {
       yield* _mapAppLogoutRequstedToState();
+    } else if (event is AppDeleteAccountRequsted) {
+      yield* _mapAppDeleteAccountRequestedToState();
+    } else if (event is AppBackToAuthenticated) {
+      yield* _mapAppBackToAuthenticatedToState();
     }
   }
 
   Stream<AppState> _mapAppIsFirstTimeLaunchedToState() async* {
     try {
-      final firstTime =
-          await _localPersistanceService.getValue<bool>(_isFirstTime);
+      final firstTime = await _localPersistanceService.getValue<bool>(_isFirstTime);
 
       await Future.delayed(const Duration(seconds: 2));
 
@@ -93,6 +96,26 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     } on AuthError {
       yield state.copyWith(status: AppStatus.failure);
     }
+  }
+
+  Stream<AppState> _mapAppDeleteAccountRequestedToState() async* {
+    try {
+      await _authService.deleteAccount();
+      yield state.copyWith(
+        status: AppStatus.unauthenticated,
+        user: User.empty,
+      );
+    } on AuthError catch (e) {
+      if (e.index == AuthError.REQUIRES_RECENT_LOGIN.index) {
+        yield state.copyWith(status: AppStatus.requiresReauthenticate);
+      } else {
+        yield state.copyWith(status: AppStatus.failure);
+      }
+    }
+  }
+
+  Stream<AppState> _mapAppBackToAuthenticatedToState() async* {
+    yield state.copyWith(status: AppStatus.initial);
   }
 
   @override

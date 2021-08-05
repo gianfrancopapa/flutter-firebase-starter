@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:401997180113:android:0e133ce10f9427c2c269f0",
         "android_client_info": {
-          "package_name": "com.somniosoftware.firebasestarter"
+          "package_name": "com.somniosoftware.firebasestarter.dev"
         }
       },
       "oauth_client": [
