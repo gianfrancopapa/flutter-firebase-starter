@@ -404,6 +404,31 @@
   "askReauthentication"  : "In order to delete the user, you have to log in again. Do you want to log out?",
   "@askReauthentication" : {
       "description" : ""
+  },
+
+  "passwordlessSignIn"  : "Sign in without password",
+  "@passwordlessSignIn" : {
+      "description" : ""
+  },
+
+  "otherLoginOptions"  : "Other login options",
+  "@otherLoginOptions" : {
+      "description" : ""
+  },
+
+  "loginEmailDescription"  : "This action will send you a link to login passwordless. To continue type your email in the following field and then press the [Send email] button.",
+  "@loginEmailDescription" : {
+      "description" : ""
+  },
+
+  "sendLoginEmail"  : "Send email",
+  "@sendLoginEmail" : {
+      "description" : ""
+  },
+
+  "expiredLink"  : "Link expired",
+  "@expiredLink" : {
+      "description" : ""
   }
 
  

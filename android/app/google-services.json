@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "401997180113-7d33o0f6ug3m6p8jjmr5ecf37d4n4sbl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.somniosoftware.firebasestarter",
+            "certificate_hash": "c37dd6aee288e6f50222aad5ba84c3e89705060c"
+          }
+        },
+        {
+          "client_id": "401997180113-r3u8cup15u4pc6su0nnthvcm0rgvq48a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.somniosoftware.firebasestarter",
+            "certificate_hash": "a0da61847b83822673b1626af0b89bf8c884a13c"
+          }
+        },
+        {
           "client_id": "401997180113-bp0bva6j35q63gu88d240cgaq0pt902j.apps.googleusercontent.com",
           "client_type": 3
         }

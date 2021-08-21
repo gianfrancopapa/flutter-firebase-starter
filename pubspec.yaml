@@ -21,6 +21,7 @@ dependencies:
   firebase_crashlytics: ^2.0.4
   firebase_storage: ^8.0.1
   firebase_messaging: ^10.0.0
+  firebase_dynamic_links: ^2.0.7
   cloud_firestore: ^1.0.3
   introduction_screen: ^1.0.9
   package_info: ^0.4.3+4

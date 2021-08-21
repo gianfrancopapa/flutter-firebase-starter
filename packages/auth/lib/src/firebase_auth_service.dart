@@ -136,6 +136,45 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
+  Future<void> sendSignInLinkToEmail({@required String email}) async {
+    assert(email != null);
+
+    try {
+      final actionCodeSettings = ActionCodeSettings(
+          url: 'https://somniosoftware.com/',
+          dynamicLinkDomain: 'somnioboilerplate.page.link',
+          androidInstallApp: true,
+          androidMinimumVersion: '6',
+          androidPackageName: 'com.somniosoftware.firebasestarter',
+          iOSBundleId: 'com.somniosoftware.firebasestarter',
+          handleCodeInApp: true);
+
+      await _firebaseAuth.sendSignInLinkToEmail(
+        email: email,
+        actionCodeSettings: actionCodeSettings,
+      );
+    } on auth.FirebaseAuthException catch (e) {
+      throw _determineError(e);
+    }
+  }
+
+  @override
+  Future<UserEntity> signInWithEmailLink({email, emailLink}) async {
+    try {
+      await _firebaseAuth.signInWithEmailLink(email: email, emailLink: emailLink);
+
+      return _mapFirebaseUser(_firebaseAuth.currentUser);
+    } on auth.FirebaseAuthException catch (e) {
+      throw _determineError(e);
+    }
+  }
+
+  @override
+  bool isSignInWithEmailLink({String emailLink}) {
+    return _firebaseAuth.isSignInWithEmailLink(emailLink);
+  }
+
+  @override
   Future<void> signOut() async {
     try {
       final service = _signInServiceFactory.signInMethod;
@@ -199,6 +238,8 @@ class FirebaseAuthService implements AuthService {
         return AuthError.WEAK_PASSWORD;
       case 'requires-recent-login':
         return AuthError.REQUIRES_RECENT_LOGIN;
+      case 'invalid-action-code':
+        return AuthError.EXPIRED_LINK;
       case 'ERROR_MISSING_GOOGLE_AUTH_TOKEN':
       default:
         return AuthError.ERROR;

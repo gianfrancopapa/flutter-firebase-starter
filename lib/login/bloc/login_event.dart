@@ -34,12 +34,38 @@ class LoginEmailChanged extends LoginEvent {
   List<Object> get props => [email];
 }
 
+class LoginPasswordlessEmailChanged extends LoginEvent {
+  const LoginPasswordlessEmailChanged({@required this.passwordlessEmail}) : assert(passwordlessEmail != null);
+
+  final String passwordlessEmail;
+
+  @override
+  List<Object> get props => [passwordlessEmail];
+}
+
 class LoginPasswordChanged extends LoginEvent {
-  const LoginPasswordChanged({@required this.password})
-      : assert(password != null);
+  const LoginPasswordChanged({@required this.password}) : assert(password != null);
 
   final String password;
 
   @override
   List<Object> get props => [password];
+}
+
+class LoginPasswordlessRequested extends LoginEvent {
+  const LoginPasswordlessRequested({@required this.uri});
+
+  final Uri uri;
+
+  @override
+  List<Object> get props => [uri];
+}
+
+class LoginSendEmailRequested extends LoginEvent {
+  const LoginSendEmailRequested({@required this.passwordlessEmail}) : assert(passwordlessEmail != null);
+
+  final String passwordlessEmail;
+
+  @override
+  List<Object> get props => [passwordlessEmail];
 }

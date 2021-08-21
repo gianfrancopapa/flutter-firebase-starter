@@ -159,5 +159,15 @@
 
   "deleteAccountConfirmation" : "Esta acción eliminará definitivamente el usaurio y no podrá recuperar su información. ¿Desea continuar?",
 
-  "askReauthentication" : "Para poder eliminar el usuario tiene que volver a iniciar sesión. ¿Desea cerrar sesión?" 
+  "askReauthentication" : "Para poder eliminar el usuario tiene que volver a iniciar sesión. ¿Desea cerrar sesión?" ,
+
+  "passwordlessSignIn" : "Iniciar sesión sin contraseña",
+
+  "otherLoginOptions" : "Otras opciones" ,
+
+  "loginEmailDescription" : "Esta acción le enviará un enlace para el inicio de sesión. Para continuar digite su correo en el siguiente campo y luego presione sobre el botón [Enviar correo].",
+
+  "sendLoginEmail" : "Enviar correo",
+
+  "expiredLink" : "Enlace expirado"
 }

@@ -13,6 +13,9 @@ class FSAssetImage {
   static const String anonUser = root + 'anonymous_user.png';
   static const String anonLogin = root + 'anon_login.png';
 
+  //Passwordless
+  static const String plessLogo = root + 'passwordless_logo.png';
+
   //Google
   static const String googleLogo = root + 'google_logo.png';
 
