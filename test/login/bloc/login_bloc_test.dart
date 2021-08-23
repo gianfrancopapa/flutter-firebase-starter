@@ -41,6 +41,7 @@ void main() {
             LoginState(
               status: LoginStatus.initial,
               email: Email.pure(),
+              passwordlessEmail: Email.pure(),
               password: Password.pure(),
             ),
           ),
@@ -77,6 +78,7 @@ void main() {
         seed: () => LoginState(
           status: LoginStatus.valid,
           email: email,
+          passwordlessEmail: Email.pure(),
           password: password,
         ),
         act: (bloc) => bloc.add(const LoginWithEmailAndPasswordRequested()),
@@ -97,11 +99,13 @@ void main() {
           LoginState(
             status: LoginStatus.loading,
             email: email,
+            passwordlessEmail: Email.pure(),
             password: password,
           ),
           LoginState(
             status: LoginStatus.loggedIn,
             email: email,
+            passwordlessEmail: Email.pure(),
             password: password,
             user: User.fromEntity(mockUser),
           ),
@@ -114,6 +118,7 @@ void main() {
         seed: () => LoginState(
           status: LoginStatus.valid,
           email: email,
+          passwordlessEmail: Email.pure(),
           password: password,
         ),
         act: (bloc) => bloc.add(const LoginWithEmailAndPasswordRequested()),
@@ -134,11 +139,13 @@ void main() {
           LoginState(
             status: LoginStatus.loading,
             email: email,
+            passwordlessEmail: Email.pure(),
             password: password,
           ),
           LoginState(
             status: LoginStatus.failure,
             email: email,
+            passwordlessEmail: Email.pure(),
             password: password,
             error: AuthError.ERROR,
           ),
@@ -187,12 +194,14 @@ void main() {
           LoginState(
             status: LoginStatus.loading,
             email: Email.pure(),
+            passwordlessEmail: Email.pure(),
             password: Password.pure(),
           ),
           LoginState(
             status: LoginStatus.loggedIn,
             user: User.fromEntity(mockUser),
             email: Email.pure(),
+            passwordlessEmail: Email.pure(),
             password: Password.pure(),
           ),
         ],
@@ -244,11 +253,13 @@ void main() {
           LoginState(
             status: LoginStatus.loading,
             email: Email.pure(),
+            passwordlessEmail: Email.pure(),
             password: Password.pure(),
           ),
           LoginState(
             status: LoginStatus.failure,
             email: Email.pure(),
+            passwordlessEmail: Email.pure(),
             password: Password.pure(),
             error: AuthError.ERROR,
           ),
@@ -273,8 +284,7 @@ void main() {
         'emits [loading, loggedIn] when authService.signInAnonymously succeeds',
         act: (bloc) => bloc.add(const LoginAnonymouslyRequested()),
         build: () {
-          when(mockAuthService.signInAnonymously())
-              .thenAnswer((_) async => mockUser);
+          when(mockAuthService.signInAnonymously()).thenAnswer((_) async => mockUser);
 
           return LoginBloc(
             authService: mockAuthService,
@@ -340,11 +350,13 @@ void main() {
           LoginState(
             status: LoginStatus.loading,
             email: Email.pure(),
+            passwordlessEmail: Email.pure(),
             password: Password.pure(),
           ),
           LoginState(
             status: LoginStatus.loggedIn,
             email: Email.pure(),
+            passwordlessEmail: Email.pure(),
             password: Password.pure(),
             user: User.fromEntity(mockUser),
           ),
@@ -367,11 +379,13 @@ void main() {
           LoginState(
             status: LoginStatus.loading,
             email: Email.pure(),
+            passwordlessEmail: Email.pure(),
             password: Password.pure(),
           ),
           LoginState(
             status: LoginStatus.loggedOut,
             email: Email.pure(),
+            passwordlessEmail: Email.pure(),
             password: Password.pure(),
           ),
         ],
@@ -392,11 +406,13 @@ void main() {
           LoginState(
             status: LoginStatus.loading,
             email: Email.pure(),
+            passwordlessEmail: Email.pure(),
             password: Password.pure(),
           ),
           LoginState(
             status: LoginStatus.failure,
             email: Email.pure(),
+            passwordlessEmail: Email.pure(),
             password: Password.pure(),
             error: AuthError.ERROR,
           ),

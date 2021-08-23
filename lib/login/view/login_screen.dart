@@ -201,6 +201,7 @@ class _LoginForm extends StatelessWidget {
             ),
             const SizedBox(height: 40.0),
             TextButton(
+              key: const Key('loginScreen_loginForm_otherOptions'),
               onPressed: () => _ShowOtherLoginOptions(context),
               child: Text(localizations.otherLoginOptions),
             ),
@@ -257,12 +258,11 @@ class _EmailTextField extends StatelessWidget {
 
     return TextField(
       decoration: InputDecoration(
-        labelText: localizations.email,
-        errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: FSColors.red),
-        ),
-        errorText: email.valid ? null : 'Invalid email',
-      ),
+          labelText: localizations.email,
+          errorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: FSColors.red),
+          ),
+          errorText: email.valid ? null : localizations.invalidEmail),
       onChanged: (email) {
         context.read<LoginBloc>().add(LoginEmailChanged(email: email));
       },
@@ -454,6 +454,7 @@ class _SendEmailButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
+    const passwordlessEmailKey = 'passwordlessEmail';
 
     return FSTextButton(
       style: ButtonStyle(
@@ -468,8 +469,8 @@ class _SendEmailButton extends StatelessWidget {
         final isValid = _loginState.status == LoginStatus.passwordlessValid;
 
         if (isValid) {
-          await MySharedPreferences().setValue('passwordlessEmail', _loginState.passwordlessEmail.value);
-          context.read<LoginBloc>().add(const LoginSendEmailRequested(passwordlessEmail: ''));
+          await MySharedPreferences().setValue(passwordlessEmailKey, _loginState.passwordlessEmail.value);
+          context.read<LoginBloc>().add(LoginSendEmailRequested());
 
           DialogHelper.showAlertDialog(
             context: context,

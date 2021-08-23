@@ -22,6 +22,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   final AuthService _authService;
   final AnalyticsService _analyticsService;
+  final passwordlessEmailKey = 'passwordlessEmail';
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
@@ -144,7 +145,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Stream<LoginState> _mapLoginSendEmailToState(LoginSendEmailRequested event) async* {
     try {
-      final email = await MySharedPreferences().getValue<String>('passwordlessEmail');
+      final email = await MySharedPreferences().getValue<String>(passwordlessEmailKey);
 
       await _authService.sendSignInLinkToEmail(email: email);
 

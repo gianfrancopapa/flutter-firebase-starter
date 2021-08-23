@@ -7,8 +7,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:auth/auth.dart';
 import '../../helpers/test_bench.dart';
 
-class MockLoginBloc extends MockBloc<LoginEvent, LoginState>
-    implements LoginBloc {}
+class MockLoginBloc extends MockBloc<LoginEvent, LoginState> implements LoginBloc {}
 
 class MockLoginState extends Fake implements LoginState {}
 
@@ -53,6 +52,10 @@ void main() {
         find.byKey(const Key('loginScreen_loginForm_loginButton')),
         findsOneWidget,
       );
+      expect(
+        find.byKey(const Key('loginScreen_loginForm_otherOptions')),
+        findsOneWidget,
+      );
     });
 
     testWidgets('adds LoginEmailChanged', (tester) async {
@@ -61,8 +64,7 @@ void main() {
         loginBloc: loginBloc,
       );
 
-      final emailFinder =
-          find.byKey(const Key('loginScreen_loginForm_emailTextField'));
+      final emailFinder = find.byKey(const Key('loginScreen_loginForm_emailTextField'));
 
       await tester.enterText(emailFinder, 'test@gmail.com');
 
@@ -77,8 +79,7 @@ void main() {
         loginBloc: loginBloc,
       );
 
-      final passwordFinder =
-          find.byKey(const Key('loginScreen_loginForm_passwordTextField'));
+      final passwordFinder = find.byKey(const Key('loginScreen_loginForm_passwordTextField'));
 
       await tester.enterText(passwordFinder, 'Password01');
 
@@ -99,8 +100,7 @@ void main() {
         loginBloc: loginBloc,
       );
 
-      final loginButtonFinder =
-          find.byKey(const Key('loginScreen_loginForm_loginButton'));
+      final loginButtonFinder = find.byKey(const Key('loginScreen_loginForm_loginButton'));
 
       await tester.tap(loginButtonFinder);
 
@@ -123,8 +123,7 @@ void main() {
           loginBloc: loginBloc,
         );
 
-        final loginButtonFinder =
-            find.byKey(const Key('loginScreen_loginForm_loginButton'));
+        final loginButtonFinder = find.byKey(const Key('loginScreen_loginForm_loginButton'));
 
         await tester.tap(loginButtonFinder);
 
@@ -144,8 +143,7 @@ void main() {
           loginBloc: loginBloc,
         );
 
-        final loginWithGoogleButtonFinder = find
-            .byKey(const Key('loginScreen_loginForm_loginWithGoogleButton'));
+        final loginWithGoogleButtonFinder = find.byKey(const Key('loginScreen_loginForm_loginWithGoogleButton'));
 
         await tester.tap(loginWithGoogleButtonFinder);
 
@@ -191,8 +189,7 @@ void main() {
           loginBloc: loginBloc,
         );
 
-        final loginWithAppleButtonFinder =
-            find.byKey(const Key('loginScreen_loginForm_loginWithAppleButton'));
+        final loginWithAppleButtonFinder = find.byKey(const Key('loginScreen_loginForm_loginWithAppleButton'));
 
         await tester.ensureVisible(loginWithAppleButtonFinder);
 
@@ -216,6 +213,13 @@ void main() {
           loginBloc: loginBloc,
         );
 
+        final otherOptionsButtonFinder = find.byKey(
+          const Key('loginScreen_loginForm_otherOptions'),
+        );
+        await tester.ensureVisible(otherOptionsButtonFinder);
+        await tester.tap(otherOptionsButtonFinder);
+
+        await tester.pumpAndSettle();
         final loginAnonymouslyButtonFinder = find.byKey(
           const Key('loginScreen_loginForm_loginAnonymouslyButton'),
         );
@@ -224,8 +228,7 @@ void main() {
 
         await tester.tap(loginAnonymouslyButtonFinder);
 
-        verify(() => loginBloc.add(const LoginAnonymouslyRequested()))
-            .called(1);
+        verify(() => loginBloc.add(const LoginAnonymouslyRequested())).called(1);
       },
     );
 
