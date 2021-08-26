@@ -233,6 +233,41 @@ void main() {
     );
 
     testWidgets(
+      'adds LoginPasswordlessEmailChanged',
+      (tester) async {
+        await tester.pumpApp(
+          const LoginScreen(),
+          loginBloc: loginBloc,
+        );
+
+        final otherOptionsButtonFinder = find.byKey(const Key('loginScreen_loginForm_otherOptions'));
+        await tester.ensureVisible(otherOptionsButtonFinder);
+        await tester.tap(otherOptionsButtonFinder);
+        await tester.pumpAndSettle();
+
+        final loginPasswordlessButtonFinder = find.byKey(const Key('loginScreen_loginForm_loginPasswordlessButton'));
+        await tester.ensureVisible(loginPasswordlessButtonFinder);
+        await tester.tap(loginPasswordlessButtonFinder);
+        await tester.pumpAndSettle();
+
+        final emailFinder = find.byKey(const Key('loginScreen_passwordlessLogin_emailTextField'));
+        await tester.ensureVisible(emailFinder);
+        await tester.enterText(emailFinder, 'test@gmail.com');
+        await tester.pumpAndSettle();
+
+        verify(() => loginBloc.add(const LoginPasswordlessEmailChanged(passwordlessEmail: 'test@gmail.com'))).called(1);
+
+        // when(() => loginBloc.state).thenReturn(loginBloc.state.copyWith(status: LoginStatus.passwordlessValid));
+        // final sendButtonFinder = find.byKey(const Key('loginScreen_passwordlessLogin_sendEmailButton'));
+        // await tester.ensureVisible(sendButtonFinder);
+        // await tester.tap(sendButtonFinder);
+        // await tester.pumpAndSettle();
+
+        // verify(() => loginBloc.add(const LoginSendEmailRequested(passwordlessEmail: 'test@gmail.com'))).called(1);
+      },
+    );
+
+    testWidgets(
       'shows a Dialog when mockLoginBloc emits failure',
       (tester) async {
         whenListen(

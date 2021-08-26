@@ -145,9 +145,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   Stream<LoginState> _mapLoginSendEmailToState(LoginSendEmailRequested event) async* {
     try {
-      final email = await MySharedPreferences().getValue<String>(passwordlessEmailKey);
-
-      await _authService.sendSignInLinkToEmail(email: email);
+      await MySharedPreferences().setValue(passwordlessEmailKey, event.passwordlessEmail);
+      await _authService.sendSignInLinkToEmail(email: event.passwordlessEmail);
 
       yield state.copyWith(status: LoginStatus.initial);
     } on AuthError catch (e) {

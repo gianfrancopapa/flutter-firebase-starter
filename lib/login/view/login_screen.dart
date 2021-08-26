@@ -454,7 +454,6 @@ class _SendEmailButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localizations = AppLocalizations.of(context);
-    const passwordlessEmailKey = 'passwordlessEmail';
 
     return FSTextButton(
       style: ButtonStyle(
@@ -469,8 +468,9 @@ class _SendEmailButton extends StatelessWidget {
         final isValid = _loginState.status == LoginStatus.passwordlessValid;
 
         if (isValid) {
-          await MySharedPreferences().setValue(passwordlessEmailKey, _loginState.passwordlessEmail.value);
-          context.read<LoginBloc>().add(LoginSendEmailRequested());
+          context
+              .read<LoginBloc>()
+              .add(LoginSendEmailRequested(passwordlessEmail: _loginState.passwordlessEmail.value));
 
           DialogHelper.showAlertDialog(
             context: context,

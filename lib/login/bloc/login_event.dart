@@ -61,4 +61,11 @@ class LoginPasswordlessRequested extends LoginEvent {
   List<Object> get props => [uri];
 }
 
-class LoginSendEmailRequested extends LoginEvent {}
+class LoginSendEmailRequested extends LoginEvent {
+  const LoginSendEmailRequested({@required this.passwordlessEmail}) : assert(passwordlessEmail != null);
+
+  final String passwordlessEmail;
+
+  @override
+  List<Object> get props => [passwordlessEmail];
+}
