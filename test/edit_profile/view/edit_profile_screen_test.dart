@@ -38,11 +38,11 @@ void main() {
     User mockUser;
 
     setUp(() {
-      registerFallbackValue<EditProfileState>(MockEditProfileState());
-      registerFallbackValue<EditProfileEvent>(MockEditProfileEvent());
+      registerFallbackValue(MockEditProfileState());
+      registerFallbackValue(MockEditProfileEvent());
 
-      registerFallbackValue<UserState>(MockUserState());
-      registerFallbackValue<UserEvent>(MockUserEvent());
+      registerFallbackValue(MockUserState());
+      registerFallbackValue(MockUserEvent());
 
       mockUser = MockUser();
 

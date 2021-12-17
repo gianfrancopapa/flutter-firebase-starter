@@ -9,7 +9,7 @@ class NotificationService {
   Stream<Map<String, dynamic>> get notification =>
       _notificationController.stream;
 
-  Function(Map<String, dynamic>) get _onNotificationChanged =>
+  Function(Map<String, dynamic>) get onNotificationChanged =>
       _notificationController.sink.add;
 
   void configure() {
@@ -17,10 +17,7 @@ class NotificationService {
       //await _localNotificationService.showNotification();
     });
     FirebaseMessaging.onMessageOpenedApp.listen(
-      (event) => _onNotificationChanged(event.data),
-    );
-    FirebaseMessaging.onBackgroundMessage(
-      (message) => _onNotificationChanged(message.data),
+      (event) => onNotificationChanged(event.data),
     );
   }
 

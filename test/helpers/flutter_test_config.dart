@@ -12,26 +12,26 @@ import 'package:mocktail/mocktail.dart';
 
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   setUpAll(() {
-    registerFallbackValue<EmployeesState>(FakeEmployeesState());
-    registerFallbackValue<EmployeesEvent>(FakeEmployeesEvent());
+    registerFallbackValue(FakeEmployeesState());
+    registerFallbackValue(FakeEmployeesEvent());
 
-    registerFallbackValue<AppState>(FakeInitAppState());
-    registerFallbackValue<AppEvent>(FakeInitAppEvent());
+    registerFallbackValue(FakeInitAppState());
+    registerFallbackValue(FakeInitAppEvent());
 
-    registerFallbackValue<LoginState>(FakeLoginState());
-    registerFallbackValue<LoginEvent>(FakeLoginEvent());
+    registerFallbackValue(FakeLoginState());
+    registerFallbackValue(FakeLoginEvent());
 
-    registerFallbackValue<UserState>(FakeUserState());
-    registerFallbackValue<UserEvent>(FakeUserEvent());
+    registerFallbackValue(FakeUserState());
+    registerFallbackValue(FakeUserEvent());
 
-    registerFallbackValue<SignUpState>(FakeAccountCreationState());
-    registerFallbackValue<SignUpEvent>(FakeAccountCreationEvent());
+    registerFallbackValue(FakeAccountCreationState());
+    registerFallbackValue(FakeAccountCreationEvent());
 
-    registerFallbackValue<EditProfileState>(FakeEditProfileState());
-    registerFallbackValue<EditProfileEvent>(FakeEditProfileEvent());
+    registerFallbackValue(FakeEditProfileState());
+    registerFallbackValue(FakeEditProfileEvent());
 
-    registerFallbackValue<ForgotPasswordState>(FakeForgotPasswordState());
-    registerFallbackValue<ForgotPasswordEvent>(FakeForgotPasswordEvent());
+    registerFallbackValue(FakeForgotPasswordState());
+    registerFallbackValue(FakeForgotPasswordEvent());
   });
 
   await testMain();

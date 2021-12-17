@@ -1,5 +1,4 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
-import 'package:firebase_starter_ui/src/spacing/spacing.dart';
 import 'package:flutter/material.dart';
 
 /// {@template FSSnackBar}

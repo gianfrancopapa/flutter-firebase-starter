@@ -28,11 +28,11 @@ void main() {
     UserBloc mockUserBloc;
 
     setUp(() {
-      registerFallbackValue<SignUpState>(MockSignUpState());
-      registerFallbackValue<SignUpEvent>(MockSignUpEvent());
+      registerFallbackValue(MockSignUpState());
+      registerFallbackValue(MockSignUpEvent());
 
-      registerFallbackValue<UserEvent>(MockUserEvent());
-      registerFallbackValue<UserState>(MockUserState());
+      registerFallbackValue(MockUserEvent());
+      registerFallbackValue(MockUserState());
 
       mockSignUpBloc = MockSignUpBloc();
 

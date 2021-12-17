@@ -1,5 +1,4 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebasestarter/settings/settings.dart';

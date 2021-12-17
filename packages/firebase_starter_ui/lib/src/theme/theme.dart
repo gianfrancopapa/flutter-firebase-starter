@@ -1,5 +1,4 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// Namespace for Default Firebase Starter [ThemeData].

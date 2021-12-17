@@ -48,8 +48,8 @@ void main() {
     PickedFile mockPickedFile;
 
     setUp(() {
-      registerFallbackValue<EditProfileEvent>(MockEditProfileEvent());
-      registerFallbackValue<EditProfileState>(MockEditProfileState());
+      registerFallbackValue(MockEditProfileEvent());
+      registerFallbackValue(MockEditProfileState());
 
       mockAuthService = MockAuthService();
       mockStorageService = MockStorageService();
