@@ -34,7 +34,7 @@ void main() {
 
       test('accent color is lightBlue.shade300', () {
         expect(
-          FSTheme.themeData.accentColor,
+          FSTheme.themeData.colorScheme.secondary,
           FSColors.lightBlue.shade300,
         );
       });
@@ -52,7 +52,7 @@ void main() {
 
       test('accent color is lightBlue.shade300', () {
         expect(
-          FFDarkTheme.themeData.accentColor,
+          FFDarkTheme.themeData.colorScheme.secondary,
           FSColors.lightBlue.shade300,
         );
       });

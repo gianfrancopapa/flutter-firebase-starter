@@ -99,7 +99,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     EditProfilePhotoUpdated event,
   ) async* {
     try {
-      Future<PickedFile> Function() uploadMethod;
+      Future<XFile> Function() uploadMethod;
 
       if (event.method == PhotoUploadMethod.camera) {
         uploadMethod = _imageService.imgFromCamera;

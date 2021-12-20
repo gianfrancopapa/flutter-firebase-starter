@@ -46,7 +46,8 @@ class FSSpinner extends StatelessWidget {
       children: [
         CircularProgressIndicator(
           backgroundColor: FSColors.transparent,
-          valueColor: AlwaysStoppedAnimation<Color>(color ?? theme.accentColor),
+          valueColor: AlwaysStoppedAnimation<Color>(
+              color ?? theme.colorScheme.secondary),
           strokeWidth: strokeWidth ?? FSSpacing.s4,
           value: value,
         ),

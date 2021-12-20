@@ -1,7 +1,7 @@
 import 'package:image_picker/image_picker.dart';
 
 abstract class ImageService {
-  Future<PickedFile> imgFromCamera();
+  Future<XFile> imgFromCamera();
 
-  Future<PickedFile> imgFromGallery();
+  Future<XFile> imgFromGallery();
 }
