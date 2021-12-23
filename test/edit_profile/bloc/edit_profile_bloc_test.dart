@@ -48,9 +48,6 @@ void main() {
     XFile mockPickedFile;
 
     setUp(() {
-      registerFallbackValue(MockEditProfileEvent());
-      registerFallbackValue(MockEditProfileState());
-
       mockAuthService = MockAuthService();
       mockStorageService = MockStorageService();
       mockImageService = MockImageService();

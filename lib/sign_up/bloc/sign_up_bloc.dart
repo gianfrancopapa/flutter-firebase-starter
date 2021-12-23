@@ -12,34 +12,26 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc({@required AuthService authService})
       : assert(authService != null),
         _authService = authService,
-        super(SignUpState.initial());
+        super(SignUpState.initial()) {
+    on<SignUpRequested>(_mapSignUpRequestedToState);
+    on<SignUpFirstNameChanged>(_mapSignUpFirstNameChangedToState);
+    on<SignUpLastNameChanged>(_mapSignUpLastNameChangedToState);
+    on<SignUpEmailChanged>(_mapSignUpEmailChangedToState);
+    on<SignUpPasswordChanged>(_mapSignUpPasswordChangedToState);
+    on<SignUpPasswordConfirmationChanged>(
+        _mapSignUpPasswordConfirmationChangedToState);
+  }
 
   final AuthService _authService;
 
-  @override
-  Stream<SignUpState> mapEventToState(SignUpEvent event) async* {
-    if (event is SignUpRequested) {
-      yield* _mapSignUpRequestedToState(event);
-    } else if (event is SignUpFirstNameChanged) {
-      yield* _mapSignUpFirstNameChangedToState(event);
-    } else if (event is SignUpLastNameChanged) {
-      yield* _mapSignUpLastNameChangedToState(event);
-    } else if (event is SignUpEmailChanged) {
-      yield* _mapSignUpEmailChangedToState(event);
-    } else if (event is SignUpPasswordChanged) {
-      yield* _mapSignUpPasswordChangedToState(event);
-    } else if (event is SignUpPasswordConfirmationChanged) {
-      yield* _mapSignUpPasswordConfirmationChangedToState(event);
-    }
-  }
-
-  Stream<SignUpState> _mapSignUpRequestedToState(
+  Future<void> _mapSignUpRequestedToState(
     SignUpRequested event,
-  ) async* {
-    yield state.copyWith(status: SignUpStatus.loading);
+    Emitter<SignUpState> emit,
+  ) async {
+    emit(state.copyWith(status: SignUpStatus.loading));
 
     if (state.password.value != state.passwordConfirmation.value) {
-      yield state.copyWith(status: SignUpStatus.failure);
+      emit(state.copyWith(status: SignUpStatus.failure));
       return;
     }
 
@@ -51,62 +43,67 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         password: state.password.value,
       );
 
-      yield state.copyWith(status: SignUpStatus.success, user: _toUser(user));
+      emit(state.copyWith(status: SignUpStatus.success, user: _toUser(user)));
     } catch (error) {
-      yield state.copyWith(status: SignUpStatus.failure);
+      emit(state.copyWith(status: SignUpStatus.failure));
     }
   }
 
-  Stream<SignUpState> _mapSignUpFirstNameChangedToState(
+  Future<void> _mapSignUpFirstNameChangedToState(
     SignUpFirstNameChanged event,
-  ) async* {
+    Emitter<SignUpState> emit,
+  ) async {
     final firstName = FirstName.dirty(event.firstName);
 
-    yield state.copyWith(
+    emit(state.copyWith(
       firstName: firstName,
       status: _status(firstName: firstName),
-    );
+    ));
   }
 
-  Stream<SignUpState> _mapSignUpLastNameChangedToState(
+  Future<void> _mapSignUpLastNameChangedToState(
     SignUpLastNameChanged event,
-  ) async* {
+    Emitter<SignUpState> emit,
+  ) async {
     final lastName = LastName.dirty(event.lastName);
 
-    yield state.copyWith(
+    emit(state.copyWith(
       lastName: lastName,
       status: _status(lastName: lastName),
-    );
+    ));
   }
 
-  Stream<SignUpState> _mapSignUpEmailChangedToState(
+  Future<void> _mapSignUpEmailChangedToState(
     SignUpEmailChanged event,
-  ) async* {
+    Emitter<SignUpState> emit,
+  ) async {
     final email = Email.dirty(event.email);
 
-    yield state.copyWith(email: email, status: _status(email: email));
+    emit(state.copyWith(email: email, status: _status(email: email)));
   }
 
-  Stream<SignUpState> _mapSignUpPasswordChangedToState(
+  Future<void> _mapSignUpPasswordChangedToState(
     SignUpPasswordChanged event,
-  ) async* {
+    Emitter<SignUpState> emit,
+  ) async {
     final password = Password.dirty(event.password);
 
-    yield state.copyWith(
+    emit(state.copyWith(
       password: password,
       status: _status(password: password),
-    );
+    ));
   }
 
-  Stream<SignUpState> _mapSignUpPasswordConfirmationChangedToState(
+  Future<void> _mapSignUpPasswordConfirmationChangedToState(
     SignUpPasswordConfirmationChanged event,
-  ) async* {
+    Emitter<SignUpState> emit,
+  ) async {
     final passwordConfirmation = Password.dirty(event.passwordConfirmation);
 
-    yield state.copyWith(
+    emit(state.copyWith(
       passwordConfirmation: passwordConfirmation,
       status: _status(passwordConfirmation: passwordConfirmation),
-    );
+    ));
   }
 
   SignUpStatus _status({

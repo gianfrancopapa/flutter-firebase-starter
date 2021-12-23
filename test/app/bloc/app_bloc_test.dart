@@ -96,6 +96,8 @@ void main() {
             localPersistanceService: mockLocalPersistanceService,
           );
         },
+        // As we have Future.delayed(const Duration(seconds: 2)); we need to ask blocTest to also wait for 2 seconds!
+        wait: Duration(seconds: 2),
         verify: (_) {
           verify(mockLocalPersistanceService.setValue('is_first_time', false))
               .called(1);
@@ -118,6 +120,8 @@ void main() {
             localPersistanceService: mockLocalPersistanceService,
           );
         },
+        // As we have Future.delayed(const Duration(seconds: 2)); we need to ask blocTest to also wait for 2 seconds!
+        wait: Duration(seconds: 2),
         expect: () => <AppState>[
           AppState(status: AppStatus.unauthenticated),
         ],
@@ -172,6 +176,8 @@ void main() {
             localPersistanceService: mockLocalPersistanceService,
           );
         },
+        // As we have Future.delayed(const Duration(seconds: 2)); we need to ask blocTest to also wait for 2 seconds!
+        wait: Duration(seconds: 2),
         expect: () => <AppState>[
           AppState(
             status: AppStatus.initial,

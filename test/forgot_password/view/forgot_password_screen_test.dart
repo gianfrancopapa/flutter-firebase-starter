@@ -21,9 +21,6 @@ void main() {
     ForgotPasswordBloc mockForgotPasswordBloc;
 
     setUp(() {
-      registerFallbackValue(MockForgotPasswordEvent());
-      registerFallbackValue(MockForgotPasswordState());
-
       mockForgotPasswordBloc = MockForgotPasswordBloc();
 
       when(() => mockForgotPasswordBloc.state)

@@ -13,48 +13,44 @@ class ForgotPasswordBloc
     @required AuthService authService,
   })  : assert(authService != null),
         _authService = authService,
-        super(ForgotPasswordState.initial());
+        super(ForgotPasswordState.initial()) {
+    on<ForgotPasswordResetRequested>(_mapForgotPasswordResetRequestedToState);
+    on<ForgotPasswordEmailChanged>(_mapForgotPasswordEmailChangedToState);
+  }
 
   final AuthService _authService;
 
-  @override
-  Stream<ForgotPasswordState> mapEventToState(
-    ForgotPasswordEvent event,
-  ) async* {
-    if (event is ForgotPasswordResetRequested) {
-      yield* _mapForgotPasswordResetRequestedToState();
-    } else if (event is ForgotPasswordEmailChanged) {
-      yield* _mapForgotPasswordEmailChangedToState(event);
-    }
-  }
-
-  Stream<ForgotPasswordState> _mapForgotPasswordResetRequestedToState() async* {
-    yield state.copyWith(status: ForgotPasswordStatus.loading);
+  Future<void> _mapForgotPasswordResetRequestedToState(
+    ForgotPasswordResetRequested event,
+    Emitter<ForgotPasswordState> emit,
+  ) async {
+    emit(state.copyWith(status: ForgotPasswordStatus.loading));
 
     if (!(state.email?.valid ?? false)) {
-      yield state.copyWith(status: ForgotPasswordStatus.failure);
+      emit(state.copyWith(status: ForgotPasswordStatus.failure));
       return;
     }
 
     try {
       await _authService.sendPasswordResetEmail(email: state.email.value);
 
-      yield state.copyWith(status: ForgotPasswordStatus.success);
+      emit(state.copyWith(status: ForgotPasswordStatus.success));
     } on AuthError {
-      yield state.copyWith(status: ForgotPasswordStatus.failure);
+      emit(state.copyWith(status: ForgotPasswordStatus.failure));
     }
   }
 
-  Stream<ForgotPasswordState> _mapForgotPasswordEmailChangedToState(
+  Future<void> _mapForgotPasswordEmailChangedToState(
     ForgotPasswordEmailChanged event,
-  ) async* {
+    Emitter<ForgotPasswordState> emit,
+  ) async {
     final email = Email.dirty(event.email);
 
-    yield state.copyWith(
+    emit(state.copyWith(
       email: email,
       status: email.valid
           ? ForgotPasswordStatus.valid
           : ForgotPasswordStatus.invalid,
-    );
+    ));
   }
 }

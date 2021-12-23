@@ -12,28 +12,24 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
   final Repository<EmployeeEntity> _employeesRepository;
 
   EmployeesBloc(this._employeesRepository)
-      : super(const EmployeesState(status: EmployeesStatus.initial));
-
-  @override
-  Stream<EmployeesState> mapEventToState(EmployeesEvent event) async* {
-    if (event is EmployeesLoaded) {
-      yield* _mapEmployeesLoadedToState();
-    }
+      : super(const EmployeesState(status: EmployeesStatus.initial)) {
+    on<EmployeesLoaded>(_mapEmployeesLoadedToState);
   }
 
-  Stream<EmployeesState> _mapEmployeesLoadedToState() async* {
-    yield state.copyWith(status: EmployeesStatus.loading);
+  Future<void> _mapEmployeesLoadedToState(
+      EmployeesLoaded event, Emitter<EmployeesState> emit) async {
+    emit(state.copyWith(status: EmployeesStatus.loading));
 
     try {
       final employees = await _employeesRepository.getAll();
 
       final loadedEmployees = employees.map<Employee>(_toEmployee).toList();
-      yield state.copyWith(
+      return emit(state.copyWith(
         status: EmployeesStatus.success,
         employees: loadedEmployees,
-      );
+      ));
     } on Exception {
-      yield state.copyWith(status: EmployeesStatus.failure);
+      emit(state.copyWith(status: EmployeesStatus.failure));
     }
   }
 

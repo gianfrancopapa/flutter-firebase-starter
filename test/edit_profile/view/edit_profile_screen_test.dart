@@ -38,12 +38,6 @@ void main() {
     User mockUser;
 
     setUp(() {
-      registerFallbackValue(MockEditProfileState());
-      registerFallbackValue(MockEditProfileEvent());
-
-      registerFallbackValue(MockUserState());
-      registerFallbackValue(MockUserEvent());
-
       mockUser = MockUser();
 
       when(() => mockUser.firstName).thenReturn(firstName);

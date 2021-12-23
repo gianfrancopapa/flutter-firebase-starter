@@ -8,30 +8,10 @@ import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mocktail/mocktail.dart';
 
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   setUpAll(() {
-    registerFallbackValue(FakeEmployeesState());
-    registerFallbackValue(FakeEmployeesEvent());
-
-    registerFallbackValue(FakeInitAppState());
-    registerFallbackValue(FakeInitAppEvent());
-
-    registerFallbackValue(FakeLoginState());
-    registerFallbackValue(FakeLoginEvent());
-
-    registerFallbackValue(FakeUserState());
-    registerFallbackValue(FakeUserEvent());
-
-    registerFallbackValue(FakeAccountCreationState());
-    registerFallbackValue(FakeAccountCreationEvent());
-
-    registerFallbackValue(FakeEditProfileState());
-    registerFallbackValue(FakeEditProfileEvent());
-
-    registerFallbackValue(FakeForgotPasswordState());
-    registerFallbackValue(FakeForgotPasswordEvent());
+  
   });
 
   await testMain();
