@@ -2,9 +2,9 @@ part of auth;
 
 class FacebookSignInService implements ISignInService {
   FacebookSignInService({
-    @required FacebookAuth facebookAuth,
+    required FacebookAuth? facebookAuth,
   })  : assert(facebookAuth != null),
-        _facebookAuth = facebookAuth;
+        _facebookAuth = facebookAuth!;
 
   final FacebookAuth _facebookAuth;
 
@@ -21,12 +21,12 @@ class FacebookSignInService implements ISignInService {
   }
 
   @override
-  Future<auth.OAuthCredential> getFirebaseCredential() async {
+  Future<auth.OAuthCredential?> getFirebaseCredential() async {
     try {
       final result = await _facebookSignIn();
 
       if (result.status == LoginStatus.success) {
-        return _createCredential(result.accessToken.token);
+        return _createCredential(result.accessToken!.token);
       }
 
       if (result.status == LoginStatus.cancelled) return null;

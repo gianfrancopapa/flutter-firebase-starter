@@ -4,16 +4,16 @@ class AppleCredentials {
   const AppleCredentials();
 
   Future<AuthorizationCredentialAppleID> getAppleCredentials({
-    @required List<AppleIDAuthorizationScopes> scopes,
-    @required String token,
+    required List<AppleIDAuthorizationScopes>? scopes,
+    required String? token,
   }) async {
     assert(scopes != null);
     assert(token != null);
 
     try {
       final credential = await SignInWithApple.getAppleIDCredential(
-        scopes: scopes,
-        nonce: token,
+        scopes: scopes!,
+        nonce: token!,
       );
 
       return credential;

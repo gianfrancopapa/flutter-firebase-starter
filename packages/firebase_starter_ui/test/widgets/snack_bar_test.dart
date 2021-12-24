@@ -7,7 +7,7 @@ import 'package:mockito/mockito.dart';
 class MockBuildContext extends Mock implements BuildContext {}
 
 void main() {
-  MockBuildContext _mockContext;
+  late MockBuildContext _mockContext;
 
   setUp(() {
     _mockContext = MockBuildContext();

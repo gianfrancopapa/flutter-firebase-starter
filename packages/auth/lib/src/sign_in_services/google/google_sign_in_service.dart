@@ -1,19 +1,19 @@
 part of auth;
 
 class GoogleSignInService implements ISignInService {
-  GoogleSignInService({@required GoogleSignIn googleSignIn})
+  GoogleSignInService({required GoogleSignIn? googleSignIn})
       : assert(googleSignIn != null),
-        _googleSignIn = googleSignIn;
+        _googleSignIn = googleSignIn!;
 
   final GoogleSignIn _googleSignIn;
 
-  Future<GoogleSignInAccount> _getGoogleUser() async {
+  Future<GoogleSignInAccount?> _getGoogleUser() async {
     final result = await _googleSignIn.signIn();
     return result;
   }
 
-  Future<GoogleSignInAuthentication> _getGoogleAuth(
-    GoogleSignInAccount googleUser,
+  Future<GoogleSignInAuthentication?> _getGoogleAuth(
+    GoogleSignInAccount? googleUser,
   ) async {
     if (googleUser != null) {
       final result = await googleUser.authentication;
@@ -23,7 +23,7 @@ class GoogleSignInService implements ISignInService {
     return null;
   }
 
-  auth.OAuthCredential _getUserCredentials(String accessToken, String idToken) {
+  auth.OAuthCredential _getUserCredentials(String? accessToken, String? idToken) {
     if (accessToken != null || idToken != null) {
       final credential = auth.GoogleAuthProvider.credential(
         idToken: idToken,
@@ -39,7 +39,7 @@ class GoogleSignInService implements ISignInService {
   }
 
   @override
-  Future<auth.OAuthCredential> getFirebaseCredential() async {
+  Future<auth.OAuthCredential?> getFirebaseCredential() async {
     try {
       final googleUser = await _getGoogleUser();
 

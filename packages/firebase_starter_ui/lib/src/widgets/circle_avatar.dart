@@ -26,13 +26,13 @@ import 'package:flutter/material.dart';
 class FSCircleAvatar extends CircleAvatar {
   /// {@macro FSCircleAvatar}
   const FSCircleAvatar({
-    Key key,
-    Widget child,
-    Color backgroundColor,
-    Color foregroundColor,
-    ImageProvider backgroundImage,
-    ImageErrorListener onBackgroundImageError,
-    double radius,
+    Key? key,
+    Widget? child,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    ImageProvider? backgroundImage,
+    ImageErrorListener? onBackgroundImageError,
+    double? radius,
   })  : assert(backgroundImage != null || onBackgroundImageError == null),
         super(
           key: key,

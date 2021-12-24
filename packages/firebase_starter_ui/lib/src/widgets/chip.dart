@@ -12,14 +12,14 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class FSChip extends Chip {
   /// {@macro fs_chip}
-  const FSChip({
-    Key key,
-    Widget icon,
-    @required Widget label,
+  FSChip({
+    Key? key,
+    Widget? icon,
+    required Widget? label,
   })  : assert(label != null),
         super(
           key: key,
           avatar: icon,
-          label: label,
+          label: label!,
         );
 }

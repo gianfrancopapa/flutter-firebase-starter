@@ -20,18 +20,18 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class FSDialog extends AlertDialog {
   /// {@macro fs_dialog}
-  const FSDialog({
-    Key key,
-    Widget title,
-    Widget content,
-    List<Widget> actions,
-    EdgeInsets contentPadding = const EdgeInsets.fromLTRB(
+  FSDialog({
+    Key? key,
+    Widget? title,
+    Widget? content,
+    List<Widget>? actions,
+    EdgeInsets? contentPadding = const EdgeInsets.fromLTRB(
       24.0,
       20.0,
       24.0,
       24.0,
     ),
-    EdgeInsets insetPadding = const EdgeInsets.symmetric(
+    EdgeInsets? insetPadding = const EdgeInsets.symmetric(
       horizontal: 40.0,
       vertical: 24.0,
     ),
@@ -42,7 +42,7 @@ class FSDialog extends AlertDialog {
           title: title,
           content: content,
           actions: actions,
-          contentPadding: contentPadding,
-          insetPadding: insetPadding,
+          contentPadding: contentPadding!,
+          insetPadding: insetPadding!,
         );
 }

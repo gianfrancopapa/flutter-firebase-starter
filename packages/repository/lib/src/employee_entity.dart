@@ -1,15 +1,15 @@
 part of repository;
 
 class EmployeeEntity {
-  String id;
-  String firstName;
-  String lastName;
-  String email;
-  String avatarAsset;
-  int age;
-  String phoneNumber;
-  String address;
-  String description;
+  String? id;
+  String? firstName;
+  String? lastName;
+  String? email;
+  String? avatarAsset;
+  int? age;
+  String? phoneNumber;
+  String? address;
+  String? description;
 
   EmployeeEntity({
     this.id,

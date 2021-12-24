@@ -21,17 +21,17 @@ typedef TableCellWidgetBuilder = Widget Function(
 /// {@endtemplate}
 class FSScrollableTable extends StatefulWidget {
   /// {@macro scrollable_table}
-  const FSScrollableTable({
-    Key key,
+  FSScrollableTable({
+    Key? key,
     this.controller,
-    @required this.columnCount,
-    @required this.rowCount,
+    required this.columnCount,
+    required this.rowCount,
     this.headerBuilder,
-    @required this.cellBuilder,
+    required this.cellBuilder,
   })  : assert(columnCount != null),
-        assert(columnCount > 0),
+        assert(columnCount! > 0),
         assert(rowCount != null),
-        assert(rowCount > 0),
+        assert(rowCount! > 0),
         assert(cellBuilder != null),
         super(key: key);
 
@@ -42,25 +42,25 @@ class FSScrollableTable extends StatefulWidget {
   ///
   /// Is optional and mostly used only for testing. If set to `null`, an
   /// internal [ScrollController] is used instead.
-  final ScrollController controller;
+  final ScrollController? controller;
 
   /// The amount of columns the table contains.
   ///
   /// Must be more higher than `0` and cannot be `null`.
-  final int columnCount;
+  final int? columnCount;
 
   /// The amount of rows the table contains.
   ///
   /// Must be more higher than `0` and cannot be `null`.
-  final int rowCount;
+  final int? rowCount;
 
   /// An optional builder that can be used to build a sticky header row.
-  final TableHeaderWidgetBuilder headerBuilder;
+  final TableHeaderWidgetBuilder? headerBuilder;
 
   /// The builder used for building every cell in the table.
   ///
-  /// Cannot be `null`.
-  final TableCellWidgetBuilder cellBuilder;
+  /// Can be `null`.
+  final TableCellWidgetBuilder? cellBuilder;
 
   @override
   _FSScrollableTableState createState() => _FSScrollableTableState();
@@ -78,22 +78,24 @@ class _FSScrollableTableState extends State<FSScrollableTable> {
             Row(
               children: [
                 for (var columnIndex = 0;
-                    columnIndex < widget.columnCount;
+                    columnIndex < widget.columnCount!;
                     columnIndex++)
-                  widget.headerBuilder(context, columnIndex),
+                  widget.headerBuilder!(context, columnIndex),
               ],
             ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  for (var rowIndex = 0; rowIndex < widget.rowCount; rowIndex++)
+                  for (var rowIndex = 0;
+                      rowIndex < widget.rowCount!;
+                      rowIndex++)
                     Row(
                       children: [
                         for (var columnIndex = 0;
-                            columnIndex < widget.columnCount;
+                            columnIndex < widget.columnCount!;
                             columnIndex++)
-                          widget.cellBuilder(context, rowIndex, columnIndex)
+                          widget.cellBuilder!(context, rowIndex, columnIndex)
                       ],
                     ),
                   const SizedBox(

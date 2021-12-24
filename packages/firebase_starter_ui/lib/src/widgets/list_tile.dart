@@ -16,18 +16,18 @@ class FSListTile extends ListTile {
   /// {@macro FSListTile}
 
   const FSListTile({
-    Key key,
-    Widget title,
-    Widget leading,
-    Function onTap,
-    Widget trailing,
-    Widget subtitle,
-    bool dense,
-    EdgeInsets contentPadding,
+    Key? key,
+    Widget? title,
+    Widget? leading,
+    Function? onTap,
+    Widget? trailing,
+    Widget? subtitle,
+    bool? dense,
+    EdgeInsets? contentPadding,
   }) : super(
           title: title,
           leading: leading,
-          onTap: onTap,
+          onTap: onTap as void Function()?,
           trailing: trailing,
           subtitle: subtitle,
           dense: dense,

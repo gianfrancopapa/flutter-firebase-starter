@@ -1,21 +1,21 @@
 part of auth;
 
-typedef BuildSignInService = ISignInService Function();
+typedef BuildSignInService = ISignInService? Function();
 
 class SignInServiceFactory {
   SignInServiceFactory();
 
-  final _signInServiceInstances = <SocialMediaMethod, ISignInService>{};
+  final _signInServiceInstances = <SocialMediaMethod, ISignInService?>{};
   final _signInServiceConstructor = <SocialMediaMethod, BuildSignInService>{};
-  ISignInService _signInMethod;
+  ISignInService? _signInMethod;
 
-  ISignInService get signInMethod => _signInMethod;
+  ISignInService? get signInMethod => _signInMethod;
 
-  ISignInService getService({@required SocialMediaMethod method}) {
+  ISignInService? getService({required SocialMediaMethod? method}) {
     assert(method != null);
 
     if (!_signInServiceInstances.containsKey(method)) {
-      _signInServiceInstances[method] = _signInServiceConstructor[method]();
+      _signInServiceInstances[method!] = _signInServiceConstructor[method]!();
     }
 
     _signInMethod = _signInServiceInstances[method];
@@ -24,14 +24,14 @@ class SignInServiceFactory {
   }
 
   void addService({
-    @required SocialMediaMethod method,
-    @required BuildSignInService constructor,
+    required SocialMediaMethod? method,
+    required BuildSignInService? constructor,
   }) {
     assert(method != null);
     assert(constructor != null);
 
     if (!_signInServiceConstructor.containsKey(method)) {
-      _signInServiceConstructor[method] = constructor;
+      _signInServiceConstructor[method!] = constructor!;
     } else {
       throw Exception('Error: The method already exists.');
     }
