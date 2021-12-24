@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 /// Defines the color palette for the Firebase Starter UI Kit.
 /// Each color is a single color as well a color swatch with shades.

@@ -3,7 +3,6 @@ import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class MockPanelController extends Mock implements PanelController {}
 

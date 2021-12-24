@@ -41,7 +41,7 @@ void main() async {
 
       return App(
         sharedPreferences: MySharedPreferences(),
-        firebaseAnalytics: FirebaseAnalytics(),
+        firebaseAnalytics: FirebaseAnalytics.instance,
         firebaseAnalyticsService: FirebaseAnalyticsService(),
         pickImageService: PickImageService(),
         appInfoService: AppInfoService(),

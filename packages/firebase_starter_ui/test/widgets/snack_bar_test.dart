@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
-import 'package:firebase_starter_ui/src/widgets/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

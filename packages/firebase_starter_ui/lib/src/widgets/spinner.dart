@@ -1,5 +1,4 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// {@template FSSpinner}
@@ -47,7 +46,8 @@ class FSSpinner extends StatelessWidget {
       children: [
         CircularProgressIndicator(
           backgroundColor: FSColors.transparent,
-          valueColor: AlwaysStoppedAnimation<Color>(color ?? theme.accentColor),
+          valueColor: AlwaysStoppedAnimation<Color>(
+              color ?? theme.colorScheme.secondary),
           strokeWidth: strokeWidth ?? FSSpacing.s4,
           value: value,
         ),

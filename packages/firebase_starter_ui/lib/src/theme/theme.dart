@@ -1,5 +1,4 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// Namespace for Default Firebase Starter [ThemeData].
@@ -11,7 +10,6 @@ abstract class FSTheme {
     backgroundColor: _backgroundColor,
     scaffoldBackgroundColor: _backgroundColor,
     iconTheme: _iconTheme,
-    accentColor: FSColors.lightBlue.shade300,
     appBarTheme: _appBarTheme,
     dividerTheme: _dividerTheme,
     textTheme: _textTheme,
@@ -21,6 +19,9 @@ abstract class FSTheme {
     snackBarTheme: _snackBarTheme,
     elevatedButtonTheme: _elevatedButtonTheme,
     outlinedButtonTheme: _outlinedButtonTheme,
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      secondary: FSColors.lightBlue.shade300,
+    ),
   );
 
   static final _snackBarTheme = SnackBarThemeData(
@@ -40,11 +41,20 @@ abstract class FSTheme {
 
   static final _appBarTheme = AppBarTheme(
     iconTheme: _iconTheme,
-    textTheme: _textTheme.copyWith(
-      headline6: FFTextStyle.headline6.copyWith(
-        color: FSColors.black,
-      ),
-    ),
+    toolbarTextStyle: _textTheme
+        .copyWith(
+          headline6: FFTextStyle.headline6.copyWith(
+            color: FSColors.black,
+          ),
+        )
+        .bodyText2,
+    titleTextStyle: _textTheme
+        .copyWith(
+          headline6: FFTextStyle.headline6.copyWith(
+            color: FSColors.black,
+          ),
+        )
+        .headline6,
   );
 
   static const _iconTheme = IconThemeData(color: FSColors.black);
@@ -145,7 +155,6 @@ abstract class FFDarkTheme implements FSTheme {
     backgroundColor: _backgroundColor,
     scaffoldBackgroundColor: _backgroundColor,
     iconTheme: _iconTheme,
-    accentColor: FSColors.lightBlue.shade300,
     appBarTheme: _appBarTheme,
     dividerTheme: _dividerTheme,
     textTheme: _textTheme,
@@ -153,6 +162,8 @@ abstract class FFDarkTheme implements FSTheme {
     buttonTheme: _buttonTheme,
     splashColor: FSColors.transparent,
     snackBarTheme: _snackBarTheme,
+    colorScheme: ColorScheme.fromSwatch()
+        .copyWith(secondary: FSColors.lightBlue.shade300),
   );
 
   static final _snackBarTheme = SnackBarThemeData(
@@ -172,7 +183,8 @@ abstract class FFDarkTheme implements FSTheme {
 
   static final _appBarTheme = AppBarTheme(
     iconTheme: _iconTheme,
-    textTheme: _textTheme,
+    toolbarTextStyle: _textTheme.bodyText2,
+    titleTextStyle: _textTheme.headline6,
   );
 
   static const _iconTheme = IconThemeData(color: FSColors.white);

@@ -9,37 +9,37 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-  flutter_localizations:
-    sdk: flutter
-  cupertino_icons: ^1.0.3
-  intl: ^0.17.0
-  flutter_bloc: ^7.0.0
-  firebase_core: ^1.0.2
-  firebase_analytics: ^8.1.0
-  firebase_crashlytics: ^2.0.4
-  firebase_storage: ^8.0.1
-  firebase_messaging: ^10.0.0
-  cloud_firestore: ^1.0.3
-  introduction_screen: ^1.0.9
-  package_info: ^0.4.3+4
-  flutter_launcher_icons: ^0.9.1
-  shared_preferences: ^2.0.6
-  image_picker: ^0.7.5+4
-  cached_network_image: ^2.5.1
-  auto_size_text: ^2.1.0
-  string_validator: ^0.1.4
-  flutter_local_notifications: ^5.0.0
-  flutter_icons: ^1.1.0
-  flutter_svg: ^0.22.0
-  equatable: ^1.2.6
-  repository:
-    path: packages/repository
   auth:
     path: packages/auth
+  auto_size_text: ^3.0.0
+  cached_network_image: ^3.2.0
+  cloud_firestore: ^3.1.4
+  cupertino_icons: ^1.0.3
+  equatable: ^2.0.3
+  firebase_analytics: ^9.0.4
+  firebase_core: ^1.10.6
+  firebase_crashlytics: ^2.4.4
+  firebase_messaging: ^11.2.4
   firebase_starter_ui:
     path: packages/firebase_starter_ui
+  firebase_storage: ^10.2.4
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^7.3.3
+  flutter_icons: ^1.1.0
+  flutter_launcher_icons: ^0.9.2
+  flutter_local_notifications: ^9.1.5
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^1.0.0
+  image_picker: ^0.8.4+4
+  intl: ^0.17.0
+  introduction_screen: ^2.1.0
+  package_info: ^2.0.2
+  repository:
+    path: packages/repository
+  shared_preferences: ^2.0.11
+  string_validator: ^0.3.0
 
 flutter_icons:
   android: true
@@ -47,12 +47,12 @@ flutter_icons:
   image_path: "packages/firebase_starter_ui/assets/images/ic_launcher.jpg"
 
 dev_dependencies:
-  flutter_native_splash: ^1.2.0
+  bloc_test: ^8.5.0
+  flutter_lints: ^1.0.4
+  flutter_native_splash: ^1.3.2
   flutter_test:
     sdk: flutter
-  mockito: ^5.0.12
-  bloc_test: ^8.1.0
-  flutter_lints: ^1.0.4
+  mockito: ^5.0.16
 
 flutter:
   uses-material-design: true

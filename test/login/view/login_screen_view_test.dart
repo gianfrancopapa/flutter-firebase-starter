@@ -1,6 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/login/login.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -18,8 +17,8 @@ void main() {
   LoginBloc loginBloc;
 
   setUp(() {
-    registerFallbackValue<LoginState>(MockLoginState());
-    registerFallbackValue<LoginEvent>(MockLoginEvent());
+    registerFallbackValue(MockLoginState());
+    registerFallbackValue(MockLoginEvent());
 
     loginBloc = MockLoginBloc();
 

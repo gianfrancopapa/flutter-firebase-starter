@@ -2,7 +2,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/login/view/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

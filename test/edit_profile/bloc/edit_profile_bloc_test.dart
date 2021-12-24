@@ -28,7 +28,7 @@ class MockUser extends Mock implements User {}
 
 class MockUserEntity extends Mock implements UserEntity {}
 
-class MockPickedFile extends Mock implements PickedFile {}
+class MockPickedFile extends Mock implements XFile {}
 
 void main() {
   group('EditProfileBloc', () {
@@ -45,11 +45,11 @@ void main() {
     UserEntity mockUserEntity;
     User mockUser;
 
-    PickedFile mockPickedFile;
+    XFile mockPickedFile;
 
     setUp(() {
-      registerFallbackValue<EditProfileEvent>(MockEditProfileEvent());
-      registerFallbackValue<EditProfileState>(MockEditProfileState());
+      registerFallbackValue(MockEditProfileEvent());
+      registerFallbackValue(MockEditProfileState());
 
       mockAuthService = MockAuthService();
       mockStorageService = MockStorageService();
