@@ -20,6 +20,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         _localPersistanceService = localPersistanceService,
         super(const AppState(status: AppStatus.initial)) {
     _userSubscription = _authService.onAuthStateChanged.listen(_onUserChanged);
+    on<AppIsFirstTimeLaunched>(_mapAppIsFirstTimeLaunchedToState);
+    on<AppUserChanged>(_mapAppUserChangedToState);
+    on<AppLogoutRequsted>(_mapAppLogoutRequstedToState);
   }
 
   static const String _isFirstTime = 'is_first_time';
@@ -36,18 +39,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     );
   }
 
-  @override
-  Stream<AppState> mapEventToState(AppEvent event) async* {
-    if (event is AppIsFirstTimeLaunched) {
-      yield* _mapAppIsFirstTimeLaunchedToState();
-    } else if (event is AppUserChanged) {
-      yield* _mapAppUserChangedToState(event);
-    } else if (event is AppLogoutRequsted) {
-      yield* _mapAppLogoutRequstedToState();
-    }
-  }
-
-  Stream<AppState> _mapAppIsFirstTimeLaunchedToState() async* {
+  Future<void> _mapAppIsFirstTimeLaunchedToState(
+      AppIsFirstTimeLaunched event, Emitter<AppState> emit) async {
     try {
       final firstTime =
           await _localPersistanceService.getValue<bool>(_isFirstTime);
@@ -56,42 +49,42 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
       if (firstTime ?? true) {
         await _localPersistanceService.setValue<bool>(_isFirstTime, false);
-        yield state.copyWith(status: AppStatus.firstTime);
+        emit(state.copyWith(status: AppStatus.firstTime));
       } else {
-        yield state.copyWith(status: AppStatus.unauthenticated);
+        emit(state.copyWith(status: AppStatus.unauthenticated));
       }
     } on Exception {
-      yield state.copyWith(status: AppStatus.failure);
+      emit(state.copyWith(status: AppStatus.failure));
     }
   }
 
-  Stream<AppState> _mapAppUserChangedToState(
-    AppUserChanged event,
-  ) async* {
+  Future<void> _mapAppUserChangedToState(
+      AppUserChanged event, Emitter<AppState> emit) async {
     final user = event.user;
 
     if (user == User.empty) {
-      yield state.copyWith(user: user);
+      emit(state.copyWith(user: user));
       add(const AppIsFirstTimeLaunched());
       return;
     }
 
-    yield state.copyWith(
+    emit(state.copyWith(
       status: AppStatus.authenticated,
       user: user,
-    );
+    ));
   }
 
-  Stream<AppState> _mapAppLogoutRequstedToState() async* {
+  Future<void> _mapAppLogoutRequstedToState(
+      AppLogoutRequsted event, Emitter<AppState> emit) async {
     try {
       await _authService.signOut();
 
-      yield state.copyWith(
+      emit(state.copyWith(
         status: AppStatus.unauthenticated,
         user: User.empty,
-      );
+      ));
     } on AuthError {
-      yield state.copyWith(status: AppStatus.failure);
+      emit(state.copyWith(status: AppStatus.failure));
     }
   }
 

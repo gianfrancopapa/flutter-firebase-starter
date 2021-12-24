@@ -23,9 +23,6 @@ void main() {
     User mockUser;
 
     setUp(() {
-      registerFallbackValue(MockUserEvent());
-      registerFallbackValue(MockUserState());
-
       mockUserBloc = MockUserBloc();
       mockUser = MockUser();
 

@@ -28,12 +28,6 @@ void main() {
     UserBloc mockUserBloc;
 
     setUp(() {
-      registerFallbackValue(MockSignUpState());
-      registerFallbackValue(MockSignUpEvent());
-
-      registerFallbackValue(MockUserEvent());
-      registerFallbackValue(MockUserState());
-
       mockSignUpBloc = MockSignUpBloc();
 
       when(() => mockSignUpBloc.state).thenReturn(

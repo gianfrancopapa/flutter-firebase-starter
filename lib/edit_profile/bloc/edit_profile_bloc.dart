@@ -29,29 +29,23 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
             firstName: FirstName.pure(),
             lastName: LastName.pure(),
           ),
-        );
+        ) {
+    on<EditProfileUserRequested>(_mapEditProfileUserRequestedToState);
+    on<EditProfileFirstNameChanged>(_mapEditProfileFirstNameChangedToState);
+    on<EditProfileLastNameChanged>(_mapEditProfileLastNameChangedToState);
+    on<EditProfilePhotoUpdated>(_mapEditProfilePhotoUpdatedToState);
+    on<EditProfileInfoUpdated>(_mapEditProfileInfoUpdatedToState);
+  }
 
   final AuthService _authService;
   final StorageService _storageService;
   final ImageService _imageService;
 
-  @override
-  Stream<EditProfileState> mapEventToState(EditProfileEvent event) async* {
-    if (event is EditProfileUserRequested) {
-      yield* _mapEditProfileUserRequestedToState();
-    } else if (event is EditProfileFirstNameChanged) {
-      yield* _mapEditProfileFirstNameChangedToState(event);
-    } else if (event is EditProfileLastNameChanged) {
-      yield* _mapEditProfileLastNameChangedToState(event);
-    } else if (event is EditProfilePhotoUpdated) {
-      yield* _mapEditProfilePhotoUpdatedToState(event);
-    } else if (event is EditProfileInfoUpdated) {
-      yield* _mapEditProfileInfoUpdatedToState(event);
-    }
-  }
-
-  Stream<EditProfileState> _mapEditProfileUserRequestedToState() async* {
-    yield state.copyWith(status: EditProfileStatus.loading);
+  Future<void> _mapEditProfileUserRequestedToState(
+    EditProfileUserRequested event,
+    Emitter<EditProfileState> emit,
+  ) async {
+    emit(state.copyWith(status: EditProfileStatus.loading));
 
     try {
       final user = await _authService.currentUser();
@@ -60,44 +54,47 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       final lastName = LastName.dirty(user.lastName);
       final image = user.imageUrl;
 
-      yield state.copyWith(
+      emit(state.copyWith(
         user: _toUser(user),
         firstName: firstName,
         lastName: lastName,
         imageURL: image,
         status:
             _status(firstName: firstName, lastName: lastName, imageURL: image),
-      );
+      ));
     } on Exception {
-      yield state.copyWith(status: EditProfileStatus.failure);
+      emit(state.copyWith(status: EditProfileStatus.failure));
     }
   }
 
-  Stream<EditProfileState> _mapEditProfileFirstNameChangedToState(
+  Future<void> _mapEditProfileFirstNameChangedToState(
     EditProfileFirstNameChanged event,
-  ) async* {
+    Emitter<EditProfileState> emit,
+  ) async {
     final firstName = FirstName.dirty(event.firstName);
 
-    yield state.copyWith(
+    emit(state.copyWith(
       firstName: firstName,
       status: _status(firstName: firstName),
-    );
+    ));
   }
 
-  Stream<EditProfileState> _mapEditProfileLastNameChangedToState(
+  Future<void> _mapEditProfileLastNameChangedToState(
     EditProfileLastNameChanged event,
-  ) async* {
+    Emitter<EditProfileState> emit,
+  ) async {
     final lastName = LastName.dirty(event.lastName);
 
-    yield state.copyWith(
+    emit(state.copyWith(
       lastName: lastName,
       status: _status(lastName: lastName),
-    );
+    ));
   }
 
-  Stream<EditProfileState> _mapEditProfilePhotoUpdatedToState(
+  Future<void> _mapEditProfilePhotoUpdatedToState(
     EditProfilePhotoUpdated event,
-  ) async* {
+    Emitter<EditProfileState> emit,
+  ) async {
     try {
       Future<XFile> Function() uploadMethod;
 
@@ -110,23 +107,24 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       final file = await uploadMethod();
 
       if (file == null) {
-        yield state.copyWith(status: EditProfileStatus.failure);
+        emit(state.copyWith(status: EditProfileStatus.failure));
         return;
       }
 
-      yield state.copyWith(
+      emit(state.copyWith(
         imageURL: file.path,
         status: _status(imageURL: file.path),
-      );
+      ));
     } on Exception {
-      yield state.copyWith(status: EditProfileStatus.failure);
+      emit(state.copyWith(status: EditProfileStatus.failure));
     }
   }
 
-  Stream<EditProfileState> _mapEditProfileInfoUpdatedToState(
+  Future<void> _mapEditProfileInfoUpdatedToState(
     EditProfileInfoUpdated event,
-  ) async* {
-    yield state.copyWith(status: EditProfileStatus.loading);
+    Emitter<EditProfileState> emit,
+  ) async {
+    emit(state.copyWith(status: EditProfileStatus.loading));
 
     try {
       final user = state.user;
@@ -134,7 +132,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       if (user.firstName == state.firstName.value &&
           user.lastName == state.lastName.value &&
           (state.imageURL == null || user.imageUrl == state.imageURL)) {
-        yield state.copyWith(status: EditProfileStatus.success);
+        emit(state.copyWith(status: EditProfileStatus.success));
         return;
       }
 
@@ -145,13 +143,13 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         lastName: state.lastName.value,
       );
 
-      yield state.copyWith(
+      emit(state.copyWith(
         status: EditProfileStatus.success,
         user: updatedUser,
         imageURL: updatedUser.imageUrl,
-      );
+      ));
     } on Exception {
-      yield state.copyWith(status: EditProfileStatus.failure);
+      emit(state.copyWith(status: EditProfileStatus.failure));
     }
   }
 

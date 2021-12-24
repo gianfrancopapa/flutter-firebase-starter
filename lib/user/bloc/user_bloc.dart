@@ -12,26 +12,24 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc({@required AuthService authService})
       : assert(authService != null),
         _authService = authService,
-        super(const UserState(status: UserStatus.initial));
+        super(const UserState(status: UserStatus.initial)) {
+    on<UserLoaded>(_mapUserLoadedToState);
+  }
 
   final AuthService _authService;
 
-  @override
-  Stream<UserState> mapEventToState(UserEvent event) async* {
-    if (event is UserLoaded) {
-      yield* _mapUserLoadedToState();
-    }
-  }
-
-  Stream<UserState> _mapUserLoadedToState() async* {
-    yield state.copyWith(status: UserStatus.loading);
+  Future<void> _mapUserLoadedToState(
+    UserLoaded event,
+    Emitter<UserState> emit,
+  ) async {
+    emit(state.copyWith(status: UserStatus.loading));
 
     try {
       final user = await _authService.currentUser();
 
-      yield state.copyWith(status: UserStatus.success, user: _toUser(user));
+      emit(state.copyWith(status: UserStatus.success, user: _toUser(user)));
     } on AuthError {
-      yield state.copyWith(status: UserStatus.failure);
+      emit(state.copyWith(status: UserStatus.failure));
     }
   }
 

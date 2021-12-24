@@ -17,47 +17,40 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         assert(analyticsService != null),
         _authService = authService,
         _analyticsService = analyticsService,
-        super(LoginState.initial());
+        super(LoginState.initial()) {
+    on<LoginWithEmailAndPasswordRequested>(
+        _mapLoginWithEmailAndPasswordRequestedToState);
+    on<LoginWithSocialMediaRequested>(_mapLoginWithSocialMediaRequestedToState);
+    on<LoginAnonymouslyRequested>(_mapLoginAnonymouslyRequestedToState);
+    on<LoginIsSessionPersisted>(_mapLoginIsSessionPersistedToState);
+    on<LoginEmailChanged>(_mapLoginEmailChangedToState);
+    on<LoginPasswordChanged>(_mapLoginPasswordChangedToState);
+  }
 
   final AuthService _authService;
   final AnalyticsService _analyticsService;
 
-  @override
-  Stream<LoginState> mapEventToState(LoginEvent event) async* {
-    if (event is LoginWithEmailAndPasswordRequested) {
-      yield* _mapLoginWithEmailAndPasswordRequestedToState();
-    } else if (event is LoginWithSocialMediaRequested) {
-      yield* _mapLoginWithSocialMediaRequestedToState(event);
-    } else if (event is LoginAnonymouslyRequested) {
-      yield* _mapLoginAnonymouslyRequestedToState();
-    } else if (event is LoginIsSessionPersisted) {
-      yield* _mapLoginIsSessionPersistedToState();
-    } else if (event is LoginEmailChanged) {
-      yield* _mapLoginEmailChangedToState(event);
-    } else if (event is LoginPasswordChanged) {
-      yield* _mapLoginPasswordChangedToState(event);
-    }
-  }
-
-  Stream<LoginState> _mapLoginWithEmailAndPasswordRequestedToState() async* {
-    yield state.copyWith(status: LoginStatus.loading);
-
+  Future<void> _mapLoginWithEmailAndPasswordRequestedToState(
+    LoginWithEmailAndPasswordRequested event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(state.copyWith(status: LoginStatus.loading));
     try {
       final user = await _authService.signInWithEmailAndPassword(
         email: state.email.value,
         password: state.password.value,
       );
-
-      yield state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user));
+      emit(state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user)));
     } on AuthError catch (e) {
-      yield state.copyWith(status: LoginStatus.failure, error: e);
+      emit(state.copyWith(status: LoginStatus.failure, error: e));
     }
   }
 
-  Stream<LoginState> _mapLoginWithSocialMediaRequestedToState(
+  Future<void> _mapLoginWithSocialMediaRequestedToState(
     LoginWithSocialMediaRequested event,
-  ) async* {
-    yield state.copyWith(status: LoginStatus.loading);
+    Emitter<LoginState> emit,
+  ) async {
+    emit(state.copyWith(status: LoginStatus.loading));
     _analyticsService.logLogin(event.toString());
 
     try {
@@ -65,64 +58,72 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           await _authService.signInWithSocialMedia(method: event.method);
 
       if (user != null) {
-        yield state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user));
+        emit(state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user)));
       } else {
-        yield state.copyWith(status: LoginStatus.loggedOut);
+        emit(state.copyWith(status: LoginStatus.loggedOut));
       }
     } on AuthError catch (e) {
-      yield state.copyWith(status: LoginStatus.failure, error: e);
+      emit(state.copyWith(status: LoginStatus.failure, error: e));
     }
   }
 
-  Stream<LoginState> _mapLoginAnonymouslyRequestedToState() async* {
-    yield state.copyWith(status: LoginStatus.loading);
+  Future<void> _mapLoginAnonymouslyRequestedToState(
+    LoginAnonymouslyRequested event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(state.copyWith(status: LoginStatus.loading));
 
     try {
       final user = await _authService.signInAnonymously();
 
-      yield state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user));
+      emit(state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user)));
     } on AuthError catch (e) {
-      yield state.copyWith(status: LoginStatus.failure, error: e);
+      emit(state.copyWith(status: LoginStatus.failure, error: e));
     }
   }
 
-  Stream<LoginState> _mapLoginIsSessionPersistedToState() async* {
-    yield state.copyWith(status: LoginStatus.loading);
+  Future<void> _mapLoginIsSessionPersistedToState(
+    LoginIsSessionPersisted event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(state.copyWith(status: LoginStatus.loading));
 
     try {
       final user = await _authService.currentUser();
 
       if (user != null) {
-        yield state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user));
+        emit(state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user)));
         return;
       }
 
-      yield state.copyWith(status: LoginStatus.loggedOut);
+      emit(state.copyWith(status: LoginStatus.loggedOut));
     } on AuthError catch (e) {
-      yield state.copyWith(status: LoginStatus.failure, error: e);
+      emit(state.copyWith(status: LoginStatus.failure, error: e));
     }
   }
 
-  Stream<LoginState> _mapLoginEmailChangedToState(
+  Future<void> _mapLoginEmailChangedToState(
     LoginEmailChanged event,
-  ) async* {
+    Emitter<LoginState> emit,
+  ) async {
     final email = Email.dirty(event.email);
 
-    yield state.copyWith(
+    emit(state.copyWith(
       email: email,
       status: _status(email: email),
-    );
+    ));
   }
 
-  Stream<LoginState> _mapLoginPasswordChangedToState(
+  Future<void> _mapLoginPasswordChangedToState(
     LoginPasswordChanged event,
-  ) async* {
+    Emitter<LoginState> emit,
+  ) async {
     final password = Password.dirty(event.password);
 
-    yield state.copyWith(
+    emit(state.copyWith(
       password: password,
       status: _status(password: password),
-    );
+    ));
   }
 
   LoginStatus _status({Email email, Password password}) {

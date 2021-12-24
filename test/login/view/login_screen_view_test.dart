@@ -17,9 +17,6 @@ void main() {
   LoginBloc loginBloc;
 
   setUp(() {
-    registerFallbackValue(MockLoginState());
-    registerFallbackValue(MockLoginEvent());
-
     loginBloc = MockLoginBloc();
 
     when(() => loginBloc.state).thenReturn(LoginState.initial());

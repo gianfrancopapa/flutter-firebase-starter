@@ -17,7 +17,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void bootstrap(Future<Widget> Function() builder) async {
-  Bloc.observer = SimpleBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
@@ -34,8 +33,11 @@ void bootstrap(Future<Widget> Function() builder) async {
     );
   }
 
-  await runZonedGuarded<Future<void>>(
-    () async => runApp(await builder()),
-    FirebaseCrashlytics.instance.recordError,
+  await BlocOverrides.runZoned(
+    () async => runZonedGuarded<Future<void>>(
+      () async => runApp(await builder()),
+      FirebaseCrashlytics.instance.recordError,
+    ),
+    blocObserver: SimpleBlocObserver(),
   );
 }
