@@ -36,16 +36,16 @@ void main() {
     const lastName = 'lastName';
     const imageUrl = 'https://mock-image.com';
 
-    AuthService mockAuthService;
-    StorageService mockStorageService;
-    ImageService mockImageService;
+    late AuthService mockAuthService;
+    late StorageService mockStorageService;
+    late ImageService mockImageService;
 
-    EditProfileBloc mockEditProfileBloc;
+    late EditProfileBloc mockEditProfileBloc;
 
-    UserEntity mockUserEntity;
-    User mockUser;
+    UserEntity? mockUserEntity;
+    late User mockUser;
 
-    XFile mockPickedFile;
+    XFile? mockPickedFile;
 
     setUp(() {
       mockAuthService = MockAuthService();
@@ -65,13 +65,13 @@ void main() {
       when(() => mockUser.lastName).thenReturn(lastName);
       when(() => mockUser.imageUrl).thenReturn(imageUrl);
 
-      when(() => mockUserEntity.firstName).thenReturn(firstName);
-      when(() => mockUserEntity.lastName).thenReturn(lastName);
-      when(() => mockUserEntity.imageUrl).thenReturn(imageUrl);
+      when(() => mockUserEntity!.firstName).thenReturn(firstName);
+      when(() => mockUserEntity!.lastName).thenReturn(lastName);
+      when(() => mockUserEntity!.imageUrl).thenReturn(imageUrl);
 
       mockPickedFile = MockPickedFile();
 
-      when(() => mockPickedFile.path).thenReturn(imageUrl);
+      when(() => mockPickedFile!.path).thenReturn(imageUrl);
 
       EquatableConfig.stringify = true;
     });
@@ -126,7 +126,7 @@ void main() {
             firstName: FirstName.dirty(firstName),
             lastName: LastName.dirty(lastName),
             imageURL: imageUrl,
-            user: User.fromEntity(mockUserEntity),
+            user: User.fromEntity(mockUserEntity!),
           ),
         ],
       );
@@ -322,22 +322,22 @@ void main() {
       const oldLastName = 'oldLastName';
       const oldImageUrl = 'https://old-image.com';
 
-      User mockOldUser;
-      UserEntity _mockUserEntity;
+      User? mockOldUser;
+      UserEntity? _mockUserEntity;
 
       setUp(() {
         mockOldUser = MockUser();
         _mockUserEntity = MockUserEntity();
 
-        when(() => mockOldUser.id).thenReturn(userId);
-        when(() => mockOldUser.firstName).thenReturn(oldName);
-        when(() => mockOldUser.lastName).thenReturn(oldLastName);
-        when(() => mockOldUser.imageUrl).thenReturn(oldImageUrl);
+        when(() => mockOldUser!.id).thenReturn(userId);
+        when(() => mockOldUser!.firstName).thenReturn(oldName);
+        when(() => mockOldUser!.lastName).thenReturn(oldLastName);
+        when(() => mockOldUser!.imageUrl).thenReturn(oldImageUrl);
 
-        when(() => _mockUserEntity.id).thenReturn(userId);
-        when(() => _mockUserEntity.firstName).thenReturn(updatedFirstName);
-        when(() => _mockUserEntity.lastName).thenReturn(updatedLastName);
-        when(() => _mockUserEntity.imageUrl).thenReturn(imageUrl);
+        when(() => _mockUserEntity!.id).thenReturn(userId);
+        when(() => _mockUserEntity!.firstName).thenReturn(updatedFirstName);
+        when(() => _mockUserEntity!.lastName).thenReturn(updatedLastName);
+        when(() => _mockUserEntity!.imageUrl).thenReturn(imageUrl);
 
         when(() => mockUser.id).thenReturn(userId);
         when(() => mockUser.firstName).thenReturn(updatedFirstName);
@@ -449,7 +449,7 @@ void main() {
             firstName: FirstName.dirty(updatedFirstName),
             lastName: LastName.dirty(updatedLastName),
             imageURL: imageUrl,
-            user: User.fromEntity(_mockUserEntity),
+            user: User.fromEntity(_mockUserEntity!),
           ),
         ],
       );

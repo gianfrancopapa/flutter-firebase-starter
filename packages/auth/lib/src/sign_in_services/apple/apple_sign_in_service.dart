@@ -59,7 +59,7 @@ class AppleSignInService implements ISignInService {
       );
 
       return _createCredential(
-        idToken: appleCredential.identityToken,
+        idToken: appleCredential!.identityToken,
         rawToken: rawToken,
       );
     } on Exception {

@@ -36,16 +36,16 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Stream<UserEntity?> get onAuthStateChanged =>
+  Stream<UserEntity?>? get onAuthStateChanged =>
       _firebaseAuth.authStateChanges().map(_mapFirebaseUser);
 
   @override
-  Future<UserEntity?> currentUser() async {
+  Future<UserEntity?>? currentUser() async {
     return _mapFirebaseUser(_firebaseAuth.currentUser);
   }
 
   @override
-  Future<UserEntity?> signInAnonymously() async {
+  Future<UserEntity?>? signInAnonymously() async {
     try {
       final userCredential = await _firebaseAuth.signInAnonymously();
       return _mapFirebaseUser(userCredential.user);
@@ -55,7 +55,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<UserEntity?> signInWithEmailAndPassword({
+  Future<UserEntity?>? signInWithEmailAndPassword({
     required String? email,
     required String? password,
   }) async {
@@ -75,7 +75,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<UserEntity?> createUserWithEmailAndPassword({
+  Future<UserEntity?>? createUserWithEmailAndPassword({
     required String? name,
     required String? lastName,
     required String? email,
@@ -102,7 +102,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<void> sendPasswordResetEmail({required String? email}) async {
+  Future<void>? sendPasswordResetEmail({required String? email}) async {
     assert(email != null);
 
     try {
@@ -113,7 +113,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<UserEntity?> signInWithSocialMedia({
+  Future<UserEntity?>? signInWithSocialMedia({
     required SocialMediaMethod? method,
   }) async {
     assert(method != null);
@@ -137,7 +137,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<void> signOut() async {
+  Future<void>? signOut() async {
     try {
       final service = _signInServiceFactory.signInMethod;
 
@@ -149,7 +149,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<bool> changeProfile({
+  Future<bool>? changeProfile({
     String? firstName,
     String? lastName,
     String? photoURL,
@@ -170,7 +170,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<void> deleteAccount() async {
+  Future<void>? deleteAccount() async {
     try {
       final user = _firebaseAuth.currentUser!;
       await user.delete();

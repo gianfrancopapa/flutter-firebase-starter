@@ -3,7 +3,7 @@ import 'dart:io' show Platform;
 import 'package:rxdart/subjects.dart';
 
 class LocalNotificationService {
-  FlutterLocalNotificationsPlugin _localNotifications;
+  late FlutterLocalNotificationsPlugin _localNotifications;
 
   final _didReceivedLocalNotificationSubject =
       BehaviorSubject<Map<String, dynamic>>();
@@ -38,7 +38,7 @@ class LocalNotificationService {
     );
   }
 
-  Future _handleNotificationTap(String payload) async {}
+  Future _handleNotificationTap(String? payload) async {}
 
   InitializationSettings _getPlatformSettings() {
     const initializationSettingsAndroid =
@@ -54,10 +54,10 @@ class LocalNotificationService {
     );
   }
 
-  Future<bool> _requestIOSPermission() async {
+  Future<bool?> _requestIOSPermission() async {
     return _localNotifications
         .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
+            IOSFlutterLocalNotificationsPlugin>()!
         .requestPermissions(
           alert: false,
           badge: true,

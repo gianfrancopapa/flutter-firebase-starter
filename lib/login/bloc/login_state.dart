@@ -11,14 +11,14 @@ enum LoginStatus {
 }
 
 class LoginState extends Equatable {
-  final LoginStatus status;
-  final AuthError error;
-  final User user;
-  final Email email;
-  final Password password;
+  final LoginStatus? status;
+  final AuthError? error;
+  final User? user;
+  final Email? email;
+  final Password? password;
 
   const LoginState({
-    @required this.status,
+    required this.status,
     this.error,
     this.user,
     this.email,
@@ -33,11 +33,11 @@ class LoginState extends Equatable {
         );
 
   LoginState copyWith({
-    LoginStatus status,
-    AuthError error,
-    User user,
-    Email email,
-    Password password,
+    LoginStatus? status,
+    AuthError? error,
+    User? user,
+    Email? email,
+    Password? password,
   }) {
     return LoginState(
       status: status ?? this.status,
@@ -49,5 +49,5 @@ class LoginState extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, error, user, email, password];
+  List<Object?> get props => [status, error, user, email, password];
 }

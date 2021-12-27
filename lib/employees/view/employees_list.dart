@@ -3,25 +3,25 @@ import 'package:firebasestarter/models/employee.dart';
 import 'package:flutter/material.dart';
 
 class EmployeesList extends StatelessWidget {
-  const EmployeesList({Key key, @required this.employees})
+  const EmployeesList({Key? key, required this.employees})
       : assert(employees != null);
 
-  final List<Employee> employees;
+  final List<Employee>? employees;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: FSSpacing.s40),
-      itemCount: employees.length,
-      itemBuilder: (_, i) => _EmployeeCard(employee: employees[i]),
+      itemCount: employees?.length,
+      itemBuilder: (_, i) => _EmployeeCard(employee: employees![i]),
     );
   }
 }
 
 class _EmployeeCard extends StatelessWidget {
-  const _EmployeeCard({@required this.employee}) : assert(employee != null);
+  const _EmployeeCard({required this.employee}) : assert(employee != null);
 
-  final Employee employee;
+  final Employee? employee;
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +44,11 @@ class _EmployeeCard extends StatelessWidget {
           horizontal: FSSpacing.s20,
         ),
         leading: _EmployeeImage(
-          employee: employee,
+          employee: employee!,
         ),
         title: Center(
           child: _EmployeeDisplayName(
-            employee: employee,
+            employee: employee!,
           ),
         ),
       ),
@@ -57,7 +57,7 @@ class _EmployeeCard extends StatelessWidget {
 }
 
 class _EmployeeImage extends StatelessWidget {
-  const _EmployeeImage({Key key, @required this.employee}) : super(key: key);
+  const _EmployeeImage({Key? key, required this.employee}) : super(key: key);
 
   final Employee employee;
 
@@ -70,9 +70,10 @@ class _EmployeeImage extends StatelessWidget {
         color: FSColors.white,
         shape: BoxShape.circle,
         image: DecorationImage(
-          image: employee.isAvatarFromNetwork
-              ? NetworkImage(employee.avatarAsset)
-              : const AssetImage(FSAssetImage.anonLogin),
+          image: (employee.isAvatarFromNetwork
+                  ? NetworkImage(employee.avatarAsset!)
+                  : const AssetImage(FSAssetImage.anonLogin))
+              as ImageProvider<Object>,
         ),
       ),
     );
@@ -80,7 +81,7 @@ class _EmployeeImage extends StatelessWidget {
 }
 
 class _EmployeeDisplayName extends StatelessWidget {
-  const _EmployeeDisplayName({Key key, @required this.employee})
+  const _EmployeeDisplayName({Key? key, required this.employee})
       : super(key: key);
 
   final Employee employee;
@@ -88,7 +89,7 @@ class _EmployeeDisplayName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      employee.firstName + ' ' + employee.lastName,
+      employee.firstName! + ' ' + employee.lastName!,
       textAlign: TextAlign.start,
       style: const TextStyle(
         color: FSColors.black,

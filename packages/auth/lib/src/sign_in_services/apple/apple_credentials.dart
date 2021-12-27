@@ -3,7 +3,7 @@ part of auth;
 class AppleCredentials {
   const AppleCredentials();
 
-  Future<AuthorizationCredentialAppleID> getAppleCredentials({
+  Future<AuthorizationCredentialAppleID?>? getAppleCredentials({
     required List<AppleIDAuthorizationScopes>? scopes,
     required String? token,
   }) async {

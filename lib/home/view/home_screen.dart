@@ -4,10 +4,9 @@ import 'package:firebasestarter/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/user_profile/user_profile.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -26,12 +25,12 @@ class HomeScreen extends StatelessWidget {
     return pageIndex == 0
         ? EmployeesScreen(
             bottomNavigationBar: _BottomNavigationBar(
-              index: pageIndex,
+              index: pageIndex!,
             ),
           )
         : UserProfileScreen(
             bottomNavigationBar: _BottomNavigationBar(
-              index: pageIndex,
+              index: pageIndex!,
             ),
           );
   }
@@ -39,15 +38,15 @@ class HomeScreen extends StatelessWidget {
 
 class _BottomNavigationBar extends StatelessWidget {
   const _BottomNavigationBar({
-    Key key,
-    @required this.index,
+    Key? key,
+    required this.index,
   })  : assert(index != null),
         super(key: key);
 
   static const _index1 = 0;
   static const _index2 = 1;
 
-  final int index;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +72,7 @@ class _BottomNavigationBar extends StatelessWidget {
                   },
                   child: SizedBox(
                     child: Icon(
-                      Feather.home,
+                      Icons.home,
                       color: index == _index1 ? FSColors.blue : FSColors.grey,
                     ),
                   ),
@@ -85,7 +84,7 @@ class _BottomNavigationBar extends StatelessWidget {
                   },
                   child: SizedBox(
                     child: Icon(
-                      Feather.user,
+                      Icons.person,
                       color: index == _index2 ? FSColors.blue : FSColors.grey,
                     ),
                   ),

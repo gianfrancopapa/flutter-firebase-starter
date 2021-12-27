@@ -4,7 +4,6 @@ import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/shared_preferences/local_persistance_interface.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'app_event.dart';
@@ -12,14 +11,14 @@ part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({
-    @required AuthService authService,
-    @required LocalPersistanceService localPersistanceService,
+    required AuthService? authService,
+    required LocalPersistanceService? localPersistanceService,
   })  : assert(authService != null),
         assert(localPersistanceService != null),
-        _authService = authService,
-        _localPersistanceService = localPersistanceService,
+        _authService = authService!,
+        _localPersistanceService = localPersistanceService!,
         super(const AppState(status: AppStatus.initial)) {
-    _userSubscription = _authService.onAuthStateChanged.listen(_onUserChanged);
+    _userSubscription = _authService.onAuthStateChanged?.listen(_onUserChanged);
     on<AppIsFirstTimeLaunched>(_mapAppIsFirstTimeLaunchedToState);
     on<AppUserChanged>(_mapAppUserChangedToState);
     on<AppLogoutRequsted>(_mapAppLogoutRequstedToState);
@@ -29,9 +28,9 @@ class AppBloc extends Bloc<AppEvent, AppState> {
 
   final AuthService _authService;
   final LocalPersistanceService _localPersistanceService;
-  StreamSubscription<UserEntity> _userSubscription;
+  StreamSubscription<UserEntity?>? _userSubscription;
 
-  void _onUserChanged(UserEntity user) {
+  void _onUserChanged(UserEntity? user) {
     add(
       AppUserChanged(
         user: user != null ? User.fromEntity(user) : User.empty,

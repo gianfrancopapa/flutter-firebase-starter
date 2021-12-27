@@ -24,17 +24,17 @@ class MockISignInService extends Mock implements ISignInService {}
 
 void main() {
   group('FirebaseAuthService', () {
-    FirebaseAuth mockFirebaseAuth;
-    SignInServiceFactory mockSignInServiceFactory;
-    FirebaseAuthException mockFirebaseAuthException;
-    ISignInService mockISignInService;
+    FirebaseAuth? mockFirebaseAuth;
+    SignInServiceFactory? mockSignInServiceFactory;
+    late FirebaseAuthException mockFirebaseAuthException;
+    ISignInService? mockISignInService;
 
-    FirebaseAuthService subject;
+    late FirebaseAuthService subject;
 
-    UserCredential mockUserCredential;
-    OAuthCredential mockOAuthCredential;
+    UserCredential? mockUserCredential;
+    OAuthCredential? mockOAuthCredential;
     model.User mockModelUser;
-    User mockFirebaseUser;
+    User? mockFirebaseUser;
 
     setUp(() {
       mockFirebaseAuth = MockFirebaseAuth();
@@ -56,18 +56,18 @@ void main() {
 
       mockFirebaseUser = MockFirebaseUser();
 
-      when(mockFirebaseUser.uid).thenReturn('1');
-      when(mockFirebaseUser.displayName).thenReturn('firstName lastName');
-      when(mockFirebaseUser.email).thenReturn('email@email.com');
-      when(mockFirebaseUser.photoURL).thenReturn('photoURL');
+      when(mockFirebaseUser!.uid).thenReturn('1');
+      when(mockFirebaseUser!.displayName).thenReturn('firstName lastName');
+      when(mockFirebaseUser!.email).thenReturn('email@email.com');
+      when(mockFirebaseUser!.photoURL).thenReturn('photoURL');
 
       mockUserCredential = MockUserCredential();
 
-      when(mockUserCredential.user).thenReturn(mockFirebaseUser);
+      when(mockUserCredential!.user).thenReturn(mockFirebaseUser);
 
       mockOAuthCredential = MockOAuthCredential();
 
-      when(mockFirebaseAuth.currentUser).thenReturn(mockFirebaseUser);
+      when(mockFirebaseAuth!.currentUser).thenReturn(mockFirebaseUser);
     });
 
     test('throwsAssertionError when authService is null', () {
@@ -92,8 +92,8 @@ void main() {
 
     group('.signInAnonymously', () {
       test('succeeds when authService.signInAnonymously succeeds', () {
-        when(mockFirebaseAuth.signInAnonymously())
-            .thenAnswer((_) async => mockUserCredential);
+        when(mockFirebaseAuth?.signInAnonymously())
+            .thenAnswer((_) async => mockUserCredential!);
 
         expect(subject.signInAnonymously(), completes);
       });
@@ -101,7 +101,7 @@ void main() {
       test('fails when authService.signInAnonymously throws', () {
         when(mockFirebaseAuthException.code).thenReturn('');
 
-        when(mockFirebaseAuth.signInAnonymously())
+        when(mockFirebaseAuth!.signInAnonymously())
             .thenThrow(mockFirebaseAuthException);
 
         expect(
@@ -139,11 +139,11 @@ void main() {
         'succeeds when authService.signInWithEmailAndPassword succeeds',
         () {
           when(
-            mockFirebaseAuth.signInWithEmailAndPassword(
+            mockFirebaseAuth!.signInWithEmailAndPassword(
               email: email,
               password: password,
             ),
-          ).thenAnswer((_) async => mockUserCredential);
+          ).thenAnswer(((_) async => mockUserCredential!));
 
           expect(
             subject.signInWithEmailAndPassword(
@@ -162,7 +162,7 @@ void main() {
               .thenReturn('email-already-in-use');
 
           when(
-            mockFirebaseAuth.signInWithEmailAndPassword(
+            mockFirebaseAuth!.signInWithEmailAndPassword(
               email: email,
               password: password,
             ),
@@ -237,11 +237,11 @@ void main() {
         'succeeds when authService.createUserWithEmailAndPassword succeeds',
         () {
           when(
-            mockFirebaseAuth.createUserWithEmailAndPassword(
+            mockFirebaseAuth!.createUserWithEmailAndPassword(
               email: email,
               password: password,
             ),
-          ).thenAnswer((_) async => mockUserCredential);
+          ).thenAnswer((_) async => mockUserCredential!);
 
           expect(
             subject.createUserWithEmailAndPassword(
@@ -262,7 +262,7 @@ void main() {
               .thenReturn('account-exists-with-different-credential');
 
           when(
-            mockFirebaseAuth.createUserWithEmailAndPassword(
+            mockFirebaseAuth!.createUserWithEmailAndPassword(
               email: email,
               password: password,
             ),
@@ -292,7 +292,7 @@ void main() {
       });
 
       test('succeeds when authService.sendPasswordResetEmail succeeds', () {
-        when(mockFirebaseAuth.sendPasswordResetEmail(email: email))
+        when(mockFirebaseAuth!.sendPasswordResetEmail(email: email))
             .thenAnswer((_) async => null);
 
         expect(subject.sendPasswordResetEmail(email: email), completes);
@@ -301,7 +301,7 @@ void main() {
       test('fails when authService.sendPasswordResetEmail throws', () {
         when(mockFirebaseAuthException.code).thenReturn('user-not-found');
 
-        when(mockFirebaseAuth.sendPasswordResetEmail(email: email))
+        when(mockFirebaseAuth!.sendPasswordResetEmail(email: email))
             .thenThrow(mockFirebaseAuthException);
 
         expect(
@@ -322,14 +322,14 @@ void main() {
       });
 
       test('succeeds when signInWithCredential succeeds', () {
-        when(mockSignInServiceFactory.getService(method: method))
+        when(mockSignInServiceFactory!.getService(method: method))
             .thenReturn(mockISignInService);
 
-        when(mockISignInService.getFirebaseCredential())
+        when(mockISignInService!.getFirebaseCredential())
             .thenAnswer((_) async => mockOAuthCredential);
 
-        when(mockFirebaseAuth.signInWithCredential(mockOAuthCredential))
-            .thenAnswer((_) async => mockUserCredential);
+        when(mockFirebaseAuth!.signInWithCredential(mockOAuthCredential!))
+            .thenAnswer(((_) async => mockUserCredential!));
 
         expect(
           subject.signInWithSocialMedia(method: method),
@@ -338,12 +338,12 @@ void main() {
       });
 
       test('fails when signInService.getFirebaseCredential throws', () {
-        when(mockSignInServiceFactory.getService(method: method))
+        when(mockSignInServiceFactory!.getService(method: method))
             .thenReturn(mockISignInService);
 
         when(mockFirebaseAuthException.code).thenReturn('invalid-credential');
 
-        when(mockISignInService.getFirebaseCredential())
+        when(mockISignInService!.getFirebaseCredential())
             .thenThrow(mockFirebaseAuthException);
 
         expect(
@@ -353,15 +353,15 @@ void main() {
       });
 
       test('fails when authService.signInWithCredential throws', () {
-        when(mockSignInServiceFactory.getService(method: method))
+        when(mockSignInServiceFactory!.getService(method: method))
             .thenReturn(mockISignInService);
 
-        when(mockISignInService.getFirebaseCredential())
+        when(mockISignInService!.getFirebaseCredential())
             .thenAnswer((_) async => mockOAuthCredential);
 
         when(mockFirebaseAuthException.code).thenReturn('invalid-credential');
 
-        when(mockFirebaseAuth.signInWithCredential(mockOAuthCredential))
+        when(mockFirebaseAuth!.signInWithCredential(mockOAuthCredential!))
             .thenThrow(mockFirebaseAuthException);
 
         expect(
@@ -386,9 +386,9 @@ void main() {
         'succeeds when user.updateDisplayName '
         'user.updatePhotoURL succeeds',
         () {
-          when(mockFirebaseUser.updateDisplayName('$firstName $lastName'))
+          when(mockFirebaseUser!.updateDisplayName('$firstName $lastName'))
               .thenAnswer((_) async => null);
-          when(mockFirebaseUser.updatePhotoURL(photoURL))
+          when(mockFirebaseUser!.updatePhotoURL(photoURL))
               .thenAnswer((_) async => null);
 
           expect(
@@ -407,7 +407,7 @@ void main() {
         () {
           when(mockFirebaseAuthException.code).thenReturn('');
 
-          when(mockFirebaseUser.updateDisplayName('$firstName $lastName'))
+          when(mockFirebaseUser!.updateDisplayName('$firstName $lastName'))
               .thenThrow(mockFirebaseAuthException);
 
           expect(
@@ -426,7 +426,7 @@ void main() {
         () {
           when(mockFirebaseAuthException.code).thenReturn('');
 
-          when(mockFirebaseUser.updatePhotoURL(photoURL))
+          when(mockFirebaseUser!.updatePhotoURL(photoURL))
               .thenThrow(mockFirebaseAuthException);
 
           expect(
@@ -448,7 +448,7 @@ void main() {
 
       test('fails when user.delete throws', () {
         when(mockFirebaseAuthException.code).thenReturn('');
-        when(mockFirebaseUser.delete()).thenThrow(mockFirebaseAuthException);
+        when(mockFirebaseUser!.delete()).thenThrow(mockFirebaseAuthException);
 
         expect(
           subject.deleteAccount(),

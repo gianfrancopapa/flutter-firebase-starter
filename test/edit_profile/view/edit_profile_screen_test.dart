@@ -32,8 +32,8 @@ void main() {
     const lastName = 'lastName';
     const imageUrl = 'https://mock-url.com';
 
-    EditProfileBloc mockEditProfileBloc;
-    UserBloc mockUserBloc;
+    late EditProfileBloc mockEditProfileBloc;
+    UserBloc? mockUserBloc;
 
     User mockUser;
 
@@ -56,7 +56,7 @@ void main() {
         ),
       );
 
-      when(() => mockUserBloc.state).thenReturn(
+      when(() => mockUserBloc!.state).thenReturn(
         UserState(
           status: UserStatus.success,
           user: mockUser,

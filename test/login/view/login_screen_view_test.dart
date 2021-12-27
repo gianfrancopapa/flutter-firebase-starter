@@ -14,12 +14,12 @@ class MockLoginState extends Fake implements LoginState {}
 class MockLoginEvent extends Fake implements LoginEvent {}
 
 void main() {
-  LoginBloc loginBloc;
+  LoginBloc? loginBloc;
 
   setUp(() {
     loginBloc = MockLoginBloc();
 
-    when(() => loginBloc.state).thenReturn(LoginState.initial());
+    when(() => loginBloc!.state).thenReturn(LoginState.initial());
   });
 
   group('LoginScreenView', () {
@@ -63,7 +63,7 @@ void main() {
       await tester.enterText(emailFinder, 'test@gmail.com');
 
       verify(
-        () => loginBloc.add(const LoginEmailChanged(email: 'test@gmail.com')),
+        () => loginBloc!.add(const LoginEmailChanged(email: 'test@gmail.com')),
       ).called(1);
     });
 
@@ -79,15 +79,15 @@ void main() {
       await tester.enterText(passwordFinder, 'Password01');
 
       verify(
-        () => loginBloc.add(
+        () => loginBloc!.add(
           const LoginPasswordChanged(password: 'Password01'),
         ),
       ).called(1);
     });
 
     testWidgets('adds LoginWithEmailAndPasswordRequested', (tester) async {
-      when(() => loginBloc.state).thenReturn(
-        loginBloc.state.copyWith(status: LoginStatus.valid),
+      when(() => loginBloc!.state).thenReturn(
+        loginBloc!.state.copyWith(status: LoginStatus.valid),
       );
 
       await tester.pumpApp(
@@ -101,7 +101,7 @@ void main() {
       await tester.tap(loginButtonFinder);
 
       verify(
-        () => loginBloc.add(
+        () => loginBloc!.add(
           const LoginWithEmailAndPasswordRequested(),
         ),
       ).called(1);
@@ -110,8 +110,8 @@ void main() {
     testWidgets(
       'does not add LoginWithEmailAndPasswordRequested',
       (tester) async {
-        when(() => loginBloc.state).thenReturn(
-          loginBloc.state.copyWith(status: LoginStatus.invalid),
+        when(() => loginBloc!.state).thenReturn(
+          loginBloc!.state.copyWith(status: LoginStatus.invalid),
         );
 
         await tester.pumpApp(
@@ -125,7 +125,7 @@ void main() {
         await tester.tap(loginButtonFinder);
 
         verifyNever(
-          () => loginBloc.add(
+          () => loginBloc!.add(
             const LoginWithEmailAndPasswordRequested(),
           ),
         );
@@ -146,7 +146,7 @@ void main() {
         await tester.tap(loginWithGoogleButtonFinder);
 
         verify(
-          () => loginBloc.add(
+          () => loginBloc!.add(
             const LoginWithSocialMediaRequested(
               method: SocialMediaMethod.GOOGLE,
             ),
@@ -170,7 +170,7 @@ void main() {
         await tester.tap(loginWithFacebookButtonFinder);
 
         verify(
-          () => loginBloc.add(
+          () => loginBloc!.add(
             const LoginWithSocialMediaRequested(
               method: SocialMediaMethod.FACEBOOK,
             ),
@@ -195,7 +195,7 @@ void main() {
         await tester.tap(loginWithAppleButtonFinder);
 
         verify(
-          () => loginBloc.add(
+          () => loginBloc!.add(
             const LoginWithSocialMediaRequested(
               method: SocialMediaMethod.APPLE,
             ),
@@ -220,7 +220,7 @@ void main() {
 
         await tester.tap(loginAnonymouslyButtonFinder);
 
-        verify(() => loginBloc.add(const LoginAnonymouslyRequested()))
+        verify(() => loginBloc!.add(const LoginAnonymouslyRequested()))
             .called(1);
       },
     );
@@ -229,7 +229,7 @@ void main() {
       'shows a Dialog when mockLoginBloc emits failure',
       (tester) async {
         whenListen(
-          loginBloc,
+          loginBloc!,
           Stream.value(
             LoginState.initial().copyWith(status: LoginStatus.failure),
           ),

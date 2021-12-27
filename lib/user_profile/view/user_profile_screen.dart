@@ -6,19 +6,18 @@ import 'package:firebasestarter/user_profile/user_profile.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserProfileScreen extends StatelessWidget {
-  const UserProfileScreen({Key key, @required this.bottomNavigationBar})
+  const UserProfileScreen({Key? key, required this.bottomNavigationBar})
       : assert(bottomNavigationBar != null),
         super(key: key);
 
-  final Widget bottomNavigationBar;
+  final Widget? bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -31,7 +30,7 @@ class UserProfileScreen extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.only(right: 15.0),
             child: const Icon(
-              Feather.settings,
+              Icons.settings_outlined,
               color: FSColors.white,
               size: 20.0,
             ),
@@ -51,7 +50,7 @@ class UserProfileScreen extends StatelessWidget {
 }
 
 class _UserInfoSection extends StatelessWidget {
-  const _UserInfoSection({Key key}) : super(key: key);
+  const _UserInfoSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class _UserInfoSection extends StatelessWidget {
     if (state.status == UserStatus.success) {
       return UserInfoSection(
         key: const Key('userProfileScreen_userInfoSection_section'),
-        user: state.user,
+        user: state.user!,
       );
     }
 
@@ -79,7 +78,7 @@ class _UserInfoSection extends StatelessWidget {
 }
 
 class _EditIcon extends StatelessWidget {
-  const _EditIcon({Key key}) : super(key: key);
+  const _EditIcon({Key? key}) : super(key: key);
 
   static const _padding = 50.0;
 
@@ -92,7 +91,7 @@ class _EditIcon extends StatelessWidget {
           Navigator.of(context).push(EditProfileScreen.route());
         },
         child: const Icon(
-          Feather.edit,
+          Icons.edit,
           size: 22.0,
           color: FSColors.white,
         ),

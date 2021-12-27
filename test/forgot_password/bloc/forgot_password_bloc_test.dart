@@ -14,7 +14,7 @@ void main() {
       final validEmail = Email.dirty('test@gmail.com');
       final invalidEmail = Email.dirty('test');
 
-      AuthService mockAuthService;
+      late AuthService mockAuthService;
 
       setUp(() {
         mockAuthService = MockAuthService();
@@ -42,14 +42,14 @@ void main() {
         ),
         act: (bloc) => bloc.add(const ForgotPasswordResetRequested()),
         build: () {
-          when(mockAuthService.sendPasswordResetEmail(email: validEmail.value))
+          when(mockAuthService.sendPasswordResetEmail(email: validEmail.value!))
               .thenAnswer((_) async => null);
 
           return ForgotPasswordBloc(authService: mockAuthService);
         },
         verify: (_) {
           verify(
-            mockAuthService.sendPasswordResetEmail(email: validEmail.value),
+            mockAuthService.sendPasswordResetEmail(email: validEmail.value!),
           ).called(1);
         },
       );
@@ -67,7 +67,7 @@ void main() {
         },
         verify: (_) {
           verifyNever(
-            mockAuthService.sendPasswordResetEmail(email: invalidEmail.value),
+            mockAuthService.sendPasswordResetEmail(email: invalidEmail.value!),
           );
         },
       );
@@ -81,7 +81,7 @@ void main() {
         ),
         act: (bloc) => bloc.add(const ForgotPasswordResetRequested()),
         build: () {
-          when(mockAuthService.sendPasswordResetEmail(email: validEmail.value))
+          when(mockAuthService.sendPasswordResetEmail(email: validEmail.value!))
               .thenAnswer((_) async => null);
 
           return ForgotPasswordBloc(authService: mockAuthService);
@@ -108,7 +108,7 @@ void main() {
         act: (bloc) => bloc.add(const ForgotPasswordResetRequested()),
         build: () {
           when(
-            mockAuthService.sendPasswordResetEmail(email: invalidEmail.value),
+            mockAuthService.sendPasswordResetEmail(email: invalidEmail.value!),
           ).thenAnswer((_) async => null);
 
           return ForgotPasswordBloc(authService: mockAuthService);
@@ -135,7 +135,7 @@ void main() {
         act: (bloc) => bloc.add(const ForgotPasswordResetRequested()),
         build: () {
           when(
-            mockAuthService.sendPasswordResetEmail(email: validEmail.value),
+            mockAuthService.sendPasswordResetEmail(email: validEmail.value!),
           ).thenThrow(AuthError.ERROR);
 
           return ForgotPasswordBloc(authService: mockAuthService);
@@ -155,7 +155,7 @@ void main() {
       blocTest<ForgotPasswordBloc, ForgotPasswordState>(
         'emits [valid] when email is valid',
         act: (bloc) =>
-            bloc.add(ForgotPasswordEmailChanged(email: validEmail.value)),
+            bloc.add(ForgotPasswordEmailChanged(email: validEmail.value!)),
         build: () {
           return ForgotPasswordBloc(authService: mockAuthService);
         },
@@ -170,7 +170,7 @@ void main() {
       blocTest<ForgotPasswordBloc, ForgotPasswordState>(
         'emits [invalid] when email is invalid',
         act: (bloc) =>
-            bloc.add(ForgotPasswordEmailChanged(email: invalidEmail.value)),
+            bloc.add(ForgotPasswordEmailChanged(email: invalidEmail.value!)),
         build: () {
           return ForgotPasswordBloc(authService: mockAuthService);
         },

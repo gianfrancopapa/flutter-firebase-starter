@@ -6,7 +6,7 @@ import 'package:string_validator/string_validator.dart';
 
 class UserProfileImage extends StatelessWidget {
   const UserProfileImage({
-    Key key,
+    Key? key,
     this.image,
     this.height,
     this.width,
@@ -14,14 +14,14 @@ class UserProfileImage extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
-  final String image;
-  final double height;
-  final double width;
+  final String? image;
+  final double? height;
+  final double? width;
   final bool editable;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   Widget _networkImage() => Image(
-        image: CachedNetworkImageProvider(image),
+        image: CachedNetworkImageProvider(image!),
         width: width ?? 150,
         height: height ?? 150,
         fit: BoxFit.fitHeight,
@@ -33,8 +33,8 @@ class UserProfileImage extends StatelessWidget {
         color: FSColors.white,
         shape: BoxShape.circle,
         image: DecorationImage(
-          image: image != null && image.isNotEmpty
-              ? Image.file(File(image)).image
+          image: image != null && image!.isNotEmpty
+              ? Image.file(File(image!)).image
               : const AssetImage(FSAssetImage.somnioLogo),
           fit: BoxFit.fitHeight,
         ),
@@ -63,7 +63,7 @@ class UserProfileImage extends StatelessWidget {
       );
 
   Widget _imageToShow(BuildContext context) {
-    return image != null && image.isNotEmpty && isURL(image)
+    return image != null && image!.isNotEmpty && isURL(image!)
         ? _networkImage()
         : _assetImage(context);
   }

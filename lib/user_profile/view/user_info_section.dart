@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserInfoSection extends StatelessWidget {
-  const UserInfoSection({Key key, @required this.user})
+  const UserInfoSection({Key? key, required this.user})
       : assert(user != null),
         super(key: key);
 
-  final User user;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return SizedBox(
       width: double.infinity,
@@ -22,21 +22,21 @@ class UserInfoSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: 30.0),
-          UserProfileImage(image: user.imageUrl),
+          UserProfileImage(image: user?.imageUrl),
           const SizedBox(height: 43.0),
           _UserInfoItem(
             title: localizations.firstName,
-            data: user.firstName,
+            data: user?.firstName,
           ),
           const SizedBox(height: 10.0),
           _UserInfoItem(
             title: localizations.lastName,
-            data: user.lastName,
+            data: user?.lastName,
           ),
           const SizedBox(height: 10.0),
           _UserInfoItem(
             title: localizations.email,
-            data: user.email,
+            data: user?.email,
           ),
         ],
       ),
@@ -46,13 +46,13 @@ class UserInfoSection extends StatelessWidget {
 
 class _UserInfoItem extends StatelessWidget {
   const _UserInfoItem({
-    Key key,
-    @required this.title,
-    @required this.data,
+    Key? key,
+    required this.title,
+    required this.data,
   }) : super(key: key);
 
   final String title;
-  final String data;
+  final String? data;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _UserInfoItem extends StatelessWidget {
           ),
           const SizedBox(height: 6.0),
           Text(
-            data,
+            data!,
             style: const TextStyle(
               color: FSColors.grey,
               fontSize: 14.0,

@@ -8,13 +8,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebasestarter/onboarding/onboarding.dart';
 
 class OnboardingPages extends StatelessWidget {
-  const OnboardingPages({Key key}) : super(key: key);
+  const OnboardingPages({Key? key}) : super(key: key);
 
   PageViewModel _page({
-    String title,
-    String bodyText,
-    Asset asset,
-    Color color,
+    required String title,
+    required String bodyText,
+    Asset? asset,
+    Color? color,
   }) {
     return PageViewModel(
       titleWidget: Padding(
@@ -46,7 +46,7 @@ class OnboardingPages extends StatelessWidget {
   }
 
   List<PageViewModel> _pages(BuildContext context) {
-    final _localizedStrings = AppLocalizations.of(context);
+    final _localizedStrings = AppLocalizations.of(context)!;
     return [
       _page(
         title: _localizedStrings.welcome,
@@ -83,7 +83,7 @@ class OnboardingPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return BlocListener<OnboardingCubit, OnboardingState>(
       listener: (context, state) {
@@ -128,18 +128,18 @@ class OnboardingPages extends StatelessWidget {
 }
 
 class BuildImage extends StatelessWidget {
-  final Asset asset;
+  final Asset? asset;
 
-  const BuildImage({Key key, this.asset}) : super(key: key);
+  const BuildImage({Key? key, this.asset}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Image.asset(
-        asset.name,
-        width: asset.width,
-        height: asset.height,
+        asset!.name!,
+        width: asset!.width,
+        height: asset!.height,
       ),
     );
   }

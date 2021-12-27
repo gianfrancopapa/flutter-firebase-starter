@@ -10,7 +10,7 @@ import 'package:firebasestarter/utils/dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key key}) : super(key: key);
+  const SignUpScreen({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -24,7 +24,7 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -61,7 +61,7 @@ class SignUpScreen extends StatelessWidget {
 }
 
 class _SignUpForm extends StatelessWidget {
-  const _SignUpForm({Key key}) : super(key: key);
+  const _SignUpForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,12 +103,13 @@ class _SignUpForm extends StatelessWidget {
 }
 
 class _FirstNameTextField extends StatelessWidget {
-  const _FirstNameTextField({Key key}) : super(key: key);
+  const _FirstNameTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
-    final firstName = context.select((SignUpBloc bloc) => bloc.state.firstName);
+    final localizations = AppLocalizations.of(context)!;
+    final firstName =
+        context.select(((SignUpBloc bloc) => bloc.state.firstName!));
 
     return TextField(
       decoration: InputDecoration(
@@ -128,12 +129,13 @@ class _FirstNameTextField extends StatelessWidget {
 }
 
 class _LastNameTextField extends StatelessWidget {
-  const _LastNameTextField({Key key}) : super(key: key);
+  const _LastNameTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
-    final lastName = context.select((SignUpBloc bloc) => bloc.state.lastName);
+    final localizations = AppLocalizations.of(context)!;
+    final lastName =
+        context.select(((SignUpBloc bloc) => bloc.state.lastName!));
 
     return TextField(
       decoration: InputDecoration(
@@ -153,12 +155,12 @@ class _LastNameTextField extends StatelessWidget {
 }
 
 class _EmailTextField extends StatelessWidget {
-  const _EmailTextField({Key key}) : super(key: key);
+  const _EmailTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
-    final email = context.select((SignUpBloc bloc) => bloc.state.email);
+    final localizations = AppLocalizations.of(context)!;
+    final email = context.select(((SignUpBloc bloc) => bloc.state.email!));
 
     return TextField(
       decoration: InputDecoration(
@@ -176,12 +178,13 @@ class _EmailTextField extends StatelessWidget {
 }
 
 class _PasswordTextField extends StatelessWidget {
-  const _PasswordTextField({Key key}) : super(key: key);
+  const _PasswordTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
-    final password = context.select((SignUpBloc bloc) => bloc.state.password);
+    final localizations = AppLocalizations.of(context)!;
+    final password =
+        context.select(((SignUpBloc bloc) => bloc.state.password!));
 
     return TextField(
       obscureText: true,
@@ -202,13 +205,13 @@ class _PasswordTextField extends StatelessWidget {
 }
 
 class _PasswordConfirmationTextField extends StatelessWidget {
-  const _PasswordConfirmationTextField({Key key}) : super(key: key);
+  const _PasswordConfirmationTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final passwordConfirmation =
-        context.select((SignUpBloc bloc) => bloc.state.password);
+        context.select(((SignUpBloc bloc) => bloc.state.password!));
 
     return TextField(
       obscureText: true,
@@ -231,11 +234,11 @@ class _PasswordConfirmationTextField extends StatelessWidget {
 }
 
 class _SignUpTextButton extends StatelessWidget {
-  const _SignUpTextButton({Key key}) : super(key: key);
+  const _SignUpTextButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final status = context.select((SignUpBloc bloc) => bloc.state.status);
 
     return FSTextButton(

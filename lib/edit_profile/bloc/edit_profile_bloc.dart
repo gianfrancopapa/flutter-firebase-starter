@@ -5,7 +5,6 @@ import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/image_picker/image_service.dart';
 import 'package:firebasestarter/services/storage/storage_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,15 +13,15 @@ part 'edit_profile_state.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   EditProfileBloc({
-    @required AuthService authService,
-    @required StorageService storageService,
-    @required ImageService imageService,
+    required AuthService? authService,
+    required StorageService? storageService,
+    required ImageService? imageService,
   })  : assert(authService != null),
         assert(storageService != null),
         assert(imageService != null),
-        _authService = authService,
-        _storageService = storageService,
-        _imageService = imageService,
+        _authService = authService!,
+        _storageService = storageService!,
+        _imageService = imageService!,
         super(
           EditProfileState(
             status: EditProfileStatus.initial,
@@ -50,12 +49,12 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     try {
       final user = await _authService.currentUser();
 
-      final firstName = FirstName.dirty(user.firstName);
-      final lastName = LastName.dirty(user.lastName);
-      final image = user.imageUrl;
+      final firstName = FirstName.dirty(user?.firstName);
+      final lastName = LastName.dirty(user?.lastName);
+      final image = user?.imageUrl;
 
       emit(state.copyWith(
-        user: _toUser(user),
+        user: _toUser(user!),
         firstName: firstName,
         lastName: lastName,
         imageURL: image,
@@ -96,7 +95,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     Emitter<EditProfileState> emit,
   ) async {
     try {
-      Future<XFile> Function() uploadMethod;
+      Future<XFile?> Function() uploadMethod;
 
       if (event.method == PhotoUploadMethod.camera) {
         uploadMethod = _imageService.imgFromCamera;
@@ -127,10 +126,10 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
     emit(state.copyWith(status: EditProfileStatus.loading));
 
     try {
-      final user = state.user;
+      final user = state.user!;
 
-      if (user.firstName == state.firstName.value &&
-          user.lastName == state.lastName.value &&
+      if (user.firstName == state.firstName!.value &&
+          user.lastName == state.lastName!.value &&
           (state.imageURL == null || user.imageUrl == state.imageURL)) {
         emit(state.copyWith(status: EditProfileStatus.success));
         return;
@@ -139,8 +138,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       final updatedUser = await _updateProfile(
         user: user,
         imageUrl: state.imageURL,
-        firstName: state.firstName.value,
-        lastName: state.lastName.value,
+        firstName: state.firstName!.value!,
+        lastName: state.lastName!.value,
       );
 
       emit(state.copyWith(
@@ -155,24 +154,24 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
   //TODO: This should not be here
   Future<User> _updateProfile({
-    @required User user,
-    String imageUrl = '',
+    required User? user,
+    String? imageUrl = '',
     String firstName = '',
-    String lastName = '',
+    String? lastName = '',
   }) async {
     assert(user != null);
 
     try {
       final needToUpdateImage =
-          imageUrl != null && imageUrl.isNotEmpty && imageUrl != user.imageUrl;
+          imageUrl != null && imageUrl.isNotEmpty && imageUrl != user?.imageUrl;
 
       final needToUpdateDisplayName =
-          (firstName.isNotEmpty || lastName.isNotEmpty) &&
-              (firstName != user.firstName || lastName != user.firstName);
+          (firstName.isNotEmpty || lastName!.isNotEmpty) &&
+              (firstName != user?.firstName || lastName != user?.firstName);
 
       if (needToUpdateImage) {
-        final extension = imageUrl.split('.').last;
-        final path = '/users/${user.id}.$extension';
+        final extension = imageUrl!.split('.').last;
+        final path = '/users/${user?.id}.$extension';
         final file = File(imageUrl);
 
         await _storageService.uploadFile(file, path);
@@ -180,13 +179,13 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
         await _authService.changeProfile(
           photoURL: photoURL,
-          firstName: firstName.isEmpty ? user.firstName : firstName,
-          lastName: lastName.isEmpty ? user.lastName : lastName,
+          firstName: firstName.isEmpty ? user?.firstName : firstName,
+          lastName: lastName!.isEmpty ? user?.lastName : lastName,
         );
       } else if (needToUpdateDisplayName) {
         await _authService.changeProfile(
-          firstName: firstName.isEmpty ? user.firstName : firstName,
-          lastName: lastName.isEmpty ? user.lastName : lastName,
+          firstName: firstName.isEmpty ? user?.firstName : firstName,
+          lastName: lastName!.isEmpty ? user?.lastName : lastName,
         );
       }
 
@@ -194,27 +193,27 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         return _toUser(await _authService.currentUser());
       }
 
-      return user;
+      return user!;
     } on Exception {
       throw Exception('Error: Something went wrong.');
     }
   }
 
   EditProfileStatus _status({
-    FirstName firstName,
-    LastName lastName,
-    String imageURL,
+    FirstName? firstName,
+    LastName? lastName,
+    String? imageURL,
   }) {
-    final _firstName = firstName ?? state.firstName;
+    final _firstName = firstName ?? state.firstName!;
     final _lastName = lastName ?? state.lastName;
     final _image = imageURL ?? state.imageURL;
 
-    if (_firstName.valid && _lastName.valid && _image != null) {
+    if (_firstName.valid && _lastName!.valid && _image != null) {
       return EditProfileStatus.valid;
     }
 
     return EditProfileStatus.invalid;
   }
 
-  User _toUser(UserEntity entity) => User.fromEntity(entity);
+  User _toUser(UserEntity? entity) => User.fromEntity(entity!);
 }

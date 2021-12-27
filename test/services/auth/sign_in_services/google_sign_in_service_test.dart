@@ -4,20 +4,31 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mockito/mockito.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
+// This is created because GoogleSignIn overrides a method that contains dynamic instead of Object?
+mixin LegacyEquality {
+  @override
+  bool operator ==(Object? other) => throw UnimplementedError();
+
+  @override
+  int get hashCode => throw UnimplementedError();
+}
+
 class MockGoogleSignIn extends Mock implements GoogleSignIn {}
 
-class MockGoogleSignInAccount extends Mock implements GoogleSignInAccount {}
+class MockGoogleSignInAccount extends Mock
+    with LegacyEquality
+    implements GoogleSignInAccount {}
 
 class MockGoogleSignInAuthentication extends Mock
     implements GoogleSignInAuthentication {}
 
 void main() {
   group('GoogleSignInService', () {
-    GoogleSignIn mockGoogleSignIn;
-    GoogleSignInAccount mockGoogleSignInAccount;
+    GoogleSignIn? mockGoogleSignIn;
+    GoogleSignInAccount? mockGoogleSignInAccount;
     GoogleSignInAuthentication mockGoogleSignInAuthentication;
 
-    GoogleSignInService subject;
+    late GoogleSignInService subject;
 
     setUp(() {
       mockGoogleSignIn = MockGoogleSignIn();
@@ -26,10 +37,10 @@ void main() {
 
       subject = GoogleSignInService(googleSignIn: mockGoogleSignIn);
 
-      when(mockGoogleSignIn.signIn())
+      when(mockGoogleSignIn!.signIn())
           .thenAnswer((_) async => mockGoogleSignInAccount);
 
-      when(mockGoogleSignInAccount.authentication)
+      when(mockGoogleSignInAccount!.authentication)
           .thenAnswer((_) async => mockGoogleSignInAuthentication);
 
       when(mockGoogleSignInAuthentication.idToken).thenReturn('idToken');
@@ -50,7 +61,7 @@ void main() {
       });
 
       test('fails when googleSignIn.signIn throws', () {
-        when(mockGoogleSignIn.signIn()).thenThrow(Exception());
+        when(mockGoogleSignIn!.signIn()).thenThrow(Exception());
 
         expect(
           subject.getFirebaseCredential(),
@@ -61,7 +72,7 @@ void main() {
       });
 
       test('fails when googleSignInAccount.authentication throws', () {
-        when(mockGoogleSignInAccount.authentication).thenThrow(Exception());
+        when(mockGoogleSignInAccount!.authentication).thenThrow(Exception());
 
         expect(
           subject.getFirebaseCredential(),
@@ -76,7 +87,7 @@ void main() {
       test('calls ', () async {
         await subject.signOut();
 
-        verify(mockGoogleSignIn.signOut()).called(1);
+        verify(mockGoogleSignIn!.signOut()).called(1);
       });
 
       test('completes', () {

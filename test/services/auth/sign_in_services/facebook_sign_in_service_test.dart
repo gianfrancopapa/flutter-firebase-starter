@@ -12,22 +12,22 @@ class MockAccessToken extends Mock implements AccessToken {}
 
 void main() {
   group('FacebookSignInService', () {
-    FacebookAuth mockFacebookAuth;
-    LoginResult mockLoginResult;
-    AccessToken mockAccessToken;
+    FacebookAuth? mockFacebookAuth;
+    LoginResult? mockLoginResult;
+    AccessToken? mockAccessToken;
 
-    FacebookSignInService subject;
+    late FacebookSignInService? subject;
 
     setUp(() {
       mockFacebookAuth = MockFacebookAuth();
       mockLoginResult = MockLoginResult();
       mockAccessToken = MockAccessToken();
 
-      subject = FacebookSignInService(facebookAuth: mockFacebookAuth);
+      subject = FacebookSignInService(facebookAuth: mockFacebookAuth!);
 
-      when(mockLoginResult.accessToken).thenReturn(mockAccessToken);
+      when(mockLoginResult!.accessToken).thenReturn(mockAccessToken!);
 
-      when(mockAccessToken.token).thenReturn('token');
+      when(mockAccessToken!.token).thenReturn('token');
     });
 
     test('throwsAssertionError when facebookAuth is null', () {
@@ -39,49 +39,49 @@ void main() {
 
     group('.getFirebaseCredential', () {
       test('completes when LoginStatus.success', () {
-        when(mockLoginResult.status).thenReturn(LoginStatus.success);
+        when(mockLoginResult!.status).thenReturn(LoginStatus.success);
 
         when(
-          mockFacebookAuth.login(
-              loginBehavior: LoginBehavior.nativeWithFallback),
-        ).thenAnswer((_) async => mockLoginResult);
+          mockFacebookAuth!
+              .login(loginBehavior: LoginBehavior.nativeWithFallback),
+        ).thenAnswer(((_) async => mockLoginResult!));
 
-        expect(subject.getFirebaseCredential(), completes);
+        expect(subject!.getFirebaseCredential(), completes);
       });
 
       test('completes when LoginStatus.failed', () {
-        when(mockLoginResult.status).thenReturn(LoginStatus.cancelled);
+        when(mockLoginResult!.status).thenReturn(LoginStatus.cancelled);
 
         when(
-          mockFacebookAuth.login(
-              loginBehavior: LoginBehavior.nativeWithFallback),
-        ).thenAnswer((_) async => mockLoginResult);
+          mockFacebookAuth!
+              .login(loginBehavior: LoginBehavior.nativeWithFallback),
+        ).thenAnswer(((_) async => mockLoginResult!));
 
-        expect(subject.getFirebaseCredential(), completes);
+        expect(subject!.getFirebaseCredential(), completes);
       });
 
       test('throws when LoginStatus.failed', () {
-        when(mockLoginResult.status).thenReturn(LoginStatus.failed);
+        when(mockLoginResult!.status).thenReturn(LoginStatus.failed);
 
         when(
-          mockFacebookAuth.login(
-              loginBehavior: LoginBehavior.nativeWithFallback),
-        ).thenAnswer((_) async => mockLoginResult);
+          mockFacebookAuth!
+              .login(loginBehavior: LoginBehavior.nativeWithFallback),
+        ).thenAnswer(((_) async => mockLoginResult!));
 
         expect(
-          subject.getFirebaseCredential(),
+          subject!.getFirebaseCredential(),
           throwsA(isA<FirebaseAuthException>()),
         );
       });
 
       test('throws when facebookAuth.login throws', () {
         when(
-          mockFacebookAuth.login(
-              loginBehavior: LoginBehavior.nativeWithFallback),
+          mockFacebookAuth!
+              .login(loginBehavior: LoginBehavior.nativeWithFallback),
         ).thenThrow(FirebaseAuthException(code: ''));
 
         expect(
-          subject.getFirebaseCredential(),
+          subject!.getFirebaseCredential(),
           throwsA(isA<FirebaseAuthException>()),
         );
       });
@@ -89,13 +89,13 @@ void main() {
 
     group('.signOut', () {
       test('calls facebookAuth.logOut', () async {
-        await subject.signOut();
+        await subject!.signOut();
 
-        verify(mockFacebookAuth.logOut());
+        verify(mockFacebookAuth!.logOut());
       });
 
       test('completes', () async {
-        expect(subject.signOut(), completes);
+        expect(subject!.signOut(), completes);
       });
     });
   });

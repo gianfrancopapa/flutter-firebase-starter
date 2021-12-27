@@ -13,5 +13,5 @@ abstract class AnalyticsService {
 
   void logLogout();
 
-  void logEvent({String name, Map<String, dynamic> parameters});
+  void logEvent({String? name, Map<String, dynamic>? parameters});
 }

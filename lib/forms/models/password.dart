@@ -7,10 +7,10 @@ class Password extends Equatable {
 
   factory Password.dirty(String value) => Password(value: value);
 
-  final String value;
+  final String? value;
 
-  bool get valid => value.length > 4;
+  bool get valid => value!.length > 4;
 
   @override
-  List<Object> get props => [value];
+  List<Object?> get props => [value];
 }

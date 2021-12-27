@@ -1,7 +1,7 @@
 part of auth;
 
 abstract class ISignInService {
-  Future<auth.OAuthCredential?> getFirebaseCredential();
+  Future<auth.OAuthCredential?>? getFirebaseCredential();
 
-  Future<void> signOut();
+  Future<void>? signOut();
 }

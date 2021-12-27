@@ -2,16 +2,15 @@ import 'dart:async';
 import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc({@required AuthService authService})
+  UserBloc({required AuthService? authService})
       : assert(authService != null),
-        _authService = authService,
+        _authService = authService!,
         super(const UserState(status: UserStatus.initial)) {
     on<UserLoaded>(_mapUserLoadedToState);
   }
@@ -25,9 +24,9 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(state.copyWith(status: UserStatus.loading));
 
     try {
-      final user = await _authService.currentUser();
+      final user = await (_authService.currentUser());
 
-      emit(state.copyWith(status: UserStatus.success, user: _toUser(user)));
+      emit(state.copyWith(status: UserStatus.success, user: _toUser(user!)));
     } on AuthError {
       emit(state.copyWith(status: UserStatus.failure));
     }

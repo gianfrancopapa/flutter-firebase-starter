@@ -18,9 +18,9 @@ void main() {
   group(
     'LoginBloc',
     () {
-      AnalyticsService mockAnalyticsService;
-      FirebaseAuthService mockAuthService;
-      UserEntity mockUser;
+      late AnalyticsService mockAnalyticsService;
+      late FirebaseAuthService mockAuthService;
+      UserEntity? mockUser;
 
       final email = Email.dirty('test@gmail.com');
       final password = Password.dirty('Password01');
@@ -103,7 +103,7 @@ void main() {
             status: LoginStatus.loggedIn,
             email: email,
             password: password,
-            user: User.fromEntity(mockUser),
+            user: User.fromEntity(mockUser!),
           ),
         ],
       );
@@ -191,7 +191,7 @@ void main() {
           ),
           LoginState(
             status: LoginStatus.loggedIn,
-            user: User.fromEntity(mockUser),
+            user: User.fromEntity(mockUser!),
             email: Email.pure(),
             password: Password.pure(),
           ),
@@ -255,7 +255,7 @@ void main() {
         ],
       );
 
-      blocTest(
+      blocTest<LoginBloc, LoginState>(
         'calls authService.signInAnonymously',
         act: (bloc) => bloc.add(const LoginAnonymouslyRequested()),
         build: () {
@@ -269,7 +269,7 @@ void main() {
         },
       );
 
-      blocTest(
+      blocTest<LoginBloc, LoginState>(
         'emits [loading, loggedIn] when authService.signInAnonymously succeeds',
         act: (bloc) => bloc.add(const LoginAnonymouslyRequested()),
         build: () {
@@ -285,12 +285,12 @@ void main() {
           LoginState.initial().copyWith(status: LoginStatus.loading),
           LoginState.initial().copyWith(
             status: LoginStatus.loggedIn,
-            user: User.fromEntity(mockUser),
+            user: User.fromEntity(mockUser!),
           )
         ],
       );
 
-      blocTest(
+      blocTest<LoginBloc, LoginState>(
         'emits [loading, failure] when authService.signInAnonymously throws',
         act: (bloc) => bloc.add(const LoginAnonymouslyRequested()),
         build: () {
@@ -346,7 +346,7 @@ void main() {
             status: LoginStatus.loggedIn,
             email: Email.pure(),
             password: Password.pure(),
-            user: User.fromEntity(mockUser),
+            user: User.fromEntity(mockUser!),
           ),
         ],
       );
@@ -406,7 +406,7 @@ void main() {
       blocTest<LoginBloc, LoginState>(
         'emits [valid] when email is valid and password is valid',
         seed: () => LoginState(status: LoginStatus.valid, password: password),
-        act: (bloc) => bloc.add(LoginEmailChanged(email: email.value)),
+        act: (bloc) => bloc.add(LoginEmailChanged(email: email.value!)),
         build: () {
           return LoginBloc(
             authService: mockAuthService,
@@ -428,7 +428,7 @@ void main() {
           status: LoginStatus.valid,
           password: Password.pure(),
         ),
-        act: (bloc) => bloc.add(LoginEmailChanged(email: email.value)),
+        act: (bloc) => bloc.add(LoginEmailChanged(email: email.value!)),
         build: () {
           return LoginBloc(
             authService: mockAuthService,
@@ -447,7 +447,8 @@ void main() {
       blocTest<LoginBloc, LoginState>(
         'emits [valid] when password is valid and email is valid',
         seed: () => LoginState(status: LoginStatus.valid, email: email),
-        act: (bloc) => bloc.add(LoginPasswordChanged(password: password.value)),
+        act: (bloc) =>
+            bloc.add(LoginPasswordChanged(password: password.value!)),
         build: () {
           return LoginBloc(
             authService: mockAuthService,
@@ -469,7 +470,8 @@ void main() {
           status: LoginStatus.valid,
           email: Email.pure(),
         ),
-        act: (bloc) => bloc.add(LoginPasswordChanged(password: password.value)),
+        act: (bloc) =>
+            bloc.add(LoginPasswordChanged(password: password.value!)),
         build: () {
           return LoginBloc(
             authService: mockAuthService,

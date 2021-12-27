@@ -12,11 +12,11 @@ class ForgotPasswordResetRequested extends ForgotPasswordEvent {
 }
 
 class ForgotPasswordEmailChanged extends ForgotPasswordEvent {
-  const ForgotPasswordEmailChanged({@required this.email})
+  const ForgotPasswordEmailChanged({required this.email})
       : assert(email != null);
 
-  final String email;
+  final String? email;
 
   @override
-  List<Object> get props => [email];
+  List<Object> get props => [email!];
 }

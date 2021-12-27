@@ -12,7 +12,7 @@ class LoginWithEmailAndPasswordRequested extends LoginEvent {
 }
 
 class LoginWithSocialMediaRequested extends LoginEvent {
-  const LoginWithSocialMediaRequested({@required this.method});
+  const LoginWithSocialMediaRequested({required this.method});
 
   final SocialMediaMethod method;
 }
@@ -26,20 +26,20 @@ class LoginIsSessionPersisted extends LoginEvent {
 }
 
 class LoginEmailChanged extends LoginEvent {
-  const LoginEmailChanged({@required this.email}) : assert(email != null);
+  const LoginEmailChanged({required this.email}) : assert(email != null);
 
-  final String email;
+  final String? email;
 
   @override
-  List<Object> get props => [email];
+  List<Object> get props => [email!];
 }
 
 class LoginPasswordChanged extends LoginEvent {
-  const LoginPasswordChanged({@required this.password})
+  const LoginPasswordChanged({required this.password})
       : assert(password != null);
 
-  final String password;
+  final String? password;
 
   @override
-  List<Object> get props => [password];
+  List<Object> get props => [password!];
 }

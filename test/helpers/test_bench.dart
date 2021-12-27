@@ -12,13 +12,13 @@ import 'test_bench_mocks.dart';
 
 extension TestBench on WidgetTester {
   Future<void> pumpApp(
-    Widget widgetUnderTest, {
-    EmployeesRepository employeesRepository,
-    AppBloc initAppBloc,
-    LoginBloc loginBloc,
-    UserBloc userBloc,
-    EmployeesBloc employeesBloc,
-    TargetPlatform platform,
+    Widget? widgetUnderTest, {
+    EmployeesRepository? employeesRepository,
+    AppBloc? initAppBloc,
+    LoginBloc? loginBloc,
+    UserBloc? userBloc,
+    EmployeesBloc? employeesBloc,
+    TargetPlatform? platform,
     bool hasScaffold = true,
   }) async {
     assert(widgetUnderTest != null);
