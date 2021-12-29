@@ -17,24 +17,24 @@ import 'package:flutter/material.dart';
 class FSSnackBar extends StatelessWidget {
   /// {@macro FSSnackBar}
 
-  const FSSnackBar({Key key, this.child}) : super(key: key);
+  const FSSnackBar({Key? key, this.child}) : super(key: key);
 
   /// A child widget that is to be shown in the bottom sheet
-  final Widget child;
+  final Widget? child;
 
   /// Static method to show open the bottom sheet from the given [BuildContext]
   /// and build it's layout using the given builder.
   static void show({
-    @required BuildContext context,
-    @required FSSnackBarContent content,
+    required BuildContext? context,
+    required FSSnackBarContent? content,
   }) {
     assert(context != null);
     assert(content != null);
-    ScaffoldMessenger.of(context)
+    ScaffoldMessenger.of(context!)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
-          content: content,
+          content: content!,
         ),
       );
   }
@@ -62,15 +62,15 @@ class FSSnackBarContent extends StatelessWidget {
   /// {@macro FSSnackBarContent}
 
   const FSSnackBarContent({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.icon,
     this.textOnly = false,
   }) : super(key: key);
 
   /// Constructor to show a successful snackbar
   const FSSnackBarContent.success({
-    Key key,
+    Key? key,
     this.child,
     this.textOnly = false,
   })  : icon = const Icon(
@@ -81,7 +81,7 @@ class FSSnackBarContent extends StatelessWidget {
 
   /// Constructor to show an informational snackbar
   const FSSnackBarContent.info({
-    Key key,
+    Key? key,
     this.child,
     this.textOnly = false,
   })  : icon = const Icon(
@@ -92,7 +92,7 @@ class FSSnackBarContent extends StatelessWidget {
 
   /// Constructor to show a warning snackbar
   const FSSnackBarContent.warning({
-    Key key,
+    Key? key,
     this.child,
     this.textOnly = false,
   })  : icon = const Icon(
@@ -103,7 +103,7 @@ class FSSnackBarContent extends StatelessWidget {
 
   /// Constructor to show a failure snackbar
   const FSSnackBarContent.failure({
-    Key key,
+    Key? key,
     this.child,
     this.textOnly = false,
   })  : icon = const Icon(
@@ -113,10 +113,10 @@ class FSSnackBarContent extends StatelessWidget {
         super(key: key);
 
   /// Give a child widget to be displayed as the body of the snackbar
-  final Widget child;
+  final Widget? child;
 
   /// Icon to be displayed in the leading position
-  final Widget icon;
+  final Widget? icon;
 
   /// Set this when only the child needs to be displayed. Defaults to false
   final bool textOnly;
@@ -124,14 +124,14 @@ class FSSnackBarContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return icon == null || textOnly
-        ? child
+        ? child!
         : Row(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(FSSpacing.s6),
                 child: icon,
               ),
-              Expanded(child: child),
+              Expanded(child: child!),
             ],
           );
   }

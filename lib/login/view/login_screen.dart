@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -56,33 +56,33 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  String _determineAccessError(AuthError error, BuildContext context) {
+  String _determineAccessError(AuthError? error, BuildContext context) {
     var message = 'Error: ';
     final _appLocalizations = AppLocalizations.of(context);
     switch (error) {
       case AuthError.INVALID_EMAIL:
-        message += _appLocalizations.invalidEmail;
+        message += _appLocalizations!.invalidEmail;
         break;
       case AuthError.USER_DISABLED:
-        message += _appLocalizations.userDisabled;
+        message += _appLocalizations!.userDisabled;
         break;
       case AuthError.USER_NOT_FOUND:
-        message += _appLocalizations.userNotFound;
+        message += _appLocalizations!.userNotFound;
         break;
       case AuthError.WRONG_PASSWORD:
-        message += _appLocalizations.wrongPassword;
+        message += _appLocalizations!.wrongPassword;
         break;
       case AuthError.EMAIL_ALREADY_IN_USE:
-        message += _appLocalizations.emailAlreadyInUse;
+        message += _appLocalizations!.emailAlreadyInUse;
         break;
       case AuthError.INVALID_CREDENTIAL:
-        message += _appLocalizations.invalidCredential;
+        message += _appLocalizations!.invalidCredential;
         break;
       case AuthError.OPERATION_NOT_ALLOWED:
-        message += _appLocalizations.operationNotAllowed;
+        message += _appLocalizations!.operationNotAllowed;
         break;
       case AuthError.WEAK_PASSWORD:
-        message += _appLocalizations.weakPassword;
+        message += _appLocalizations!.weakPassword;
         break;
       default:
         message += 'An error occurs';
@@ -92,11 +92,11 @@ class LoginScreen extends StatelessWidget {
 }
 
 class _LoginForm extends StatelessWidget {
-  const _LoginForm({Key key}) : super(key: key);
+  const _LoginForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 44.0),
@@ -206,11 +206,11 @@ class _LoginForm extends StatelessWidget {
 }
 
 class _EmailTextField extends StatelessWidget {
-  const _EmailTextField({Key key}) : super(key: key);
+  const _EmailTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     final email = context.select((LoginBloc bloc) => bloc.state.email);
 
@@ -220,7 +220,7 @@ class _EmailTextField extends StatelessWidget {
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: FSColors.red),
         ),
-        errorText: email.valid ? null : 'Invalid email',
+        errorText: email!.valid ? null : 'Invalid email',
       ),
       onChanged: (email) {
         context.read<LoginBloc>().add(LoginEmailChanged(email: email));
@@ -230,11 +230,11 @@ class _EmailTextField extends StatelessWidget {
 }
 
 class _PasswordTextField extends StatelessWidget {
-  const _PasswordTextField({Key key}) : super(key: key);
+  const _PasswordTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     final password = context.select((LoginBloc bloc) => bloc.state.password);
 
@@ -245,7 +245,7 @@ class _PasswordTextField extends StatelessWidget {
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: FSColors.red),
         ),
-        errorText: password.valid ? null : 'Invalid password',
+        errorText: password!.valid ? null : 'Invalid password',
       ),
       onChanged: (password) {
         context.read<LoginBloc>().add(LoginPasswordChanged(password: password));
@@ -255,11 +255,11 @@ class _PasswordTextField extends StatelessWidget {
 }
 
 class _LoginButton extends StatelessWidget {
-  const _LoginButton({Key key}) : super(key: key);
+  const _LoginButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     final status = context.select((LoginBloc bloc) => bloc.state.status);
     final isNotValid = status != LoginStatus.valid;
@@ -291,7 +291,7 @@ class _LoginButton extends StatelessWidget {
 }
 
 class _ForgotPasswordButton extends StatelessWidget {
-  const _ForgotPasswordButton({Key key}) : super(key: key);
+  const _ForgotPasswordButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -302,7 +302,7 @@ class _ForgotPasswordButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Text(
-          AppLocalizations.of(context).didYouForgetYourPassword,
+          AppLocalizations.of(context)!.didYouForgetYourPassword,
           textAlign: TextAlign.center,
           style: const TextStyle(
             color: FSColors.blue,

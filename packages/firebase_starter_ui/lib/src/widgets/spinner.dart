@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 class FSSpinner extends StatelessWidget {
   /// {@macro FSSpinner}
   const FSSpinner({
-    Key key,
+    Key? key,
     this.color,
     this.text,
     this.strokeWidth,
@@ -27,16 +27,16 @@ class FSSpinner extends StatelessWidget {
   }) : super(key: key);
 
   /// The color of the indicator arc.
-  final Color color;
+  final Color? color;
 
   /// An optional message to display below the indicator.
-  final String text;
+  final String? text;
 
   /// The width of the line used to draw the circle.
-  final double strokeWidth;
+  final double? strokeWidth;
 
   /// A value between 0.0 and 1.0 to indicate determinate progress.
-  final double value;
+  final double? value;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class FSSpinner extends StatelessWidget {
         ),
         if (text != null) ...[
           const SizedBox(height: FSSpacing.s16),
-          Text(text),
+          Text(text!),
         ],
       ],
     );

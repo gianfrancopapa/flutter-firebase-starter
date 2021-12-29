@@ -12,7 +12,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({Key key}) : super(key: key);
+  const EditProfileScreen({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -29,7 +29,7 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return MultiBlocListener(
       listeners: [
@@ -86,7 +86,7 @@ class EditProfileScreen extends StatelessWidget {
 }
 
 class _ProfileImage extends StatelessWidget {
-  const _ProfileImage({Key key}) : super(key: key);
+  const _ProfileImage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +114,7 @@ class _ProfileImage extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  localizations.selectProfilePicture,
+                  localizations!.selectProfilePicture,
                   style: const TextStyle(fontSize: 22),
                 ),
               ),
@@ -175,7 +175,7 @@ class _ProfileImage extends StatelessWidget {
 }
 
 class _EditProfileForm extends StatelessWidget {
-  const _EditProfileForm({Key key}) : super(key: key);
+  const _EditProfileForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -209,15 +209,15 @@ class _EditProfileForm extends StatelessWidget {
 }
 
 class _FirstNameTextField extends StatelessWidget {
-  const _FirstNameTextField({Key key}) : super(key: key);
+  const _FirstNameTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final firstName =
-        context.select((EditProfileBloc bloc) => bloc.state.firstName);
+        context.select(((EditProfileBloc bloc) => bloc.state.firstName!));
 
     return TextFormField(
-      initialValue: context.read<EditProfileBloc>().state.user.firstName,
+      initialValue: context.read<EditProfileBloc>().state.user!.firstName,
       onChanged: (firstName) {
         context
             .read<EditProfileBloc>()
@@ -234,7 +234,7 @@ class _FirstNameTextField extends StatelessWidget {
 }
 
 class _LastNameTextField extends StatelessWidget {
-  const _LastNameTextField({Key key}) : super(key: key);
+  const _LastNameTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -242,7 +242,7 @@ class _LastNameTextField extends StatelessWidget {
         context.select((EditProfileBloc bloc) => bloc.state.lastName);
 
     return TextFormField(
-      initialValue: context.read<EditProfileBloc>().state.user.lastName,
+      initialValue: context.read<EditProfileBloc>().state.user!.lastName,
       onChanged: (lastName) {
         context
             .read<EditProfileBloc>()
@@ -252,17 +252,17 @@ class _LastNameTextField extends StatelessWidget {
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: FSColors.red),
         ),
-        errorText: lastName.valid ? null : 'Invalid last name',
+        errorText: lastName!.valid ? null : 'Invalid last name',
       ),
     );
   }
 }
 
 class _UpdateProfileButton extends StatelessWidget {
-  const _UpdateProfileButton({Key key}) : super(key: key);
+  const _UpdateProfileButton({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final status = context.select((EditProfileBloc bloc) => bloc.state.status);
     final isInvalid = status == EditProfileStatus.invalid;
 

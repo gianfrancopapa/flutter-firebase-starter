@@ -8,7 +8,7 @@ import 'package:firebasestarter/utils/dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
-  const ForgotPasswordScreen({Key key}) : super(key: key);
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -23,7 +23,7 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -51,7 +51,7 @@ class ForgotPasswordScreen extends StatelessWidget {
 }
 
 class _ForgotPasswordForm extends StatelessWidget {
-  const _ForgotPasswordForm({Key key}) : super(key: key);
+  const _ForgotPasswordForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class _ForgotPasswordForm extends StatelessWidget {
 }
 
 class _EmailTextField extends StatelessWidget {
-  const _EmailTextField({Key key}) : super(key: key);
+  const _EmailTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,7 @@ class _EmailTextField extends StatelessWidget {
       decoration: InputDecoration(
         border: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: email.valid ? FSColors.blue : FSColors.red,
+            color: email!.valid ? FSColors.blue : FSColors.red,
           ),
         ),
         errorText: email.valid ? null : 'Error: Invalid email',
@@ -101,11 +101,11 @@ class _EmailTextField extends StatelessWidget {
 }
 
 class _ForgotPasswordTextButton extends StatelessWidget {
-  const _ForgotPasswordTextButton({Key key}) : super(key: key);
+  const _ForgotPasswordTextButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final status =
         context.select((ForgotPasswordBloc bloc) => bloc.state.status);
     final isNotValid = status != ForgotPasswordStatus.valid;

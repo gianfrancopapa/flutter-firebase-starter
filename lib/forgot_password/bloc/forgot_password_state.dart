@@ -3,11 +3,11 @@ part of 'forgot_password_bloc.dart';
 enum ForgotPasswordStatus { initial, loading, success, failure, valid, invalid }
 
 class ForgotPasswordState extends Equatable {
-  final ForgotPasswordStatus status;
-  final Email email;
+  final ForgotPasswordStatus? status;
+  final Email? email;
 
   const ForgotPasswordState({
-    @required this.status,
+    required this.status,
     this.email,
   }) : assert(status != null);
 
@@ -17,7 +17,7 @@ class ForgotPasswordState extends Equatable {
           email: Email.pure(),
         );
 
-  ForgotPasswordState copyWith({ForgotPasswordStatus status, Email email}) {
+  ForgotPasswordState copyWith({ForgotPasswordStatus? status, Email? email}) {
     return ForgotPasswordState(
       status: status ?? this.status,
       email: email ?? this.email,
@@ -25,5 +25,5 @@ class ForgotPasswordState extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, email];
+  List<Object?> get props => [status, email];
 }

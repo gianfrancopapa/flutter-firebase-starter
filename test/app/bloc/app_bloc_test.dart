@@ -14,8 +14,8 @@ class MockAuthService extends Mock implements AuthService {}
 
 void main() {
   group('AppBloc', () {
-    LocalPersistanceService mockLocalPersistanceService;
-    AuthService mockAuthService;
+    late LocalPersistanceService mockLocalPersistanceService;
+    late AuthService mockAuthService;
 
     final user = User(
       id: '0',

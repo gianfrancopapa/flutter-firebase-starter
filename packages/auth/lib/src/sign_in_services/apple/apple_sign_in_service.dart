@@ -1,9 +1,9 @@
 part of auth;
 
 class AppleSignInService implements ISignInService {
-  AppleSignInService({@required AppleCredentials appleCredentials})
+  AppleSignInService({required AppleCredentials? appleCredentials})
       : assert(appleCredentials != null),
-        _appleCredentials = appleCredentials;
+        _appleCredentials = appleCredentials!;
 
   static const _charset =
       '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
@@ -22,18 +22,18 @@ class AppleSignInService implements ISignInService {
   }
 
   /// Encrypts the token
-  String _rawTokenToSha256({@required String rawToken}) {
+  String _rawTokenToSha256({required String? rawToken}) {
     assert(rawToken != null);
 
-    final bytes = utf8.encode(rawToken);
+    final bytes = utf8.encode(rawToken!);
     final digest = sha256.convert(bytes);
     return digest.toString();
   }
 
   /// Creates a Firebase credential
   auth.OAuthCredential _createCredential({
-    @required idToken,
-    @required rawToken,
+    required idToken,
+    required rawToken,
   }) {
     assert(idToken != null);
     assert(rawToken != null);
@@ -59,7 +59,7 @@ class AppleSignInService implements ISignInService {
       );
 
       return _createCredential(
-        idToken: appleCredential.identityToken,
+        idToken: appleCredential!.identityToken,
         rawToken: rawToken,
       );
     } on Exception {

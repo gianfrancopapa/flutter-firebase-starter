@@ -2,13 +2,13 @@ part of auth;
 
 class FacebookSignInService implements ISignInService {
   FacebookSignInService({
-    @required FacebookAuth facebookAuth,
+    required FacebookAuth? facebookAuth,
   })  : assert(facebookAuth != null),
-        _facebookAuth = facebookAuth;
+        _facebookAuth = facebookAuth!;
 
   final FacebookAuth _facebookAuth;
 
-  Future<LoginResult> _facebookSignIn() async {
+  Future<LoginResult?>? _facebookSignIn() async {
     final res = await _facebookAuth.login(
       loginBehavior: LoginBehavior.nativeWithFallback,
     );
@@ -16,17 +16,17 @@ class FacebookSignInService implements ISignInService {
     return res;
   }
 
-  auth.OAuthCredential _createCredential(String facebookToken) {
-    return auth.FacebookAuthProvider.credential(facebookToken);
+  auth.OAuthCredential? _createCredential(String? facebookToken) {
+    return auth.FacebookAuthProvider.credential(facebookToken!);
   }
 
   @override
-  Future<auth.OAuthCredential> getFirebaseCredential() async {
+  Future<auth.OAuthCredential?>? getFirebaseCredential() async {
     try {
       final result = await _facebookSignIn();
 
-      if (result.status == LoginStatus.success) {
-        return _createCredential(result.accessToken.token);
+      if (result!.status == LoginStatus.success) {
+        return _createCredential(result.accessToken!.token);
       }
 
       if (result.status == LoginStatus.cancelled) return null;
@@ -41,7 +41,7 @@ class FacebookSignInService implements ISignInService {
   }
 
   @override
-  Future<void> signOut() async {
+  Future<void>? signOut() async {
     await _facebookAuth.logOut();
   }
 }

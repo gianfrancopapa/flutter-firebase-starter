@@ -12,7 +12,7 @@ export 'package:sliding_up_panel/sliding_up_panel.dart' show PanelController;
 class FSSlidingUpPanel extends StatefulWidget {
   /// {@macro sliding_up_panel}
   const FSSlidingUpPanel({
-    Key key,
+    Key? key,
     this.panelController,
     this.onPanelPositionChanged,
     this.panelHeaderHeight = FSSpacing.s60,
@@ -23,35 +23,35 @@ class FSSlidingUpPanel extends StatefulWidget {
   }) : super(key: key);
 
   /// An optional [PanelController] that can be used to control the panel.
-  final PanelController panelController;
+  final PanelController? panelController;
 
   /// An optional callback that's triggered whenever the panel's vertical
   /// position is changed.
-  final ValueChanged<double> onPanelPositionChanged;
+  final ValueChanged<double>? onPanelPositionChanged;
 
   /// The height of the sliding panel's header.
   ///
   /// Defaults to [FSSpacing.s60] and cannot be `null`.
-  final double panelHeaderHeight;
+  final double? panelHeaderHeight;
 
   /// The minimum height of the sliding panel
-  final double panelMinHeight;
+  final double? panelMinHeight;
 
   /// The sliding panel's header that's always shown.
-  final Widget panelHeader;
+  final Widget? panelHeader;
 
   /// The sliding panel's content that's only shown when the panel is opened.
-  final Widget panel;
+  final Widget? panel;
 
   /// The child widget that's rendered behind the sliding panel at all times.
-  final Widget child;
+  final Widget? child;
 
   @override
   _FSSlidingUpPanelState createState() => _FSSlidingUpPanelState();
 }
 
 class _FSSlidingUpPanelState extends State<FSSlidingUpPanel> {
-  PanelController _panelController;
+  PanelController? _panelController;
 
   static const _borderRadius = BorderRadius.vertical(
     top: Radius.circular(30),
@@ -91,7 +91,7 @@ class _FSSlidingUpPanelState extends State<FSSlidingUpPanel> {
             ),
           ),
           panel: Padding(
-            padding: EdgeInsets.only(top: widget.panelHeaderHeight),
+            padding: EdgeInsets.only(top: widget.panelHeaderHeight!),
             child: widget.panel,
           ),
           body: widget.child,
@@ -103,14 +103,14 @@ class _FSSlidingUpPanelState extends State<FSSlidingUpPanel> {
 
 class _SlidingPanelHeader extends StatelessWidget {
   const _SlidingPanelHeader({
-    Key key,
+    Key? key,
     this.panelController,
     this.child,
     this.borderRadius = BorderRadius.zero,
   }) : super(key: key);
 
-  final PanelController panelController;
-  final Widget child;
+  final PanelController? panelController;
+  final Widget? child;
   final BorderRadius borderRadius;
 
   @override
@@ -120,9 +120,9 @@ class _SlidingPanelHeader extends StatelessWidget {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          return panelController.isPanelOpen
-              ? panelController.close()
-              : panelController.open();
+          panelController!.isPanelOpen
+              ? panelController!.close()
+              : panelController!.open();
         },
         child: child,
       ),

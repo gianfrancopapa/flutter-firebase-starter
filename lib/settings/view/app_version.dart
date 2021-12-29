@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebasestarter/settings/settings.dart';
 
 class AppVersion extends StatelessWidget {
-  const AppVersion({Key key}) : super(key: key);
+  const AppVersion({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -17,7 +17,7 @@ void main() {
                   ],
                 )
               ],
-              itemBuilder: (context, breakdown) => breakdown,
+              itemBuilder: (context, breakdown) => breakdown as Widget,
             ),
           ),
         ),
@@ -43,7 +43,7 @@ void main() {
                     ],
                   )
                 ],
-                itemBuilder: (context, breakdown) => breakdown,
+                itemBuilder: (context, breakdown) => breakdown as Widget,
                 separated: true,
               ),
             ),
@@ -70,7 +70,7 @@ void main() {
                   ],
                 )
               ],
-              itemBuilder: (context, breakdown) => breakdown,
+              itemBuilder: (context, breakdown) => breakdown as Widget,
             ),
           ),
         ),
@@ -95,7 +95,7 @@ void main() {
                     ],
                   )
                 ],
-                itemBuilder: (context, breakdown) => breakdown,
+                itemBuilder: (context, breakdown) => breakdown as Widget,
               ),
             ),
           ),
@@ -113,13 +113,13 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: FSSectionedListView(
+              body: FSSectionedListView<Widget>(
                 sections: [
                   Section.labelOnly(
                     'label',
                   )
                 ],
-                itemBuilder: (context, breakdown) => breakdown,
+                itemBuilder: (context, breakdown) => breakdown as Widget,
               ),
             ),
           ),
@@ -137,13 +137,13 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: FSSectionedListView(
+              body: FSSectionedListView<Widget>(
                 sections: [
                   Section.headingOnly(
                     const Text('Header'),
                   )
                 ],
-                itemBuilder: (context, breakdown) => breakdown,
+                itemBuilder: (context, breakdown) => breakdown as Widget,
               ),
             ),
           ),
@@ -161,14 +161,14 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
-              body: FSSectionedListView(
+              body: FSSectionedListView<Widget>(
                 sections: [
                   Section.headingOnly(
                     const Text('Header'),
                     child: const Text('child'),
                   )
                 ],
-                itemBuilder: (context, breakdown) => breakdown,
+                itemBuilder: (context, breakdown) => breakdown as Widget,
               ),
             ),
           ),

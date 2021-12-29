@@ -17,17 +17,17 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class FSTextButton extends TextButton {
   /// {@macro FSTextButton}
-  const FSTextButton({
-    Key key,
-    ButtonStyle style,
-    @required VoidCallback onPressed,
-    @required Widget child,
+  FSTextButton({
+    Key? key,
+    ButtonStyle? style,
+    required VoidCallback? onPressed,
+    required Widget? child,
   })  : assert(child != null),
         super(
           key: key,
           style: style,
           onPressed: onPressed,
-          child: child,
+          child: child!,
         );
 
   /// Create a text button from a pair of widgets that serve as the button's
@@ -40,12 +40,12 @@ class FSTextButton extends TextButton {
   ///
   /// The [icon] and [label] arguments must not be null.
   FSTextButton.icon({
-    Key key,
-    ButtonStyle style,
-    @required VoidCallback onPressed,
-    @required Widget icon,
-    @required Widget label,
-    Axis direction,
+    Key? key,
+    ButtonStyle? style,
+    required VoidCallback onPressed,
+    required Widget? icon,
+    required Widget? label,
+    Axis? direction,
   })  : assert(icon != null),
         assert(label != null),
         super(
@@ -74,15 +74,15 @@ class FSTextButton extends TextButton {
 /// {@endtemplate}
 class FSIconButton extends IconButton {
   /// {@macro FSIconButton}
-  const FSIconButton({
-    Key key,
-    @required Widget icon,
-    @required VoidCallback onPressed,
+  FSIconButton({
+    Key? key,
+    required Widget? icon,
+    required VoidCallback? onPressed,
   })  : assert(icon != null),
         super(
           key: key,
           onPressed: onPressed,
-          icon: icon,
+          icon: icon!,
         );
 }
 
@@ -102,17 +102,17 @@ class FSIconButton extends IconButton {
 /// {@endtemplate}
 class FSOutlinedButton extends OutlinedButton {
   /// {@macro FSOutlinedButton}
-  const FSOutlinedButton({
-    Key key,
-    ButtonStyle style,
-    @required VoidCallback onPressed,
-    @required Widget child,
+  FSOutlinedButton({
+    Key? key,
+    ButtonStyle? style,
+    required VoidCallback onPressed,
+    required Widget? child,
   })  : assert(child != null),
         super(
           key: key,
           style: style,
           onPressed: onPressed,
-          child: child,
+          child: child!,
         );
 
   /// Create an outlined button from a pair of widgets that serve as the
@@ -125,12 +125,12 @@ class FSOutlinedButton extends OutlinedButton {
   ///
   /// The [icon] and [label] arguments must not be null.
   FSOutlinedButton.icon({
-    Key key,
-    ButtonStyle style,
-    @required VoidCallback onPressed,
-    @required Widget icon,
-    @required Widget label,
-    Axis direction,
+    Key? key,
+    ButtonStyle? style,
+    required VoidCallback onPressed,
+    required Widget? icon,
+    required Widget? label,
+    Axis? direction,
   })  : assert(icon != null),
         assert(label != null),
         super(
@@ -165,10 +165,10 @@ class FSOutlinedButton extends OutlinedButton {
 class FSElevatedButton extends ElevatedButton {
   /// {@macro FSElevatedButton}
   const FSElevatedButton({
-    Key key,
-    ButtonStyle style,
-    @required VoidCallback onPressed,
-    @required Widget child,
+    Key? key,
+    ButtonStyle? style,
+    required VoidCallback? onPressed,
+    required Widget? child,
   })  : assert(child != null),
         super(
           key: key,
@@ -187,12 +187,12 @@ class FSElevatedButton extends ElevatedButton {
   ///
   /// The [icon] and [label] arguments must not be null.
   FSElevatedButton.icon({
-    Key key,
-    ButtonStyle style,
-    @required VoidCallback onPressed,
-    @required Widget icon,
-    @required Widget label,
-    Axis direction,
+    Key? key,
+    ButtonStyle? style,
+    required VoidCallback onPressed,
+    required Widget? icon,
+    required Widget? label,
+    Axis? direction,
   })  : assert(icon != null),
         assert(label != null),
         super(
@@ -209,26 +209,26 @@ class FSElevatedButton extends ElevatedButton {
 
 class _FSButtonWithIconChild extends StatelessWidget {
   const _FSButtonWithIconChild({
-    Key key,
+    Key? key,
     this.label,
     this.icon,
-    Axis direction,
+    Axis? direction,
   })  : _direction = direction ?? Axis.horizontal,
         super(key: key);
 
-  final Widget label;
-  final Widget icon;
+  final Widget? label;
+  final Widget? icon;
   final Axis _direction;
 
   @override
   Widget build(BuildContext context) {
-    final scale = MediaQuery.of(context)?.textScaleFactor ?? 1;
+    final scale = MediaQuery.of(context).textScaleFactor;
     final gap =
         scale <= 1 ? 8.0 : lerpDouble(8, 4, math.min<double>(scale - 1, 1.0));
     return Flex(
       direction: _direction,
       mainAxisSize: MainAxisSize.min,
-      children: <Widget>[icon, SizedBox(width: gap), label],
+      children: <Widget>[icon!, SizedBox(width: gap), label!],
     );
   }
 }

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends PreferredSize {
   final double height;
   final bool goBack;
-  final String title;
-  final Widget suffixWidget;
+  final String? title;
+  final Widget? suffixWidget;
 
   CustomAppBar({
-    Key key,
+    Key? key,
     this.height = kToolbarHeight,
     this.title,
     this.goBack = true,
@@ -37,7 +37,7 @@ class CustomAppBar extends PreferredSize {
             )
           : const SizedBox(),
       title: Text(
-        title,
+        title!,
         style: const TextStyle(
           color: FSColors.white,
           fontSize: 23.0,

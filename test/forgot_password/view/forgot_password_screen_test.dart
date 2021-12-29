@@ -18,7 +18,7 @@ class MockForgotPasswordState extends Fake implements ForgotPasswordState {}
 
 void main() {
   group('ForgotPasswordScreen', () {
-    ForgotPasswordBloc mockForgotPasswordBloc;
+    late ForgotPasswordBloc mockForgotPasswordBloc;
 
     setUp(() {
       mockForgotPasswordBloc = MockForgotPasswordBloc();

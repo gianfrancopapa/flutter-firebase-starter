@@ -19,8 +19,8 @@ class MockUser extends Mock implements User {}
 
 void main() {
   group('UserProfileScreen', () {
-    UserBloc mockUserBloc;
-    User mockUser;
+    late UserBloc mockUserBloc;
+    User? mockUser;
 
     setUp(() {
       mockUserBloc = MockUserBloc();
@@ -29,10 +29,10 @@ void main() {
       when(() => mockUserBloc.state)
           .thenReturn(const UserState(status: UserStatus.initial));
 
-      when(() => mockUser.firstName).thenReturn('firstName');
-      when(() => mockUser.lastName).thenReturn('lastName');
-      when(() => mockUser.email).thenReturn('email@gmail.com');
-      when(() => mockUser.imageUrl).thenReturn('https://fake-image.com');
+      when(() => mockUser!.firstName).thenReturn('firstName');
+      when(() => mockUser!.lastName).thenReturn('lastName');
+      when(() => mockUser!.email).thenReturn('email@gmail.com');
+      when(() => mockUser!.imageUrl).thenReturn('https://fake-image.com');
     });
 
     testWidgets(

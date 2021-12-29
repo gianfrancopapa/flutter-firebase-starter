@@ -6,7 +6,7 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   auth:
@@ -26,7 +26,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.0
-  flutter_icons: ^1.1.0
   flutter_launcher_icons: ^0.9.2
   flutter_local_notifications: ^9.1.5
   flutter_localizations:

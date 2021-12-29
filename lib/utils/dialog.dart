@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 
 abstract class DialogHelper {
   static Future<void> showAlertDialog<T>({
-    BuildContext context,
-    String story,
-    String btnText,
-    Function btnAction,
-    String btnText2,
-    Function btnAction2,
+    required BuildContext context,
+    String? story,
+    String? btnText,
+    Function? btnAction,
+    String? btnText2,
+    Function? btnAction2,
   }) {
     return showDialog<T>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) => AlertDialog(
         title: Text(
-          story,
+          story!,
           style: const TextStyle(
             color: FSColors.black,
             fontSize: 14,
@@ -28,9 +28,9 @@ abstract class DialogHelper {
               backgroundColor:
                   MaterialStateProperty.all<Color>(FSColors.blueGrey),
             ),
-            onPressed: btnAction,
+            onPressed: btnAction as void Function()?,
             child: Text(
-              btnText,
+              btnText!,
               style: const TextStyle(color: FSColors.white),
             ),
           ),
@@ -40,7 +40,7 @@ abstract class DialogHelper {
                     backgroundColor:
                         MaterialStateProperty.all<Color>(FSColors.blueGrey),
                   ),
-                  onPressed: btnAction2,
+                  onPressed: btnAction2 as void Function()?,
                   child: Text(
                     btnText2,
                     style: const TextStyle(color: FSColors.white),

@@ -5,12 +5,12 @@ class FirstName extends Equatable {
 
   factory FirstName.pure() => const FirstName(value: '');
 
-  factory FirstName.dirty(String value) => FirstName(value: value);
+  factory FirstName.dirty(String? value) => FirstName(value: value);
 
-  final String value;
+  final String? value;
 
-  bool get valid => value.isNotEmpty;
+  bool get valid => value!.isNotEmpty;
 
   @override
-  List<Object> get props => [value];
+  List<Object?> get props => [value];
 }

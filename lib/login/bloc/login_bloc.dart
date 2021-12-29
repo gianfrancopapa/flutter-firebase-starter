@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'login_event.dart';
@@ -11,12 +10,12 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
-    @required AuthService authService,
-    @required AnalyticsService analyticsService,
+    required AuthService? authService,
+    required AnalyticsService? analyticsService,
   })  : assert(authService != null),
         assert(analyticsService != null),
-        _authService = authService,
-        _analyticsService = analyticsService,
+        _authService = authService!,
+        _analyticsService = analyticsService!,
         super(LoginState.initial()) {
     on<LoginWithEmailAndPasswordRequested>(
         _mapLoginWithEmailAndPasswordRequestedToState);
@@ -37,10 +36,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(state.copyWith(status: LoginStatus.loading));
     try {
       final user = await _authService.signInWithEmailAndPassword(
-        email: state.email.value,
-        password: state.password.value,
+        email: state.email!.value!,
+        password: state.password!.value!,
       );
-      emit(state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user)));
+      emit(state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user!)));
     } on AuthError catch (e) {
       emit(state.copyWith(status: LoginStatus.failure, error: e));
     }
@@ -76,7 +75,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     try {
       final user = await _authService.signInAnonymously();
 
-      emit(state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user)));
+      emit(state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user!)));
     } on AuthError catch (e) {
       emit(state.copyWith(status: LoginStatus.failure, error: e));
     }
@@ -106,7 +105,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginEmailChanged event,
     Emitter<LoginState> emit,
   ) async {
-    final email = Email.dirty(event.email);
+    final email = Email.dirty(event.email!);
 
     emit(state.copyWith(
       email: email,
@@ -118,7 +117,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginPasswordChanged event,
     Emitter<LoginState> emit,
   ) async {
-    final password = Password.dirty(event.password);
+    final password = Password.dirty(event.password!);
 
     emit(state.copyWith(
       password: password,
@@ -126,11 +125,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     ));
   }
 
-  LoginStatus _status({Email email, Password password}) {
-    final _email = email ?? state.email;
+  LoginStatus _status({Email? email, Password? password}) {
+    final _email = email ?? state.email!;
     final _password = password ?? state.password;
 
-    if (_email.valid && _password.valid) return LoginStatus.valid;
+    if (_email.valid && _password!.valid) return LoginStatus.valid;
 
     return LoginStatus.invalid;
   }

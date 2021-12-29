@@ -6,15 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmployeesScreen extends StatelessWidget {
-  const EmployeesScreen({Key key, @required this.bottomNavigationBar})
+  const EmployeesScreen({Key? key, required this.bottomNavigationBar})
       : assert(bottomNavigationBar != null),
         super(key: key);
 
-  final Widget bottomNavigationBar;
+  final Widget? bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -31,7 +31,7 @@ class EmployeesScreen extends StatelessWidget {
 }
 
 class _EmployeesList extends StatelessWidget {
-  const _EmployeesList({Key key}) : super(key: key);
+  const _EmployeesList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +40,16 @@ class _EmployeesList extends StatelessWidget {
     final state = context.watch<EmployeesBloc>().state;
 
     if (state.status == EmployeesStatus.success) {
-      if (state.employees.isEmpty) {
+      if (state.employees!.isEmpty) {
         return Center(
           child: Text(
-            localizations.noEmployees,
+            localizations!.noEmployees,
             style: const TextStyle(fontSize: 20),
           ),
         );
       }
 
-      return EmployeesList(employees: state.employees);
+      return EmployeesList(employees: state.employees!);
     }
 
     return const Center(child: CircularProgressIndicator());

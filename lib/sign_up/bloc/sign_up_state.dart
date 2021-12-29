@@ -3,16 +3,16 @@ part of 'sign_up_bloc.dart';
 enum SignUpStatus { initial, success, failure, loading, valid, invalid }
 
 class SignUpState extends Equatable {
-  final SignUpStatus status;
-  final User user;
-  final FirstName firstName;
-  final LastName lastName;
-  final Email email;
-  final Password password;
-  final Password passwordConfirmation;
+  final SignUpStatus? status;
+  final User? user;
+  final FirstName? firstName;
+  final LastName? lastName;
+  final Email? email;
+  final Password? password;
+  final Password? passwordConfirmation;
 
   const SignUpState({
-    @required this.status,
+    required this.status,
     this.firstName,
     this.lastName,
     this.email,
@@ -32,13 +32,13 @@ class SignUpState extends Equatable {
         );
 
   SignUpState copyWith({
-    SignUpStatus status,
-    User user,
-    FirstName firstName,
-    LastName lastName,
-    Email email,
-    Password password,
-    Password passwordConfirmation,
+    SignUpStatus? status,
+    User? user,
+    FirstName? firstName,
+    LastName? lastName,
+    Email? email,
+    Password? password,
+    Password? passwordConfirmation,
   }) {
     return SignUpState(
       status: status ?? this.status,
@@ -52,7 +52,7 @@ class SignUpState extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         status,
         user,
         firstName,

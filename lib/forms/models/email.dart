@@ -11,10 +11,10 @@ class Email extends Equatable {
 
   factory Email.dirty(String value) => Email(value: value);
 
-  final String value;
+  final String? value;
 
-  bool get valid => _validationRegExp.hasMatch(value);
+  bool get valid => _validationRegExp.hasMatch(value!);
 
   @override
-  List<Object> get props => [value];
+  List<Object?> get props => [value];
 }

@@ -12,16 +12,16 @@ class MockAuthorizationCredentialAppleID extends Mock
 
 void main() {
   group('AppleSignInService', () {
-    AppleCredentials mockAppleCredentials;
-    AuthorizationCredentialAppleID mockAuthorizationCredential;
+    AppleCredentials? mockAppleCredentials;
+    AuthorizationCredentialAppleID? mockAuthorizationCredential;
 
-    AppleSignInService subject;
+    late AppleSignInService subject;
 
     setUp(() {
       mockAppleCredentials = MockAppleCredentials();
       mockAuthorizationCredential = MockAuthorizationCredentialAppleID();
 
-      when(mockAuthorizationCredential.identityToken).thenReturn('idToken');
+      when(mockAuthorizationCredential!.identityToken).thenReturn('idToken');
 
       subject = AppleSignInService(appleCredentials: mockAppleCredentials);
     });
@@ -39,21 +39,21 @@ void main() {
         test('completes when appleCredentials.getAppleCredentials succeeds',
             () {
           when(
-            mockAppleCredentials.getAppleCredentials(
+            mockAppleCredentials!.getAppleCredentials(
               scopes: [
                 AppleIDAuthorizationScopes.email,
                 AppleIDAuthorizationScopes.fullName,
               ],
               token: anyNamed('token'),
             ),
-          ).thenAnswer((_) async => mockAuthorizationCredential);
+          ).thenAnswer(((_) async => mockAuthorizationCredential!));
 
           expect(subject.getFirebaseCredential(), completes);
         });
 
         test('fails when appleCredentials.getAppleCredentials throws', () {
           when(
-            mockAppleCredentials.getAppleCredentials(
+            mockAppleCredentials!.getAppleCredentials(
               scopes: [
                 AppleIDAuthorizationScopes.email,
                 AppleIDAuthorizationScopes.fullName,

@@ -8,7 +8,7 @@ class MockPanelController extends Mock implements PanelController {}
 
 void main() {
   group('FSSlidingUpPanel', () {
-    PanelController panelController;
+    PanelController? panelController;
 
     setUp(() {
       panelController = MockPanelController();
@@ -20,7 +20,7 @@ void main() {
       (tester) async {
         const key = Key('__test_target__');
 
-        when(panelController.isPanelOpen).thenReturn(false);
+        when(panelController!.isPanelOpen).thenReturn(false);
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
@@ -40,7 +40,7 @@ void main() {
         await tester.tap(find.byKey(key).first);
         await tester.pump();
 
-        verify(panelController.open()).called(1);
+        verify(panelController!.open()).called(1);
       },
     );
 
@@ -50,7 +50,7 @@ void main() {
       (tester) async {
         const key = Key('__test_target__');
 
-        when(panelController.isPanelOpen).thenReturn(true);
+        when(panelController!.isPanelOpen).thenReturn(true);
         await tester.pumpWidget(
           MaterialApp(
             home: Scaffold(
@@ -70,7 +70,7 @@ void main() {
         await tester.tap(find.byKey(key).first);
         await tester.pump();
 
-        verify(panelController.close()).called(1);
+        verify(panelController!.close()).called(1);
       },
     );
 
@@ -80,7 +80,7 @@ void main() {
         const key = Key('__test_target__');
         final panelController = PanelController();
 
-        double panelPosition;
+        double? panelPosition;
 
         await tester.pumpWidget(
           MaterialApp(

@@ -55,6 +55,6 @@ class FirebaseEmployeeDatabase implements IDatabase<EmployeeEntity> {
   }
 
   EmployeeEntity _toEntity(DocumentSnapshot doc) {
-    return EmployeeEntity.fromJson({'id': doc.id, ...doc.data() as Map});
+    return EmployeeEntity.fromJson({'id': doc.id, ...(doc.data() as Map) as Map<String, dynamic>});
   }
 }

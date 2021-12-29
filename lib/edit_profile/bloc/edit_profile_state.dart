@@ -10,14 +10,14 @@ enum EditProfileStatus {
 }
 
 class EditProfileState extends Equatable {
-  final EditProfileStatus status;
-  final User user;
-  final FirstName firstName;
-  final LastName lastName;
-  final String imageURL;
+  final EditProfileStatus? status;
+  final User? user;
+  final FirstName? firstName;
+  final LastName? lastName;
+  final String? imageURL;
 
   const EditProfileState({
-    @required this.status,
+    required this.status,
     this.user,
     this.firstName,
     this.lastName,
@@ -25,11 +25,11 @@ class EditProfileState extends Equatable {
   }) : assert(status != null);
 
   EditProfileState copyWith({
-    EditProfileStatus status,
-    User user,
-    FirstName firstName,
-    LastName lastName,
-    String imageURL,
+    EditProfileStatus? status,
+    User? user,
+    FirstName? firstName,
+    LastName? lastName,
+    String? imageURL,
   }) {
     return EditProfileState(
       status: status ?? this.status,
@@ -41,5 +41,5 @@ class EditProfileState extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, user, firstName, lastName, imageURL];
+  List<Object?> get props => [status, user, firstName, lastName, imageURL];
 }

@@ -15,12 +15,12 @@ import 'package:flutter/material.dart';
 class FSAppBar extends AppBar {
   /// {@macro FSAppBar}
   FSAppBar({
-    Key key,
-    Widget title,
+    Key? key,
+    Widget? title,
     bool centerTitle = true,
-    Widget leading,
-    List<Widget> actions,
-    Widget bottom,
+    Widget? leading,
+    List<Widget>? actions,
+    Widget? bottom,
   }) : super(
           key: key,
           leading: leading,

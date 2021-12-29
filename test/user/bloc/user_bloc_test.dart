@@ -12,8 +12,8 @@ class MockUser extends Mock implements UserEntity {}
 
 void main() {
   group('UserBloc', () {
-    AuthService authService;
-    UserEntity user;
+    late AuthService authService;
+    UserEntity? user;
 
     setUp(() {
       authService = MockAuthService();
@@ -48,7 +48,7 @@ void main() {
         const UserState(status: UserStatus.loading),
         UserState(
           status: UserStatus.success,
-          user: User.fromEntity(user),
+          user: User.fromEntity(user!),
         ),
       ],
     );

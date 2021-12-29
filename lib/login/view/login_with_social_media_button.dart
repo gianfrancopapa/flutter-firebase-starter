@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 abstract class LoginWithSocialMediaButton extends StatelessWidget {
-  const LoginWithSocialMediaButton({Key key}) : super(key: key);
+  const LoginWithSocialMediaButton({Key? key}) : super(key: key);
 
   SocialMediaMethod get socialMediaMethod;
 
@@ -62,7 +62,7 @@ abstract class LoginWithSocialMediaButton extends StatelessWidget {
 }
 
 class LoginWithGoogleButton extends LoginWithSocialMediaButton {
-  const LoginWithGoogleButton({Key key}) : super(key: key);
+  const LoginWithGoogleButton({Key? key}) : super(key: key);
 
   @override
   SocialMediaMethod get socialMediaMethod => SocialMediaMethod.GOOGLE;
@@ -72,12 +72,12 @@ class LoginWithGoogleButton extends LoginWithSocialMediaButton {
 
   @override
   String text(BuildContext context) {
-    return AppLocalizations.of(context).googleSignIn;
+    return AppLocalizations.of(context)!.googleSignIn;
   }
 }
 
 class LoginWithFacebookButton extends LoginWithSocialMediaButton {
-  const LoginWithFacebookButton({Key key}) : super(key: key);
+  const LoginWithFacebookButton({Key? key}) : super(key: key);
 
   @override
   SocialMediaMethod get socialMediaMethod => SocialMediaMethod.FACEBOOK;
@@ -87,12 +87,12 @@ class LoginWithFacebookButton extends LoginWithSocialMediaButton {
 
   @override
   String text(BuildContext context) {
-    return AppLocalizations.of(context).facebookSignIn;
+    return AppLocalizations.of(context)!.facebookSignIn;
   }
 }
 
 class LoginWithAppleButton extends LoginWithSocialMediaButton {
-  const LoginWithAppleButton({Key key}) : super(key: key);
+  const LoginWithAppleButton({Key? key}) : super(key: key);
 
   @override
   SocialMediaMethod get socialMediaMethod => SocialMediaMethod.APPLE;
@@ -102,16 +102,16 @@ class LoginWithAppleButton extends LoginWithSocialMediaButton {
 
   @override
   String text(BuildContext context) {
-    return AppLocalizations.of(context).appleIdSignIn;
+    return AppLocalizations.of(context)!.appleIdSignIn;
   }
 }
 
 class LoginAnonymouslyButton extends StatelessWidget {
-  const LoginAnonymouslyButton({Key key}) : super(key: key);
+  const LoginAnonymouslyButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return FSTextButton(
       style: ButtonStyle(

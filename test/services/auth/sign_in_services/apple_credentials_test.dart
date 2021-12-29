@@ -4,7 +4,7 @@ import 'package:auth/auth.dart';
 
 void main() {
   group('AppleCredentials', () {
-    AppleCredentials subject;
+    late AppleCredentials subject;
 
     setUp(() {
       subject = const AppleCredentials();

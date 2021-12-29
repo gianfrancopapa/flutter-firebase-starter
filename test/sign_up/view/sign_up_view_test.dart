@@ -24,7 +24,7 @@ class MockUserState extends Fake implements UserState {}
 
 void main() {
   group('SignUpView', () {
-    SignUpBloc mockSignUpBloc;
+    late SignUpBloc mockSignUpBloc;
     UserBloc mockUserBloc;
 
     setUp(() {

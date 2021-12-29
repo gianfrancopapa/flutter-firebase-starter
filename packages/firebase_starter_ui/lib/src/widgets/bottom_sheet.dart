@@ -15,27 +15,27 @@ import 'package:flutter/material.dart';
 class FSBottomSheet extends StatelessWidget {
   /// {@macro FSBottomSheet}
 
-  const FSBottomSheet({Key key, this.child}) : super(key: key);
+  const FSBottomSheet({Key? key, this.child}) : super(key: key);
 
   /// A child widget that is to be shown in the bottom sheet
-  final Widget child;
+  final Widget? child;
 
   /// Static method to show open the bottom sheet from the given [BuildContext]
   /// and build it's layout using the given builder.
   static Future<void> show({
-    @required BuildContext context,
-    @required Function(BuildContext) builder,
+    required BuildContext? context,
+    required Function(BuildContext)? builder,
   }) {
     assert(context != null);
     assert(builder != null);
     return showModalBottomSheet(
-      context: context,
-      builder: builder,
+      context: context!,
+      builder: builder as Widget Function(BuildContext),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return child;
+    return child!;
   }
 }

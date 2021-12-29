@@ -2,16 +2,15 @@ import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  SignUpBloc({@required AuthService authService})
+  SignUpBloc({required AuthService? authService})
       : assert(authService != null),
-        _authService = authService,
+        _authService = authService!,
         super(SignUpState.initial()) {
     on<SignUpRequested>(_mapSignUpRequestedToState);
     on<SignUpFirstNameChanged>(_mapSignUpFirstNameChangedToState);
@@ -30,20 +29,20 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   ) async {
     emit(state.copyWith(status: SignUpStatus.loading));
 
-    if (state.password.value != state.passwordConfirmation.value) {
+    if (state.password!.value != state.passwordConfirmation!.value) {
       emit(state.copyWith(status: SignUpStatus.failure));
       return;
     }
 
     try {
-      final user = await _authService.createUserWithEmailAndPassword(
-        name: state.firstName.value,
-        lastName: state.lastName.value,
-        email: state.email.value,
-        password: state.password.value,
-      );
+      final user = await (_authService.createUserWithEmailAndPassword(
+        name: state.firstName!.value!,
+        lastName: state.lastName!.value!,
+        email: state.email!.value!,
+        password: state.password!.value!,
+      ));
 
-      emit(state.copyWith(status: SignUpStatus.success, user: _toUser(user)));
+      emit(state.copyWith(status: SignUpStatus.success, user: _toUser(user!)));
     } catch (error) {
       emit(state.copyWith(status: SignUpStatus.failure));
     }
@@ -77,7 +76,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     SignUpEmailChanged event,
     Emitter<SignUpState> emit,
   ) async {
-    final email = Email.dirty(event.email);
+    final email = Email.dirty(event.email!);
 
     emit(state.copyWith(email: email, status: _status(email: email)));
   }
@@ -86,7 +85,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     SignUpPasswordChanged event,
     Emitter<SignUpState> emit,
   ) async {
-    final password = Password.dirty(event.password);
+    final password = Password.dirty(event.password!);
 
     emit(state.copyWith(
       password: password,
@@ -98,7 +97,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     SignUpPasswordConfirmationChanged event,
     Emitter<SignUpState> emit,
   ) async {
-    final passwordConfirmation = Password.dirty(event.passwordConfirmation);
+    final passwordConfirmation = Password.dirty(event.passwordConfirmation!);
 
     emit(state.copyWith(
       passwordConfirmation: passwordConfirmation,
@@ -107,23 +106,23 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   SignUpStatus _status({
-    FirstName firstName,
-    LastName lastName,
-    Email email,
-    Password password,
-    Password passwordConfirmation,
+    FirstName? firstName,
+    LastName? lastName,
+    Email? email,
+    Password? password,
+    Password? passwordConfirmation,
   }) {
-    final _firstName = firstName ?? state.firstName;
+    final _firstName = firstName ?? state.firstName!;
     final _lastName = lastName ?? state.lastName;
     final _email = email ?? state.email;
     final _password = password ?? state.password;
     final _passwordConf = passwordConfirmation ?? state.passwordConfirmation;
 
     if (_firstName.valid &&
-        _lastName.valid &&
-        _email.valid &&
-        _password.valid &&
-        _passwordConf.valid) {
+        _lastName!.valid &&
+        _email!.valid &&
+        _password!.valid &&
+        _passwordConf!.valid) {
       return SignUpStatus.valid;
     }
 

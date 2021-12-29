@@ -10,14 +10,14 @@ enum AppStatus {
 
 class AppState extends Equatable {
   const AppState({
-    @required this.status,
+    required this.status,
     this.user,
   }) : assert(status != null);
 
-  final AppStatus status;
-  final User user;
+  final AppStatus? status;
+  final User? user;
 
-  AppState copyWith({AppStatus status, User user}) {
+  AppState copyWith({AppStatus? status, User? user}) {
     return AppState(
       status: status ?? this.status,
       user: user ?? this.user,
@@ -25,5 +25,5 @@ class AppState extends Equatable {
   }
 
   @override
-  List<Object> get props => [status, user];
+  List<Object?> get props => [status, user];
 }

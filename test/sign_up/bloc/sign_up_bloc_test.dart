@@ -15,8 +15,8 @@ void main() {
   group(
     'SignUpBloc',
     () {
-      AuthService mockAuthService;
-      UserEntity mockUser;
+      late AuthService mockAuthService;
+      UserEntity? mockUser;
 
       final firstName = FirstName.dirty('firstName');
       final lastName = LastName.dirty('lastName');
@@ -66,10 +66,10 @@ void main() {
         verify: (_) {
           verify(
             mockAuthService.createUserWithEmailAndPassword(
-              name: firstName.value,
-              lastName: lastName.value,
-              email: email.value,
-              password: password.value,
+              name: firstName.value!,
+              lastName: lastName.value!,
+              email: email.value!,
+              password: password.value!,
             ),
           ).called(1);
         },
@@ -90,10 +90,10 @@ void main() {
         build: () {
           when(
             mockAuthService.createUserWithEmailAndPassword(
-              name: firstName.value,
-              lastName: lastName.value,
-              email: email.value,
-              password: password.value,
+              name: firstName.value!,
+              lastName: lastName.value!,
+              email: email.value!,
+              password: password.value!,
             ),
           ).thenAnswer((_) async => mockUser);
 
@@ -110,7 +110,7 @@ void main() {
           ),
           SignUpState(
             status: SignUpStatus.success,
-            user: User.fromEntity(mockUser),
+            user: User.fromEntity(mockUser!),
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -135,10 +135,10 @@ void main() {
         build: () {
           when(
             mockAuthService.createUserWithEmailAndPassword(
-              name: firstName.value,
-              lastName: lastName.value,
-              email: email.value,
-              password: password.value,
+              name: firstName.value!,
+              lastName: lastName.value!,
+              email: email.value!,
+              password: password.value!,
             ),
           ).thenThrow(AuthError.ERROR);
 
@@ -182,10 +182,10 @@ void main() {
         verify: (_) {
           verifyNever(
             mockAuthService.createUserWithEmailAndPassword(
-              name: firstName.value,
-              lastName: lastName.value,
-              email: email.value,
-              password: password.value,
+              name: firstName.value!,
+              lastName: lastName.value!,
+              email: email.value!,
+              password: password.value!,
             ),
           );
         },
@@ -317,13 +317,13 @@ void main() {
         'are valid',
         act: (bloc) {
           bloc
-            ..add(SignUpFirstNameChanged(firstName: firstName.value))
-            ..add(SignUpLastNameChanged(lastName: lastName.value))
-            ..add(SignUpEmailChanged(email: email.value))
-            ..add(SignUpPasswordChanged(password: password.value))
+            ..add(SignUpFirstNameChanged(firstName: firstName.value!))
+            ..add(SignUpLastNameChanged(lastName: lastName.value!))
+            ..add(SignUpEmailChanged(email: email.value!))
+            ..add(SignUpPasswordChanged(password: password.value!))
             ..add(
               SignUpPasswordConfirmationChanged(
-                passwordConfirmation: passwordConfirmation.value,
+                passwordConfirmation: passwordConfirmation.value!,
               ),
             );
         },

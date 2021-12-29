@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key key}) : super(key: key);
+  const SettingsScreen({Key? key}) : super(key: key);
 
   static Route route() {
     return MaterialPageRoute<void>(
@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _localizedStrings = AppLocalizations.of(context);
+    final _localizedStrings = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: CustomAppBar(title: _localizedStrings.settings),
