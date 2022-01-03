@@ -71,6 +71,8 @@ void main() {
         'calls localPersistanceService.getValue',
         act: (bloc) => bloc.add(AppIsFirstTimeLaunched()),
         build: () {
+          when(mockLocalPersistanceService.getValue('is_first_time'))
+              .thenAnswer((_) async => false);
           return AppBloc(
             authService: mockAuthService,
             localPersistanceService: mockLocalPersistanceService,

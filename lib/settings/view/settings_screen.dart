@@ -1,5 +1,6 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/app/app.dart';
+import 'package:firebasestarter/gen/assets.gen.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:firebasestarter/settings/settings.dart';
@@ -54,7 +55,7 @@ class SettingsScreen extends StatelessWidget {
             const AppVersion(),
             const SizedBox(height: 20.45),
             SvgPicture.asset(
-              FSAssetImage.somnioGreyLogoSvg,
+              Assets.packages.firebaseStarterUi.assets.images.somnioGreyLogo,
               color: FSColors.grey,
             ),
           ],

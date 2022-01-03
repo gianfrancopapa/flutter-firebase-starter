@@ -1,5 +1,6 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
+import 'package:firebasestarter/gen/assets.gen.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,7 +69,8 @@ class LoginWithGoogleButton extends LoginWithSocialMediaButton {
   SocialMediaMethod get socialMediaMethod => SocialMediaMethod.google;
 
   @override
-  String get asset => FSAssetImage.googleLogo;
+  String get asset =>
+      Assets.packages.firebaseStarterUi.assets.images.googleLogo.path;
 
   @override
   String text(BuildContext context) {
@@ -83,7 +85,8 @@ class LoginWithFacebookButton extends LoginWithSocialMediaButton {
   SocialMediaMethod get socialMediaMethod => SocialMediaMethod.facebook;
 
   @override
-  String get asset => FSAssetImage.facebookLogo;
+  String get asset =>
+      Assets.packages.firebaseStarterUi.assets.images.facebookLogo.path;
 
   @override
   String text(BuildContext context) {
@@ -98,7 +101,8 @@ class LoginWithAppleButton extends LoginWithSocialMediaButton {
   SocialMediaMethod get socialMediaMethod => SocialMediaMethod.apple;
 
   @override
-  String get asset => FSAssetImage.appleLogo;
+  String get asset =>
+      Assets.packages.firebaseStarterUi.assets.images.appleLogo.path;
 
   @override
   String text(BuildContext context) {
@@ -130,8 +134,8 @@ class LoginAnonymouslyButton extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 15.0),
           ),
-          const Image(
-            image: AssetImage(FSAssetImage.anonLogin),
+          Image(
+            image: AssetImage(Assets.packages.firebaseStarterUi.assets.images.anonLogin.path),
             height: 30.0,
             width: 30.0,
           ),

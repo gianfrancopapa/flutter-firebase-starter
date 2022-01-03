@@ -1,4 +1,5 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
+import 'package:firebasestarter/gen/assets.gen.dart';
 import 'package:firebasestarter/models/employee.dart';
 import 'package:flutter/material.dart';
 
@@ -72,9 +73,9 @@ class _EmployeeImage extends StatelessWidget {
         shape: BoxShape.circle,
         image: DecorationImage(
           image: (employee.isAvatarFromNetwork
-                  ? NetworkImage(employee.avatarAsset!)
-                  : const AssetImage(FSAssetImage.anonLogin))
-              as ImageProvider<Object>,
+              ? NetworkImage(employee.avatarAsset!)
+              : AssetImage(Assets.packages.firebaseStarterUi.assets.images
+                  .anonLogin.path)) as ImageProvider<Object>,
         ),
       ),
     );

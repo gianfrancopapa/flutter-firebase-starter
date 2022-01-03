@@ -58,6 +58,9 @@ void main() {
         ),
         act: (bloc) => bloc.add(const LoginWithEmailAndPasswordRequested()),
         build: () {
+          when(mockAuthService.signInWithEmailAndPassword(
+                  email: email.value, password: password.value))
+              .thenAnswer((_) async => const UserEntity());
           return LoginBloc(
             authService: mockAuthService,
             analyticsService: mockAnalyticsService,
@@ -153,6 +156,9 @@ void main() {
           const LoginWithSocialMediaRequested(method: SocialMediaMethod.google),
         ),
         build: () {
+          when(mockAuthService.signInWithSocialMedia(
+            method: SocialMediaMethod.google,
+          )).thenAnswer((_) async => const UserEntity());
           return LoginBloc(
             authService: mockAuthService,
             analyticsService: mockAnalyticsService,
@@ -261,6 +267,8 @@ void main() {
         'calls authService.signInAnonymously',
         act: (bloc) => bloc.add(const LoginAnonymouslyRequested()),
         build: () {
+          when(mockAuthService.signInAnonymously())
+              .thenAnswer((_) async => const UserEntity());
           return LoginBloc(
             authService: mockAuthService,
             analyticsService: mockAnalyticsService,
@@ -316,6 +324,7 @@ void main() {
         'calls authService.currentUser',
         act: (bloc) => bloc.add(const LoginIsSessionPersisted()),
         build: () {
+          when(mockAuthService.currentUser()).thenAnswer((_) async => mockUser);
           return LoginBloc(
             authService: mockAuthService,
             analyticsService: mockAnalyticsService,

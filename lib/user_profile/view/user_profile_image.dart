@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
+import 'package:firebasestarter/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart';
 
@@ -35,7 +36,8 @@ class UserProfileImage extends StatelessWidget {
         image: DecorationImage(
           image: image != null && image!.isNotEmpty
               ? Image.file(File(image!)).image
-              : const AssetImage(FSAssetImage.somnioLogo),
+              : AssetImage(Assets
+                  .packages.firebaseStarterUi.assets.images.somnioLogo.path),
           fit: BoxFit.fitHeight,
         ),
       ),

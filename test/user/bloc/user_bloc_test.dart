@@ -33,6 +33,7 @@ void main() {
       'calls authService.currentUser',
       act: (bloc) => bloc.add(const UserLoaded()),
       build: () {
+        when(authService.currentUser()).thenAnswer((_) async => user);
         return UserBloc(authService: authService);
       },
       verify: (_) => verify(authService.currentUser()).called(1),

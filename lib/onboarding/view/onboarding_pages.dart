@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
+import 'package:firebasestarter/gen/assets.gen.dart';
 import 'package:firebasestarter/login/view/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +53,7 @@ class OnboardingPages extends StatelessWidget {
         title: _localizedStrings.welcome,
         bodyText: _localizedStrings.pageOne,
         asset: Asset(
-          name: FSAssetImage.somnioLogo,
+          name: Assets.packages.firebaseStarterUi.assets.images.somnioLogo.path,
           width: 160.0,
           height: 160.0,
         ),
@@ -62,7 +63,7 @@ class OnboardingPages extends StatelessWidget {
         title: _localizedStrings.options,
         bodyText: _localizedStrings.pageTwo,
         asset: Asset(
-          name: FSAssetImage.onboarding2,
+          name: Assets.packages.firebaseStarterUi.assets.images.setting.path,
           width: 120.0,
           height: 120.0,
         ),
@@ -72,7 +73,8 @@ class OnboardingPages extends StatelessWidget {
         title: _localizedStrings.documentationOnConfluence,
         bodyText: _localizedStrings.pageThree,
         asset: Asset(
-          name: FSAssetImage.onboarding3,
+          name: Assets
+              .packages.firebaseStarterUi.assets.images.confluenceLogo.path,
           width: null,
           height: 30.0,
         ),
