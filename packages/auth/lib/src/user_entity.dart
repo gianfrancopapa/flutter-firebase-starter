@@ -1,5 +1,6 @@
 part of auth;
 
+@JsonSerializable()
 class UserEntity extends Equatable {
   final String? id;
   final String? firstName;
@@ -15,19 +16,10 @@ class UserEntity extends Equatable {
     this.imageUrl,
   });
 
-  static UserEntity fromJson(Map<String, dynamic> json) => UserEntity(
-        id: json['id'],
-        firstName: json['firstName'],
-        lastName: json['lastName'],
-        email: json['email'],
-        imageUrl: json['imageUrl'],
-      );
+  factory UserEntity.fromJson(Map<String, dynamic> json) =>
+      _$UserEntityFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        'firstName': firstName,
-        'lastName': lastName,
-        'email': email,
-      };
+  Map<String, dynamic> toJson() => _$UserEntityToJson(this);
 
   @override
   List<Object?> get props => [id, firstName, lastName, email, imageUrl];

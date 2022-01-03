@@ -14,6 +14,7 @@ import 'dart:async';
 
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 part 'src/user_entity.dart';
@@ -27,3 +28,4 @@ part 'src/sign_in_services/apple/apple_credentials.dart';
 part 'src/sign_in_services/apple/apple_sign_in_service.dart';
 part 'src/sign_in_services/facebook/facebook_sign_in_service.dart';
 part 'src/sign_in_services/google/google_sign_in_service.dart';
+part 'auth.g.dart';

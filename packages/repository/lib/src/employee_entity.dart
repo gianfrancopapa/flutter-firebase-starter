@@ -1,5 +1,6 @@
 part of repository;
 
+@JsonSerializable()
 class EmployeeEntity {
   String? id;
   String? firstName;
@@ -22,27 +23,8 @@ class EmployeeEntity {
     this.address,
     this.description,
   });
+  factory EmployeeEntity.fromJson(Map<String, dynamic> json) =>
+      _$EmployeeEntityFromJson(json);
 
-  static EmployeeEntity fromJson(Map<String, dynamic> json) => EmployeeEntity(
-      id: json['id'],
-      firstName: json['firstName'] ?? 'Name',
-      lastName: json['lastName'] ?? 'LastName',
-      email: json['email'] ?? 'employee@somnio.com',
-      age: json['age'] ?? 18,
-      phoneNumber: json['phoneNumber'] ?? '99999999',
-      address: json['address'] ?? 'Address',
-      description: json['description'] ?? '-',
-      avatarAsset: json['avatarAsset']);
-
-  Map<String, dynamic> toJson() => {
-        'firstName': firstName,
-        'lastName': lastName,
-        'email': email,
-        'avatarAsset': avatarAsset,
-        'role': 'user',
-        'age': age,
-        'address': address,
-        'phoneNumber': phoneNumber,
-        'description': description,
-      };
+  Map<String, dynamic> toJson() => _$EmployeeEntityToJson(this);
 }
