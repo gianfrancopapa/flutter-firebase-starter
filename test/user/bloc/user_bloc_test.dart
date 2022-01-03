@@ -3,13 +3,15 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'user_bloc_test.mocks.dart';
 
-class MockAuthService extends Mock implements AuthService {}
-
-// ignore: must_be_immutable
-class MockUser extends Mock implements UserEntity {}
-
+@GenerateMocks([
+  AuthService
+], customMocks: [
+  MockSpec<UserEntity>(as: #MockUserEntity, returnNullOnMissingStub: true)
+])
 void main() {
   group('UserBloc', () {
     late AuthService authService;
@@ -17,7 +19,7 @@ void main() {
 
     setUp(() {
       authService = MockAuthService();
-      user = MockUser();
+      user = MockUserEntity();
     });
 
     test('has valid initial state', () {

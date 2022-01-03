@@ -5,15 +5,17 @@ import 'package:firebasestarter/models/user.dart';
 import 'package:auth/auth.dart';
 import 'package:firebasestarter/services/analytics/analyitics.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-class MockAnalyticsService extends Mock implements AnalyticsService {}
+import 'login_bloc_test.mocks.dart';
 
-class MockFirebaseAuthService extends Mock implements FirebaseAuthService {}
-
-// ignore: must_be_immutable
-class MockUser extends Mock implements UserEntity {}
-
+@GenerateMocks([
+  AnalyticsService,
+  FirebaseAuthService
+], customMocks: [
+  MockSpec<UserEntity>(as: #MockUserEntity, returnNullOnMissingStub: true)
+])
 void main() {
   group(
     'LoginBloc',
@@ -28,7 +30,7 @@ void main() {
       setUp(() {
         mockAnalyticsService = MockAnalyticsService();
         mockAuthService = MockFirebaseAuthService();
-        mockUser = MockUser();
+        mockUser = MockUserEntity();
       });
 
       test('has valid initial state', () {

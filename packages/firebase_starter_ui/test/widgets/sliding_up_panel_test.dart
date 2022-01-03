@@ -2,10 +2,12 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-class MockPanelController extends Mock implements PanelController {}
+import 'sliding_up_panel_test.mocks.dart';
 
+@GenerateMocks([PanelController])
 void main() {
   group('FSSlidingUpPanel', () {
     PanelController? panelController;

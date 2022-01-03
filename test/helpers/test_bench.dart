@@ -6,10 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mockito/annotations.dart';
 import 'package:repository/repository.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'test_bench_mocks.dart';
 
+import 'test_bench.mocks.dart';
+
+@GenerateMocks(
+    [EmployeesRepository, AppBloc, LoginBloc, UserBloc, EmployeesBloc])
 extension TestBench on WidgetTester {
   Future<void> pumpApp(
     Widget? widgetUnderTest, {

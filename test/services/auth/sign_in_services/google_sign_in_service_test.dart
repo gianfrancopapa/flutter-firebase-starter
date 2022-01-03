@@ -1,10 +1,13 @@
 import 'package:auth/auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:mockito/mockito.dart';
+import 'google_sign_in_service_test.mocks.dart';
 
 // This is created because GoogleSignIn overrides a method that contains dynamic instead of Object?
+// Please also add *with LeagacyEquality* in the generated file!
 mixin LegacyEquality {
   @override
   bool operator ==(Object? other) => throw UnimplementedError();
@@ -12,16 +15,9 @@ mixin LegacyEquality {
   @override
   int get hashCode => throw UnimplementedError();
 }
-
-class MockGoogleSignIn extends Mock implements GoogleSignIn {}
-
-class MockGoogleSignInAccount extends Mock
-    with LegacyEquality
-    implements GoogleSignInAccount {}
-
-class MockGoogleSignInAuthentication extends Mock
-    implements GoogleSignInAuthentication {}
-
+@GenerateMocks([ GoogleSignInAccount, GoogleSignInAuthentication],customMocks: [
+  MockSpec<GoogleSignIn>(as: #MockGoogleSignIn, returnNullOnMissingStub: true)
+])
 void main() {
   group('GoogleSignInService', () {
     GoogleSignIn? mockGoogleSignIn;

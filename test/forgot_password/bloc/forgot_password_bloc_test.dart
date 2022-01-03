@@ -3,10 +3,12 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-class MockAuthService extends Mock implements AuthService {}
+import 'forgot_password_bloc_test.mocks.dart';
 
+@GenerateMocks([AuthService])
 void main() {
   group(
     'ForgotPasswordBloc',

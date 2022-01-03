@@ -8,11 +8,8 @@ import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-
 Future<void> testExecutable(FutureOr<void> Function() testMain) async {
-  setUpAll(() {
-  
-  });
+  setUpAll(() {});
 
   await testMain();
 }

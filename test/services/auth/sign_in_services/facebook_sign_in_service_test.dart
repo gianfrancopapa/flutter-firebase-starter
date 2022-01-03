@@ -2,14 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:auth/auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-class MockFacebookAuth extends Mock implements FacebookAuth {}
+import 'facebook_sign_in_service_test.mocks.dart';
 
-class MockLoginResult extends Mock implements LoginResult {}
-
-class MockAccessToken extends Mock implements AccessToken {}
-
+@GenerateMocks([
+  FacebookAuth,
+  AccessToken
+], customMocks: [
+  MockSpec<LoginResult>(as: #MockLoginResult, returnNullOnMissingStub: true)
+])
 void main() {
   group('FacebookSignInService', () {
     FacebookAuth? mockFacebookAuth;

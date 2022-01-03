@@ -1,10 +1,11 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 
-class MockBuildContext extends Mock implements BuildContext {}
+import 'bottom_sheet_test.mocks.dart';
 
+@GenerateMocks([BuildContext])
 void main() {
   late MockBuildContext _mockContext;
 

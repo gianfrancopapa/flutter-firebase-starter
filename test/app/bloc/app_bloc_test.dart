@@ -5,13 +5,12 @@ import 'package:firebasestarter/app/app.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/shared_preferences/local_persistance_interface.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-class MockLocalPersistanceService extends Mock
-    implements LocalPersistanceService {}
+import 'app_bloc_test.mocks.dart';
 
-class MockAuthService extends Mock implements AuthService {}
-
+@GenerateMocks([LocalPersistanceService, AuthService])
 void main() {
   group('AppBloc', () {
     late LocalPersistanceService mockLocalPersistanceService;

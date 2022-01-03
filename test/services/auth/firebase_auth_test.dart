@@ -2,26 +2,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasestarter/models/user.dart' as model;
 import 'package:auth/auth.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-class MockFirebaseAuth extends Mock implements FirebaseAuth {}
+import 'firebase_auth_test.mocks.dart';
 
-class MockSignInServiceFactory extends Mock implements SignInServiceFactory {}
-
-class MockUserCredential extends Mock implements UserCredential {}
-
-class MockOAuthCredential extends Mock implements OAuthCredential {}
-
-class MockFirebaseUser extends Mock implements User {}
-
-// ignore: must_be_immutable
-class MockModelUser extends Mock implements model.User {}
-
-// ignore: must_be_immutable
-class MockFirebaseAuthException extends Mock implements FirebaseAuthException {}
-
-class MockISignInService extends Mock implements ISignInService {}
-
+@GenerateMocks([
+  FirebaseAuth,
+  UserCredential,
+  OAuthCredential,
+  FirebaseAuthException,
+  ISignInService
+], customMocks: [
+  MockSpec<model.User>(as: #MockModelUser),
+  MockSpec<SignInServiceFactory>(
+      as: #MockSignInServiceFactory, returnNullOnMissingStub: true),
+  MockSpec<User>(as: #MockFirebaseUser, returnNullOnMissingStub: true)
+])
 void main() {
   group('FirebaseAuthService', () {
     FirebaseAuth? mockFirebaseAuth;

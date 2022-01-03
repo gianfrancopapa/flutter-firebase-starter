@@ -1,15 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:auth/auth.dart';
 
-class MockAppleCredentials extends Mock implements AppleCredentials {}
+import 'apple_sign_in_service_test.mocks.dart';
 
-// ignore: must_be_immutable
-class MockAuthorizationCredentialAppleID extends Mock
-    implements AuthorizationCredentialAppleID {}
-
+@GenerateMocks([AppleCredentials, AuthorizationCredentialAppleID])
 void main() {
   group('AppleSignInService', () {
     AppleCredentials? mockAppleCredentials;

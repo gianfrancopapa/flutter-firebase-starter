@@ -3,14 +3,16 @@ import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 import 'package:auth/auth.dart';
+import 'package:mockito/mockito.dart';
+import 'sign_up_bloc_test.mocks.dart';
 
-class MockAuthService extends Mock implements AuthService {}
-
-// ignore: must_be_immutable
-class MockUser extends Mock implements UserEntity {}
-
+@GenerateMocks([
+  AuthService
+], customMocks: [
+  MockSpec<UserEntity>(as: #MockUserEntity, returnNullOnMissingStub: true)
+])
 void main() {
   group(
     'SignUpBloc',
@@ -26,7 +28,7 @@ void main() {
 
       setUp(() {
         mockAuthService = MockAuthService();
-        mockUser = MockUser();
+        mockUser = MockUserEntity();
       });
 
       test('throwsAssertionError when authService is null', () {
