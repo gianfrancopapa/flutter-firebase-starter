@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_returning_null_for_void
 import 'package:auth/auth.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/app/app.dart';
@@ -228,7 +228,7 @@ void main() {
         'emits [failure] when authService.signOut throws',
         act: (bloc) => bloc.add(AppLogoutRequsted()),
         build: () {
-          when(mockAuthService.signOut()).thenThrow(AuthError.ERROR);
+          when(mockAuthService.signOut()).thenThrow(AuthError.error);
 
           return AppBloc(
             authService: mockAuthService,

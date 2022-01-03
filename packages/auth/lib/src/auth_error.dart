@@ -1,13 +1,13 @@
 part of auth;
 
 enum AuthError {
-  INVALID_EMAIL,
-  USER_DISABLED,
-  USER_NOT_FOUND,
-  WRONG_PASSWORD,
-  EMAIL_ALREADY_IN_USE,
-  INVALID_CREDENTIAL,
-  OPERATION_NOT_ALLOWED,
-  WEAK_PASSWORD,
-  ERROR,
+  invalidEmail,
+  userDisabled,
+  userNotFound,
+  wrongPassword,
+  emailAlreadyInUse,
+  invalidCredential,
+  operationNotAllowed,
+  weakPassword,
+  error,
 }

@@ -65,7 +65,7 @@ class LoginWithGoogleButton extends LoginWithSocialMediaButton {
   const LoginWithGoogleButton({Key? key}) : super(key: key);
 
   @override
-  SocialMediaMethod get socialMediaMethod => SocialMediaMethod.GOOGLE;
+  SocialMediaMethod get socialMediaMethod => SocialMediaMethod.google;
 
   @override
   String get asset => FSAssetImage.googleLogo;
@@ -80,7 +80,7 @@ class LoginWithFacebookButton extends LoginWithSocialMediaButton {
   const LoginWithFacebookButton({Key? key}) : super(key: key);
 
   @override
-  SocialMediaMethod get socialMediaMethod => SocialMediaMethod.FACEBOOK;
+  SocialMediaMethod get socialMediaMethod => SocialMediaMethod.facebook;
 
   @override
   String get asset => FSAssetImage.facebookLogo;
@@ -95,7 +95,7 @@ class LoginWithAppleButton extends LoginWithSocialMediaButton {
   const LoginWithAppleButton({Key? key}) : super(key: key);
 
   @override
-  SocialMediaMethod get socialMediaMethod => SocialMediaMethod.APPLE;
+  SocialMediaMethod get socialMediaMethod => SocialMediaMethod.apple;
 
   @override
   String get asset => FSAssetImage.appleLogo;

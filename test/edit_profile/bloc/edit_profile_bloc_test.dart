@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_returning_null_for_void
+
 import 'dart:io';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:equatable/equatable.dart';

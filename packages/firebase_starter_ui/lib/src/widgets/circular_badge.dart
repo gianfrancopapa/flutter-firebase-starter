@@ -17,7 +17,7 @@ class FSCircularBadge extends StatelessWidget {
     this.color = FSColors.deepOrange,
     this.clipBehavior = Clip.hardEdge,
     this.radius = FSSpacing.s12,
-    required Widget? this.child,
+    required this.child,
   })  : assert(elevation != null),
         assert(color != null),
         assert(clipBehavior != null),

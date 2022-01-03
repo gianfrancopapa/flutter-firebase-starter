@@ -1,53 +1,29 @@
-analyzer:
-  exclude: [build/**]
-  errors:
-    missing_return: error
-    dead_code: error
-    always_declare_return_types: error
-    avoid_web_libraries_in_flutter: error
-    missing_required_param: error
-    file_names: error
-    camel_case_types: error
-    empty_statements: error
-    iterable_contains_unrelated_type: error
-    list_remove_unrelated_type: error
-    no_duplicate_case_values: error
-    unrelated_type_equality_checks: error
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+#
+# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+# invoked from the command line by running `flutter analyze`.
+
+# The following line activates a set of recommended lints for Flutter apps,
+# packages, and plugins designed to encourage good coding practices.
+include: package:flutter_lints/flutter.yaml
+
 linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at
+  # https://dart-lang.github.io/linter/lints/index.html.
+  #
+  # Instead of disabling a lint rule for the entire project in the
+  # section below, it can also be suppressed for a single line of code
+  # or a specific dart file by using the `// ignore: name_of_lint` and
+  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  # producing the lint.
   rules:
-    - always_declare_return_types
-    - avoid_web_libraries_in_flutter
-    - camel_case_types
-    - empty_statements
-    - iterable_contains_unrelated_type
-    - list_remove_unrelated_type
-    - no_duplicate_case_values
-    - unrelated_type_equality_checks
-    - prefer_single_quotes
-    - omit_local_variable_types
-    - prefer_const_constructors
-    - prefer_const_constructors_in_immutables
-    - prefer_const_declarations
-    - prefer_final_fields
-    - prefer_final_locals
-    - prefer_final_in_for_each
-    - await_only_futures
-    - hash_and_equals
-    - avoid_annotating_with_dynamic
-    - avoid_unnecessary_containers
-    - prefer_if_null_operators
-    - prefer_null_aware_operators
-    - unnecessary_this
-    - unnecessary_const
-    - unnecessary_new
-    - avoid_empty_else
-    - cancel_subscriptions
-    - close_sinks
-    - no_logic_in_create_state
-    - prefer_void_to_null
-    - unnecessary_statements
-    - always_require_non_null_named_parameters
-    - annotate_overrides
-    - avoid_bool_literals_in_conditional_expressions
-    - sized_box_for_whitespace
-    - unnecessary_await_in_return
+    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options

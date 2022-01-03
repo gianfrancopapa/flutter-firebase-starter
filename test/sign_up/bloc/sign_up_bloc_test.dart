@@ -142,7 +142,7 @@ void main() {
               email: email.value!,
               password: password.value!,
             ),
-          ).thenThrow(AuthError.ERROR);
+          ).thenThrow(AuthError.error);
 
           return SignUpBloc(authService: mockAuthService);
         },

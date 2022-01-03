@@ -1,6 +1,6 @@
 part of auth;
 
-enum SocialMediaMethod { GOOGLE, FACEBOOK, APPLE }
+enum SocialMediaMethod { google, facebook, apple }
 
 abstract class AuthService {
   Stream<UserEntity?>? get onAuthStateChanged;

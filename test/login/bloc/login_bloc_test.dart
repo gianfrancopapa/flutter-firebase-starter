@@ -125,7 +125,7 @@ void main() {
               email: email.value,
               password: password.value,
             ),
-          ).thenThrow(AuthError.ERROR);
+          ).thenThrow(AuthError.error);
 
           return LoginBloc(
             authService: mockAuthService,
@@ -142,7 +142,7 @@ void main() {
             status: LoginStatus.failure,
             email: email,
             password: password,
-            error: AuthError.ERROR,
+            error: AuthError.error,
           ),
         ],
       );
@@ -150,7 +150,7 @@ void main() {
       blocTest<LoginBloc, LoginState>(
         'calls authService.signInWithSocialMedia',
         act: (bloc) => bloc.add(
-          const LoginWithSocialMediaRequested(method: SocialMediaMethod.GOOGLE),
+          const LoginWithSocialMediaRequested(method: SocialMediaMethod.google),
         ),
         build: () {
           return LoginBloc(
@@ -161,7 +161,7 @@ void main() {
         verify: (_) {
           verify(
             mockAuthService.signInWithSocialMedia(
-              method: SocialMediaMethod.GOOGLE,
+              method: SocialMediaMethod.google,
             ),
           ).called(1);
         },
@@ -171,12 +171,12 @@ void main() {
         'emits [loading, loggedIn] when '
         'authService.signInWithSocialMedia succeeds and returns user',
         act: (bloc) => bloc.add(
-          const LoginWithSocialMediaRequested(method: SocialMediaMethod.GOOGLE),
+          const LoginWithSocialMediaRequested(method: SocialMediaMethod.google),
         ),
         build: () {
           when(
             mockAuthService.signInWithSocialMedia(
-              method: SocialMediaMethod.GOOGLE,
+              method: SocialMediaMethod.google,
             ),
           ).thenAnswer((_) async => mockUser);
 
@@ -204,12 +204,12 @@ void main() {
         'emits [loading, loggedOut] when '
         'authService.signInWithSocialMedia succeeds and returns null',
         act: (bloc) => bloc.add(
-          const LoginWithSocialMediaRequested(method: SocialMediaMethod.GOOGLE),
+          const LoginWithSocialMediaRequested(method: SocialMediaMethod.google),
         ),
         build: () {
           when(
             mockAuthService.signInWithSocialMedia(
-              method: SocialMediaMethod.GOOGLE,
+              method: SocialMediaMethod.google,
             ),
           ).thenAnswer((_) async => null);
 
@@ -228,14 +228,14 @@ void main() {
         'emits [loading, failure] when '
         'authService.signInWithSocialMedia throws',
         act: (bloc) => bloc.add(
-          const LoginWithSocialMediaRequested(method: SocialMediaMethod.GOOGLE),
+          const LoginWithSocialMediaRequested(method: SocialMediaMethod.google),
         ),
         build: () {
           when(
             mockAuthService.signInWithSocialMedia(
-              method: SocialMediaMethod.GOOGLE,
+              method: SocialMediaMethod.google,
             ),
-          ).thenThrow(AuthError.ERROR);
+          ).thenThrow(AuthError.error);
 
           return LoginBloc(
             authService: mockAuthService,
@@ -252,7 +252,7 @@ void main() {
             status: LoginStatus.failure,
             email: Email.pure(),
             password: Password.pure(),
-            error: AuthError.ERROR,
+            error: AuthError.error,
           ),
         ],
       );
@@ -296,7 +296,7 @@ void main() {
         'emits [loading, failure] when authService.signInAnonymously throws',
         act: (bloc) => bloc.add(const LoginAnonymouslyRequested()),
         build: () {
-          when(mockAuthService.signInAnonymously()).thenThrow(AuthError.ERROR);
+          when(mockAuthService.signInAnonymously()).thenThrow(AuthError.error);
 
           return LoginBloc(
             authService: mockAuthService,
@@ -307,7 +307,7 @@ void main() {
           LoginState.initial().copyWith(status: LoginStatus.loading),
           LoginState.initial().copyWith(
             status: LoginStatus.failure,
-            error: AuthError.ERROR,
+            error: AuthError.error,
           )
         ],
       );
@@ -383,7 +383,7 @@ void main() {
         'emits [loading, failure] when authService.currentUser throws',
         act: (bloc) => bloc.add(const LoginIsSessionPersisted()),
         build: () {
-          when(mockAuthService.currentUser()).thenThrow(AuthError.ERROR);
+          when(mockAuthService.currentUser()).thenThrow(AuthError.error);
 
           return LoginBloc(
             authService: mockAuthService,
@@ -400,7 +400,7 @@ void main() {
             status: LoginStatus.failure,
             email: Email.pure(),
             password: Password.pure(),
-            error: AuthError.ERROR,
+            error: AuthError.error,
           ),
         ],
       );

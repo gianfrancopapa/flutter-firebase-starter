@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_returning_null_for_void
+
 import 'package:auth/auth.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
@@ -138,7 +140,7 @@ void main() {
         build: () {
           when(
             mockAuthService.sendPasswordResetEmail(email: validEmail.value!),
-          ).thenThrow(AuthError.ERROR);
+          ).thenThrow(AuthError.error);
 
           return ForgotPasswordBloc(authService: mockAuthService);
         },

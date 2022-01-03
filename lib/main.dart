@@ -20,20 +20,20 @@ void main() async {
       final _serviceFactory = SignInServiceFactory();
 
       _serviceFactory.addService(
-        method: SocialMediaMethod.APPLE,
+        method: SocialMediaMethod.apple,
         constructor: () =>
             AppleSignInService(appleCredentials: const AppleCredentials()),
       );
 
       _serviceFactory.addService(
-        method: SocialMediaMethod.FACEBOOK,
+        method: SocialMediaMethod.facebook,
         constructor: () => FacebookSignInService(
           facebookAuth: FacebookAuth.instance,
         ),
       );
 
       _serviceFactory.addService(
-        method: SocialMediaMethod.GOOGLE,
+        method: SocialMediaMethod.google,
         constructor: () => GoogleSignInService(
           googleSignIn: GoogleSignIn(),
         ),

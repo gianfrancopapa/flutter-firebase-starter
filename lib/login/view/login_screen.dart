@@ -60,28 +60,28 @@ class LoginScreen extends StatelessWidget {
     var message = 'Error: ';
     final _appLocalizations = AppLocalizations.of(context);
     switch (error) {
-      case AuthError.INVALID_EMAIL:
+      case AuthError.invalidEmail:
         message += _appLocalizations!.invalidEmail;
         break;
-      case AuthError.USER_DISABLED:
+      case AuthError.userDisabled:
         message += _appLocalizations!.userDisabled;
         break;
-      case AuthError.USER_NOT_FOUND:
+      case AuthError.userNotFound:
         message += _appLocalizations!.userNotFound;
         break;
-      case AuthError.WRONG_PASSWORD:
+      case AuthError.wrongPassword:
         message += _appLocalizations!.wrongPassword;
         break;
-      case AuthError.EMAIL_ALREADY_IN_USE:
+      case AuthError.emailAlreadyInUse:
         message += _appLocalizations!.emailAlreadyInUse;
         break;
-      case AuthError.INVALID_CREDENTIAL:
+      case AuthError.invalidCredential:
         message += _appLocalizations!.invalidCredential;
         break;
-      case AuthError.OPERATION_NOT_ALLOWED:
+      case AuthError.operationNotAllowed:
         message += _appLocalizations!.operationNotAllowed;
         break;
-      case AuthError.WEAK_PASSWORD:
+      case AuthError.weakPassword:
         message += _appLocalizations!.weakPassword;
         break;
       default:

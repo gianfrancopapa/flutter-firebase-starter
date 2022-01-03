@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class EmployeesList extends StatelessWidget {
   const EmployeesList({Key? key, required this.employees})
-      : assert(employees != null);
+      : assert(employees != null),
+        super(key: key);
 
   final List<Employee>? employees;
 

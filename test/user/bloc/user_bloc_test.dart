@@ -59,7 +59,7 @@ void main() {
       'emits [loading, failure] when authService.currentUser throws',
       act: (bloc) => bloc.add(const UserLoaded()),
       build: () {
-        when(authService.currentUser()).thenThrow(AuthError.ERROR);
+        when(authService.currentUser()).thenThrow(AuthError.error);
 
         return UserBloc(authService: authService);
       },

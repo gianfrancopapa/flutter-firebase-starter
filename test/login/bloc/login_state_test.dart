@@ -95,12 +95,12 @@ void main() {
       test('returns object whit updated error when passed', () {
         expect(
           LoginState(status: LoginStatus.failure).copyWith(
-            error: AuthError.ERROR,
+            error: AuthError.error,
           ),
           equals(
             LoginState(
               status: LoginStatus.failure,
-              error: AuthError.ERROR,
+              error: AuthError.error,
             ),
           ),
         );
