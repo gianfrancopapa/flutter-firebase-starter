@@ -4,15 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 
-import 'snack_bar_test.mocks.dart';
-
 @GenerateMocks([BuildContext])
 void main() {
-  late MockBuildContext _mockContext;
-
-  setUp(() {
-    _mockContext = MockBuildContext();
-  });
   group('FSSnackBar', () {
     testWidgets(
       'show FSSnackBar when show constructor is used',
@@ -44,28 +37,6 @@ void main() {
         expect(find.text('snackbar'), findsOneWidget);
       },
     );
-
-    testWidgets('throws AssertionError when context is null', (tester) async {
-      expect(
-        () => FSSnackBar.show(
-          context: null,
-          content: FSSnackBarContent.success(
-            child: Text('snackbar'),
-          ),
-        ),
-        throwsAssertionError,
-      );
-    });
-
-    testWidgets('throws AssertionError when content is null', (tester) async {
-      expect(
-        () => FSSnackBar.show(
-          context: _mockContext,
-          content: null,
-        ),
-        throwsAssertionError,
-      );
-    });
 
     group('FSSnackBarContent', () {
       testWidgets(

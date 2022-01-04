@@ -21,18 +21,15 @@ typedef TableCellWidgetBuilder = Widget Function(
 /// {@endtemplate}
 class FSScrollableTable extends StatefulWidget {
   /// {@macro scrollable_table}
-  FSScrollableTable({
+  const FSScrollableTable({
     Key? key,
     this.controller,
     required this.columnCount,
     required this.rowCount,
     this.headerBuilder,
     required this.cellBuilder,
-  })  : assert(columnCount != null),
-        assert(columnCount! > 0),
-        assert(rowCount != null),
-        assert(rowCount! > 0),
-        assert(cellBuilder != null),
+  })  : assert(columnCount > 0),
+        assert(rowCount > 0),
         super(key: key);
 
   /// An optional [ScrollController] this [FSScrollableTable] will
@@ -47,12 +44,12 @@ class FSScrollableTable extends StatefulWidget {
   /// The amount of columns the table contains.
   ///
   /// Must be more higher than `0` and cannot be `null`.
-  final int? columnCount;
+  final int columnCount;
 
   /// The amount of rows the table contains.
   ///
   /// Must be more higher than `0` and cannot be `null`.
-  final int? rowCount;
+  final int rowCount;
 
   /// An optional builder that can be used to build a sticky header row.
   final TableHeaderWidgetBuilder? headerBuilder;
@@ -60,7 +57,7 @@ class FSScrollableTable extends StatefulWidget {
   /// The builder used for building every cell in the table.
   ///
   /// Can be `null`.
-  final TableCellWidgetBuilder? cellBuilder;
+  final TableCellWidgetBuilder cellBuilder;
 
   @override
   _FSScrollableTableState createState() => _FSScrollableTableState();
@@ -78,7 +75,7 @@ class _FSScrollableTableState extends State<FSScrollableTable> {
             Row(
               children: [
                 for (var columnIndex = 0;
-                    columnIndex < widget.columnCount!;
+                    columnIndex < widget.columnCount;
                     columnIndex++)
                   widget.headerBuilder!(context, columnIndex),
               ],
@@ -88,14 +85,14 @@ class _FSScrollableTableState extends State<FSScrollableTable> {
               child: Column(
                 children: [
                   for (var rowIndex = 0;
-                      rowIndex < widget.rowCount!;
+                      rowIndex < widget.rowCount;
                       rowIndex++)
                     Row(
                       children: [
                         for (var columnIndex = 0;
-                            columnIndex < widget.columnCount!;
+                            columnIndex < widget.columnCount;
                             columnIndex++)
-                          widget.cellBuilder!(context, rowIndex, columnIndex)
+                          widget.cellBuilder(context, rowIndex, columnIndex)
                       ],
                     ),
                   const SizedBox(

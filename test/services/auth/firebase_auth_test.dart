@@ -42,8 +42,8 @@ void main() {
       mockISignInService = MockISignInService();
 
       subject = FirebaseAuthService(
-        authService: mockFirebaseAuth,
-        signInServiceFactory: mockSignInServiceFactory,
+        authService: mockFirebaseAuth!,
+        signInServiceFactory: mockSignInServiceFactory!,
       );
 
       mockModelUser = MockModelUser();
@@ -67,26 +67,6 @@ void main() {
       mockOAuthCredential = MockOAuthCredential();
 
       when(mockFirebaseAuth!.currentUser).thenReturn(mockFirebaseUser);
-    });
-
-    test('throwsAssertionError when authService is null', () {
-      expect(
-        () => FirebaseAuthService(
-          authService: null,
-          signInServiceFactory: mockSignInServiceFactory,
-        ),
-        throwsAssertionError,
-      );
-    });
-
-    test('throwsAssertionError when signInServiceFactory is null', () {
-      expect(
-        () => FirebaseAuthService(
-          authService: mockFirebaseAuth,
-          signInServiceFactory: null,
-        ),
-        throwsAssertionError,
-      );
     });
 
     group('.signInAnonymously', () {
@@ -113,26 +93,6 @@ void main() {
     group('.signInWithEmailAndPassword', () {
       const email = 'email@gmail.com';
       const password = 'Password01';
-
-      test('throwsAssertionError when email is null', () {
-        expect(
-          subject.signInWithEmailAndPassword(
-            email: null,
-            password: password,
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      test('throwsAssertionError when password is null', () {
-        expect(
-          subject.signInWithEmailAndPassword(
-            email: email,
-            password: null,
-          ),
-          throwsAssertionError,
-        );
-      });
 
       test(
         'succeeds when authService.signInWithEmailAndPassword succeeds',
@@ -183,54 +143,6 @@ void main() {
       const lastName = 'lastName';
       const email = 'email@gmail.com';
       const password = 'Password01';
-
-      test('throwsAssertionError when firstName is null', () {
-        expect(
-          () => subject.createUserWithEmailAndPassword(
-            name: null,
-            lastName: lastName,
-            email: email,
-            password: password,
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      test('throwsAssertionError when lastName is null', () {
-        expect(
-          () => subject.createUserWithEmailAndPassword(
-            name: firstName,
-            lastName: null,
-            email: email,
-            password: password,
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      test('throwsAssertionError when email is null', () {
-        expect(
-          () => subject.createUserWithEmailAndPassword(
-            name: firstName,
-            lastName: lastName,
-            email: null,
-            password: password,
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      test('throwsAssertionError when password is null', () {
-        expect(
-          () => subject.createUserWithEmailAndPassword(
-            name: firstName,
-            lastName: lastName,
-            email: email,
-            password: null,
-          ),
-          throwsAssertionError,
-        );
-      });
 
       test(
         'succeeds when authService.createUserWithEmailAndPassword succeeds',
@@ -283,13 +195,6 @@ void main() {
     group('.sendPasswordResetEmail', () {
       const email = 'email@gmail.com';
 
-      test('throwsAssertionError when email is null', () {
-        expect(
-          () => subject.sendPasswordResetEmail(email: null),
-          throwsAssertionError,
-        );
-      });
-
       test('succeeds when authService.sendPasswordResetEmail succeeds', () {
         when(mockFirebaseAuth!.sendPasswordResetEmail(email: email))
             .thenAnswer((_) async => null);
@@ -312,13 +217,6 @@ void main() {
 
     group('.signInWithSocialMedia', () {
       const method = SocialMediaMethod.google;
-
-      test('throwsAssertionError when method is null', () {
-        expect(
-          () => subject.signInWithSocialMedia(method: null),
-          throwsAssertionError,
-        );
-      });
 
       test('succeeds when signInWithCredential succeeds', () {
         when(mockSignInServiceFactory!.getService(method: method))

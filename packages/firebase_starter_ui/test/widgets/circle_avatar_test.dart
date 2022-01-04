@@ -5,21 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('FSCircleAvatar', () {
-    testWidgets(
-        'throws assertion error when '
-        'onBackgroundImageError is not null '
-        'and backgroundImage is null ', (tester) async {
-      expect(
-        () => tester.pumpWidget(
-          FSCircleAvatar(
-            backgroundImage: null,
-            onBackgroundImageError: (_, __) {},
-          ),
-        ),
-        throwsAssertionError,
-      );
-    });
-
     testWidgets('renders circle avatar', (tester) async {
       await tester.pumpWidget(
         MaterialApp(

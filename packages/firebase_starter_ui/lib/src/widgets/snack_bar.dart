@@ -25,16 +25,14 @@ class FSSnackBar extends StatelessWidget {
   /// Static method to show open the bottom sheet from the given [BuildContext]
   /// and build it's layout using the given builder.
   static void show({
-    required BuildContext? context,
-    required FSSnackBarContent? content,
+    required BuildContext context,
+    required FSSnackBarContent content,
   }) {
-    assert(context != null);
-    assert(content != null);
-    ScaffoldMessenger.of(context!)
+    ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
         SnackBar(
-          content: content!,
+          content: content,
         ),
       );
   }

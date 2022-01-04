@@ -6,9 +6,9 @@ class EmployeesState extends Equatable {
   const EmployeesState({
     required this.status,
     this.employees,
-  }) : assert(status != null);
+  });
 
-  final EmployeesStatus? status;
+  final EmployeesStatus status;
   final List<Employee>? employees;
 
   EmployeesState copyWith(

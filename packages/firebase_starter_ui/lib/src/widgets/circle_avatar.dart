@@ -33,8 +33,7 @@ class FSCircleAvatar extends CircleAvatar {
     ImageProvider? backgroundImage,
     ImageErrorListener? onBackgroundImageError,
     double? radius,
-  })  : assert(backgroundImage != null || onBackgroundImageError == null),
-        super(
+  }) : super(
           key: key,
           child: child,
           backgroundColor: backgroundColor,

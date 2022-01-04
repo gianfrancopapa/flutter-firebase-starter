@@ -5,18 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('FSTextButton', () {
-    testWidgets('throws AssertionError when child is null', (tester) async {
-      expect(
-        () => tester.pumpWidget(
-          FSTextButton(
-            onPressed: () {},
-            child: null,
-          ),
-        ),
-        throwsAssertionError,
-      );
-    });
-
     testWidgets('renders child widget', (tester) async {
       const key = Key('__test_target__');
       await tester.pumpWidget(
@@ -32,32 +20,6 @@ void main() {
     });
 
     group('.icon', () {
-      testWidgets('throws AssertionError when icon is null', (tester) async {
-        expect(
-          () => tester.pumpWidget(
-            FSTextButton.icon(
-              onPressed: () {},
-              icon: null,
-              label: const Text('firebase_starter'),
-            ),
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      testWidgets('throws AssertionError when label is null', (tester) async {
-        expect(
-          () => tester.pumpWidget(
-            FSTextButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.sports_football),
-              label: null,
-            ),
-          ),
-          throwsAssertionError,
-        );
-      });
-
       testWidgets('renders child widget', (tester) async {
         const key = Key('__test_target__');
         await tester.pumpWidget(
@@ -76,18 +38,6 @@ void main() {
   });
 
   group('FSOutlinedButton', () {
-    testWidgets('throws AssertionError when child is null', (tester) async {
-      expect(
-        () => tester.pumpWidget(
-          FSOutlinedButton(
-            onPressed: () {},
-            child: null,
-          ),
-        ),
-        throwsAssertionError,
-      );
-    });
-
     testWidgets('renders child widget', (tester) async {
       const key = Key('__test_target__');
       await tester.pumpWidget(
@@ -103,32 +53,6 @@ void main() {
     });
 
     group('.icon', () {
-      testWidgets('throws AssertionError when icon is null', (tester) async {
-        expect(
-          () => tester.pumpWidget(
-            FSOutlinedButton.icon(
-              onPressed: () {},
-              icon: null,
-              label: const Text('firebase_starter'),
-            ),
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      testWidgets('throws AssertionError when label is null', (tester) async {
-        expect(
-          () => tester.pumpWidget(
-            FSOutlinedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.sports_football),
-              label: null,
-            ),
-          ),
-          throwsAssertionError,
-        );
-      });
-
       testWidgets('renders child widget', (tester) async {
         const key = Key('__test_target__');
         await tester.pumpWidget(
@@ -147,18 +71,6 @@ void main() {
   });
 
   group('FSElevatedButton', () {
-    testWidgets('throws AssertionError when child is null', (tester) async {
-      expect(
-        () => tester.pumpWidget(
-          FSElevatedButton(
-            onPressed: () {},
-            child: null,
-          ),
-        ),
-        throwsAssertionError,
-      );
-    });
-
     testWidgets('renders child widget', (tester) async {
       const key = Key('__test_target__');
       await tester.pumpWidget(
@@ -174,32 +86,6 @@ void main() {
     });
 
     group('.icon', () {
-      testWidgets('throws AssertionError when icon is null', (tester) async {
-        expect(
-          () => tester.pumpWidget(
-            FSElevatedButton.icon(
-              onPressed: () {},
-              icon: null,
-              label: const Text('firebase_starter'),
-            ),
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      testWidgets('throws AssertionError when label is null', (tester) async {
-        expect(
-          () => tester.pumpWidget(
-            FSElevatedButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.sports_football),
-              label: null,
-            ),
-          ),
-          throwsAssertionError,
-        );
-      });
-
       testWidgets('renders child widget', (tester) async {
         const key = Key('__test_target__');
         await tester.pumpWidget(
@@ -218,18 +104,6 @@ void main() {
   });
 
   group('FSIconButton', () {
-    testWidgets('throws AssertionError when icon is null', (tester) async {
-      expect(
-        () => tester.pumpWidget(
-          FSIconButton(
-            onPressed: () {},
-            icon: null,
-          ),
-        ),
-        throwsAssertionError,
-      );
-    });
-
     testWidgets('renders child widget', (tester) async {
       const key = Key('__test_target__');
       await tester.pumpWidget(

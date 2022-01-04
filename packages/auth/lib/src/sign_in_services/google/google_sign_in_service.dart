@@ -1,9 +1,8 @@
 part of auth;
 
 class GoogleSignInService implements ISignInService {
-  GoogleSignInService({required GoogleSignIn? googleSignIn})
-      : assert(googleSignIn != null),
-        _googleSignIn = googleSignIn!;
+  GoogleSignInService({required GoogleSignIn googleSignIn})
+      : _googleSignIn = googleSignIn;
 
   final GoogleSignIn _googleSignIn;
 
@@ -23,7 +22,8 @@ class GoogleSignInService implements ISignInService {
     return null;
   }
 
-  auth.OAuthCredential _getUserCredentials(String? accessToken, String? idToken) {
+  auth.OAuthCredential _getUserCredentials(
+      String? accessToken, String? idToken) {
     if (accessToken != null || idToken != null) {
       final credential = auth.GoogleAuthProvider.credential(
         idToken: idToken,

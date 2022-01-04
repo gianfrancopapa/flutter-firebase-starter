@@ -2,9 +2,8 @@ part of auth;
 
 class FacebookSignInService implements ISignInService {
   FacebookSignInService({
-    required FacebookAuth? facebookAuth,
-  })  : assert(facebookAuth != null),
-        _facebookAuth = facebookAuth!;
+    required FacebookAuth facebookAuth,
+  }) : _facebookAuth = facebookAuth;
 
   final FacebookAuth _facebookAuth;
 

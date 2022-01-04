@@ -12,10 +12,6 @@ void main() {
     });
 
     group('AppUserChanged', () {
-      test('throwsAssertionError when user is null', () {
-        expect(() => AppUserChanged(user: null), throwsAssertionError);
-      });
-
       test('supports value comparison', () {
         expect(
           AppUserChanged(user: User.empty),

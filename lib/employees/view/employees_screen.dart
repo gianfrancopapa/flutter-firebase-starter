@@ -7,10 +7,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmployeesScreen extends StatelessWidget {
   const EmployeesScreen({Key? key, required this.bottomNavigationBar})
-      : assert(bottomNavigationBar != null),
-        super(key: key);
+      : super(key: key);
 
-  final Widget? bottomNavigationBar;
+  final Widget bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {

@@ -13,13 +13,6 @@ void main() {
     group('EditProfileFirstNameChanged', () {
       const firstName = 'firstName';
 
-      test('throwsAssertionError when firstName is null', () {
-        expect(
-          () => EditProfileFirstNameChanged(firstName: null),
-          throwsAssertionError,
-        );
-      });
-
       test('supports value comparison', () {
         expect(
           EditProfileFirstNameChanged(firstName: firstName),
@@ -33,13 +26,6 @@ void main() {
     group('EditProfileLastNameChanged', () {
       const lastName = 'lastName';
 
-      test('throwsAssertionError when lastName is null', () {
-        expect(
-          () => EditProfileLastNameChanged(lastName: null),
-          throwsAssertionError,
-        );
-      });
-
       test('supports value comparison', () {
         expect(
           EditProfileLastNameChanged(lastName: lastName),
@@ -51,13 +37,6 @@ void main() {
     });
 
     group('EditProfilePhotoUpdated', () {
-      test('throwsAssertionError when lastName is null', () {
-        expect(
-          () => EditProfilePhotoUpdated(method: null),
-          throwsAssertionError,
-        );
-      });
-
       test('supports value comparison', () {
         expect(
           EditProfilePhotoUpdated(method: PhotoUploadMethod.camera),

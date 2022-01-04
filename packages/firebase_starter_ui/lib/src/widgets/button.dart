@@ -17,17 +17,16 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class FSTextButton extends TextButton {
   /// {@macro FSTextButton}
-  FSTextButton({
+  const FSTextButton({
     Key? key,
     ButtonStyle? style,
     required VoidCallback? onPressed,
-    required Widget? child,
-  })  : assert(child != null),
-        super(
+    required Widget child,
+  }) : super(
           key: key,
           style: style,
           onPressed: onPressed,
-          child: child!,
+          child: child,
         );
 
   /// Create a text button from a pair of widgets that serve as the button's
@@ -43,12 +42,10 @@ class FSTextButton extends TextButton {
     Key? key,
     ButtonStyle? style,
     required VoidCallback onPressed,
-    required Widget? icon,
-    required Widget? label,
+    required Widget icon,
+    required Widget label,
     Axis? direction,
-  })  : assert(icon != null),
-        assert(label != null),
-        super(
+  }) : super(
           key: key,
           style: style,
           onPressed: onPressed,
@@ -74,15 +71,14 @@ class FSTextButton extends TextButton {
 /// {@endtemplate}
 class FSIconButton extends IconButton {
   /// {@macro FSIconButton}
-  FSIconButton({
+  const FSIconButton({
     Key? key,
-    required Widget? icon,
-    required VoidCallback? onPressed,
-  })  : assert(icon != null),
-        super(
+    required Widget icon,
+    required VoidCallback onPressed,
+  }) : super(
           key: key,
           onPressed: onPressed,
-          icon: icon!,
+          icon: icon,
         );
 }
 
@@ -102,17 +98,16 @@ class FSIconButton extends IconButton {
 /// {@endtemplate}
 class FSOutlinedButton extends OutlinedButton {
   /// {@macro FSOutlinedButton}
-  FSOutlinedButton({
+  const FSOutlinedButton({
     Key? key,
     ButtonStyle? style,
     required VoidCallback onPressed,
-    required Widget? child,
-  })  : assert(child != null),
-        super(
+    required Widget child,
+  }) : super(
           key: key,
           style: style,
           onPressed: onPressed,
-          child: child!,
+          child: child,
         );
 
   /// Create an outlined button from a pair of widgets that serve as the
@@ -128,12 +123,10 @@ class FSOutlinedButton extends OutlinedButton {
     Key? key,
     ButtonStyle? style,
     required VoidCallback onPressed,
-    required Widget? icon,
-    required Widget? label,
+    required Widget icon,
+    required Widget label,
     Axis? direction,
-  })  : assert(icon != null),
-        assert(label != null),
-        super(
+  }) : super(
           key: key,
           style: style,
           onPressed: onPressed,
@@ -167,10 +160,9 @@ class FSElevatedButton extends ElevatedButton {
   const FSElevatedButton({
     Key? key,
     ButtonStyle? style,
-    required VoidCallback? onPressed,
-    required Widget? child,
-  })  : assert(child != null),
-        super(
+    required VoidCallback onPressed,
+    required Widget child,
+  }) : super(
           key: key,
           style: style,
           onPressed: onPressed,
@@ -190,12 +182,10 @@ class FSElevatedButton extends ElevatedButton {
     Key? key,
     ButtonStyle? style,
     required VoidCallback onPressed,
-    required Widget? icon,
-    required Widget? label,
+    required Widget icon,
+    required Widget label,
     Axis? direction,
-  })  : assert(icon != null),
-        assert(label != null),
-        super(
+  }) : super(
           key: key,
           style: style,
           onPressed: onPressed,

@@ -32,26 +32,6 @@ void main() {
           .thenAnswer((_) => Stream.empty());
     });
 
-    test('throwsAssertionError when authService is null', () {
-      expect(
-        () => AppBloc(
-          authService: null,
-          localPersistanceService: mockLocalPersistanceService,
-        ),
-        throwsAssertionError,
-      );
-    });
-
-    test('throwsAssertionError when localPersistanceService is null', () {
-      expect(
-        () => AppBloc(
-          authService: mockAuthService,
-          localPersistanceService: null,
-        ),
-        throwsAssertionError,
-      );
-    });
-
     test('has valid initial state', () {
       expect(
         AppBloc(

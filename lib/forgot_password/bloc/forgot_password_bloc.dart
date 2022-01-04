@@ -9,9 +9,8 @@ part 'forgot_password_state.dart';
 class ForgotPasswordBloc
     extends Bloc<ForgotPasswordEvent, ForgotPasswordState> {
   ForgotPasswordBloc({
-    required AuthService? authService,
-  })  : assert(authService != null),
-        _authService = authService!,
+    required AuthService authService,
+  })  : _authService = authService,
         super(ForgotPasswordState.initial()) {
     on<ForgotPasswordResetRequested>(_mapForgotPasswordResetRequestedToState);
     on<ForgotPasswordEmailChanged>(_mapForgotPasswordEmailChangedToState);
@@ -43,7 +42,7 @@ class ForgotPasswordBloc
     ForgotPasswordEmailChanged event,
     Emitter<ForgotPasswordState> emit,
   ) async {
-    final email = Email.dirty(event.email!);
+    final email = Email.dirty(event.email);
 
     emit(state.copyWith(
       email: email,

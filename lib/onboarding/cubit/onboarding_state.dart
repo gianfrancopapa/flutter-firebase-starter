@@ -3,12 +3,12 @@ part of 'onboarding_cubit.dart';
 enum OnboardingStatus { initial, initiated, completed }
 
 class OnboardingState extends Equatable {
-  final OnboardingStatus? status;
+  final OnboardingStatus status;
 
-  const OnboardingState({required this.status}) : assert(status != null);
+  const OnboardingState({required this.status});
 
   @override
-  List<Object> get props => [status!];
+  List<Object> get props => [status];
 
   OnboardingState copyWith({
     OnboardingStatus? status,

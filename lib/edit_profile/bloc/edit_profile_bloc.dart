@@ -13,15 +13,12 @@ part 'edit_profile_state.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   EditProfileBloc({
-    required AuthService? authService,
-    required StorageService? storageService,
-    required ImageService? imageService,
-  })  : assert(authService != null),
-        assert(storageService != null),
-        assert(imageService != null),
-        _authService = authService!,
-        _storageService = storageService!,
-        _imageService = imageService!,
+    required AuthService authService,
+    required StorageService storageService,
+    required ImageService imageService,
+  })  : _authService = authService,
+        _storageService = storageService,
+        _imageService = imageService,
         super(
           EditProfileState(
             status: EditProfileStatus.initial,
@@ -154,24 +151,22 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
   //TODO: This should not be here
   Future<User> _updateProfile({
-    required User? user,
+    required User user,
     String? imageUrl = '',
     String firstName = '',
     String? lastName = '',
   }) async {
-    assert(user != null);
-
     try {
       final needToUpdateImage =
-          imageUrl != null && imageUrl.isNotEmpty && imageUrl != user?.imageUrl;
+          imageUrl != null && imageUrl.isNotEmpty && imageUrl != user.imageUrl;
 
       final needToUpdateDisplayName =
           (firstName.isNotEmpty || lastName!.isNotEmpty) &&
-              (firstName != user?.firstName || lastName != user?.firstName);
+              (firstName != user.firstName || lastName != user.firstName);
 
       if (needToUpdateImage) {
         final extension = imageUrl!.split('.').last;
-        final path = '/users/${user?.id}.$extension';
+        final path = '/users/${user.id}.$extension';
         final file = File(imageUrl);
 
         await _storageService.uploadFile(file, path);
@@ -179,13 +174,13 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
 
         await _authService.changeProfile(
           photoURL: photoURL,
-          firstName: firstName.isEmpty ? user?.firstName : firstName,
-          lastName: lastName!.isEmpty ? user?.lastName : lastName,
+          firstName: firstName.isEmpty ? user.firstName : firstName,
+          lastName: lastName!.isEmpty ? user.lastName : lastName,
         );
       } else if (needToUpdateDisplayName) {
         await _authService.changeProfile(
-          firstName: firstName.isEmpty ? user?.firstName : firstName,
-          lastName: lastName!.isEmpty ? user?.lastName : lastName,
+          firstName: firstName.isEmpty ? user.firstName : firstName,
+          lastName: lastName!.isEmpty ? user.lastName : lastName,
         );
       }
 
@@ -193,7 +188,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         return _toUser(await _authService.currentUser());
       }
 
-      return user!;
+      return user;
     } on Exception {
       throw Exception('Error: Something went wrong.');
     }

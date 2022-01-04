@@ -5,10 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('AppState', () {
-    test('throwsAssertionError when status is null', () {
-      expect(() => AppState(status: null), throwsAssertionError);
-    });
-
     test('supports value comparison', () {
       expect(
         AppState(status: AppStatus.authenticated),

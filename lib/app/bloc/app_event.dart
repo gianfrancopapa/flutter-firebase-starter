@@ -12,12 +12,12 @@ class AppIsFirstTimeLaunched extends AppEvent {
 }
 
 class AppUserChanged extends AppEvent {
-  const AppUserChanged({required this.user}) : assert(user != null);
+  const AppUserChanged({required this.user});
 
-  final User? user;
+  final User user;
 
   @override
-  List<Object> get props => [user!];
+  List<Object> get props => [user];
 }
 
 class AppLogoutRequsted extends AppEvent {

@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserInfoSection extends StatelessWidget {
-  const UserInfoSection({Key? key, required this.user})
-      : assert(user != null),
-        super(key: key);
+  const UserInfoSection({Key? key, required this.user}) : super(key: key);
 
-  final User? user;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +20,21 @@ class UserInfoSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: 30.0),
-          UserProfileImage(image: user?.imageUrl),
+          UserProfileImage(image: user.imageUrl),
           const SizedBox(height: 43.0),
           _UserInfoItem(
             title: localizations.firstName,
-            data: user?.firstName,
+            data: user.firstName,
           ),
           const SizedBox(height: 10.0),
           _UserInfoItem(
             title: localizations.lastName,
-            data: user?.lastName,
+            data: user.lastName,
           ),
           const SizedBox(height: 10.0),
           _UserInfoItem(
             title: localizations.email,
-            data: user?.email,
+            data: user.email,
           ),
         ],
       ),

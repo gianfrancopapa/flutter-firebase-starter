@@ -10,7 +10,7 @@ enum EditProfileStatus {
 }
 
 class EditProfileState extends Equatable {
-  final EditProfileStatus? status;
+  final EditProfileStatus status;
   final User? user;
   final FirstName? firstName;
   final LastName? lastName;
@@ -22,7 +22,7 @@ class EditProfileState extends Equatable {
     this.firstName,
     this.lastName,
     this.imageURL,
-  }) : assert(status != null);
+  });
 
   EditProfileState copyWith({
     EditProfileStatus? status,

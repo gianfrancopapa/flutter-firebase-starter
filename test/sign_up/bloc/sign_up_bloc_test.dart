@@ -31,10 +31,6 @@ void main() {
         mockUser = MockUserEntity();
       });
 
-      test('throwsAssertionError when authService is null', () {
-        expect(() => SignUpBloc(authService: null), throwsAssertionError);
-      });
-
       test('has valid initial state', () {
         expect(
           SignUpBloc(authService: mockAuthService).state,

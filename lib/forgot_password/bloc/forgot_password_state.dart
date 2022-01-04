@@ -3,13 +3,13 @@ part of 'forgot_password_bloc.dart';
 enum ForgotPasswordStatus { initial, loading, success, failure, valid, invalid }
 
 class ForgotPasswordState extends Equatable {
-  final ForgotPasswordStatus? status;
+  final ForgotPasswordStatus status;
   final Email? email;
 
   const ForgotPasswordState({
     required this.status,
     this.email,
-  }) : assert(status != null);
+  });
 
   ForgotPasswordState.initial()
       : this(

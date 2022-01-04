@@ -3,15 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 
-import 'bottom_sheet_test.mocks.dart';
-
 @GenerateMocks([BuildContext])
 void main() {
-  late MockBuildContext _mockContext;
-
-  setUp(() {
-    _mockContext = MockBuildContext();
-  });
   group('FSBottomSheet', () {
     testWidgets(
       'open bottomsheet when show constructor is used is used',
@@ -41,25 +34,5 @@ void main() {
         expect(find.text('bottomsheet'), findsOneWidget);
       },
     );
-
-    testWidgets('throws AssertionError when context is null', (tester) async {
-      expect(
-        () => FSBottomSheet.show(
-          context: null,
-          builder: (context) => const Text('bottomsheet'),
-        ),
-        throwsAssertionError,
-      );
-    });
-
-    testWidgets('throws AssertionError when builder is null', (tester) async {
-      expect(
-        () => FSBottomSheet.show(
-          context: _mockContext,
-          builder: null,
-        ),
-        throwsAssertionError,
-      );
-    });
   });
 }

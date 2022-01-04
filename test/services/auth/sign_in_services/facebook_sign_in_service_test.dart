@@ -33,13 +33,6 @@ void main() {
       when(mockAccessToken!.token).thenReturn('token');
     });
 
-    test('throwsAssertionError when facebookAuth is null', () {
-      expect(
-        () => FacebookSignInService(facebookAuth: null),
-        throwsAssertionError,
-      );
-    });
-
     group('.getFirebaseCredential', () {
       test('completes when LoginStatus.success', () {
         when(mockLoginResult!.status).thenReturn(LoginStatus.success);

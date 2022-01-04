@@ -8,9 +8,8 @@ part 'user_event.dart';
 part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc({required AuthService? authService})
-      : assert(authService != null),
-        _authService = authService!,
+  UserBloc({required AuthService authService})
+      : _authService = authService,
         super(const UserState(status: UserStatus.initial)) {
     on<UserLoaded>(_mapUserLoadedToState);
   }

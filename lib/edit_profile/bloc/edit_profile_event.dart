@@ -14,33 +14,30 @@ class EditProfileInfoUpdated extends EditProfileEvent {
 }
 
 class EditProfileFirstNameChanged extends EditProfileEvent {
-  const EditProfileFirstNameChanged({required this.firstName})
-      : assert(firstName != null);
+  const EditProfileFirstNameChanged({required this.firstName});
 
-  final String? firstName;
+  final String firstName;
 
   @override
-  List<Object> get props => [firstName!];
+  List<Object> get props => [firstName];
 }
 
 class EditProfileLastNameChanged extends EditProfileEvent {
-  const EditProfileLastNameChanged({required this.lastName})
-      : assert(lastName != null);
+  const EditProfileLastNameChanged({required this.lastName});
 
-  final String? lastName;
+  final String lastName;
 
   @override
-  List<Object> get props => [lastName!];
+  List<Object> get props => [lastName];
 }
 
 class EditProfilePhotoUpdated extends EditProfileEvent {
-  const EditProfilePhotoUpdated({required this.method})
-      : assert(method != null);
+  const EditProfilePhotoUpdated({required this.method});
 
-  final PhotoUploadMethod? method;
+  final PhotoUploadMethod method;
 
   @override
-  List<Object> get props => [method!];
+  List<Object> get props => [method];
 }
 
 class EditProfileUserRequested extends EditProfileEvent {

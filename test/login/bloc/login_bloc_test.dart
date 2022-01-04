@@ -59,7 +59,7 @@ void main() {
         act: (bloc) => bloc.add(const LoginWithEmailAndPasswordRequested()),
         build: () {
           when(mockAuthService.signInWithEmailAndPassword(
-                  email: email.value, password: password.value))
+                  email: email.value!, password: password.value!))
               .thenAnswer((_) async => const UserEntity());
           return LoginBloc(
             authService: mockAuthService,
@@ -69,8 +69,8 @@ void main() {
         verify: (_) {
           verify(
             mockAuthService.signInWithEmailAndPassword(
-              email: email.value,
-              password: password.value,
+              email: email.value!,
+              password: password.value!,
             ),
           ).called(1);
         },
@@ -88,8 +88,8 @@ void main() {
         build: () {
           when(
             mockAuthService.signInWithEmailAndPassword(
-              email: email.value,
-              password: password.value,
+              email: email.value!,
+              password: password.value!,
             ),
           ).thenAnswer((_) async => mockUser);
 
@@ -125,8 +125,8 @@ void main() {
         build: () {
           when(
             mockAuthService.signInWithEmailAndPassword(
-              email: email.value,
-              password: password.value,
+              email: email.value!,
+              password: password.value!,
             ),
           ).thenThrow(AuthError.error);
 

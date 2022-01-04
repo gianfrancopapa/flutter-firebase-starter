@@ -6,10 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('EditProfileState', () {
-    test('throwsAssertionError when status is null', () {
-      expect(() => EditProfileState(status: null), throwsAssertionError);
-    });
-
     test('supports value comparison', () {
       expect(
         EditProfileState(status: EditProfileStatus.initial),

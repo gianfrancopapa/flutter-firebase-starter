@@ -17,26 +17,6 @@ void main() {
       );
     });
 
-    test('throws assertionError when contentPadding is null', () {
-      expect(
-        () => FSDialog(
-          contentPadding: null,
-          insetPadding: EdgeInsets.zero,
-        ),
-        throwsAssertionError,
-      );
-    });
-
-    test('throws assertionError when insetPadding is null', () {
-      expect(
-        () => FSDialog(
-          contentPadding: EdgeInsets.zero,
-          insetPadding: null,
-        ),
-        throwsAssertionError,
-      );
-    });
-
     testWidgets(
       'renders title',
       (tester) async {

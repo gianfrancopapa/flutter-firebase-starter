@@ -5,9 +5,8 @@ import 'package:firebasestarter/services/app_info/app_info.dart';
 part 'app_version_state.dart';
 
 class AppVersionCubit extends Cubit<AppVersionState> {
-  AppVersionCubit({required AppInfo? appInfo})
-      : assert(appInfo != null),
-        _appInfo = appInfo!,
+  AppVersionCubit({required AppInfo appInfo})
+      : _appInfo = appInfo,
         super(const AppVersionState());
 
   final AppInfo _appInfo;

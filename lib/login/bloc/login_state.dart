@@ -11,7 +11,7 @@ enum LoginStatus {
 }
 
 class LoginState extends Equatable {
-  final LoginStatus? status;
+  final LoginStatus status;
   final AuthError? error;
   final User? user;
   final Email? email;
@@ -23,7 +23,7 @@ class LoginState extends Equatable {
     this.user,
     this.email,
     this.password,
-  }) : assert(status != null);
+  });
 
   LoginState.initial()
       : this(
