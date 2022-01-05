@@ -84,9 +84,7 @@ class _FSScrollableTableState extends State<FSScrollableTable> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  for (var rowIndex = 0;
-                      rowIndex < widget.rowCount;
-                      rowIndex++)
+                  for (var rowIndex = 0; rowIndex < widget.rowCount; rowIndex++)
                     Row(
                       children: [
                         for (var columnIndex = 0;

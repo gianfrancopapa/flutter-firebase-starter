@@ -135,7 +135,8 @@ class LoginAnonymouslyButton extends StatelessWidget {
             padding: EdgeInsets.only(left: 15.0),
           ),
           Image(
-            image: AssetImage(Assets.packages.firebaseStarterUi.assets.images.anonLogin.path),
+            image: AssetImage(
+                Assets.packages.firebaseStarterUi.assets.images.anonLogin.path),
             height: 30.0,
             width: 30.0,
           ),
