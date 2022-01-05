@@ -19,7 +19,6 @@ void main() {
         throwsAssertionError,
       );
     });
-
     testWidgets('renders circle avatar', (tester) async {
       await tester.pumpWidget(
         MaterialApp(

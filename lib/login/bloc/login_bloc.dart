@@ -10,12 +10,10 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
-    required AuthService? authService,
-    required AnalyticsService? analyticsService,
-  })  : assert(authService != null),
-        assert(analyticsService != null),
-        _authService = authService!,
-        _analyticsService = analyticsService!,
+    required AuthService authService,
+    required AnalyticsService analyticsService,
+  })  : _authService = authService,
+        _analyticsService = analyticsService,
         super(LoginState.initial()) {
     on<LoginWithEmailAndPasswordRequested>(
         _mapLoginWithEmailAndPasswordRequestedToState);
@@ -105,7 +103,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginEmailChanged event,
     Emitter<LoginState> emit,
   ) async {
-    final email = Email.dirty(event.email!);
+    final email = Email.dirty(event.email);
 
     emit(state.copyWith(
       email: email,
@@ -117,7 +115,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginPasswordChanged event,
     Emitter<LoginState> emit,
   ) async {
-    final password = Password.dirty(event.password!);
+    final password = Password.dirty(event.password);
 
     emit(state.copyWith(
       password: password,

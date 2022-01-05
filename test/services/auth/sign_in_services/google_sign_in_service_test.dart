@@ -15,9 +15,9 @@ mixin LegacyEquality {
   @override
   int get hashCode => throw UnimplementedError();
 }
-@GenerateMocks([ GoogleSignInAccount, GoogleSignInAuthentication],customMocks: [
-  MockSpec<GoogleSignIn>(as: #MockGoogleSignIn, returnNullOnMissingStub: true)
-])
+@GenerateMocks(
+  [GoogleSignInAccount, GoogleSignInAuthentication, GoogleSignIn],
+)
 void main() {
   group('GoogleSignInService', () {
     GoogleSignIn? mockGoogleSignIn;
@@ -31,7 +31,7 @@ void main() {
       mockGoogleSignInAccount = MockGoogleSignInAccount();
       mockGoogleSignInAuthentication = MockGoogleSignInAuthentication();
 
-      subject = GoogleSignInService(googleSignIn: mockGoogleSignIn);
+      subject = GoogleSignInService(googleSignIn: mockGoogleSignIn!);
 
       when(mockGoogleSignIn!.signIn())
           .thenAnswer((_) async => mockGoogleSignInAccount);
@@ -42,13 +42,8 @@ void main() {
       when(mockGoogleSignInAuthentication.idToken).thenReturn('idToken');
       when(mockGoogleSignInAuthentication.accessToken)
           .thenReturn('accessToken');
-    });
-
-    test('throwsAssertionError when googleSignIn is null', () {
-      expect(
-        () => GoogleSignInService(googleSignIn: null),
-        throwsAssertionError,
-      );
+      when(mockGoogleSignIn!.signOut())
+          .thenAnswer((_) async => mockGoogleSignInAccount);
     });
 
     group('.getFirebaseCredential', () {
@@ -82,7 +77,6 @@ void main() {
     group('.signOut', () {
       test('calls ', () async {
         await subject.signOut();
-
         verify(mockGoogleSignIn!.signOut()).called(1);
       });
 

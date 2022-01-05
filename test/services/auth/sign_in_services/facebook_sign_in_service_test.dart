@@ -7,12 +7,9 @@ import 'package:mockito/mockito.dart';
 
 import 'facebook_sign_in_service_test.mocks.dart';
 
-@GenerateMocks([
-  FacebookAuth,
-  AccessToken
-], customMocks: [
-  MockSpec<LoginResult>(as: #MockLoginResult, returnNullOnMissingStub: true)
-])
+@GenerateMocks(
+  [FacebookAuth, AccessToken, LoginResult],
+)
 void main() {
   group('FacebookSignInService', () {
     FacebookAuth? mockFacebookAuth;
@@ -31,13 +28,6 @@ void main() {
       when(mockLoginResult!.accessToken).thenReturn(mockAccessToken!);
 
       when(mockAccessToken!.token).thenReturn('token');
-    });
-
-    test('throwsAssertionError when facebookAuth is null', () {
-      expect(
-        () => FacebookSignInService(facebookAuth: null),
-        throwsAssertionError,
-      );
     });
 
     group('.getFirebaseCredential', () {
@@ -65,12 +55,10 @@ void main() {
 
       test('throws when LoginStatus.failed', () {
         when(mockLoginResult!.status).thenReturn(LoginStatus.failed);
-
         when(
           mockFacebookAuth!
               .login(loginBehavior: LoginBehavior.nativeWithFallback),
-        ).thenAnswer(((_) async => mockLoginResult!));
-
+        ).thenThrow(FirebaseAuthException(code: ''));
         expect(
           subject!.getFirebaseCredential(),
           throwsA(isA<FirebaseAuthException>()),

@@ -12,7 +12,8 @@ class PickImageService implements ImageService {
   Future<XFile?> imgFromGallery() async => _getImage(ImageSource.gallery);
 
   Future<XFile?> _getImage(source) async {
-    final image = await _imagePicker.pickImage(source: source, imageQuality: 50);
+    final image =
+        await _imagePicker.pickImage(source: source, imageQuality: 50);
     return image;
   }
 }

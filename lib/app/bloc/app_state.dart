@@ -12,7 +12,7 @@ class AppState extends Equatable {
   const AppState({
     required this.status,
     this.user,
-  }) : assert(status != null);
+  });
 
   final AppStatus? status;
   final User? user;

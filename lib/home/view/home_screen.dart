@@ -25,12 +25,12 @@ class HomeScreen extends StatelessWidget {
     return pageIndex == 0
         ? EmployeesScreen(
             bottomNavigationBar: _BottomNavigationBar(
-              index: pageIndex!,
+              index: pageIndex,
             ),
           )
         : UserProfileScreen(
             bottomNavigationBar: _BottomNavigationBar(
-              index: pageIndex!,
+              index: pageIndex,
             ),
           );
   }
@@ -40,13 +40,12 @@ class _BottomNavigationBar extends StatelessWidget {
   const _BottomNavigationBar({
     Key? key,
     required this.index,
-  })  : assert(index != null),
-        super(key: key);
+  }) : super(key: key);
 
   static const _index1 = 0;
   static const _index2 = 1;
 
-  final int? index;
+  final int index;
 
   @override
   Widget build(BuildContext context) {

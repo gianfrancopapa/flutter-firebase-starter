@@ -61,14 +61,16 @@ class FSSectionedListView<T> extends StatelessWidget {
         ? ListView.separated(
             padding: padding,
             controller: controller,
-            itemBuilder: titleAndItemBuilder as Widget Function(BuildContext, int),
+            itemBuilder:
+                titleAndItemBuilder as Widget Function(BuildContext, int),
             separatorBuilder: (context, i) => const Divider(),
             itemCount: flattened.length,
           )
         : ListView.builder(
             padding: padding,
             controller: controller,
-            itemBuilder: titleAndItemBuilder as Widget Function(BuildContext, int),
+            itemBuilder:
+                titleAndItemBuilder as Widget Function(BuildContext, int),
             itemCount: flattened.length,
           );
   }

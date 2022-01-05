@@ -23,13 +23,11 @@ class FSBottomSheet extends StatelessWidget {
   /// Static method to show open the bottom sheet from the given [BuildContext]
   /// and build it's layout using the given builder.
   static Future<void> show({
-    required BuildContext? context,
-    required Function(BuildContext)? builder,
+    required BuildContext context,
+    required Function(BuildContext) builder,
   }) {
-    assert(context != null);
-    assert(builder != null);
     return showModalBottomSheet(
-      context: context!,
+      context: context,
       builder: builder as Widget Function(BuildContext),
     );
   }

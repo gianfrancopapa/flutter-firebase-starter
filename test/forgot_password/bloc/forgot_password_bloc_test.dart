@@ -24,13 +24,6 @@ void main() {
         mockAuthService = MockAuthService();
       });
 
-      test('throwsAssertionError when authService is null', () {
-        expect(
-          () => ForgotPasswordBloc(authService: null),
-          throwsAssertionError,
-        );
-      });
-
       test('has valid initial state', () {
         expect(
           ForgotPasswordBloc(authService: mockAuthService).state,

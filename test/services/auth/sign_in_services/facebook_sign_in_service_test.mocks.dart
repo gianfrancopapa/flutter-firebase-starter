@@ -62,17 +62,19 @@ class MockFacebookAuth extends _i1.Mock implements _i3.FacebookAuth {
                   Future<Map<String, dynamic>>.value(<String, dynamic>{}))
           as _i4.Future<Map<String, dynamic>>);
   @override
-  _i4.Future<void>? logOut() => (super.noSuchMethod(
-      Invocation.method(#logOut, []),
-      returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>?);
+  _i4.Future<void> logOut() =>
+      (super.noSuchMethod(Invocation.method(#logOut, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  _i4.Future<_i2.LoginResult?>? login(
+  _i4.Future<_i2.LoginResult> login(
           {List<String>? permissions = const [r'email', r'public_profile'],
           _i2.LoginBehavior? loginBehavior = _i2.LoginBehavior.dialogOnly}) =>
-      (super.noSuchMethod(Invocation.method(#login, [], {
-        #permissions: permissions,
-        #loginBehavior: loginBehavior
-      })) as _i4.Future<_i2.LoginResult?>?);
+      (super.noSuchMethod(
+              Invocation.method(#login, [],
+                  {#permissions: permissions, #loginBehavior: loginBehavior}),
+              returnValue: Future<_i2.LoginResult>.value(_FakeLoginResult_0()))
+          as _i4.Future<_i2.LoginResult>);
   @override
   void webInitialize(
           {String? appId, bool? cookie, bool? xfbml, String? version}) =>
@@ -111,6 +113,10 @@ class MockAccessToken extends _i1.Mock implements _i2.AccessToken {
       (super.noSuchMethod(Invocation.getter(#userId), returnValue: '')
           as String);
   @override
+  String get token =>
+      (super.noSuchMethod(Invocation.getter(#token), returnValue: '')
+          as String);
+  @override
   String get applicationId =>
       (super.noSuchMethod(Invocation.getter(#applicationId), returnValue: '')
           as String);
@@ -127,4 +133,12 @@ class MockAccessToken extends _i1.Mock implements _i2.AccessToken {
 /// A class which mocks [LoginResult].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoginResult extends _i1.Mock implements _i2.LoginResult {}
+class MockLoginResult extends _i1.Mock implements _i2.LoginResult {
+  MockLoginResult() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.LoginStatus get status => (super.noSuchMethod(Invocation.getter(#status),
+      returnValue: _i2.LoginStatus.success) as _i2.LoginStatus);
+}

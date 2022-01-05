@@ -11,14 +11,12 @@ part 'app_state.dart';
 
 class AppBloc extends Bloc<AppEvent, AppState> {
   AppBloc({
-    required AuthService? authService,
-    required LocalPersistanceService? localPersistanceService,
-  })  : assert(authService != null),
-        assert(localPersistanceService != null),
-        _authService = authService!,
-        _localPersistanceService = localPersistanceService!,
+    required AuthService authService,
+    required LocalPersistanceService localPersistanceService,
+  })  : _authService = authService,
+        _localPersistanceService = localPersistanceService,
         super(const AppState(status: AppStatus.initial)) {
-    _userSubscription = _authService.onAuthStateChanged?.listen(_onUserChanged);
+    _userSubscription = _authService.onAuthStateChanged.listen(_onUserChanged);
     on<AppIsFirstTimeLaunched>(_mapAppIsFirstTimeLaunchedToState);
     on<AppUserChanged>(_mapAppUserChangedToState);
     on<AppLogoutRequsted>(_mapAppLogoutRequstedToState);

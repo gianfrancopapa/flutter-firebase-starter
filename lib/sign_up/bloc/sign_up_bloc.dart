@@ -8,9 +8,8 @@ part 'sign_up_event.dart';
 part 'sign_up_state.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  SignUpBloc({required AuthService? authService})
-      : assert(authService != null),
-        _authService = authService!,
+  SignUpBloc({required AuthService authService})
+      : _authService = authService,
         super(SignUpState.initial()) {
     on<SignUpRequested>(_mapSignUpRequestedToState);
     on<SignUpFirstNameChanged>(_mapSignUpFirstNameChangedToState);
@@ -76,7 +75,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     SignUpEmailChanged event,
     Emitter<SignUpState> emit,
   ) async {
-    final email = Email.dirty(event.email!);
+    final email = Email.dirty(event.email);
 
     emit(state.copyWith(email: email, status: _status(email: email)));
   }
@@ -85,7 +84,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     SignUpPasswordChanged event,
     Emitter<SignUpState> emit,
   ) async {
-    final password = Password.dirty(event.password!);
+    final password = Password.dirty(event.password);
 
     emit(state.copyWith(
       password: password,
@@ -97,7 +96,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     SignUpPasswordConfirmationChanged event,
     Emitter<SignUpState> emit,
   ) async {
-    final passwordConfirmation = Password.dirty(event.passwordConfirmation!);
+    final passwordConfirmation = Password.dirty(event.passwordConfirmation);
 
     emit(state.copyWith(
       passwordConfirmation: passwordConfirmation,

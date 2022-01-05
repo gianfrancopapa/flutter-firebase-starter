@@ -7,11 +7,9 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'user_bloc_test.mocks.dart';
 
-@GenerateMocks([
-  AuthService
-], customMocks: [
-  MockSpec<UserEntity>(as: #MockUserEntity, returnNullOnMissingStub: true)
-])
+@GenerateMocks(
+  [AuthService, UserEntity],
+)
 void main() {
   group('UserBloc', () {
     late AuthService authService;
@@ -20,6 +18,11 @@ void main() {
     setUp(() {
       authService = MockAuthService();
       user = MockUserEntity();
+      when(user!.id).thenReturn('1');
+      when(user!.firstName).thenReturn('firstName');
+      when(user!.lastName).thenReturn('lastName');
+      when(user!.email).thenReturn('email@email.com');
+      when(user!.imageUrl).thenReturn('https://mock-image.com');
     });
 
     test('has valid initial state', () {

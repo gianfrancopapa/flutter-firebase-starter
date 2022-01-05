@@ -5,61 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('FSScrollableTable', () {
     Widget cellBuilder(BuildContext _, int r, int c) => Text('$r.$c');
-    test('throws AssertionError when columnCount is null', () {
-      expect(
-        () => FSScrollableTable(
-          columnCount: null,
-          rowCount: 3,
-          cellBuilder: cellBuilder,
-        ),
-        throwsAssertionError,
-      );
-    });
-
-    test('throws AssertionError when columnCount is 0 or less', () {
-      expect(
-        () => FSScrollableTable(
-          columnCount: 0,
-          rowCount: 3,
-          cellBuilder: cellBuilder,
-        ),
-        throwsAssertionError,
-      );
-    });
-
-    test('throws AssertionError when rowCount is null', () {
-      expect(
-        () => FSScrollableTable(
-          columnCount: 3,
-          rowCount: null,
-          cellBuilder: cellBuilder,
-        ),
-        throwsAssertionError,
-      );
-    });
-
-    test('throws AssertionError when rowCount is 0 or less', () {
-      expect(
-        () => FSScrollableTable(
-          columnCount: 3,
-          rowCount: 0,
-          cellBuilder: cellBuilder,
-        ),
-        throwsAssertionError,
-      );
-    });
-
-    test('throws AssertionError when cellBuilder is null', () {
-      expect(
-        () => FSScrollableTable(
-          columnCount: 3,
-          rowCount: 3,
-          cellBuilder: null,
-        ),
-        throwsAssertionError,
-      );
-    });
-
     testWidgets('renders header', (tester) async {
       var buildCallCount = 0;
 

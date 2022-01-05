@@ -3,7 +3,7 @@ part of 'sign_up_bloc.dart';
 enum SignUpStatus { initial, success, failure, loading, valid, invalid }
 
 class SignUpState extends Equatable {
-  final SignUpStatus? status;
+  final SignUpStatus status;
   final User? user;
   final FirstName? firstName;
   final LastName? lastName;
@@ -19,7 +19,7 @@ class SignUpState extends Equatable {
     this.password,
     this.passwordConfirmation,
     this.user,
-  }) : assert(status != null);
+  });
 
   SignUpState.initial()
       : this(

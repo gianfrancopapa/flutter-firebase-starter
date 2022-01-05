@@ -10,12 +10,9 @@ import 'package:mockito/mockito.dart';
 
 import 'login_bloc_test.mocks.dart';
 
-@GenerateMocks([
-  AnalyticsService,
-  FirebaseAuthService
-], customMocks: [
-  MockSpec<UserEntity>(as: #MockUserEntity, returnNullOnMissingStub: true)
-])
+@GenerateMocks(
+  [AnalyticsService, FirebaseAuthService, UserEntity],
+)
 void main() {
   group(
     'LoginBloc',
@@ -31,6 +28,11 @@ void main() {
         mockAnalyticsService = MockAnalyticsService();
         mockAuthService = MockFirebaseAuthService();
         mockUser = MockUserEntity();
+        when(mockUser!.id).thenReturn('1');
+        when(mockUser!.firstName).thenReturn('firstName');
+        when(mockUser!.lastName).thenReturn('lastName');
+        when(mockUser!.email).thenReturn('email@email.com');
+        when(mockUser!.imageUrl).thenReturn('https://mock-image.com');
       });
 
       test('has valid initial state', () {
@@ -59,7 +61,7 @@ void main() {
         act: (bloc) => bloc.add(const LoginWithEmailAndPasswordRequested()),
         build: () {
           when(mockAuthService.signInWithEmailAndPassword(
-                  email: email.value, password: password.value))
+                  email: email.value!, password: password.value!))
               .thenAnswer((_) async => const UserEntity());
           return LoginBloc(
             authService: mockAuthService,
@@ -69,8 +71,8 @@ void main() {
         verify: (_) {
           verify(
             mockAuthService.signInWithEmailAndPassword(
-              email: email.value,
-              password: password.value,
+              email: email.value!,
+              password: password.value!,
             ),
           ).called(1);
         },
@@ -88,8 +90,8 @@ void main() {
         build: () {
           when(
             mockAuthService.signInWithEmailAndPassword(
-              email: email.value,
-              password: password.value,
+              email: email.value!,
+              password: password.value!,
             ),
           ).thenAnswer((_) async => mockUser);
 
@@ -125,8 +127,8 @@ void main() {
         build: () {
           when(
             mockAuthService.signInWithEmailAndPassword(
-              email: email.value,
-              password: password.value,
+              email: email.value!,
+              password: password.value!,
             ),
           ).thenThrow(AuthError.error);
 

@@ -2,12 +2,10 @@ part of auth;
 
 class FirebaseAuthService implements AuthService {
   FirebaseAuthService({
-    required auth.FirebaseAuth? authService,
-    required SignInServiceFactory? signInServiceFactory,
-  })  : assert(authService != null),
-        assert(signInServiceFactory != null),
-        _firebaseAuth = authService!,
-        _signInServiceFactory = signInServiceFactory!;
+    required auth.FirebaseAuth authService,
+    required SignInServiceFactory signInServiceFactory,
+  })  : _firebaseAuth = authService,
+        _signInServiceFactory = signInServiceFactory;
 
   final auth.FirebaseAuth _firebaseAuth;
   final SignInServiceFactory _signInServiceFactory;
@@ -36,63 +34,55 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Stream<UserEntity?>? get onAuthStateChanged =>
+  Stream<UserEntity?> get onAuthStateChanged =>
       _firebaseAuth.authStateChanges().map(_mapFirebaseUser);
 
   @override
-  Future<UserEntity?>? currentUser() async {
+  Future<UserEntity?> currentUser() async {
     return _mapFirebaseUser(_firebaseAuth.currentUser);
   }
 
   @override
-  Future<UserEntity?>? signInAnonymously() async {
+  Future<UserEntity?> signInAnonymously() async {
     try {
       final userCredential = await _firebaseAuth.signInAnonymously();
-      return _mapFirebaseUser(userCredential!.user);
+      return _mapFirebaseUser(userCredential.user);
     } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
   }
 
   @override
-  Future<UserEntity?>? signInWithEmailAndPassword({
-    required String? email,
-    required String? password,
+  Future<UserEntity?> signInWithEmailAndPassword({
+    required String email,
+    required String password,
   }) async {
-    assert(email != null);
-    assert(password != null);
-
     try {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: email!,
-        password: password!,
+        email: email,
+        password: password,
       );
 
-      return _mapFirebaseUser(userCredential!.user);
+      return _mapFirebaseUser(userCredential.user);
     } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
   }
 
   @override
-  Future<UserEntity?>? createUserWithEmailAndPassword({
-    required String? name,
-    required String? lastName,
-    required String? email,
-    required String? password,
+  Future<UserEntity?> createUserWithEmailAndPassword({
+    required String name,
+    required String lastName,
+    required String email,
+    required String password,
   }) async {
-    assert(name != null);
-    assert(lastName != null);
-    assert(email != null);
-    assert(password != null);
-
     try {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email!,
-        password: password!,
+        email: email,
+        password: password,
       );
 
-      await userCredential!.user!.updateDisplayName(name! + ' ' + lastName!);
+      await userCredential.user!.updateDisplayName(name + ' ' + lastName);
       await userCredential.user!.reload();
 
       return _mapFirebaseUser(_firebaseAuth.currentUser);
@@ -102,24 +92,20 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<void>? sendPasswordResetEmail({required String? email}) async {
-    assert(email != null);
-
+  Future<void>? sendPasswordResetEmail({required String email}) async {
     try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email!);
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
     } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
   }
 
   @override
-  Future<UserEntity?>? signInWithSocialMedia({
-    required SocialMediaMethod? method,
+  Future<UserEntity?> signInWithSocialMedia({
+    required SocialMediaMethod method,
   }) async {
-    assert(method != null);
-
     try {
-      final service = _signInServiceFactory.getService(method: method!)!;
+      final service = _signInServiceFactory.getService(method: method)!;
       final firebaseCredential = await service.getFirebaseCredential();
 
       if (firebaseCredential != null) {
@@ -127,7 +113,7 @@ class FirebaseAuthService implements AuthService {
           firebaseCredential,
         );
 
-        return _mapFirebaseUser(userCredential!.user);
+        return _mapFirebaseUser(userCredential.user);
       }
 
       return null;

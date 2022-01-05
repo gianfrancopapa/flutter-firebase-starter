@@ -2,9 +2,11 @@
 // in firebasestarter/test/services/auth/sign_in_services/apple_sign_in_service_test.dart.
 // Do not manually edit this file.
 
+import 'dart:async' as _i3;
+
 import 'package:auth/auth.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:sign_in_with_apple/sign_in_with_apple.dart' as _i3;
+import 'package:sign_in_with_apple/sign_in_with_apple.dart' as _i4;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -22,6 +24,15 @@ class MockAppleCredentials extends _i1.Mock implements _i2.AppleCredentials {
   MockAppleCredentials() {
     _i1.throwOnMissingStub(this);
   }
+
+  @override
+  _i3.Future<_i4.AuthorizationCredentialAppleID?> getAppleCredentials(
+          {List<_i4.AppleIDAuthorizationScopes>? scopes, String? token}) =>
+      (super.noSuchMethod(
+              Invocation.method(
+                  #getAppleCredentials, [], {#scopes: scopes, #token: token}),
+              returnValue: Future<_i4.AuthorizationCredentialAppleID?>.value())
+          as _i3.Future<_i4.AuthorizationCredentialAppleID?>);
 }
 
 /// A class which mocks [AuthorizationCredentialAppleID].
@@ -29,7 +40,7 @@ class MockAppleCredentials extends _i1.Mock implements _i2.AppleCredentials {
 /// See the documentation for Mockito's code generation for more information.
 // ignore: must_be_immutable
 class MockAuthorizationCredentialAppleID extends _i1.Mock
-    implements _i3.AuthorizationCredentialAppleID {
+    implements _i4.AuthorizationCredentialAppleID {
   MockAuthorizationCredentialAppleID() {
     _i1.throwOnMissingStub(this);
   }

@@ -32,26 +32,6 @@ void main() {
           .thenAnswer((_) => Stream.empty());
     });
 
-    test('throwsAssertionError when authService is null', () {
-      expect(
-        () => AppBloc(
-          authService: null,
-          localPersistanceService: mockLocalPersistanceService,
-        ),
-        throwsAssertionError,
-      );
-    });
-
-    test('throwsAssertionError when localPersistanceService is null', () {
-      expect(
-        () => AppBloc(
-          authService: mockAuthService,
-          localPersistanceService: null,
-        ),
-        throwsAssertionError,
-      );
-    });
-
     test('has valid initial state', () {
       expect(
         AppBloc(
@@ -98,7 +78,7 @@ void main() {
           );
         },
         // As we have Future.delayed(const Duration(seconds: 2)); we need to ask blocTest to also wait for 2 seconds!
-        wait: Duration(seconds: 2),
+        wait: Duration(seconds: 3),
         verify: (_) {
           verify(mockLocalPersistanceService.setValue('is_first_time', false))
               .called(1);
@@ -122,7 +102,7 @@ void main() {
           );
         },
         // As we have Future.delayed(const Duration(seconds: 2)); we need to ask blocTest to also wait for 2 seconds!
-        wait: Duration(seconds: 2),
+        wait: Duration(seconds: 3),
         expect: () => <AppState>[
           AppState(status: AppStatus.unauthenticated),
         ],
@@ -178,7 +158,7 @@ void main() {
           );
         },
         // As we have Future.delayed(const Duration(seconds: 2)); we need to ask blocTest to also wait for 2 seconds!
-        wait: Duration(seconds: 2),
+        wait: Duration(seconds: 3),
         expect: () => <AppState>[
           AppState(
             status: AppStatus.initial,

@@ -22,14 +22,7 @@ void main() {
 
       when(mockAuthorizationCredential!.identityToken).thenReturn('idToken');
 
-      subject = AppleSignInService(appleCredentials: mockAppleCredentials);
-    });
-
-    test('throwsAssertionError when appleCredentials is null', () {
-      expect(
-        () => AppleSignInService(appleCredentials: null),
-        throwsAssertionError,
-      );
+      subject = AppleSignInService(appleCredentials: mockAppleCredentials!);
     });
 
     group(

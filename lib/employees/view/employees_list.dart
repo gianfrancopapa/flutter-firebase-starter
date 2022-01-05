@@ -4,26 +4,24 @@ import 'package:firebasestarter/models/employee.dart';
 import 'package:flutter/material.dart';
 
 class EmployeesList extends StatelessWidget {
-  const EmployeesList({Key? key, required this.employees})
-      : assert(employees != null),
-        super(key: key);
+  const EmployeesList({Key? key, required this.employees}) : super(key: key);
 
-  final List<Employee>? employees;
+  final List<Employee> employees;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: FSSpacing.s40),
-      itemCount: employees?.length,
-      itemBuilder: (_, i) => _EmployeeCard(employee: employees![i]),
+      itemCount: employees.length,
+      itemBuilder: (_, i) => _EmployeeCard(employee: employees[i]),
     );
   }
 }
 
 class _EmployeeCard extends StatelessWidget {
-  const _EmployeeCard({required this.employee}) : assert(employee != null);
+  const _EmployeeCard({required this.employee});
 
-  final Employee? employee;
+  final Employee employee;
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +44,11 @@ class _EmployeeCard extends StatelessWidget {
           horizontal: FSSpacing.s20,
         ),
         leading: _EmployeeImage(
-          employee: employee!,
+          employee: employee,
         ),
         title: Center(
           child: _EmployeeDisplayName(
-            employee: employee!,
+            employee: employee,
           ),
         ),
       ),

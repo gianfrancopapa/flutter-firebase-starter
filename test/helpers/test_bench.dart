@@ -16,7 +16,7 @@ import 'test_bench.mocks.dart';
     [EmployeesRepository, AppBloc, LoginBloc, UserBloc, EmployeesBloc])
 extension TestBench on WidgetTester {
   Future<void> pumpApp(
-    Widget? widgetUnderTest, {
+    Widget widgetUnderTest, {
     EmployeesRepository? employeesRepository,
     AppBloc? initAppBloc,
     LoginBloc? loginBloc,
@@ -25,7 +25,6 @@ extension TestBench on WidgetTester {
     TargetPlatform? platform,
     bool hasScaffold = true,
   }) async {
-    assert(widgetUnderTest != null);
     await pumpWidget(
       MultiBlocProvider(
         providers: [

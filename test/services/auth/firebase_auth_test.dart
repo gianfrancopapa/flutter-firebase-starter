@@ -14,12 +14,11 @@ import 'firebase_auth_test.mocks.dart';
   UserCredential,
   OAuthCredential,
   FirebaseAuthException,
-  ISignInService
+  ISignInService,
+  SignInServiceFactory,
 ], customMocks: [
   MockSpec<model.User>(as: #MockModelUser),
-  MockSpec<SignInServiceFactory>(
-      as: #MockSignInServiceFactory, returnNullOnMissingStub: true),
-  MockSpec<User>(as: #MockFirebaseUser, returnNullOnMissingStub: true)
+  MockSpec<User>(as: #MockFirebaseUser),
 ])
 void main() {
   group('FirebaseAuthService', () {
@@ -42,8 +41,8 @@ void main() {
       mockISignInService = MockISignInService();
 
       subject = FirebaseAuthService(
-        authService: mockFirebaseAuth,
-        signInServiceFactory: mockSignInServiceFactory,
+        authService: mockFirebaseAuth!,
+        signInServiceFactory: mockSignInServiceFactory!,
       );
 
       mockModelUser = MockModelUser();
@@ -59,6 +58,8 @@ void main() {
       when(mockFirebaseUser!.displayName).thenReturn('firstName lastName');
       when(mockFirebaseUser!.email).thenReturn('email@email.com');
       when(mockFirebaseUser!.photoURL).thenReturn('photoURL');
+      when(mockFirebaseUser!.emailVerified).thenReturn(false);
+      when(mockFirebaseUser!.isAnonymous).thenReturn(true);
 
       mockUserCredential = MockUserCredential();
 
@@ -67,33 +68,14 @@ void main() {
       mockOAuthCredential = MockOAuthCredential();
 
       when(mockFirebaseAuth!.currentUser).thenReturn(mockFirebaseUser);
-    });
-
-    test('throwsAssertionError when authService is null', () {
-      expect(
-        () => FirebaseAuthService(
-          authService: null,
-          signInServiceFactory: mockSignInServiceFactory,
-        ),
-        throwsAssertionError,
-      );
-    });
-
-    test('throwsAssertionError when signInServiceFactory is null', () {
-      expect(
-        () => FirebaseAuthService(
-          authService: mockFirebaseAuth,
-          signInServiceFactory: null,
-        ),
-        throwsAssertionError,
-      );
+      when(mockSignInServiceFactory!.signInMethod)
+          .thenReturn(mockISignInService);
     });
 
     group('.signInAnonymously', () {
       test('succeeds when authService.signInAnonymously succeeds', () {
         when(mockFirebaseAuth?.signInAnonymously())
             .thenAnswer((_) async => mockUserCredential!);
-
         expect(subject.signInAnonymously(), completes);
       });
 
@@ -113,26 +95,6 @@ void main() {
     group('.signInWithEmailAndPassword', () {
       const email = 'email@gmail.com';
       const password = 'Password01';
-
-      test('throwsAssertionError when email is null', () {
-        expect(
-          subject.signInWithEmailAndPassword(
-            email: null,
-            password: password,
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      test('throwsAssertionError when password is null', () {
-        expect(
-          subject.signInWithEmailAndPassword(
-            email: email,
-            password: null,
-          ),
-          throwsAssertionError,
-        );
-      });
 
       test(
         'succeeds when authService.signInWithEmailAndPassword succeeds',
@@ -183,54 +145,6 @@ void main() {
       const lastName = 'lastName';
       const email = 'email@gmail.com';
       const password = 'Password01';
-
-      test('throwsAssertionError when firstName is null', () {
-        expect(
-          () => subject.createUserWithEmailAndPassword(
-            name: null,
-            lastName: lastName,
-            email: email,
-            password: password,
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      test('throwsAssertionError when lastName is null', () {
-        expect(
-          () => subject.createUserWithEmailAndPassword(
-            name: firstName,
-            lastName: null,
-            email: email,
-            password: password,
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      test('throwsAssertionError when email is null', () {
-        expect(
-          () => subject.createUserWithEmailAndPassword(
-            name: firstName,
-            lastName: lastName,
-            email: null,
-            password: password,
-          ),
-          throwsAssertionError,
-        );
-      });
-
-      test('throwsAssertionError when password is null', () {
-        expect(
-          () => subject.createUserWithEmailAndPassword(
-            name: firstName,
-            lastName: lastName,
-            email: email,
-            password: null,
-          ),
-          throwsAssertionError,
-        );
-      });
 
       test(
         'succeeds when authService.createUserWithEmailAndPassword succeeds',
@@ -283,13 +197,6 @@ void main() {
     group('.sendPasswordResetEmail', () {
       const email = 'email@gmail.com';
 
-      test('throwsAssertionError when email is null', () {
-        expect(
-          () => subject.sendPasswordResetEmail(email: null),
-          throwsAssertionError,
-        );
-      });
-
       test('succeeds when authService.sendPasswordResetEmail succeeds', () {
         when(mockFirebaseAuth!.sendPasswordResetEmail(email: email))
             .thenAnswer((_) async => null);
@@ -312,13 +219,6 @@ void main() {
 
     group('.signInWithSocialMedia', () {
       const method = SocialMediaMethod.google;
-
-      test('throwsAssertionError when method is null', () {
-        expect(
-          () => subject.signInWithSocialMedia(method: null),
-          throwsAssertionError,
-        );
-      });
 
       test('succeeds when signInWithCredential succeeds', () {
         when(mockSignInServiceFactory!.getService(method: method))

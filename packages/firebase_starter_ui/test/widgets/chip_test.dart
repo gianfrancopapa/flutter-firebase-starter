@@ -5,17 +5,6 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('FSChip', () {
-    testWidgets('throws assertion error when label is null', (tester) async {
-      expect(
-        () => tester.pumpWidget(
-          FSChip(
-            label: null,
-          ),
-        ),
-        throwsAssertionError,
-      );
-    });
-
     testWidgets(
       'renders label',
       (tester) async {

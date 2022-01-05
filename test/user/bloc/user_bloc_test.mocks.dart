@@ -27,22 +27,40 @@ class MockAuthService extends _i1.Mock implements _i2.AuthService {
   }
 
   @override
-  _i3.Future<_i2.UserEntity?>? signInWithEmailAndPassword(
-          {String? email, String? password}) =>
-      (super.noSuchMethod(Invocation.method(#signInWithEmailAndPassword, [], {
-        #email: email,
-        #password: password
-      })) as _i3.Future<_i2.UserEntity?>?);
+  _i3.Stream<_i2.UserEntity?> get onAuthStateChanged =>
+      (super.noSuchMethod(Invocation.getter(#onAuthStateChanged),
+              returnValue: Stream<_i2.UserEntity?>.empty())
+          as _i3.Stream<_i2.UserEntity?>);
   @override
-  _i3.Future<_i2.UserEntity?>? createUserWithEmailAndPassword(
+  _i3.Future<_i2.UserEntity?> currentUser() =>
+      (super.noSuchMethod(Invocation.method(#currentUser, []),
+              returnValue: Future<_i2.UserEntity?>.value())
+          as _i3.Future<_i2.UserEntity?>);
+  @override
+  _i3.Future<_i2.UserEntity?> signInAnonymously() =>
+      (super.noSuchMethod(Invocation.method(#signInAnonymously, []),
+              returnValue: Future<_i2.UserEntity?>.value())
+          as _i3.Future<_i2.UserEntity?>);
+  @override
+  _i3.Future<_i2.UserEntity?> signInWithEmailAndPassword(
+          {String? email, String? password}) =>
+      (super.noSuchMethod(
+              Invocation.method(#signInWithEmailAndPassword, [],
+                  {#email: email, #password: password}),
+              returnValue: Future<_i2.UserEntity?>.value())
+          as _i3.Future<_i2.UserEntity?>);
+  @override
+  _i3.Future<_i2.UserEntity?> createUserWithEmailAndPassword(
           {String? name, String? lastName, String? email, String? password}) =>
-      (super.noSuchMethod(Invocation.method(
-          #createUserWithEmailAndPassword, [], {
-        #name: name,
-        #lastName: lastName,
-        #email: email,
-        #password: password
-      })) as _i3.Future<_i2.UserEntity?>?);
+      (super.noSuchMethod(
+              Invocation.method(#createUserWithEmailAndPassword, [], {
+                #name: name,
+                #lastName: lastName,
+                #email: email,
+                #password: password
+              }),
+              returnValue: Future<_i2.UserEntity?>.value())
+          as _i3.Future<_i2.UserEntity?>);
   @override
   _i3.Future<void>? sendPasswordResetEmail({String? email}) =>
       (super.noSuchMethod(
@@ -50,11 +68,12 @@ class MockAuthService extends _i1.Mock implements _i2.AuthService {
               returnValueForMissingStub: Future<void>.value())
           as _i3.Future<void>?);
   @override
-  _i3.Future<_i2.UserEntity?>? signInWithSocialMedia(
+  _i3.Future<_i2.UserEntity?> signInWithSocialMedia(
           {_i2.SocialMediaMethod? method}) =>
       (super.noSuchMethod(
-              Invocation.method(#signInWithSocialMedia, [], {#method: method}))
-          as _i3.Future<_i2.UserEntity?>?);
+              Invocation.method(#signInWithSocialMedia, [], {#method: method}),
+              returnValue: Future<_i2.UserEntity?>.value())
+          as _i3.Future<_i2.UserEntity?>);
   @override
   _i3.Future<void>? signOut() => (super.noSuchMethod(
       Invocation.method(#signOut, []),
@@ -69,6 +88,10 @@ class MockAuthService extends _i1.Mock implements _i2.AuthService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUserEntity extends _i1.Mock implements _i2.UserEntity {
+  MockUserEntity() {
+    _i1.throwOnMissingStub(this);
+  }
+
   @override
   List<Object?> get props =>
       (super.noSuchMethod(Invocation.getter(#props), returnValue: <Object?>[])

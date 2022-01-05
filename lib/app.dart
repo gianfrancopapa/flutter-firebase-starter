@@ -17,35 +17,26 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:repository/repository.dart';
 
 class App extends StatelessWidget {
-  App({
+  const App({
     Key? key,
-    required FirebaseAuthService? authService,
-    required MySharedPreferences? sharedPreferences,
-    required FirebaseAnalyticsService? firebaseAnalyticsService,
-    required FirebaseStorageService? firebaseStorageService,
-    required NotificationService? notificationService,
-    required AppInfoService? appInfoService,
-    required PickImageService? pickImageService,
-    required FirebaseAnalytics? firebaseAnalytics,
-    required EmployeesRepository? employeesRepository,
-  })  : assert(authService != null),
-        assert(sharedPreferences != null),
-        assert(firebaseAnalyticsService != null),
-        assert(firebaseStorageService != null),
-        assert(notificationService != null),
-        assert(appInfoService != null),
-        assert(pickImageService != null),
-        assert(firebaseAnalytics != null),
-        assert(employeesRepository != null),
-        _authService = authService!,
-        _sharedPreferences = sharedPreferences!,
-        _firebaseAnalyticsService = firebaseAnalyticsService!,
-        _firebaseStorageService = firebaseStorageService!,
-        _notificationService = notificationService!,
-        _appInfoService = appInfoService!,
-        _pickImageService = pickImageService!,
-        _firebaseAnalytics = firebaseAnalytics!,
-        _employeesRepository = employeesRepository!,
+    required FirebaseAuthService authService,
+    required MySharedPreferences sharedPreferences,
+    required FirebaseAnalyticsService firebaseAnalyticsService,
+    required FirebaseStorageService firebaseStorageService,
+    required NotificationService notificationService,
+    required AppInfoService appInfoService,
+    required PickImageService pickImageService,
+    required FirebaseAnalytics firebaseAnalytics,
+    required EmployeesRepository employeesRepository,
+  })  : _authService = authService,
+        _sharedPreferences = sharedPreferences,
+        _firebaseAnalyticsService = firebaseAnalyticsService,
+        _firebaseStorageService = firebaseStorageService,
+        _notificationService = notificationService,
+        _appInfoService = appInfoService,
+        _pickImageService = pickImageService,
+        _firebaseAnalytics = firebaseAnalytics,
+        _employeesRepository = employeesRepository,
         super(key: key);
 
   final FirebaseAuthService _authService;
@@ -104,11 +95,10 @@ class App extends StatelessWidget {
 }
 
 class FirebaseStarter extends StatelessWidget {
-  FirebaseStarter({
+  const FirebaseStarter({
     Key? key,
-    required FirebaseAnalytics? firebaseAnalytics,
-  })  : assert(firebaseAnalytics != null),
-        _firebaseAnalytics = firebaseAnalytics!,
+    required FirebaseAnalytics firebaseAnalytics,
+  })  : _firebaseAnalytics = firebaseAnalytics,
         super(key: key);
 
   final FirebaseAnalytics _firebaseAnalytics;
