@@ -26,11 +26,13 @@ class MockAppleCredentials extends _i1.Mock implements _i2.AppleCredentials {
   }
 
   @override
-  _i3.Future<_i4.AuthorizationCredentialAppleID?>? getAppleCredentials(
+  _i3.Future<_i4.AuthorizationCredentialAppleID?> getAppleCredentials(
           {List<_i4.AppleIDAuthorizationScopes>? scopes, String? token}) =>
-      (super.noSuchMethod(Invocation.method(
-              #getAppleCredentials, [], {#scopes: scopes, #token: token}))
-          as _i3.Future<_i4.AuthorizationCredentialAppleID?>?);
+      (super.noSuchMethod(
+              Invocation.method(
+                  #getAppleCredentials, [], {#scopes: scopes, #token: token}),
+              returnValue: Future<_i4.AuthorizationCredentialAppleID?>.value())
+          as _i3.Future<_i4.AuthorizationCredentialAppleID?>);
 }
 
 /// A class which mocks [AuthorizationCredentialAppleID].

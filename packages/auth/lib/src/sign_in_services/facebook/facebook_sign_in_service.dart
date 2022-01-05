@@ -7,7 +7,7 @@ class FacebookSignInService implements ISignInService {
 
   final FacebookAuth _facebookAuth;
 
-  Future<LoginResult?>? _facebookSignIn() async {
+  Future<LoginResult?> _facebookSignIn() async {
     final res = await _facebookAuth.login(
       loginBehavior: LoginBehavior.nativeWithFallback,
     );
@@ -20,7 +20,7 @@ class FacebookSignInService implements ISignInService {
   }
 
   @override
-  Future<auth.OAuthCredential?>? getFirebaseCredential() async {
+  Future<auth.OAuthCredential?> getFirebaseCredential() async {
     try {
       final result = await _facebookSignIn();
 

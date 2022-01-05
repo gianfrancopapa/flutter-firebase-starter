@@ -3,18 +3,18 @@ part of auth;
 enum SocialMediaMethod { google, facebook, apple }
 
 abstract class AuthService {
-  Stream<UserEntity?>? get onAuthStateChanged;
+  Stream<UserEntity?> get onAuthStateChanged;
 
-  Future<UserEntity?>? currentUser();
+  Future<UserEntity?> currentUser();
 
-  Future<UserEntity?>? signInAnonymously();
+  Future<UserEntity?> signInAnonymously();
 
-  Future<UserEntity?>? signInWithEmailAndPassword({
+  Future<UserEntity?> signInWithEmailAndPassword({
     required String email,
     required String password,
   });
 
-  Future<UserEntity?>? createUserWithEmailAndPassword({
+  Future<UserEntity?> createUserWithEmailAndPassword({
     required String name,
     required String lastName,
     required String email,
@@ -23,7 +23,7 @@ abstract class AuthService {
 
   Future<void>? sendPasswordResetEmail({required String email});
 
-  Future<UserEntity?>? signInWithSocialMedia({
+  Future<UserEntity?> signInWithSocialMedia({
     required SocialMediaMethod method,
   });
 

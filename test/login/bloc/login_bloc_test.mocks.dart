@@ -68,22 +68,40 @@ class MockFirebaseAuthService extends _i1.Mock
   }
 
   @override
-  _i4.Future<_i3.UserEntity?>? signInWithEmailAndPassword(
-          {String? email, String? password}) =>
-      (super.noSuchMethod(Invocation.method(#signInWithEmailAndPassword, [], {
-        #email: email,
-        #password: password
-      })) as _i4.Future<_i3.UserEntity?>?);
+  _i4.Stream<_i3.UserEntity?> get onAuthStateChanged =>
+      (super.noSuchMethod(Invocation.getter(#onAuthStateChanged),
+              returnValue: Stream<_i3.UserEntity?>.empty())
+          as _i4.Stream<_i3.UserEntity?>);
   @override
-  _i4.Future<_i3.UserEntity?>? createUserWithEmailAndPassword(
+  _i4.Future<_i3.UserEntity?> currentUser() =>
+      (super.noSuchMethod(Invocation.method(#currentUser, []),
+              returnValue: Future<_i3.UserEntity?>.value())
+          as _i4.Future<_i3.UserEntity?>);
+  @override
+  _i4.Future<_i3.UserEntity?> signInAnonymously() =>
+      (super.noSuchMethod(Invocation.method(#signInAnonymously, []),
+              returnValue: Future<_i3.UserEntity?>.value())
+          as _i4.Future<_i3.UserEntity?>);
+  @override
+  _i4.Future<_i3.UserEntity?> signInWithEmailAndPassword(
+          {String? email, String? password}) =>
+      (super.noSuchMethod(
+              Invocation.method(#signInWithEmailAndPassword, [],
+                  {#email: email, #password: password}),
+              returnValue: Future<_i3.UserEntity?>.value())
+          as _i4.Future<_i3.UserEntity?>);
+  @override
+  _i4.Future<_i3.UserEntity?> createUserWithEmailAndPassword(
           {String? name, String? lastName, String? email, String? password}) =>
-      (super.noSuchMethod(Invocation.method(
-          #createUserWithEmailAndPassword, [], {
-        #name: name,
-        #lastName: lastName,
-        #email: email,
-        #password: password
-      })) as _i4.Future<_i3.UserEntity?>?);
+      (super.noSuchMethod(
+              Invocation.method(#createUserWithEmailAndPassword, [], {
+                #name: name,
+                #lastName: lastName,
+                #email: email,
+                #password: password
+              }),
+              returnValue: Future<_i3.UserEntity?>.value())
+          as _i4.Future<_i3.UserEntity?>);
   @override
   _i4.Future<void>? sendPasswordResetEmail({String? email}) =>
       (super.noSuchMethod(
@@ -91,11 +109,12 @@ class MockFirebaseAuthService extends _i1.Mock
               returnValueForMissingStub: Future<void>.value())
           as _i4.Future<void>?);
   @override
-  _i4.Future<_i3.UserEntity?>? signInWithSocialMedia(
+  _i4.Future<_i3.UserEntity?> signInWithSocialMedia(
           {_i3.SocialMediaMethod? method}) =>
       (super.noSuchMethod(
-              Invocation.method(#signInWithSocialMedia, [], {#method: method}))
-          as _i4.Future<_i3.UserEntity?>?);
+              Invocation.method(#signInWithSocialMedia, [], {#method: method}),
+              returnValue: Future<_i3.UserEntity?>.value())
+          as _i4.Future<_i3.UserEntity?>);
   @override
   _i4.Future<void>? signOut() => (super.noSuchMethod(
       Invocation.method(#signOut, []),

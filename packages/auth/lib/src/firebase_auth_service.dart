@@ -34,16 +34,16 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Stream<UserEntity?>? get onAuthStateChanged =>
+  Stream<UserEntity?> get onAuthStateChanged =>
       _firebaseAuth.authStateChanges().map(_mapFirebaseUser);
 
   @override
-  Future<UserEntity?>? currentUser() async {
+  Future<UserEntity?> currentUser() async {
     return _mapFirebaseUser(_firebaseAuth.currentUser);
   }
 
   @override
-  Future<UserEntity?>? signInAnonymously() async {
+  Future<UserEntity?> signInAnonymously() async {
     try {
       final userCredential = await _firebaseAuth.signInAnonymously();
       return _mapFirebaseUser(userCredential.user);
@@ -53,7 +53,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<UserEntity?>? signInWithEmailAndPassword({
+  Future<UserEntity?> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -70,7 +70,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<UserEntity?>? createUserWithEmailAndPassword({
+  Future<UserEntity?> createUserWithEmailAndPassword({
     required String name,
     required String lastName,
     required String email,
@@ -101,7 +101,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<UserEntity?>? signInWithSocialMedia({
+  Future<UserEntity?> signInWithSocialMedia({
     required SocialMediaMethod method,
   }) async {
     try {

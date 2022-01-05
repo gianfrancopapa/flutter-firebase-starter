@@ -318,6 +318,11 @@ class MockISignInService extends _i1.Mock implements _i6.ISignInService {
   }
 
   @override
+  _i5.Future<_i3.OAuthCredential?> getFirebaseCredential() =>
+      (super.noSuchMethod(Invocation.method(#getFirebaseCredential, []),
+              returnValue: Future<_i3.OAuthCredential?>.value())
+          as _i5.Future<_i3.OAuthCredential?>);
+  @override
   _i5.Future<void>? signOut() => (super.noSuchMethod(
       Invocation.method(#signOut, []),
       returnValueForMissingStub: Future<void>.value()) as _i5.Future<void>?);
