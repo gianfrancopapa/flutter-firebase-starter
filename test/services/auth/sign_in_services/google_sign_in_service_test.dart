@@ -15,12 +15,9 @@ mixin LegacyEquality {
   @override
   int get hashCode => throw UnimplementedError();
 }
-@GenerateMocks([
-  GoogleSignInAccount,
-  GoogleSignInAuthentication
-], customMocks: [
-  MockSpec<GoogleSignIn>(as: #MockGoogleSignIn, returnNullOnMissingStub: true)
-])
+@GenerateMocks(
+  [GoogleSignInAccount, GoogleSignInAuthentication, GoogleSignIn],
+)
 void main() {
   group('GoogleSignInService', () {
     GoogleSignIn? mockGoogleSignIn;
@@ -45,6 +42,8 @@ void main() {
       when(mockGoogleSignInAuthentication.idToken).thenReturn('idToken');
       when(mockGoogleSignInAuthentication.accessToken)
           .thenReturn('accessToken');
+      when(mockGoogleSignIn!.signOut())
+          .thenAnswer((_) async => mockGoogleSignInAccount);
     });
 
     group('.getFirebaseCredential', () {
@@ -78,7 +77,6 @@ void main() {
     group('.signOut', () {
       test('calls ', () async {
         await subject.signOut();
-
         verify(mockGoogleSignIn!.signOut()).called(1);
       });
 

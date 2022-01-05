@@ -14,12 +14,11 @@ import 'firebase_auth_test.mocks.dart';
   UserCredential,
   OAuthCredential,
   FirebaseAuthException,
-  ISignInService
+  ISignInService,
+  SignInServiceFactory,
 ], customMocks: [
   MockSpec<model.User>(as: #MockModelUser),
-  MockSpec<SignInServiceFactory>(
-      as: #MockSignInServiceFactory, returnNullOnMissingStub: true),
-  MockSpec<User>(as: #MockFirebaseUser, returnNullOnMissingStub: true)
+  MockSpec<User>(as: #MockFirebaseUser),
 ])
 void main() {
   group('FirebaseAuthService', () {
@@ -59,6 +58,8 @@ void main() {
       when(mockFirebaseUser!.displayName).thenReturn('firstName lastName');
       when(mockFirebaseUser!.email).thenReturn('email@email.com');
       when(mockFirebaseUser!.photoURL).thenReturn('photoURL');
+      when(mockFirebaseUser!.emailVerified).thenReturn(false);
+      when(mockFirebaseUser!.isAnonymous).thenReturn(true);
 
       mockUserCredential = MockUserCredential();
 
@@ -67,13 +68,14 @@ void main() {
       mockOAuthCredential = MockOAuthCredential();
 
       when(mockFirebaseAuth!.currentUser).thenReturn(mockFirebaseUser);
+      when(mockSignInServiceFactory!.signInMethod)
+          .thenReturn(mockISignInService);
     });
 
     group('.signInAnonymously', () {
       test('succeeds when authService.signInAnonymously succeeds', () {
         when(mockFirebaseAuth?.signInAnonymously())
             .thenAnswer((_) async => mockUserCredential!);
-
         expect(subject.signInAnonymously(), completes);
       });
 

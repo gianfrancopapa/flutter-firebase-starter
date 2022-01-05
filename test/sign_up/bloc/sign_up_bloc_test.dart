@@ -8,11 +8,9 @@ import 'package:auth/auth.dart';
 import 'package:mockito/mockito.dart';
 import 'sign_up_bloc_test.mocks.dart';
 
-@GenerateMocks([
-  AuthService
-], customMocks: [
-  MockSpec<UserEntity>(as: #MockUserEntity, returnNullOnMissingStub: true)
-])
+@GenerateMocks(
+  [AuthService, UserEntity],
+)
 void main() {
   group(
     'SignUpBloc',
@@ -29,6 +27,11 @@ void main() {
       setUp(() {
         mockAuthService = MockAuthService();
         mockUser = MockUserEntity();
+        when(mockUser!.id).thenReturn('1');
+        when(mockUser!.firstName).thenReturn('firstName');
+        when(mockUser!.lastName).thenReturn('lastName');
+        when(mockUser!.email).thenReturn('email@email.com');
+        when(mockUser!.imageUrl).thenReturn('https://mock-image.com');
       });
 
       test('has valid initial state', () {

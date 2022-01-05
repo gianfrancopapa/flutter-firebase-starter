@@ -69,6 +69,10 @@ class MockAuthService extends _i1.Mock implements _i2.AuthService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockUserEntity extends _i1.Mock implements _i2.UserEntity {
+  MockUserEntity() {
+    _i1.throwOnMissingStub(this);
+  }
+
   @override
   List<Object?> get props =>
       (super.noSuchMethod(Invocation.getter(#props), returnValue: <Object?>[])

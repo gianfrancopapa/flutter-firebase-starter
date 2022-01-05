@@ -20,6 +20,9 @@ import 'google_sign_in_service_test.dart';
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
+class _FakeGoogleSignInAuthentication_0 extends _i1.Fake
+    implements _i2.GoogleSignInAuthentication {}
+
 /// A class which mocks [GoogleSignInAccount].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -37,6 +40,12 @@ class MockGoogleSignInAccount extends _i1.Mock
   @override
   String get id =>
       (super.noSuchMethod(Invocation.getter(#id), returnValue: '') as String);
+  @override
+  _i3.Future<_i2.GoogleSignInAuthentication> get authentication =>
+      (super.noSuchMethod(Invocation.getter(#authentication),
+              returnValue: Future<_i2.GoogleSignInAuthentication>.value(
+                  _FakeGoogleSignInAuthentication_0()))
+          as _i3.Future<_i2.GoogleSignInAuthentication>);
   @override
   _i3.Future<Map<String, String>> get authHeaders => (super.noSuchMethod(
           Invocation.getter(#authHeaders),
@@ -63,6 +72,10 @@ class MockGoogleSignInAuthentication extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGoogleSignIn extends _i1.Mock implements _i2.GoogleSignIn {
+  MockGoogleSignIn() {
+    _i1.throwOnMissingStub(this);
+  }
+
   @override
   _i4.SignInOption get signInOption =>
       (super.noSuchMethod(Invocation.getter(#signInOption),
@@ -90,6 +103,16 @@ class MockGoogleSignIn extends _i1.Mock implements _i2.GoogleSignIn {
   _i3.Future<bool> isSignedIn() =>
       (super.noSuchMethod(Invocation.method(#isSignedIn, []),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
+  @override
+  _i3.Future<_i2.GoogleSignInAccount?> signIn() =>
+      (super.noSuchMethod(Invocation.method(#signIn, []),
+              returnValue: Future<_i2.GoogleSignInAccount?>.value())
+          as _i3.Future<_i2.GoogleSignInAccount?>);
+  @override
+  _i3.Future<_i2.GoogleSignInAccount?> signOut() =>
+      (super.noSuchMethod(Invocation.method(#signOut, []),
+              returnValue: Future<_i2.GoogleSignInAccount?>.value())
+          as _i3.Future<_i2.GoogleSignInAccount?>);
   @override
   _i3.Future<_i2.GoogleSignInAccount?> disconnect() =>
       (super.noSuchMethod(Invocation.method(#disconnect, []),

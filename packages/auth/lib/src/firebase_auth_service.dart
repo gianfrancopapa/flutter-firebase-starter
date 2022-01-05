@@ -46,7 +46,7 @@ class FirebaseAuthService implements AuthService {
   Future<UserEntity?>? signInAnonymously() async {
     try {
       final userCredential = await _firebaseAuth.signInAnonymously();
-      return _mapFirebaseUser(userCredential!.user);
+      return _mapFirebaseUser(userCredential.user);
     } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
@@ -63,7 +63,7 @@ class FirebaseAuthService implements AuthService {
         password: password,
       );
 
-      return _mapFirebaseUser(userCredential!.user);
+      return _mapFirebaseUser(userCredential.user);
     } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
@@ -82,7 +82,7 @@ class FirebaseAuthService implements AuthService {
         password: password,
       );
 
-      await userCredential!.user!.updateDisplayName(name + ' ' + lastName);
+      await userCredential.user!.updateDisplayName(name + ' ' + lastName);
       await userCredential.user!.reload();
 
       return _mapFirebaseUser(_firebaseAuth.currentUser);
@@ -113,7 +113,7 @@ class FirebaseAuthService implements AuthService {
           firebaseCredential,
         );
 
-        return _mapFirebaseUser(userCredential!.user);
+        return _mapFirebaseUser(userCredential.user);
       }
 
       return null;
