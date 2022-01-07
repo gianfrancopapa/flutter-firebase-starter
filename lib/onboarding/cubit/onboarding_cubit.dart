@@ -1,5 +1,5 @@
+import 'package:analytics_repository/analyitics.dart';
 import 'package:bloc/bloc.dart';
-import 'package:firebasestarter/services/analytics/analyitics.dart';
 import 'package:equatable/equatable.dart';
 
 part 'onboarding_state.dart';
@@ -12,12 +12,12 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   final AnalyticsService _analyticsService;
 
   void initOnboarding() {
-    _analyticsService.logTutorialBegin();
+    _analyticsService.logEvent(name: 'tutorial_begin');
     emit(state.copyWith(status: OnboardingStatus.initiated));
   }
 
   void completedOnboarding() {
-    _analyticsService.logTutorialComplete();
+    _analyticsService.logEvent(name: 'tutorial_complete');
     emit(state.copyWith(status: OnboardingStatus.completed));
   }
 }

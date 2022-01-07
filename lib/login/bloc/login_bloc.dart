@@ -2,7 +2,7 @@ import 'package:auth/auth.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
-import 'package:firebasestarter/services/analytics/analytics_service.dart';
+import 'package:analytics_repository/analyitics.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'login_event.dart';
@@ -48,7 +48,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     Emitter<LoginState> emit,
   ) async {
     emit(state.copyWith(status: LoginStatus.loading));
-    _analyticsService.logLogin(event.toString());
+    _analyticsService
+        .logEvent(name: 'signup', parameters: {'method': event.toString()});
 
     try {
       final user =

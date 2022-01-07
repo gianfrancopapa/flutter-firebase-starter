@@ -6,9 +6,8 @@
 
 import 'dart:async' as _i4;
 
+import 'package:analytics_repository/analytics_service.dart' as _i2;
 import 'package:auth/auth.dart' as _i3;
-import 'package:firebasestarter/services/analytics/analytics_service.dart'
-    as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -28,28 +27,6 @@ class MockAnalyticsService extends _i1.Mock implements _i2.AnalyticsService {
     _i1.throwOnMissingStub(this);
   }
 
-  @override
-  void logAppOpen() => super.noSuchMethod(Invocation.method(#logAppOpen, []),
-      returnValueForMissingStub: null);
-  @override
-  void logTutorialBegin() =>
-      super.noSuchMethod(Invocation.method(#logTutorialBegin, []),
-          returnValueForMissingStub: null);
-  @override
-  void logTutorialComplete() =>
-      super.noSuchMethod(Invocation.method(#logTutorialComplete, []),
-          returnValueForMissingStub: null);
-  @override
-  void logSignUp(String? method) =>
-      super.noSuchMethod(Invocation.method(#logSignUp, [method]),
-          returnValueForMissingStub: null);
-  @override
-  void logLogin(String? method) =>
-      super.noSuchMethod(Invocation.method(#logLogin, [method]),
-          returnValueForMissingStub: null);
-  @override
-  void logLogout() => super.noSuchMethod(Invocation.method(#logLogout, []),
-      returnValueForMissingStub: null);
   @override
   void logEvent({String? name, Map<String, dynamic>? parameters}) =>
       super.noSuchMethod(

@@ -3,7 +3,6 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebasestarter/employees/employees.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/app/app.dart';
-import 'package:firebasestarter/services/analytics/analyitics.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/services/image_picker/image_picker.dart';
 import 'package:firebasestarter/services/notifications/notifications_service.dart';
@@ -15,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:repository/repository.dart';
+import 'package:analytics_repository/analyitics.dart';
 
 class App extends StatelessWidget {
   const App({

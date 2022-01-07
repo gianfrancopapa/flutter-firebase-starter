@@ -1,10 +1,8 @@
 import 'package:auth/auth.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebasestarter/app.dart';
 import 'package:firebasestarter/bootstrap.dart';
 import 'package:firebasestarter/data_source/firebase_employee_database.dart';
-import 'package:firebasestarter/services/analytics/firebase_analytics_service.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/services/image_picker/image_picker.dart';
 import 'package:firebasestarter/services/notifications/notifications_service.dart';
@@ -13,6 +11,7 @@ import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:repository/repository.dart';
+import 'package:analytics_repository/analyitics.dart';
 
 void main() async {
   bootstrap(
@@ -41,7 +40,7 @@ void main() async {
 
       return App(
         sharedPreferences: MySharedPreferences(),
-        firebaseAnalytics: FirebaseAnalytics.instance,
+        firebaseAnalytics: FirebaseAnalyticsService().firebaseAnalytics,
         firebaseAnalyticsService: FirebaseAnalyticsService(),
         pickImageService: PickImageService(),
         appInfoService: AppInfoService(),

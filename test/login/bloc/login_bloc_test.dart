@@ -3,7 +3,7 @@ import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:auth/auth.dart';
-import 'package:firebasestarter/services/analytics/analyitics.dart';
+import 'package:analytics_repository/analyitics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

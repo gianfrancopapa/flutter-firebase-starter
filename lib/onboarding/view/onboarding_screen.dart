@@ -1,5 +1,5 @@
 import 'package:firebasestarter/onboarding/onboarding.dart';
-import 'package:firebasestarter/services/analytics/firebase_analytics_service.dart';
+import 'package:analytics_repository/analyitics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
