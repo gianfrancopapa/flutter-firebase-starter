@@ -2,8 +2,6 @@
 // in firebasestarter/test/sign_up/bloc/sign_up_bloc_test.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: must_be_immutable
-
 import 'dart:async' as _i3;
 
 import 'package:auth/auth.dart' as _i2;
