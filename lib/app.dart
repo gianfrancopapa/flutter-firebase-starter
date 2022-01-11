@@ -5,7 +5,6 @@ import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/app/app.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/services/image_picker/image_picker.dart';
-import 'package:firebasestarter/services/notifications/notifications_service.dart';
 import 'package:firebasestarter/services/shared_preferences/shared_preferences.dart';
 import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
 import 'package:firebasestarter/user/user.dart';
@@ -15,6 +14,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:repository/repository.dart';
 import 'package:analytics_repository/analyitics.dart';
+import 'package:notification_repository/notification_repository.dart';
 
 class App extends StatelessWidget {
   const App({

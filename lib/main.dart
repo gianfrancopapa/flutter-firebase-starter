@@ -5,7 +5,7 @@ import 'package:firebasestarter/bootstrap.dart';
 import 'package:firebasestarter/data_source/firebase_employee_database.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/services/image_picker/image_picker.dart';
-import 'package:firebasestarter/services/notifications/notifications_service.dart';
+import 'package:notification_repository/notification_repository.dart';
 import 'package:firebasestarter/services/shared_preferences/shared_preferences.dart';
 import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
