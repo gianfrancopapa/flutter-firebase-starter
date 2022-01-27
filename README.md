@@ -1,6 +1,6 @@
 # Flutter Firebase Starter
 
-[![Somnio Software](assets/logo.png)][somnio_software_link]
+[![Somnio Software](doc/assets/logo.png)][somnio_software_link]
 
 Developed with :blue_heart: &nbsp;by [Somnio Software][somnio_software_link]
 
@@ -176,7 +176,7 @@ You can add new languages each one should have its own file. E.g:
 A providing persistent storage for simple data.
 ✅&nbsp; [Image Picker][image_picker_package]
 You can take pick images from the library or take photos to update you user profile picture.
-:✅&nbsp; [Onboarding][onboarding_package]
+✅&nbsp; [Onboarding][onboarding_package]
  Basic example of an onboarding flow where you can give users a little explanation about the app.
 ✅&nbsp; [Splash Screen][splash_screen_package]
 You can easily configure and cusotmize the splash screen in the pubspec.yaml.
