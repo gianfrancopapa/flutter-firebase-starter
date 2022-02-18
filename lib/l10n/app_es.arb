@@ -153,6 +153,11 @@
 
   "gallery" : "Galería",
 
-  "camera" : "Cámara"
+  "camera" : "Cámara",
+  
+  "deleteAccount" : "Eliminar cuenta",
+
+  "deleteAccountConfirmation" : "¿Está seguro de eliminar su cuenta? Por favor confirme ingresando su contraseña"
+
 
 }

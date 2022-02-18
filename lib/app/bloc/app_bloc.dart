@@ -20,6 +20,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     on<AppIsFirstTimeLaunched>(_mapAppIsFirstTimeLaunchedToState);
     on<AppUserChanged>(_mapAppUserChangedToState);
     on<AppLogoutRequsted>(_mapAppLogoutRequstedToState);
+    on<AppDeleteRequested>(_mapAppDeleteRequestedToState);
+    on<AppPasswordReauthentication>(_mapAppPasswordReauthenticationToState);
   }
 
   static const String _isFirstTime = 'is_first_time';
@@ -83,6 +85,25 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     } on AuthError {
       emit(state.copyWith(status: AppStatus.failure));
     }
+  }
+
+  Future<void> _mapAppDeleteRequestedToState(
+      AppDeleteRequested event, Emitter<AppState> emit) async {
+    try {
+      await _authService.deleteAccount(state.password!);
+      emit(state.copyWith(
+        status: AppStatus.unauthenticated,
+        user: User.empty,
+        password: '',
+      ));
+    } on AuthError {
+      emit(state.copyWith(status: AppStatus.failure));
+    }
+  }
+
+  Future<void> _mapAppPasswordReauthenticationToState(
+      AppPasswordReauthentication event, Emitter<AppState> emit) async {
+    emit(state.copyWith(password: event.password));
   }
 
   @override

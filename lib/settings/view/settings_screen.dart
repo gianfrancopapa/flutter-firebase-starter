@@ -32,34 +32,95 @@ class SettingsScreen extends StatelessWidget {
       body: Container(
         alignment: Alignment.center,
         height: MediaQuery.of(context).size.height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.25,
-            ),
-            FSTextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(FSColors.blue),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.25,
               ),
-              onPressed: () {
-                context.read<AppBloc>().add(const AppLogoutRequsted());
-              },
-              child: Text(
-                _localizedStrings.logout,
-                style: const TextStyle(color: FSColors.white),
+              FSTextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(FSColors.blue),
+                ),
+                onPressed: () {
+                  context.read<AppBloc>().add(const AppLogoutRequsted());
+                },
+                child: Text(
+                  _localizedStrings.logout,
+                  style: const TextStyle(color: FSColors.white),
+                ),
               ),
-            ),
-            const SizedBox(height: 200.0),
-            const AppVersion(),
-            const SizedBox(height: 20.45),
-            SvgPicture.asset(
-              Assets.packages.firebaseStarterUi.assets.images.somnioGreyLogo,
-              color: FSColors.grey,
-            ),
-          ],
+              _DeleteAccount(localizedStrings: _localizedStrings),
+              const SizedBox(height: 200.0),
+              const AppVersion(),
+              const SizedBox(height: 20.45),
+              SvgPicture.asset(
+                Assets.packages.firebaseStarterUi.assets.images.somnioGreyLogo,
+                color: FSColors.grey,
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class _DeleteAccount extends StatelessWidget {
+  const _DeleteAccount({
+    Key? key,
+    required AppLocalizations localizedStrings,
+  })  : _localizedStrings = localizedStrings,
+        super(key: key);
+
+  final AppLocalizations _localizedStrings;
+
+  @override
+  Widget build(BuildContext context) {
+    return FSTextButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(FSColors.blue),
+      ),
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(_localizedStrings.deleteAccount),
+            content: Column(
+              children: [
+                Text(_localizedStrings.deleteAccountConfirmation),
+                TextField(
+                  decoration:
+                      InputDecoration(labelText: _localizedStrings.password),
+                  onChanged: (value) {
+                    context
+                        .read<AppBloc>()
+                        .add(AppPasswordReauthentication(value));
+                  },
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              FSTextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Cancel'),
+              ),
+              FSTextButton(
+                onPressed: () {
+                  context.read<AppBloc>().add(const AppDeleteRequested());
+                },
+                child: Text(_localizedStrings.delete,
+                    style: const TextStyle(color: FSColors.red)),
+              ),
+            ],
+          ),
+        );
+      },
+      child: Text(
+        _localizedStrings.deleteAccount,
+        style: const TextStyle(color: FSColors.white),
       ),
     );
   }

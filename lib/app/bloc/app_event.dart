@@ -23,3 +23,12 @@ class AppUserChanged extends AppEvent {
 class AppLogoutRequsted extends AppEvent {
   const AppLogoutRequsted();
 }
+
+class AppDeleteRequested extends AppEvent {
+  const AppDeleteRequested();
+}
+
+class AppPasswordReauthentication extends AppEvent {
+  final String password;
+  const AppPasswordReauthentication(this.password);
+}
