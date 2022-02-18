@@ -28,6 +28,11 @@ class AppDeleteRequested extends AppEvent {
   const AppDeleteRequested();
 }
 
+class AppDeleteRequestedSocialMedia extends AppEvent {
+  final SocialMediaMethod method;
+  const AppDeleteRequestedSocialMedia(this.method);
+}
+
 class AppPasswordReauthentication extends AppEvent {
   final String password;
   const AppPasswordReauthentication(this.password);

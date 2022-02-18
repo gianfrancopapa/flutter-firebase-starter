@@ -168,6 +168,23 @@ class FirebaseAuthService implements AuthService {
     }
   }
 
+  @override
+  Future<void>? deleteAccountSocialMedia(SocialMediaMethod method) async {
+    try {
+      final service = _signInServiceFactory.getService(method: method)!;
+      final firebaseCredential = await service.getFirebaseCredential();
+
+      if (firebaseCredential != null) {
+        await _firebaseAuth.currentUser!
+            .reauthenticateWithCredential(firebaseCredential);
+      }
+      final user = _firebaseAuth.currentUser!;
+      await user.delete();
+    } on auth.FirebaseAuthException catch (e) {
+      throw _determineError(e);
+    }
+  }
+
   AuthError _determineError(auth.FirebaseAuthException exception) {
     switch (exception.code) {
       case 'invalid-email':

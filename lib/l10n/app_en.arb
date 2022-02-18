@@ -396,8 +396,13 @@
       "description" : ""
   },
   
-  "deleteAccountConfirmation"  : "Are you sure you want to delete your account? Please confirm by entering your password",
+  "deleteAccountConfirmation"  : "Are you sure you want to delete your account? All your data will be removed permanently. Please confirm by entering your password",
   "@deleteAccountConfirmation" : {
+      "description" : ""
+  },
+
+   "deleteAccountConfirmationSocialMedia"  : "Are you sure you want to delete your account? All your data will be removed permanently.",
+  "@deleteAccountConfirmationSocialMedia" : {
       "description" : ""
   },
 

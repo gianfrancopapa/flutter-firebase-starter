@@ -157,7 +157,9 @@
   
   "deleteAccount" : "Eliminar cuenta",
 
-  "deleteAccountConfirmation" : "¿Está seguro de eliminar su cuenta? Por favor confirme ingresando su contraseña.",
+  "deleteAccountConfirmation" : "¿Está seguro de eliminar su cuenta? Todos sus datos serán eliminados permanentemente. Por favor confirme ingresando su contraseña.",
+
+  "deleteAccountConfirmationSocialMedia" : "¿Está seguro de eliminar su cuenta? Todos sus datos serán eliminados permanentemente.",
 
   "wrongPasswordReauthentication" : "Contraseña incorrecta, por favor intente nuevamente.",
 

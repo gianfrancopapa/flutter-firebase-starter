@@ -36,4 +36,6 @@ abstract class AuthService {
   });
 
   Future<void>? deleteAccount(String password);
+
+  Future<void>? deleteAccountSocialMedia(SocialMediaMethod method);
 }

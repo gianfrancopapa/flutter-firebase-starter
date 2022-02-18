@@ -44,7 +44,6 @@ class LoginScreen extends StatelessWidget {
 
             if (state.status == LoginStatus.loggedIn) {
               context.read<UserBloc>().add(const UserLoaded());
-
               Navigator.of(context).push(HomeScreen.route());
             }
           },
