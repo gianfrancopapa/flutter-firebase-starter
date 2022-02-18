@@ -399,6 +399,16 @@
   "deleteAccountConfirmation"  : "Are you sure you want to delete your account? Please confirm by entering your password",
   "@deleteAccountConfirmation" : {
       "description" : ""
+  },
+
+  "wrongPasswordReauthentication"  : "Wrong password, please try again",
+  "@wrongPasswordReauthentication" : {
+      "description" : ""
+  }, 
+  
+  "cancel"  : "Cancel",
+  "@cancel" : {
+      "description" : ""
   }
 
 }

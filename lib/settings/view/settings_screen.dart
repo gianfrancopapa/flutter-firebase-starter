@@ -52,7 +52,7 @@ class SettingsScreen extends StatelessWidget {
                   style: const TextStyle(color: FSColors.white),
                 ),
               ),
-              _DeleteAccount(localizedStrings: _localizedStrings),
+              const _DeleteAccount(),
               const SizedBox(height: 200.0),
               const AppVersion(),
               const SizedBox(height: 20.45),
@@ -71,14 +71,12 @@ class SettingsScreen extends StatelessWidget {
 class _DeleteAccount extends StatelessWidget {
   const _DeleteAccount({
     Key? key,
-    required AppLocalizations localizedStrings,
-  })  : _localizedStrings = localizedStrings,
-        super(key: key);
-
-  final AppLocalizations _localizedStrings;
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations _localizedStrings = AppLocalizations.of(context)!;
+
     return FSTextButton(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(FSColors.blue),
@@ -89,11 +87,18 @@ class _DeleteAccount extends StatelessWidget {
           builder: (context) => AlertDialog(
             title: Text(_localizedStrings.deleteAccount),
             content: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(_localizedStrings.deleteAccountConfirmation),
                 TextField(
-                  decoration:
-                      InputDecoration(labelText: _localizedStrings.password),
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: _localizedStrings.password,
+                    errorText: context.watch<AppBloc>().state.status ==
+                            AppStatus.failure
+                        ? _localizedStrings.wrongPasswordReauthentication
+                        : null,
+                  ),
                   onChanged: (value) {
                     context
                         .read<AppBloc>()
@@ -105,14 +110,16 @@ class _DeleteAccount extends StatelessWidget {
             actions: <Widget>[
               FSTextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Cancel'),
+                child: Text(_localizedStrings.cancel),
               ),
               FSTextButton(
                 onPressed: () {
                   context.read<AppBloc>().add(const AppDeleteRequested());
                 },
-                child: Text(_localizedStrings.delete,
-                    style: const TextStyle(color: FSColors.red)),
+                child: Text(
+                  _localizedStrings.delete,
+                  style: const TextStyle(color: FSColors.red),
+                ),
               ),
             ],
           ),

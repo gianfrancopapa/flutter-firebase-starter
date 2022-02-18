@@ -157,7 +157,11 @@
   
   "deleteAccount" : "Eliminar cuenta",
 
-  "deleteAccountConfirmation" : "¿Está seguro de eliminar su cuenta? Por favor confirme ingresando su contraseña"
+  "deleteAccountConfirmation" : "¿Está seguro de eliminar su cuenta? Por favor confirme ingresando su contraseña.",
+
+  "wrongPasswordReauthentication" : "Contraseña incorrecta, por favor intente nuevamente.",
+
+  "cancel" : "Cancelar"
 
 
 }
