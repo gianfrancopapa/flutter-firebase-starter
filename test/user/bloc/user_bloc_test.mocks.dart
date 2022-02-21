@@ -2,8 +2,6 @@
 // in firebasestarter/test/user/bloc/user_bloc_test.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: must_be_immutable
-
 import 'dart:async' as _i3;
 
 import 'package:auth/auth.dart' as _i2;
@@ -83,6 +81,12 @@ class MockAuthService extends _i1.Mock implements _i2.AuthService {
   _i3.Future<void>? deleteAccount(String? password) => (super.noSuchMethod(
       Invocation.method(#deleteAccount, [password]),
       returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>?);
+  @override
+  _i3.Future<void>? deleteAccountSocialMedia(_i2.SocialMediaMethod? method) =>
+      (super.noSuchMethod(
+              Invocation.method(#deleteAccountSocialMedia, [method]),
+              returnValueForMissingStub: Future<void>.value())
+          as _i3.Future<void>?);
 }
 
 /// A class which mocks [UserEntity].

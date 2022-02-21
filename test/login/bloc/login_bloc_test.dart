@@ -198,12 +198,14 @@ void main() {
             status: LoginStatus.loading,
             email: Email.pure(),
             password: Password.pure(),
+            method: SocialMediaMethod.google,
           ),
           LoginState(
             status: LoginStatus.loggedIn,
             user: User.fromEntity(mockUser!),
             email: Email.pure(),
             password: Password.pure(),
+            method: SocialMediaMethod.google,
           ),
         ],
       );
@@ -227,7 +229,8 @@ void main() {
           );
         },
         expect: () => <LoginState>[
-          LoginState.initial().copyWith(status: LoginStatus.loading),
+          LoginState.initial().copyWith(
+              status: LoginStatus.loading, method: SocialMediaMethod.google),
           LoginState.initial().copyWith(status: LoginStatus.loggedOut),
         ],
       );
@@ -252,10 +255,10 @@ void main() {
         },
         expect: () => <LoginState>[
           LoginState(
-            status: LoginStatus.loading,
-            email: Email.pure(),
-            password: Password.pure(),
-          ),
+              status: LoginStatus.loading,
+              email: Email.pure(),
+              password: Password.pure(),
+              method: SocialMediaMethod.google),
           LoginState(
             status: LoginStatus.failure,
             email: Email.pure(),
