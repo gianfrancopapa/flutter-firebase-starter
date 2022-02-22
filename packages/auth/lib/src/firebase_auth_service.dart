@@ -144,7 +144,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<UserEntity> signInWithEmailLink({email, emailLink}) async {
+  Future<UserEntity?> signInWithEmailLink({email, emailLink}) async {
     try {
       await _firebaseAuth.signInWithEmailLink(
           email: email, emailLink: emailLink);

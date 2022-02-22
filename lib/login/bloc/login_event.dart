@@ -35,8 +35,7 @@ class LoginEmailChanged extends LoginEvent {
 }
 
 class LoginPasswordlessEmailChanged extends LoginEvent {
-  const LoginPasswordlessEmailChanged({@required this.passwordlessEmail}) : assert(passwordlessEmail != null);
-
+  const LoginPasswordlessEmailChanged({required this.passwordlessEmail});
   final String passwordlessEmail;
 
   @override
@@ -44,11 +43,7 @@ class LoginPasswordlessEmailChanged extends LoginEvent {
 }
 
 class LoginPasswordChanged extends LoginEvent {
-<<<<<<< HEAD
   const LoginPasswordChanged({required this.password});
-=======
-  const LoginPasswordChanged({@required this.password}) : assert(password != null);
->>>>>>> 68e59ef87e88ec7055f93ae665d68170246b6772
 
   final String password;
 
@@ -57,8 +52,7 @@ class LoginPasswordChanged extends LoginEvent {
 }
 
 class LoginPasswordlessRequested extends LoginEvent {
-  const LoginPasswordlessRequested({@required this.uri});
-
+  const LoginPasswordlessRequested({required this.uri});
   final Uri uri;
 
   @override
@@ -66,10 +60,5 @@ class LoginPasswordlessRequested extends LoginEvent {
 }
 
 class LoginSendEmailRequested extends LoginEvent {
-  const LoginSendEmailRequested({@required this.passwordlessEmail}) : assert(passwordlessEmail != null);
-
-  final String passwordlessEmail;
-
-  @override
-  List<Object> get props => [passwordlessEmail];
+  const LoginSendEmailRequested();
 }

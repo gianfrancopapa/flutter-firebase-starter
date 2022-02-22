@@ -2,7 +2,6 @@ import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
-import 'package:firebasestarter/services/shared_preferences/shared_preferences.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
@@ -87,8 +86,8 @@ class LoginScreen extends StatelessWidget {
       case AuthError.weakPassword:
         message += _appLocalizations!.weakPassword;
         break;
-      case AuthError.EXPIRED_LINK:
-        message += _appLocalizations.expiredLink;
+      case AuthError.expiredLink:
+        message += _appLocalizations!.expiredLink;
         break;
       default:
         message += 'An error occurs';
@@ -102,7 +101,7 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     _loginState = context.select((LoginBloc bloc) => bloc.state);
 
     return Padding(
@@ -264,7 +263,7 @@ class _EmailTextField extends StatelessWidget {
           errorBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: FSColors.red),
           ),
-          errorText: email.valid ? null : localizations.invalidEmail),
+          errorText: email!.valid ? null : localizations.invalidEmail),
       onChanged: (email) {
         context.read<LoginBloc>().add(LoginEmailChanged(email: email));
       },
@@ -359,11 +358,11 @@ class _ForgotPasswordButton extends StatelessWidget {
 }
 
 class LoginPasswordlessButton extends StatelessWidget {
-  const LoginPasswordlessButton({Key key}) : super(key: key);
+  const LoginPasswordlessButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return FSTextButton(
       style: ButtonStyle(
@@ -408,11 +407,11 @@ class LoginPasswordlessButton extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 15.0),
           ),
-          Image(
-            image: AssetImage(FSAssetImage.plessLogo),
+          /*Image(
+            image: AssetImage(Assets.packages.firebaseStarterUi.assets.images.passwordless_logo),
             height: 30.0,
             width: 30.0,
-          ),
+          ),*/
           const Padding(
             padding: EdgeInsets.only(left: 15.0),
           ),
@@ -431,18 +430,18 @@ class LoginPasswordlessButton extends StatelessWidget {
 }
 
 class _PasswordlessEmailTextField extends StatelessWidget {
-  const _PasswordlessEmailTextField({Key key}) : super(key: key);
+  const _PasswordlessEmailTextField({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
     final passwordlessEmail =
         context.select((LoginBloc bloc) => bloc.state.passwordlessEmail);
 
     return TextField(
       decoration: InputDecoration(
         labelText: localizations.email,
-        errorText: passwordlessEmail.valid ? null : localizations.invalidEmail,
+        errorText: passwordlessEmail!.valid ? null : localizations.invalidEmail,
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: FSColors.red),
         ),
@@ -456,11 +455,11 @@ class _PasswordlessEmailTextField extends StatelessWidget {
 }
 
 class _SendEmailButton extends StatelessWidget {
-  const _SendEmailButton({Key key}) : super(key: key);
+  const _SendEmailButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return FSTextButton(
       style: ButtonStyle(
@@ -475,8 +474,7 @@ class _SendEmailButton extends StatelessWidget {
         final isValid = _loginState.status == LoginStatus.passwordlessValid;
 
         if (isValid) {
-          context.read<LoginBloc>().add(LoginSendEmailRequested(
-              passwordlessEmail: _loginState.passwordlessEmail.toString()));
+          context.read<LoginBloc>().add(const LoginSendEmailRequested());
 
           DialogHelper.showAlertDialog(
             context: context,

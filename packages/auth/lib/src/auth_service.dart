@@ -28,7 +28,7 @@ abstract class AuthService {
 
   Future<void> sendSignInLinkToEmail({required String email});
 
-  Future<UserEntity> signInWithEmailLink({required email, required emailLink});
+  Future<UserEntity?> signInWithEmailLink({required email, required emailLink});
 
   bool isSignInWithEmailLink({required String emailLink});
 
