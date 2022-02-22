@@ -222,5 +222,66 @@ void main() {
         ],
       );
     });
+
+    group('AppDeleteAccountRequested', () {
+      blocTest<AppBloc, AppState>(
+        'calls authService.deleteAccount',
+        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        build: () {
+          return AppBloc(
+            authService: mockAuthService,
+            localPersistanceService: mockLocalPersistanceService,
+          );
+        },
+        verify: (_) {
+          verify(mockAuthService.deleteAccount()).called(1);
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'emits [unauthenticated] when authService.deleteAccount succeeds',
+        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        build: () {
+          when(mockAuthService.deleteAccount()).thenAnswer((_) async => null);
+
+          return AppBloc(
+            authService: mockAuthService,
+            localPersistanceService: mockLocalPersistanceService,
+          );
+        },
+        expect: () => <AppState>[
+          AppState(
+            status: AppStatus.unauthenticated,
+            user: User.empty,
+          ),
+        ],
+      );
+      blocTest<AppBloc, AppState>(
+        'emits [failure] when authService.deleteAccount throws',
+        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        build: () {
+          when(mockAuthService.deleteAccount()).thenThrow(AuthError.error);
+          return AppBloc(
+            authService: mockAuthService,
+            localPersistanceService: mockLocalPersistanceService,
+          );
+        },
+        expect: () => <AppState>[AppState(status: AppStatus.failure)],
+      );
+
+      blocTest<AppBloc, AppState>(
+        'emits [requiresReauthenticate] when authService.deleteAccount throws REQUIRES_RECENT_LOGIN',
+        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        build: () {
+          when(mockAuthService.deleteAccount()).thenThrow(AuthError.error);
+          return AppBloc(
+            authService: mockAuthService,
+            localPersistanceService: mockLocalPersistanceService,
+          );
+        },
+        expect: () =>
+            <AppState>[AppState(status: AppStatus.requiresReauthenticate)],
+      );
+    });
   });
 }

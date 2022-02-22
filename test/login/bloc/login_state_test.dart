@@ -14,6 +14,7 @@ void main() {
           LoginState(
             status: LoginStatus.initial,
             email: Email.pure(),
+            passwordlessEmail: Email.pure(),
             password: Password.pure(),
           ),
         ),

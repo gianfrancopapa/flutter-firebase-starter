@@ -1,3 +1,4 @@
+import 'package:firebasestarter/services/dynamic_links/firebase_dynamic_links_service.dart';
 import 'package:firebasestarter/app/app.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/home/home.dart';
@@ -10,6 +11,8 @@ class DetermineAccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseDynamicLinksService().initDynamicLinks(context: context);
+
     return BlocListener<AppBloc, AppState>(
       listenWhen: (prev, current) => prev.status != current.status,
       listener: (context, state) {

@@ -23,9 +23,14 @@ abstract class AuthService {
 
   Future<void>? sendPasswordResetEmail({required String email});
 
-  Future<UserEntity?> signInWithSocialMedia({
-    required SocialMediaMethod method,
-  });
+  Future<UserEntity?> signInWithSocialMedia(
+      {required SocialMediaMethod method});
+
+  Future<void> sendSignInLinkToEmail({required String email});
+
+  Future<UserEntity?> signInWithEmailLink({required email, required emailLink});
+
+  bool isSignInWithEmailLink({required String emailLink});
 
   Future<void>? signOut();
 

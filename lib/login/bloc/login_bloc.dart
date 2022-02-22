@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/analytics/analytics_service.dart';
+import 'package:firebasestarter/services/shared_preferences/shared_preferences.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'login_event.dart';
@@ -22,10 +23,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginIsSessionPersisted>(_mapLoginIsSessionPersistedToState);
     on<LoginEmailChanged>(_mapLoginEmailChangedToState);
     on<LoginPasswordChanged>(_mapLoginPasswordChangedToState);
+    on<LoginPasswordlessRequested>(_mapLoginPasswordlessRequestedToState);
+    on<LoginSendEmailRequested>(_mapLoginSendEmailToState);
+    on<LoginPasswordlessEmailChanged>(_mapLoginPasswordlessEmailChangedToState);
   }
 
   final AuthService _authService;
   final AnalyticsService _analyticsService;
+  final passwordlessEmailKey = 'passwordlessEmail';
 
   Future<void> _mapLoginWithEmailAndPasswordRequestedToState(
     LoginWithEmailAndPasswordRequested event,
@@ -123,12 +128,59 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     ));
   }
 
+  Future<void> _mapLoginSendEmailToState(
+      LoginSendEmailRequested event, Emitter emit) async {
+    try {
+      final email = state.passwordlessEmail!.value!;
+      await MySharedPreferences()
+          .setValue(passwordlessEmailKey, state.passwordlessEmail!.value!);
+      await _authService.sendSignInLinkToEmail(email: email);
+      emit(state.copyWith(status: LoginStatus.initial));
+    } on AuthError catch (e) {
+      emit(state.copyWith(status: LoginStatus.failure, error: e));
+    }
+  }
+
+  Future<void> _mapLoginPasswordlessEmailChangedToState(
+      LoginPasswordlessEmailChanged event, Emitter emit) async {
+    final passwordlessEmail = Email.dirty(event.passwordlessEmail);
+
+    emit(state.copyWith(
+      passwordlessEmail: passwordlessEmail,
+      status: _passwordlessStatus(passwordlessEmail: passwordlessEmail),
+    ));
+  }
+
+  Future<void> _mapLoginPasswordlessRequestedToState(
+      LoginPasswordlessRequested event, Emitter emit) async {
+    emit(state.copyWith(status: LoginStatus.loading));
+
+    try {
+      if (_authService.isSignInWithEmailLink(emailLink: event.uri.toString())) {
+        final email =
+            await MySharedPreferences().getValue<String>('passwordlessEmail');
+        final user = await _authService.signInWithEmailLink(
+            email: email, emailLink: event.uri.toString());
+
+        emit(
+            state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user!)));
+      }
+    } on AuthError catch (e) {
+      emit(state.copyWith(status: LoginStatus.failure, error: e));
+    }
+  }
+
   LoginStatus _status({Email? email, Password? password}) {
     final _email = email ?? state.email!;
     final _password = password ?? state.password;
 
     if (_email.valid && _password!.valid) return LoginStatus.valid;
 
+    return LoginStatus.invalid;
+  }
+
+  LoginStatus _passwordlessStatus({required Email passwordlessEmail}) {
+    if (passwordlessEmail.valid) return LoginStatus.passwordlessValid;
     return LoginStatus.invalid;
   }
 
