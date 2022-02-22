@@ -2,6 +2,7 @@ import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
+import 'package:firebasestarter/services/shared_preferences/shared_preferences.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
@@ -10,6 +11,8 @@ import 'package:firebasestarter/home/home.dart';
 import 'package:firebasestarter/utils/dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+LoginState _loginState = LoginState.initial();
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -84,6 +87,9 @@ class LoginScreen extends StatelessWidget {
       case AuthError.weakPassword:
         message += _appLocalizations!.weakPassword;
         break;
+      case AuthError.EXPIRED_LINK:
+        message += _appLocalizations.expiredLink;
+        break;
       default:
         message += 'An error occurs';
     }
@@ -96,7 +102,8 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final localizations = AppLocalizations.of(context);
+    _loginState = context.select((LoginBloc bloc) => bloc.state);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 44.0),
@@ -193,13 +200,50 @@ class _LoginForm extends StatelessWidget {
             const LoginWithAppleButton(
               key: Key('loginScreen_loginForm_loginWithAppleButton'),
             ),
-            const SizedBox(height: 14.0),
-            const LoginAnonymouslyButton(
-              key: Key('loginScreen_loginForm_loginAnonymouslyButton'),
-            ),
             const SizedBox(height: 40.0),
+            TextButton(
+              key: const Key('loginScreen_loginForm_otherOptions'),
+              onPressed: () => _ShowOtherLoginOptions(context),
+              child: Text(localizations.otherLoginOptions),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<dynamic> _ShowOtherLoginOptions(BuildContext context) {
+    return showModalBottomSheet(
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (_) => Wrap(
+        children: <Widget>[
+          BottomSheet(
+            enableDrag: true,
+            elevation: 2.0,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(40.0),
+              ),
+            ),
+            onClosing: () {},
+            builder: (_) => Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 44.0, vertical: 22.0),
+              child: Column(
+                children: const [
+                  LoginAnonymouslyButton(
+                    key: Key('loginScreen_loginForm_loginAnonymouslyButton'),
+                  ),
+                  SizedBox(height: 14.0),
+                  LoginPasswordlessButton(
+                    key: Key('loginScreen_loginForm_loginPasswordlessButton'),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -216,12 +260,11 @@ class _EmailTextField extends StatelessWidget {
 
     return TextField(
       decoration: InputDecoration(
-        labelText: localizations.email,
-        errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: FSColors.red),
-        ),
-        errorText: email!.valid ? null : 'Invalid email',
-      ),
+          labelText: localizations.email,
+          errorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: FSColors.red),
+          ),
+          errorText: email.valid ? null : localizations.invalidEmail),
       onChanged: (email) {
         context.read<LoginBloc>().add(LoginEmailChanged(email: email));
       },
@@ -310,6 +353,152 @@ class _ForgotPasswordButton extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class LoginPasswordlessButton extends StatelessWidget {
+  const LoginPasswordlessButton({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
+    return FSTextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(FSSpacing.s10)),
+          ),
+        ),
+        backgroundColor: MaterialStateProperty.all(FSColors.white),
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(localizations.sendLoginEmail),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    localizations.loginEmailDescription,
+                  ),
+                  const SizedBox(height: 10.0),
+                  const _PasswordlessEmailTextField(
+                    key: Key('loginScreen_passwordlessLogin_emailTextField'),
+                  ),
+                ],
+              ),
+              actions: const [
+                _SendEmailButton(
+                  key: Key('loginScreen_passwordlessLogin_sendEmailButton'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+      child: Row(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 15.0),
+          ),
+          Image(
+            image: AssetImage(FSAssetImage.plessLogo),
+            height: 30.0,
+            width: 30.0,
+          ),
+          const Padding(
+            padding: EdgeInsets.only(left: 15.0),
+          ),
+          Text(
+            localizations.passwordlessSignIn,
+            style: const TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.w400,
+              color: FSColors.black,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PasswordlessEmailTextField extends StatelessWidget {
+  const _PasswordlessEmailTextField({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+    final passwordlessEmail =
+        context.select((LoginBloc bloc) => bloc.state.passwordlessEmail);
+
+    return TextField(
+      decoration: InputDecoration(
+        labelText: localizations.email,
+        errorText: passwordlessEmail.valid ? null : localizations.invalidEmail,
+        errorBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: FSColors.red),
+        ),
+      ),
+      onChanged: (passwordlessEmail) {
+        context.read<LoginBloc>().add(LoginPasswordlessEmailChanged(
+            passwordlessEmail: passwordlessEmail));
+      },
+    );
+  }
+}
+
+class _SendEmailButton extends StatelessWidget {
+  const _SendEmailButton({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
+    return FSTextButton(
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(FSSpacing.s10)),
+          ),
+        ),
+        backgroundColor: MaterialStateProperty.all(FSColors.blue),
+      ),
+      onPressed: () async {
+        final isValid = _loginState.status == LoginStatus.passwordlessValid;
+
+        if (isValid) {
+          context.read<LoginBloc>().add(LoginSendEmailRequested(
+              passwordlessEmail: _loginState.passwordlessEmail.toString()));
+
+          DialogHelper.showAlertDialog(
+            context: context,
+            story: localizations.emailSent,
+            btnText: localizations.ok,
+            btnAction: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            },
+          );
+        } else {
+          DialogHelper.showAlertDialog(
+            context: context,
+            story: localizations.invalidEmail,
+            btnText: localizations.ok,
+            btnAction: () => Navigator.of(context).pop(),
+          );
+        }
+      },
+      child: Text(
+        localizations.sendLoginEmail,
+        style: const TextStyle(color: FSColors.white),
       ),
     );
   }

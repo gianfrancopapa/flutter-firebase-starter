@@ -85,6 +85,26 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     }
   }
 
+  Stream<AppState> _mapAppDeleteAccountRequestedToState() async* {
+    try {
+      await _authService.deleteAccount();
+      yield state.copyWith(
+        status: AppStatus.unauthenticated,
+        user: User.empty,
+      );
+    } on AuthError catch (e) {
+      if (e.index == AuthError.REQUIRES_RECENT_LOGIN.index) {
+        yield state.copyWith(status: AppStatus.requiresReauthenticate);
+      } else {
+        yield state.copyWith(status: AppStatus.failure);
+      }
+    }
+  }
+
+  Stream<AppState> _mapAppBackToAuthenticatedToState() async* {
+    yield state.copyWith(status: AppStatus.initial);
+  }
+
   @override
   Future<void> close() async {
     _userSubscription?.cancel();

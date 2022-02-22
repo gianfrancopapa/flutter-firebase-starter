@@ -8,6 +8,7 @@ enum LoginStatus {
   failure,
   valid,
   invalid,
+  passwordlessValid,
 }
 
 class LoginState extends Equatable {
@@ -16,12 +17,14 @@ class LoginState extends Equatable {
   final User? user;
   final Email? email;
   final Password? password;
+  final Email? passwordlessEmail;
 
   const LoginState({
     required this.status,
     this.error,
     this.user,
     this.email,
+    this.passwordlessEmail,
     this.password,
   });
 
@@ -29,6 +32,7 @@ class LoginState extends Equatable {
       : this(
           status: LoginStatus.initial,
           email: Email.pure(),
+          passwordlessEmail: Email.pure(),
           password: Password.pure(),
         );
 
@@ -38,16 +42,19 @@ class LoginState extends Equatable {
     User? user,
     Email? email,
     Password? password,
+    Email? passwordlessEmail,
   }) {
     return LoginState(
       status: status ?? this.status,
       error: error ?? this.error,
       user: user ?? this.user,
       email: email ?? this.email,
+      passwordlessEmail: passwordlessEmail ?? this.passwordlessEmail,
       password: password ?? this.password,
     );
   }
 
   @override
-  List<Object?> get props => [status, error, user, email, password];
+  List<Object?> get props =>
+      [status, error, user, email, passwordlessEmail, password];
 }

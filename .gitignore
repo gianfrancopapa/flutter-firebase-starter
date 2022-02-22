@@ -46,3 +46,7 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+# User defined
+*.jks
+*.keystore

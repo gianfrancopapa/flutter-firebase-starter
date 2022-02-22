@@ -10,4 +10,5 @@ enum AuthError {
   operationNotAllowed,
   weakPassword,
   error,
+  expiredLink,
 }

@@ -23,3 +23,11 @@ class AppUserChanged extends AppEvent {
 class AppLogoutRequsted extends AppEvent {
   const AppLogoutRequsted();
 }
+
+class AppDeleteAccountRequsted extends AppEvent {
+  const AppDeleteAccountRequsted();
+}
+
+class AppBackToAuthenticated extends AppEvent {
+  const AppBackToAuthenticated();
+}
