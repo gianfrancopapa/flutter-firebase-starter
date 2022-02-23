@@ -202,7 +202,7 @@ class _LoginForm extends StatelessWidget {
             const SizedBox(height: 40.0),
             TextButton(
               key: const Key('loginScreen_loginForm_otherOptions'),
-              onPressed: () => _ShowOtherLoginOptions(context),
+              onPressed: () => _showOtherLoginOptions(context),
               child: Text(localizations.otherLoginOptions),
             ),
           ],
@@ -211,7 +211,7 @@ class _LoginForm extends StatelessWidget {
     );
   }
 
-  Future<dynamic> _ShowOtherLoginOptions(BuildContext context) {
+  Future<dynamic> _showOtherLoginOptions(BuildContext context) {
     return showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
