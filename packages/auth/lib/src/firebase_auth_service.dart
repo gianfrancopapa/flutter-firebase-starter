@@ -126,13 +126,13 @@ class FirebaseAuthService implements AuthService {
   Future<void> sendSignInLinkToEmail({required String email}) async {
     try {
       final actionCodeSettings = ActionCodeSettings(
-          url: 'https://somniosoftware.com/',
-          dynamicLinkDomain: 'somnioboilerplate.page.link',
-          androidInstallApp: true,
-          androidMinimumVersion: '6',
-          androidPackageName: 'com.somniosoftware.firebasestarter',
-          iOSBundleId: 'com.somniosoftware.firebasestarter',
-          handleCodeInApp: true);
+        url: 'https://somnioboilerplate.page.link/kN5G',
+        androidMinimumVersion: '6',
+        androidPackageName: 'com.somniosoftware.firebasestarter',
+        iOSBundleId: 'com.somniosoftware.firebasestarter',
+        handleCodeInApp: true,
+        androidInstallApp: true,
+      );
 
       await _firebaseAuth.sendSignInLinkToEmail(
         email: email,

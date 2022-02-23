@@ -128,6 +128,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     ));
   }
 
+  Future<void> _mapLoginPasswordlessEmailChangedToState(
+      LoginPasswordlessEmailChanged event, Emitter emit) async {
+    final passwordlessEmail = Email.dirty(event.passwordlessEmail);
+
+    emit(state.copyWith(
+      passwordlessEmail: passwordlessEmail,
+      status: _passwordlessStatus(passwordlessEmail: passwordlessEmail),
+    ));
+  }
+
   Future<void> _mapLoginSendEmailToState(
       LoginSendEmailRequested event, Emitter emit) async {
     try {
@@ -139,16 +149,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } on AuthError catch (e) {
       emit(state.copyWith(status: LoginStatus.failure, error: e));
     }
-  }
-
-  Future<void> _mapLoginPasswordlessEmailChangedToState(
-      LoginPasswordlessEmailChanged event, Emitter emit) async {
-    final passwordlessEmail = Email.dirty(event.passwordlessEmail);
-
-    emit(state.copyWith(
-      passwordlessEmail: passwordlessEmail,
-      status: _passwordlessStatus(passwordlessEmail: passwordlessEmail),
-    ));
   }
 
   Future<void> _mapLoginPasswordlessRequestedToState(

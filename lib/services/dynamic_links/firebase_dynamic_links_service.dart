@@ -12,6 +12,13 @@ class FirebaseDynamicLinksService extends DynamicLinksService {
           .read<LoginBloc>()
           .add(LoginPasswordlessRequested(uri: event.link));
     });
+
+    final data = await FirebaseDynamicLinks.instance.getInitialLink();
+    final deepLink = data?.link;
+
+    if (deepLink != null) {
+      context.read<LoginBloc>().add(LoginPasswordlessRequested(uri: deepLink));
+    }
   }
 
   @override
