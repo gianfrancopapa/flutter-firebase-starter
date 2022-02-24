@@ -1,5 +1,6 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
+import 'package:firebasestarter/gen/assets.gen.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
@@ -406,11 +407,12 @@ class LoginPasswordlessButton extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.only(left: 15.0),
           ),
-          /*Image(
-            image: AssetImage(Assets.packages.firebaseStarterUi.assets.images.passwordless_logo),
+          Image(
+            image: AssetImage(Assets.packages.firebaseStarterUi.assets.images
+                .passwordlessLogo.path),
             height: 30.0,
             width: 30.0,
-          ),*/
+          ),
           const Padding(
             padding: EdgeInsets.only(left: 15.0),
           ),
