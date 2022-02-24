@@ -226,7 +226,7 @@ void main() {
     group('AppDeleteAccountRequested', () {
       blocTest<AppBloc, AppState>(
         'calls authService.deleteAccount',
-        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        act: (bloc) => bloc.add(AppDeleteRequested()),
         build: () {
           return AppBloc(
             authService: mockAuthService,
@@ -234,15 +234,16 @@ void main() {
           );
         },
         verify: (_) {
-          verify(mockAuthService.deleteAccount()).called(1);
+          verify(mockAuthService.deleteAccount('1234')).called(1);
         },
       );
 
       blocTest<AppBloc, AppState>(
         'emits [unauthenticated] when authService.deleteAccount succeeds',
-        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        act: (bloc) => bloc.add(AppDeleteRequested()),
         build: () {
-          when(mockAuthService.deleteAccount()).thenAnswer((_) async => null);
+          when(mockAuthService.deleteAccount('1234'))
+              .thenAnswer((_) async => null);
 
           return AppBloc(
             authService: mockAuthService,
@@ -258,9 +259,10 @@ void main() {
       );
       blocTest<AppBloc, AppState>(
         'emits [failure] when authService.deleteAccount throws',
-        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        act: (bloc) => bloc.add(AppDeleteRequested()),
         build: () {
-          when(mockAuthService.deleteAccount()).thenThrow(AuthError.error);
+          when(mockAuthService.deleteAccount('1234'))
+              .thenThrow(AuthError.error);
           return AppBloc(
             authService: mockAuthService,
             localPersistanceService: mockLocalPersistanceService,
@@ -271,9 +273,10 @@ void main() {
 
       blocTest<AppBloc, AppState>(
         'emits [requiresReauthenticate] when authService.deleteAccount throws REQUIRES_RECENT_LOGIN',
-        act: (bloc) => bloc.add(AppDeleteAccountRequsted()),
+        act: (bloc) => bloc.add(AppDeleteRequested()),
         build: () {
-          when(mockAuthService.deleteAccount()).thenThrow(AuthError.error);
+          when(mockAuthService.deleteAccount('1234'))
+              .thenThrow(AuthError.error);
           return AppBloc(
             authService: mockAuthService,
             localPersistanceService: mockLocalPersistanceService,
