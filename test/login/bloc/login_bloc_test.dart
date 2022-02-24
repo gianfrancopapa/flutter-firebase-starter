@@ -206,6 +206,7 @@ void main() {
             email: Email.pure(),
             passwordlessEmail: Email.pure(),
             password: Password.pure(),
+            method: SocialMediaMethod.google,
           ),
           LoginState(
             status: LoginStatus.loggedIn,
@@ -213,6 +214,7 @@ void main() {
             email: Email.pure(),
             passwordlessEmail: Email.pure(),
             password: Password.pure(),
+            method: SocialMediaMethod.google,
           ),
         ],
       );
@@ -236,7 +238,8 @@ void main() {
           );
         },
         expect: () => <LoginState>[
-          LoginState.initial().copyWith(status: LoginStatus.loading),
+          LoginState.initial().copyWith(
+              status: LoginStatus.loading, method: SocialMediaMethod.google),
           LoginState.initial().copyWith(status: LoginStatus.loggedOut),
         ],
       );
@@ -261,11 +264,11 @@ void main() {
         },
         expect: () => <LoginState>[
           LoginState(
-            status: LoginStatus.loading,
-            email: Email.pure(),
-            passwordlessEmail: Email.pure(),
-            password: Password.pure(),
-          ),
+              status: LoginStatus.loading,
+              email: Email.pure(),
+              password: Password.pure(),
+              passwordlessEmail: Email.pure(),
+              method: SocialMediaMethod.google),
           LoginState(
             status: LoginStatus.failure,
             email: Email.pure(),
@@ -296,7 +299,8 @@ void main() {
         'emits [loading, loggedIn] when authService.signInAnonymously succeeds',
         act: (bloc) => bloc.add(const LoginAnonymouslyRequested()),
         build: () {
-          when(mockAuthService.signInAnonymously()).thenAnswer((_) async => mockUser);
+          when(mockAuthService.signInAnonymously())
+              .thenAnswer((_) async => mockUser);
 
           return LoginBloc(
             authService: mockAuthService,

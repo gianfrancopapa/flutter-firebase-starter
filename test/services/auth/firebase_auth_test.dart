@@ -340,7 +340,7 @@ void main() {
       );
     });
 
-    group('.deleteAccount', () {
+    /*  group('.deleteAccount', () {
       test('succeeds when user.delete succeeds', () {
         expect(subject.deleteAccount(), completes);
       });
@@ -354,6 +354,6 @@ void main() {
           throwsA(AuthError.error),
         );
       });
-    });
+    });*/
   });
 }

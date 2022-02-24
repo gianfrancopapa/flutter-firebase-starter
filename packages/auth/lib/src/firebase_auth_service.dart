@@ -194,8 +194,28 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<void>? deleteAccount() async {
+  Future<void>? deleteAccount(String password) async {
     try {
+      final user = _firebaseAuth.currentUser!;
+      auth.AuthCredential credential = auth.EmailAuthProvider.credential(
+          email: user.email!, password: password);
+      await _firebaseAuth.currentUser!.reauthenticateWithCredential(credential);
+      await user.delete();
+    } on auth.FirebaseAuthException catch (e) {
+      throw _determineError(e);
+    }
+  }
+
+  @override
+  Future<void>? deleteAccountSocialMedia(SocialMediaMethod method) async {
+    try {
+      final service = _signInServiceFactory.getService(method: method)!;
+      final firebaseCredential = await service.getFirebaseCredential();
+
+      if (firebaseCredential != null) {
+        await _firebaseAuth.currentUser!
+            .reauthenticateWithCredential(firebaseCredential);
+      }
       final user = _firebaseAuth.currentUser!;
       await user.delete();
     } on auth.FirebaseAuthException catch (e) {

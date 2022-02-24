@@ -24,10 +24,16 @@ class AppLogoutRequsted extends AppEvent {
   const AppLogoutRequsted();
 }
 
-class AppDeleteAccountRequsted extends AppEvent {
-  const AppDeleteAccountRequsted();
+class AppDeleteRequested extends AppEvent {
+  const AppDeleteRequested();
 }
 
-class AppBackToAuthenticated extends AppEvent {
-  const AppBackToAuthenticated();
+class AppDeleteRequestedSocialMedia extends AppEvent {
+  final SocialMediaMethod method;
+  const AppDeleteRequestedSocialMedia(this.method);
+}
+
+class AppPasswordReauthentication extends AppEvent {
+  final String password;
+  const AppPasswordReauthentication(this.password);
 }

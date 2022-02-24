@@ -390,19 +390,14 @@
   "@missingAuthToken":{ 
       "description": ""
   },
-
+  
   "deleteAccount"  : "Delete account",
   "@deleteAccount" : {
       "description" : ""
   },
-
-  "deleteAccountConfirmation"  : "This action permanently deletes the user, do you want to continue?",
+  
+  "deleteAccountConfirmation"  : "Are you sure you want to delete your account? All your data will be removed permanently. Please confirm by entering your password",
   "@deleteAccountConfirmation" : {
-      "description" : ""
-  },
-
-  "askReauthentication"  : "In order to delete the user, you have to log in again. Do you want to log out?",
-  "@askReauthentication" : {
       "description" : ""
   },
 
@@ -429,7 +424,21 @@
   "expiredLink"  : "Link expired",
   "@expiredLink" : {
       "description" : ""
+  },
+  
+   "deleteAccountConfirmationSocialMedia"  : "Are you sure you want to delete your account? All your data will be removed permanently.",
+  "@deleteAccountConfirmationSocialMedia" : {
+      "description" : ""
+  },
+
+  "wrongPasswordReauthentication"  : "Wrong password, please try again",
+  "@wrongPasswordReauthentication" : {
+      "description" : ""
+  }, 
+  
+  "cancel"  : "Cancel",
+  "@cancel" : {
+      "description" : ""
   }
 
- 
 }

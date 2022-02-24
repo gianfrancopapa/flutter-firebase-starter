@@ -154,6 +154,16 @@
   "gallery" : "Galería",
 
   "camera" : "Cámara",
+  
+  "deleteAccount" : "Eliminar cuenta",
+
+  "deleteAccountConfirmation" : "¿Está seguro de eliminar su cuenta? Todos sus datos serán eliminados permanentemente. Por favor confirme ingresando su contraseña.",
+
+  "deleteAccountConfirmationSocialMedia" : "¿Está seguro de eliminar su cuenta? Todos sus datos serán eliminados permanentemente.",
+
+  "wrongPasswordReauthentication" : "Contraseña incorrecta, por favor intente nuevamente.",
+
+  "cancel" : "Cancelar",
 
   "deleteAccount" : "Eliminar cuenta",
 
@@ -163,7 +173,7 @@
 
   "passwordlessSignIn" : "Iniciar sesión sin contraseña",
 
-  "otherLoginOptions" : "Otras opciones" ,
+  "otherLoginOptions" : "Otras opciones",
 
   "loginEmailDescription" : "Esta acción le enviará un enlace para el inicio de sesión. Para continuar digite su correo en el siguiente campo y luego presione sobre el botón [Enviar correo].",
 

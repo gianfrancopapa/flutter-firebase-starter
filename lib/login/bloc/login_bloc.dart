@@ -42,7 +42,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         email: state.email!.value!,
         password: state.password!.value!,
       );
-      emit(state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user!)));
+      emit(state.copyWith(
+          status: LoginStatus.loggedIn, user: _toUser(user!), method: null));
     } on AuthError catch (e) {
       emit(state.copyWith(status: LoginStatus.failure, error: e));
     }
@@ -52,7 +53,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginWithSocialMediaRequested event,
     Emitter<LoginState> emit,
   ) async {
-    emit(state.copyWith(status: LoginStatus.loading));
+    emit(state.copyWith(status: LoginStatus.loading, method: event.method));
     _analyticsService.logLogin(event.toString());
 
     try {
@@ -60,9 +61,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           await _authService.signInWithSocialMedia(method: event.method);
 
       if (user != null) {
-        emit(state.copyWith(status: LoginStatus.loggedIn, user: _toUser(user)));
+        emit(state.copyWith(
+            status: LoginStatus.loggedIn,
+            user: _toUser(user),
+            method: event.method));
       } else {
-        emit(state.copyWith(status: LoginStatus.loggedOut));
+        emit(state.copyWith(status: LoginStatus.loggedOut, method: null));
       }
     } on AuthError catch (e) {
       emit(state.copyWith(status: LoginStatus.failure, error: e));
