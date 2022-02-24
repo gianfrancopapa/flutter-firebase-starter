@@ -223,7 +223,7 @@ void main() {
       );
     });
 
-    /*group('AppDeleteAccountRequested', () {
+    group('AppDeleteAccountRequested', () {
       blocTest<AppBloc, AppState>(
         'calls authService.deleteAccount',
         act: (bloc) => bloc.add(AppDeleteRequested()),
@@ -269,6 +269,6 @@ void main() {
         },
         expect: () => <AppState>[AppState(status: AppStatus.failure)],
       );
-    }); */
+    });
   });
 }
