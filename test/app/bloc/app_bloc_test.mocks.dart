@@ -2,11 +2,13 @@
 // in firebasestarter/test/app/bloc/app_bloc_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i3;
+import 'dart:async' as _i4;
 
-import 'package:auth/auth.dart' as _i4;
+import 'package:auth/auth.dart' as _i5;
+import 'package:firebasestarter/app/bloc/app_bloc.dart' as _i2;
+import 'package:firebasestarter/models/user.dart' as _i6;
 import 'package:firebasestarter/services/shared_preferences/local_persistance_interface.dart'
-    as _i2;
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -19,66 +21,68 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
+class _FakeAppState_0 extends _i1.Fake implements _i2.AppState {}
+
 /// A class which mocks [LocalPersistanceService].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockLocalPersistanceService extends _i1.Mock
-    implements _i2.LocalPersistanceService {
+    implements _i3.LocalPersistanceService {
   MockLocalPersistanceService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<void>? setValue<T>(String? key, T? value) => (super.noSuchMethod(
+  _i4.Future<void>? setValue<T>(String? key, T? value) => (super.noSuchMethod(
       Invocation.method(#setValue, [key, value]),
-      returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>?);
+      returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>?);
   @override
-  _i3.Future<T?> getValue<T>(String? key) =>
+  _i4.Future<T?> getValue<T>(String? key) =>
       (super.noSuchMethod(Invocation.method(#getValue, [key]),
-          returnValue: Future<T?>.value()) as _i3.Future<T?>);
+          returnValue: Future<T?>.value()) as _i4.Future<T?>);
   @override
-  _i3.Future<bool>? removeValue(String? key) =>
+  _i4.Future<bool>? removeValue(String? key) =>
       (super.noSuchMethod(Invocation.method(#removeValue, [key]))
-          as _i3.Future<bool>?);
+          as _i4.Future<bool>?);
   @override
-  _i3.Future<bool>? containsKey(String? value) =>
+  _i4.Future<bool>? containsKey(String? value) =>
       (super.noSuchMethod(Invocation.method(#containsKey, [value]))
-          as _i3.Future<bool>?);
+          as _i4.Future<bool>?);
 }
 
 /// A class which mocks [AuthService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthService extends _i1.Mock implements _i4.AuthService {
+class MockAuthService extends _i1.Mock implements _i5.AuthService {
   MockAuthService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Stream<_i4.UserEntity?> get onAuthStateChanged =>
+  _i4.Stream<_i5.UserEntity?> get onAuthStateChanged =>
       (super.noSuchMethod(Invocation.getter(#onAuthStateChanged),
-              returnValue: Stream<_i4.UserEntity?>.empty())
-          as _i3.Stream<_i4.UserEntity?>);
+              returnValue: Stream<_i5.UserEntity?>.empty())
+          as _i4.Stream<_i5.UserEntity?>);
   @override
-  _i3.Future<_i4.UserEntity?> currentUser() =>
+  _i4.Future<_i5.UserEntity?> currentUser() =>
       (super.noSuchMethod(Invocation.method(#currentUser, []),
-              returnValue: Future<_i4.UserEntity?>.value())
-          as _i3.Future<_i4.UserEntity?>);
+              returnValue: Future<_i5.UserEntity?>.value())
+          as _i4.Future<_i5.UserEntity?>);
   @override
-  _i3.Future<_i4.UserEntity?> signInAnonymously() =>
+  _i4.Future<_i5.UserEntity?> signInAnonymously() =>
       (super.noSuchMethod(Invocation.method(#signInAnonymously, []),
-              returnValue: Future<_i4.UserEntity?>.value())
-          as _i3.Future<_i4.UserEntity?>);
+              returnValue: Future<_i5.UserEntity?>.value())
+          as _i4.Future<_i5.UserEntity?>);
   @override
-  _i3.Future<_i4.UserEntity?> signInWithEmailAndPassword(
+  _i4.Future<_i5.UserEntity?> signInWithEmailAndPassword(
           {String? email, String? password}) =>
       (super.noSuchMethod(
               Invocation.method(#signInWithEmailAndPassword, [],
                   {#email: email, #password: password}),
-              returnValue: Future<_i4.UserEntity?>.value())
-          as _i3.Future<_i4.UserEntity?>);
+              returnValue: Future<_i5.UserEntity?>.value())
+          as _i4.Future<_i5.UserEntity?>);
   @override
-  _i3.Future<_i4.UserEntity?> createUserWithEmailAndPassword(
+  _i4.Future<_i5.UserEntity?> createUserWithEmailAndPassword(
           {String? name, String? lastName, String? email, String? password}) =>
       (super.noSuchMethod(
               Invocation.method(#createUserWithEmailAndPassword, [], {
@@ -87,51 +91,72 @@ class MockAuthService extends _i1.Mock implements _i4.AuthService {
                 #email: email,
                 #password: password
               }),
-              returnValue: Future<_i4.UserEntity?>.value())
-          as _i3.Future<_i4.UserEntity?>);
+              returnValue: Future<_i5.UserEntity?>.value())
+          as _i4.Future<_i5.UserEntity?>);
   @override
-  _i3.Future<void>? sendPasswordResetEmail({String? email}) =>
+  _i4.Future<void>? sendPasswordResetEmail({String? email}) =>
       (super.noSuchMethod(
               Invocation.method(#sendPasswordResetEmail, [], {#email: email}),
               returnValueForMissingStub: Future<void>.value())
-          as _i3.Future<void>?);
+          as _i4.Future<void>?);
   @override
-  _i3.Future<_i4.UserEntity?> signInWithSocialMedia(
-          {_i4.SocialMediaMethod? method}) =>
+  _i4.Future<_i5.UserEntity?> signInWithSocialMedia(
+          {_i5.SocialMediaMethod? method}) =>
       (super.noSuchMethod(
               Invocation.method(#signInWithSocialMedia, [], {#method: method}),
-              returnValue: Future<_i4.UserEntity?>.value())
-          as _i3.Future<_i4.UserEntity?>);
+              returnValue: Future<_i5.UserEntity?>.value())
+          as _i4.Future<_i5.UserEntity?>);
   @override
-  _i3.Future<void> sendSignInLinkToEmail({String? email}) =>
+  _i4.Future<void> sendSignInLinkToEmail({String? email}) =>
       (super.noSuchMethod(
           Invocation.method(#sendSignInLinkToEmail, [], {#email: email}),
           returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  _i3.Future<_i4.UserEntity?> signInWithEmailLink(
+  _i4.Future<_i5.UserEntity?> signInWithEmailLink(
           {dynamic email, dynamic emailLink}) =>
       (super.noSuchMethod(
           Invocation.method(
               #signInWithEmailLink, [], {#email: email, #emailLink: emailLink}),
           returnValue:
-              Future<_i4.UserEntity?>.value()) as _i3.Future<_i4.UserEntity?>);
+              Future<_i5.UserEntity?>.value()) as _i4.Future<_i5.UserEntity?>);
   @override
   bool isSignInWithEmailLink({String? emailLink}) => (super.noSuchMethod(
       Invocation.method(#isSignInWithEmailLink, [], {#emailLink: emailLink}),
       returnValue: false) as bool);
   @override
-  _i3.Future<void>? signOut() => (super.noSuchMethod(
+  _i4.Future<void>? signOut() => (super.noSuchMethod(
       Invocation.method(#signOut, []),
-      returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>?);
+      returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>?);
   @override
-  _i3.Future<void>? deleteAccount(String? password) => (super.noSuchMethod(
+  _i4.Future<void>? deleteAccount(String? password) => (super.noSuchMethod(
       Invocation.method(#deleteAccount, [password]),
-      returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>?);
+      returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>?);
   @override
-  _i3.Future<void>? deleteAccountSocialMedia(_i4.SocialMediaMethod? method) =>
+  _i4.Future<void>? deleteAccountSocialMedia(_i5.SocialMediaMethod? method) =>
       (super.noSuchMethod(
               Invocation.method(#deleteAccountSocialMedia, [method]),
               returnValueForMissingStub: Future<void>.value())
-          as _i3.Future<void>?);
+          as _i4.Future<void>?);
+}
+
+/// A class which mocks [AppState].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAppState extends _i1.Mock implements _i2.AppState {
+  MockAppState() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  List<Object?> get props =>
+      (super.noSuchMethod(Invocation.getter(#props), returnValue: <Object?>[])
+          as List<Object?>);
+  @override
+  _i2.AppState copyWith(
+          {_i2.AppStatus? status, _i6.User? user, String? password}) =>
+      (super.noSuchMethod(
+          Invocation.method(#copyWith, [],
+              {#status: status, #user: user, #password: password}),
+          returnValue: _FakeAppState_0()) as _i2.AppState);
 }

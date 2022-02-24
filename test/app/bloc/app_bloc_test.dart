@@ -10,7 +10,7 @@ import 'package:mockito/mockito.dart';
 
 import 'app_bloc_test.mocks.dart';
 
-@GenerateMocks([LocalPersistanceService, AuthService])
+@GenerateMocks([LocalPersistanceService, AuthService, AppState])
 void main() {
   group('AppBloc', () {
     late LocalPersistanceService mockLocalPersistanceService;
@@ -228,13 +228,14 @@ void main() {
         'calls authService.deleteAccount',
         act: (bloc) => bloc.add(AppDeleteRequested()),
         build: () {
+          when(mockAuthService.deleteAccount('')).thenAnswer((_) async => null);
           return AppBloc(
             authService: mockAuthService,
             localPersistanceService: mockLocalPersistanceService,
           );
         },
         verify: (_) {
-          verify(mockAuthService.deleteAccount('1234')).called(1);
+          verify(mockAuthService.deleteAccount('')).called(1);
         },
       );
 
@@ -244,7 +245,6 @@ void main() {
         build: () {
           when(mockAuthService.deleteAccount('1234'))
               .thenAnswer((_) async => null);
-
           return AppBloc(
             authService: mockAuthService,
             localPersistanceService: mockLocalPersistanceService,
@@ -261,29 +261,13 @@ void main() {
         'emits [failure] when authService.deleteAccount throws',
         act: (bloc) => bloc.add(AppDeleteRequested()),
         build: () {
-          when(mockAuthService.deleteAccount('1234'))
-              .thenThrow(AuthError.error);
+          when(mockAuthService.deleteAccount('')).thenThrow(AuthError.error);
           return AppBloc(
             authService: mockAuthService,
             localPersistanceService: mockLocalPersistanceService,
           );
         },
         expect: () => <AppState>[AppState(status: AppStatus.failure)],
-      );
-
-      blocTest<AppBloc, AppState>(
-        'emits [requiresReauthenticate] when authService.deleteAccount throws REQUIRES_RECENT_LOGIN',
-        act: (bloc) => bloc.add(AppDeleteRequested()),
-        build: () {
-          when(mockAuthService.deleteAccount('1234'))
-              .thenThrow(AuthError.error);
-          return AppBloc(
-            authService: mockAuthService,
-            localPersistanceService: mockLocalPersistanceService,
-          );
-        },
-        expect: () =>
-            <AppState>[AppState(status: AppStatus.requiresReauthenticate)],
       );
     });
   });
