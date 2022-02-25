@@ -115,6 +115,24 @@ class MockFirebaseAuthService extends _i1.Mock
               returnValue: Future<_i3.UserEntity?>.value())
           as _i4.Future<_i3.UserEntity?>);
   @override
+  _i4.Future<void> sendSignInLinkToEmail({String? email}) =>
+      (super.noSuchMethod(
+          Invocation.method(#sendSignInLinkToEmail, [], {#email: email}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<_i3.UserEntity?> signInWithEmailLink(
+          {dynamic email, dynamic emailLink}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #signInWithEmailLink, [], {#email: email, #emailLink: emailLink}),
+          returnValue:
+              Future<_i3.UserEntity?>.value()) as _i4.Future<_i3.UserEntity?>);
+  @override
+  bool isSignInWithEmailLink({String? emailLink}) => (super.noSuchMethod(
+      Invocation.method(#isSignInWithEmailLink, [], {#emailLink: emailLink}),
+      returnValue: false) as bool);
+  @override
   _i4.Future<void>? signOut() => (super.noSuchMethod(
       Invocation.method(#signOut, []),
       returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>?);

@@ -49,6 +49,10 @@ void main() {
         find.byKey(const Key('loginScreen_loginForm_loginButton')),
         findsOneWidget,
       );
+      expect(
+        find.byKey(const Key('loginScreen_loginForm_otherOptions')),
+        findsOneWidget,
+      );
     });
 
     testWidgets('adds LoginEmailChanged', (tester) async {
@@ -212,6 +216,13 @@ void main() {
           loginBloc: loginBloc,
         );
 
+        final otherOptionsButtonFinder = find.byKey(
+          const Key('loginScreen_loginForm_otherOptions'),
+        );
+        await tester.ensureVisible(otherOptionsButtonFinder);
+        await tester.tap(otherOptionsButtonFinder);
+
+        await tester.pumpAndSettle();
         final loginAnonymouslyButtonFinder = find.byKey(
           const Key('loginScreen_loginForm_loginAnonymouslyButton'),
         );

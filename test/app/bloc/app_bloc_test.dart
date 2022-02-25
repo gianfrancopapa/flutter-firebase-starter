@@ -10,7 +10,7 @@ import 'package:mockito/mockito.dart';
 
 import 'app_bloc_test.mocks.dart';
 
-@GenerateMocks([LocalPersistanceService, AuthService])
+@GenerateMocks([LocalPersistanceService, AuthService, AppState])
 void main() {
   group('AppBloc', () {
     late LocalPersistanceService mockLocalPersistanceService;
@@ -220,6 +220,54 @@ void main() {
         expect: () => <AppState>[
           AppState(status: AppStatus.failure),
         ],
+      );
+    });
+
+    group('AppDeleteAccountRequested', () {
+      blocTest<AppBloc, AppState>(
+        'calls authService.deleteAccount',
+        act: (bloc) => bloc.add(AppDeleteRequested()),
+        build: () {
+          when(mockAuthService.deleteAccount('')).thenAnswer((_) async => null);
+          return AppBloc(
+            authService: mockAuthService,
+            localPersistanceService: mockLocalPersistanceService,
+          );
+        },
+        verify: (_) {
+          verify(mockAuthService.deleteAccount('')).called(1);
+        },
+      );
+
+      blocTest<AppBloc, AppState>(
+        'emits [unauthenticated] when authService.deleteAccount succeeds',
+        act: (bloc) => bloc.add(AppDeleteRequested()),
+        build: () {
+          when(mockAuthService.deleteAccount('1234'))
+              .thenAnswer((_) async => null);
+          return AppBloc(
+            authService: mockAuthService,
+            localPersistanceService: mockLocalPersistanceService,
+          );
+        },
+        expect: () => <AppState>[
+          AppState(
+            status: AppStatus.unauthenticated,
+            user: User.empty,
+          ),
+        ],
+      );
+      blocTest<AppBloc, AppState>(
+        'emits [failure] when authService.deleteAccount throws',
+        act: (bloc) => bloc.add(AppDeleteRequested()),
+        build: () {
+          when(mockAuthService.deleteAccount('')).thenThrow(AuthError.error);
+          return AppBloc(
+            authService: mockAuthService,
+            localPersistanceService: mockLocalPersistanceService,
+          );
+        },
+        expect: () => <AppState>[AppState(status: AppStatus.failure)],
       );
     });
   });

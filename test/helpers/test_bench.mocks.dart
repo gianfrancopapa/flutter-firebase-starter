@@ -149,6 +149,10 @@ class MockLoginBloc extends _i1.Mock implements _i4.LoginBloc {
   }
 
   @override
+  String get passwordlessEmailKey =>
+      (super.noSuchMethod(Invocation.getter(#passwordlessEmailKey),
+          returnValue: '') as String);
+  @override
   _i4.LoginState get state => (super.noSuchMethod(Invocation.getter(#state),
       returnValue: _FakeLoginState_3()) as _i4.LoginState);
   @override

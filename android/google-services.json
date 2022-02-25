@@ -14,6 +14,46 @@
       },
       "oauth_client": [
         {
+          "client_id": "401997180113-0hdqrit551f6rdi8tdodh88103udl4pj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.somniosoftware.firebasestarter",
+            "certificate_hash": "9e1d89eda74b948cd40665a40a127a8c1fb4f06d"
+          }
+        },
+        {
+          "client_id": "401997180113-7d33o0f6ug3m6p8jjmr5ecf37d4n4sbl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.somniosoftware.firebasestarter",
+            "certificate_hash": "c37dd6aee288e6f50222aad5ba84c3e89705060c"
+          }
+        },
+        {
+          "client_id": "401997180113-9gajbl77kbuisj3m7a73pp5mdka2p9ov.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.somniosoftware.firebasestarter",
+            "certificate_hash": "f14fc181e73fd95d2d35da0a193dee3bd83f4ed9"
+          }
+        },
+        {
+          "client_id": "401997180113-n50mdbukrutt5knucqb29mv6dl85tuvi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.somniosoftware.firebasestarter",
+            "certificate_hash": "4fab535af2c6a15457256a9ab5b703b83f7b89ae"
+          }
+        },
+        {
+          "client_id": "401997180113-r3u8cup15u4pc6su0nnthvcm0rgvq48a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.somniosoftware.firebasestarter",
+            "certificate_hash": "a0da61847b83822673b1626af0b89bf8c884a13c"
+          }
+        },
+        {
           "client_id": "401997180113-bp0bva6j35q63gu88d240cgaq0pt902j.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -34,7 +74,8 @@
               "client_id": "401997180113-2tgafrp1vs291g9nt56scj26ui5i6s32.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.somniosoftware.firebasestarter"
+                "bundle_id": "com.somniosoftware.firebasestarter",
+                "app_store_id": "123456789"
               }
             }
           ]
