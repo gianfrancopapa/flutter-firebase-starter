@@ -218,7 +218,7 @@ void main() {
     });
 
     group('.signInWithSocialMedia', () {
-      const method = SocialMediaMethod.google;
+      const method = AuthenticationMethod.google;
 
       test('succeeds when signInWithCredential succeeds', () {
         when(mockSignInServiceFactory!.getService(method: method))

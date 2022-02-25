@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 abstract class LoginWithSocialMediaButton extends StatelessWidget {
   const LoginWithSocialMediaButton({Key? key}) : super(key: key);
 
-  SocialMediaMethod get socialMediaMethod;
+  AuthenticationMethod get socialMediaMethod;
 
   String get asset;
 
@@ -66,7 +66,7 @@ class LoginWithGoogleButton extends LoginWithSocialMediaButton {
   const LoginWithGoogleButton({Key? key}) : super(key: key);
 
   @override
-  SocialMediaMethod get socialMediaMethod => SocialMediaMethod.google;
+  AuthenticationMethod get socialMediaMethod => AuthenticationMethod.google;
 
   @override
   String get asset =>
@@ -82,7 +82,7 @@ class LoginWithFacebookButton extends LoginWithSocialMediaButton {
   const LoginWithFacebookButton({Key? key}) : super(key: key);
 
   @override
-  SocialMediaMethod get socialMediaMethod => SocialMediaMethod.facebook;
+  AuthenticationMethod get socialMediaMethod => AuthenticationMethod.facebook;
 
   @override
   String get asset =>
@@ -98,7 +98,7 @@ class LoginWithAppleButton extends LoginWithSocialMediaButton {
   const LoginWithAppleButton({Key? key}) : super(key: key);
 
   @override
-  SocialMediaMethod get socialMediaMethod => SocialMediaMethod.apple;
+  AuthenticationMethod get socialMediaMethod => AuthenticationMethod.apple;
 
   @override
   String get asset =>

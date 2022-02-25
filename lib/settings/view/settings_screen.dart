@@ -1,3 +1,4 @@
+import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/app/app.dart';
 import 'package:firebasestarter/gen/assets.gen.dart';
@@ -86,9 +87,9 @@ class _DeleteAccount extends StatelessWidget {
       onPressed: () {
         showDialog(
           context: context,
-          builder: (context) => _loginMethod != null
-              ? const _DialogDeleteAccountSocialMedia()
-              : const _DialogDeleteAccountEmail(),
+          builder: (context) => _loginMethod == AuthenticationMethod.email
+              ? const _DialogDeleteAccountEmail()
+              : const _DialogDeleteAccountSocialMedia(),
         );
       },
       child: Text(

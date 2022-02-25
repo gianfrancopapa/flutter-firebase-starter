@@ -148,7 +148,7 @@ void main() {
         verify(
           () => loginBloc!.add(
             const LoginWithSocialMediaRequested(
-              method: SocialMediaMethod.google,
+              method: AuthenticationMethod.google,
             ),
           ),
         ).called(1);
@@ -172,7 +172,7 @@ void main() {
         verify(
           () => loginBloc!.add(
             const LoginWithSocialMediaRequested(
-              method: SocialMediaMethod.facebook,
+              method: AuthenticationMethod.facebook,
             ),
           ),
         ).called(1);
@@ -197,7 +197,7 @@ void main() {
         verify(
           () => loginBloc!.add(
             const LoginWithSocialMediaRequested(
-              method: SocialMediaMethod.apple,
+              method: AuthenticationMethod.apple,
             ),
           ),
         ).called(1);

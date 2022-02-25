@@ -155,11 +155,12 @@ void main() {
       blocTest<LoginBloc, LoginState>(
         'calls authService.signInWithSocialMedia',
         act: (bloc) => bloc.add(
-          const LoginWithSocialMediaRequested(method: SocialMediaMethod.google),
+          const LoginWithSocialMediaRequested(
+              method: AuthenticationMethod.google),
         ),
         build: () {
           when(mockAuthService.signInWithSocialMedia(
-            method: SocialMediaMethod.google,
+            method: AuthenticationMethod.google,
           )).thenAnswer((_) async => const UserEntity());
           return LoginBloc(
             authService: mockAuthService,
@@ -169,7 +170,7 @@ void main() {
         verify: (_) {
           verify(
             mockAuthService.signInWithSocialMedia(
-              method: SocialMediaMethod.google,
+              method: AuthenticationMethod.google,
             ),
           ).called(1);
         },
@@ -179,12 +180,13 @@ void main() {
         'emits [loading, loggedIn] when '
         'authService.signInWithSocialMedia succeeds and returns user',
         act: (bloc) => bloc.add(
-          const LoginWithSocialMediaRequested(method: SocialMediaMethod.google),
+          const LoginWithSocialMediaRequested(
+              method: AuthenticationMethod.google),
         ),
         build: () {
           when(
             mockAuthService.signInWithSocialMedia(
-              method: SocialMediaMethod.google,
+              method: AuthenticationMethod.google,
             ),
           ).thenAnswer((_) async => mockUser);
 
@@ -198,14 +200,14 @@ void main() {
             status: LoginStatus.loading,
             email: Email.pure(),
             password: Password.pure(),
-            method: SocialMediaMethod.google,
+            method: AuthenticationMethod.google,
           ),
           LoginState(
             status: LoginStatus.loggedIn,
             user: User.fromEntity(mockUser!),
             email: Email.pure(),
             password: Password.pure(),
-            method: SocialMediaMethod.google,
+            method: AuthenticationMethod.google,
           ),
         ],
       );
@@ -214,12 +216,13 @@ void main() {
         'emits [loading, loggedOut] when '
         'authService.signInWithSocialMedia succeeds and returns null',
         act: (bloc) => bloc.add(
-          const LoginWithSocialMediaRequested(method: SocialMediaMethod.google),
+          const LoginWithSocialMediaRequested(
+              method: AuthenticationMethod.google),
         ),
         build: () {
           when(
             mockAuthService.signInWithSocialMedia(
-              method: SocialMediaMethod.google,
+              method: AuthenticationMethod.google,
             ),
           ).thenAnswer((_) async => null);
 
@@ -230,7 +233,7 @@ void main() {
         },
         expect: () => <LoginState>[
           LoginState.initial().copyWith(
-              status: LoginStatus.loading, method: SocialMediaMethod.google),
+              status: LoginStatus.loading, method: AuthenticationMethod.google),
           LoginState.initial().copyWith(status: LoginStatus.loggedOut),
         ],
       );
@@ -239,12 +242,13 @@ void main() {
         'emits [loading, failure] when '
         'authService.signInWithSocialMedia throws',
         act: (bloc) => bloc.add(
-          const LoginWithSocialMediaRequested(method: SocialMediaMethod.google),
+          const LoginWithSocialMediaRequested(
+              method: AuthenticationMethod.google),
         ),
         build: () {
           when(
             mockAuthService.signInWithSocialMedia(
-              method: SocialMediaMethod.google,
+              method: AuthenticationMethod.google,
             ),
           ).thenThrow(AuthError.error);
 
@@ -258,7 +262,7 @@ void main() {
               status: LoginStatus.loading,
               email: Email.pure(),
               password: Password.pure(),
-              method: SocialMediaMethod.google),
+              method: AuthenticationMethod.google),
           LoginState(
             status: LoginStatus.failure,
             email: Email.pure(),

@@ -29,7 +29,7 @@ class AppDeleteRequested extends AppEvent {
 }
 
 class AppDeleteRequestedSocialMedia extends AppEvent {
-  final SocialMediaMethod method;
+  final AuthenticationMethod method;
   const AppDeleteRequestedSocialMedia(this.method);
 }
 

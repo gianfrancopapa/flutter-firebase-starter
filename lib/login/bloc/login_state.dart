@@ -16,7 +16,7 @@ class LoginState extends Equatable {
   final User? user;
   final Email? email;
   final Password? password;
-  final SocialMediaMethod? method;
+  final AuthenticationMethod? method;
 
   const LoginState({
     required this.status,
@@ -40,7 +40,7 @@ class LoginState extends Equatable {
     User? user,
     Email? email,
     Password? password,
-    SocialMediaMethod? method,
+    AuthenticationMethod? method,
   }) {
     return LoginState(
       status: status ?? this.status,

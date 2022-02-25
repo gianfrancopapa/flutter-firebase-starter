@@ -14,7 +14,7 @@ class LoginWithEmailAndPasswordRequested extends LoginEvent {
 class LoginWithSocialMediaRequested extends LoginEvent {
   const LoginWithSocialMediaRequested({required this.method});
 
-  final SocialMediaMethod method;
+  final AuthenticationMethod method;
 }
 
 class LoginAnonymouslyRequested extends LoginEvent {

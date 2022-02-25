@@ -19,9 +19,9 @@ void main() {
     group('LoginWithSocialMediaRequested', () {
       test('supports value comparison', () {
         expect(
-          LoginWithSocialMediaRequested(method: SocialMediaMethod.apple),
+          LoginWithSocialMediaRequested(method: AuthenticationMethod.apple),
           equals(
-            LoginWithSocialMediaRequested(method: SocialMediaMethod.apple),
+            LoginWithSocialMediaRequested(method: AuthenticationMethod.apple),
           ),
         );
       });

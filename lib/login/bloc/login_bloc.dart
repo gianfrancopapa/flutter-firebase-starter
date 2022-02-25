@@ -38,7 +38,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         password: state.password!.value!,
       );
       emit(state.copyWith(
-          status: LoginStatus.loggedIn, user: _toUser(user!), method: null));
+          status: LoginStatus.loggedIn,
+          user: _toUser(user!),
+          method: AuthenticationMethod.email));
     } on AuthError catch (e) {
       emit(state.copyWith(status: LoginStatus.failure, error: e));
     }
@@ -61,7 +63,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             user: _toUser(user),
             method: event.method));
       } else {
-        emit(state.copyWith(status: LoginStatus.loggedOut, method: null));
+        emit(state.copyWith(
+            status: LoginStatus.loggedOut, method: AuthenticationMethod.none));
       }
     } on AuthError catch (e) {
       emit(state.copyWith(status: LoginStatus.failure, error: e));

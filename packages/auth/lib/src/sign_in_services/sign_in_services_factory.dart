@@ -5,13 +5,14 @@ typedef BuildSignInService = ISignInService? Function();
 class SignInServiceFactory {
   SignInServiceFactory();
 
-  final _signInServiceInstances = <SocialMediaMethod, ISignInService?>{};
-  final _signInServiceConstructor = <SocialMediaMethod, BuildSignInService>{};
+  final _signInServiceInstances = <AuthenticationMethod, ISignInService?>{};
+  final _signInServiceConstructor =
+      <AuthenticationMethod, BuildSignInService>{};
   ISignInService? _signInMethod;
 
   ISignInService? get signInMethod => _signInMethod;
 
-  ISignInService? getService({required SocialMediaMethod method}) {
+  ISignInService? getService({required AuthenticationMethod method}) {
     if (!_signInServiceInstances.containsKey(method)) {
       _signInServiceInstances[method] = _signInServiceConstructor[method]!();
     }
@@ -22,7 +23,7 @@ class SignInServiceFactory {
   }
 
   void addService({
-    required SocialMediaMethod method,
+    required AuthenticationMethod method,
     required BuildSignInService constructor,
   }) {
     if (!_signInServiceConstructor.containsKey(method)) {

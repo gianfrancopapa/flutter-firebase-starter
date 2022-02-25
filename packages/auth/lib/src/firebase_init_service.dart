@@ -1,19 +1,19 @@
 part of auth;
 
 class FirebaseInitService {
-  final Map<SocialMediaMethod, ISignInService> _services = {
-    SocialMediaMethod.apple: AppleSignInService(
+  final Map<AuthenticationMethod, ISignInService> _services = {
+    AuthenticationMethod.apple: AppleSignInService(
       appleCredentials: const AppleCredentials(),
     ),
-    SocialMediaMethod.facebook: FacebookSignInService(
+    AuthenticationMethod.facebook: FacebookSignInService(
       facebookAuth: FacebookAuth.instance,
     ),
-    SocialMediaMethod.google: GoogleSignInService(
+    AuthenticationMethod.google: GoogleSignInService(
       googleSignIn: GoogleSignIn(),
     ),
   };
 
-  FirebaseAuthService init(List<SocialMediaMethod> socialMediasAuth) {
+  FirebaseAuthService init(List<AuthenticationMethod> socialMediasAuth) {
     final _serviceFactory = SignInServiceFactory();
 
     for (var element in socialMediasAuth) {

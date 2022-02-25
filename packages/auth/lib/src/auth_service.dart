@@ -1,6 +1,6 @@
 part of auth;
 
-enum SocialMediaMethod { google, facebook, apple }
+enum AuthenticationMethod { google, facebook, apple, email, none }
 
 abstract class AuthService {
   Stream<UserEntity?> get onAuthStateChanged;
@@ -24,7 +24,7 @@ abstract class AuthService {
   Future<void>? sendPasswordResetEmail({required String email});
 
   Future<UserEntity?> signInWithSocialMedia({
-    required SocialMediaMethod method,
+    required AuthenticationMethod method,
   });
 
   Future<void>? signOut();
@@ -37,5 +37,5 @@ abstract class AuthService {
 
   Future<void>? deleteAccount(String password);
 
-  Future<void>? deleteAccountSocialMedia(SocialMediaMethod method);
+  Future<void>? deleteAccountSocialMedia(AuthenticationMethod method);
 }

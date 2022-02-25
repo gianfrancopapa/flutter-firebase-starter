@@ -97,7 +97,7 @@ class MockAuthService extends _i1.Mock implements _i4.AuthService {
           as _i3.Future<void>?);
   @override
   _i3.Future<_i4.UserEntity?> signInWithSocialMedia(
-          {_i4.SocialMediaMethod? method}) =>
+          {_i4.AuthenticationMethod? method}) =>
       (super.noSuchMethod(
               Invocation.method(#signInWithSocialMedia, [], {#method: method}),
               returnValue: Future<_i4.UserEntity?>.value())
@@ -111,7 +111,8 @@ class MockAuthService extends _i1.Mock implements _i4.AuthService {
       Invocation.method(#deleteAccount, [password]),
       returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>?);
   @override
-  _i3.Future<void>? deleteAccountSocialMedia(_i4.SocialMediaMethod? method) =>
+  _i3.Future<void>? deleteAccountSocialMedia(
+          _i4.AuthenticationMethod? method) =>
       (super.noSuchMethod(
               Invocation.method(#deleteAccountSocialMedia, [method]),
               returnValueForMissingStub: Future<void>.value())

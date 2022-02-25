@@ -102,7 +102,7 @@ class FirebaseAuthService implements AuthService {
 
   @override
   Future<UserEntity?> signInWithSocialMedia({
-    required SocialMediaMethod method,
+    required AuthenticationMethod method,
   }) async {
     try {
       final service = _signInServiceFactory.getService(method: method)!;
@@ -171,7 +171,7 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
-  Future<void>? deleteAccountSocialMedia(SocialMediaMethod method) async {
+  Future<void>? deleteAccountSocialMedia(AuthenticationMethod method) async {
     try {
       final service = _signInServiceFactory.getService(method: method)!;
       final firebaseCredential = await service.getFirebaseCredential();
