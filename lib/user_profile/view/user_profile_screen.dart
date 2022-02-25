@@ -1,12 +1,12 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/edit_profile/edit_profile.dart';
+import 'package:firebasestarter/l10n/l10n.dart';
 import 'package:firebasestarter/settings/settings.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/user_profile/user_profile.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserProfileScreen extends StatelessWidget {
   const UserProfileScreen({Key? key, required this.bottomNavigationBar})
@@ -16,12 +16,12 @@ class UserProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     return Scaffold(
       appBar: CustomAppBar(
         goBack: false,
-        title: localizations.myProfile,
+        title: _localizations.myProfile,
         suffixWidget: InkWell(
           onTap: () {
             Navigator.of(context).push(SettingsScreen.route());

@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/gen/assets.gen.dart';
+import 'package:firebasestarter/l10n/l10n.dart';
 import 'package:firebasestarter/login/view/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebasestarter/onboarding/onboarding.dart';
 
 class OnboardingPages extends StatelessWidget {
@@ -47,7 +47,7 @@ class OnboardingPages extends StatelessWidget {
   }
 
   List<PageViewModel> _pages(BuildContext context) {
-    final _localizedStrings = AppLocalizations.of(context)!;
+    final _localizedStrings = context.l10n;
     return [
       _page(
         title: _localizedStrings.welcome,
@@ -85,7 +85,7 @@ class OnboardingPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     return BlocListener<OnboardingCubit, OnboardingState>(
       listener: (context, state) {
@@ -107,10 +107,10 @@ class OnboardingPages extends StatelessWidget {
           showSkipButton: true,
           skipFlex: 0,
           nextFlex: 0,
-          skip: Text(localizations.skip),
+          skip: Text(_localizations.skip),
           next: const Icon(Icons.arrow_forward),
           done: Text(
-            localizations.done,
+            _localizations.done,
             style: const TextStyle(
               fontWeight: FSFontWeight.semiBold,
             ),

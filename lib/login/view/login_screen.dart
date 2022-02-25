@@ -1,5 +1,6 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
+import 'package:firebasestarter/l10n/l10n.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
@@ -9,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:firebasestarter/home/home.dart';
 import 'package:firebasestarter/utils/dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -57,31 +57,31 @@ class LoginScreen extends StatelessWidget {
 
   String _determineAccessError(AuthError? error, BuildContext context) {
     var message = 'Error: ';
-    final _appLocalizations = AppLocalizations.of(context);
+    final _localizations = context.l10n;
     switch (error) {
       case AuthError.invalidEmail:
-        message += _appLocalizations!.invalidEmail;
+        message += _localizations.invalidEmail;
         break;
       case AuthError.userDisabled:
-        message += _appLocalizations!.userDisabled;
+        message += _localizations.userDisabled;
         break;
       case AuthError.userNotFound:
-        message += _appLocalizations!.userNotFound;
+        message += _localizations.userNotFound;
         break;
       case AuthError.wrongPassword:
-        message += _appLocalizations!.wrongPassword;
+        message += _localizations.wrongPassword;
         break;
       case AuthError.emailAlreadyInUse:
-        message += _appLocalizations!.emailAlreadyInUse;
+        message += _localizations.emailAlreadyInUse;
         break;
       case AuthError.invalidCredential:
-        message += _appLocalizations!.invalidCredential;
+        message += _localizations.invalidCredential;
         break;
       case AuthError.operationNotAllowed:
-        message += _appLocalizations!.operationNotAllowed;
+        message += _localizations.operationNotAllowed;
         break;
       case AuthError.weakPassword:
-        message += _appLocalizations!.weakPassword;
+        message += _localizations.weakPassword;
         break;
       default:
         message += 'An error occurs';
@@ -95,7 +95,7 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 44.0),
@@ -113,7 +113,7 @@ class _LoginForm extends StatelessWidget {
                     Navigator.of(context).push(SignUpScreen.route());
                   },
                   child: Text(
-                    localizations.createAccount,
+                    _localizations.createAccount,
                     style: const TextStyle(
                       color: FSColors.skyBlue,
                       fontSize: 13.0,
@@ -209,13 +209,13 @@ class _EmailTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     final email = context.select((LoginBloc bloc) => bloc.state.email);
 
     return TextField(
       decoration: InputDecoration(
-        labelText: localizations.email,
+        labelText: _localizations.email,
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: FSColors.red),
         ),
@@ -233,14 +233,14 @@ class _PasswordTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     final password = context.select((LoginBloc bloc) => bloc.state.password);
 
     return TextField(
       obscureText: true,
       decoration: InputDecoration(
-        labelText: localizations.password,
+        labelText: _localizations.password,
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: FSColors.red),
         ),
@@ -258,7 +258,7 @@ class _LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     final status = context.select((LoginBloc bloc) => bloc.state.status);
     final isNotValid = status != LoginStatus.valid;
@@ -282,7 +282,7 @@ class _LoginButton extends StatelessWidget {
                   .add(const LoginWithEmailAndPasswordRequested());
             },
       child: Text(
-        localizations.login,
+        _localizations.login,
         style: const TextStyle(color: FSColors.white),
       ),
     );
@@ -294,6 +294,7 @@ class _ForgotPasswordButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _localizations = context.l10n;
     return TextButton(
       onPressed: () {
         Navigator.of(context).push(ForgotPasswordScreen.route());
@@ -301,7 +302,7 @@ class _ForgotPasswordButton extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Text(
-          AppLocalizations.of(context)!.didYouForgetYourPassword,
+          _localizations.didYouForgetYourPassword,
           textAlign: TextAlign.center,
           style: const TextStyle(
             color: FSColors.blue,

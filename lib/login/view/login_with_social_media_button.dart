@@ -1,10 +1,10 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/gen/assets.gen.dart';
+import 'package:firebasestarter/l10n/l10n.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 abstract class LoginWithSocialMediaButton extends StatelessWidget {
   const LoginWithSocialMediaButton({Key? key}) : super(key: key);
@@ -74,7 +74,7 @@ class LoginWithGoogleButton extends LoginWithSocialMediaButton {
 
   @override
   String text(BuildContext context) {
-    return AppLocalizations.of(context)!.googleSignIn;
+    return context.l10n.googleSignIn;
   }
 }
 
@@ -90,7 +90,7 @@ class LoginWithFacebookButton extends LoginWithSocialMediaButton {
 
   @override
   String text(BuildContext context) {
-    return AppLocalizations.of(context)!.facebookSignIn;
+    return context.l10n.facebookSignIn;
   }
 }
 
@@ -106,7 +106,7 @@ class LoginWithAppleButton extends LoginWithSocialMediaButton {
 
   @override
   String text(BuildContext context) {
-    return AppLocalizations.of(context)!.appleIdSignIn;
+    return context.l10n.appleIdSignIn;
   }
 }
 
@@ -115,7 +115,7 @@ class LoginAnonymouslyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     return FSTextButton(
       style: ButtonStyle(
@@ -144,7 +144,7 @@ class LoginAnonymouslyButton extends StatelessWidget {
             padding: EdgeInsets.only(left: 15.0),
           ),
           Text(
-            localizations.anonymousSignIn,
+            _localizations.anonymousSignIn,
             style: const TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.w400,

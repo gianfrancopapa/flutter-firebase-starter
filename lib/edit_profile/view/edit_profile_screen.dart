@@ -1,6 +1,7 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/edit_profile/edit_profile.dart';
+import 'package:firebasestarter/l10n/l10n.dart';
 import 'package:firebasestarter/services/image_picker/image_picker.dart';
 import 'package:firebasestarter/services/storage/firebase_storage_service.dart';
 import 'package:firebasestarter/user/user.dart';
@@ -8,7 +9,6 @@ import 'package:firebasestarter/user_profile/user_profile.dart';
 import 'package:firebasestarter/utils/dialog.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditProfileScreen extends StatelessWidget {
@@ -29,7 +29,7 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     return MultiBlocListener(
       listeners: [
@@ -62,7 +62,7 @@ class EditProfileScreen extends StatelessWidget {
         ),
       ],
       child: Scaffold(
-        appBar: CustomAppBar(title: localizations.editProfile),
+        appBar: CustomAppBar(title: _localizations.editProfile),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 44.0),
@@ -90,7 +90,7 @@ class _ProfileImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context);
+    final _localizations = context.l10n;
 
     final image = context.select((EditProfileBloc bloc) => bloc.state.imageURL);
     final validImage = image != null;
@@ -114,7 +114,7 @@ class _ProfileImage extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  localizations!.selectProfilePicture,
+                  _localizations.selectProfilePicture,
                   style: const TextStyle(fontSize: 22),
                 ),
               ),
@@ -130,7 +130,7 @@ class _ProfileImage extends StatelessWidget {
                   size: 50,
                 ),
                 title: Text(
-                  localizations.camera,
+                  _localizations.camera,
                   style: const TextStyle(fontSize: 20),
                 ),
                 onTap: () {
@@ -151,7 +151,7 @@ class _ProfileImage extends StatelessWidget {
                   size: 50,
                 ),
                 title: Text(
-                  localizations.gallery,
+                  _localizations.gallery,
                   style: const TextStyle(fontSize: 20),
                 ),
                 onTap: () {
@@ -262,7 +262,7 @@ class _UpdateProfileButton extends StatelessWidget {
   const _UpdateProfileButton({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
     final status = context.select((EditProfileBloc bloc) => bloc.state.status);
     final isInvalid = status == EditProfileStatus.invalid;
 
@@ -278,7 +278,7 @@ class _UpdateProfileButton extends StatelessWidget {
                   .add(const EditProfileInfoUpdated());
             },
       child: Text(
-        localizations.editProfile,
+        _localizations.editProfile,
         style: const TextStyle(color: FSColors.white),
       ),
     );

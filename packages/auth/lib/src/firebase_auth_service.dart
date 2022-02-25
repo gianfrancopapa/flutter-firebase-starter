@@ -160,8 +160,10 @@ class FirebaseAuthService implements AuthService {
     try {
       final user = _firebaseAuth.currentUser!;
       auth.AuthCredential credential = auth.EmailAuthProvider.credential(
-          email: user.email!, password: password);
-      await _firebaseAuth.currentUser!.reauthenticateWithCredential(credential);
+        email: user.email!,
+        password: password,
+      );
+      await user.reauthenticateWithCredential(credential);
       await user.delete();
     } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
@@ -173,12 +175,12 @@ class FirebaseAuthService implements AuthService {
     try {
       final service = _signInServiceFactory.getService(method: method)!;
       final firebaseCredential = await service.getFirebaseCredential();
+      final user = _firebaseAuth.currentUser!;
 
       if (firebaseCredential != null) {
-        await _firebaseAuth.currentUser!
-            .reauthenticateWithCredential(firebaseCredential);
+        await user.reauthenticateWithCredential(firebaseCredential);
       }
-      final user = _firebaseAuth.currentUser!;
+
       await user.delete();
     } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);

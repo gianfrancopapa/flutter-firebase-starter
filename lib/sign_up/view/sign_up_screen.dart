@@ -1,11 +1,11 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/home/home.dart';
+import 'package:firebasestarter/l10n/l10n.dart';
 import 'package:firebasestarter/sign_up/sign_up.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebasestarter/utils/dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,11 +24,11 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: localizations.createAccount,
+        title: _localizations.createAccount,
       ),
       body: BlocListener<SignUpBloc, SignUpState>(
         listenWhen: (prev, current) =>
@@ -107,13 +107,13 @@ class _FirstNameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
     final firstName =
         context.select(((SignUpBloc bloc) => bloc.state.firstName!));
 
     return TextField(
       decoration: InputDecoration(
-        labelText: localizations.firstName,
+        labelText: _localizations.firstName,
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: FSColors.red),
         ),
@@ -133,13 +133,13 @@ class _LastNameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
     final lastName =
         context.select(((SignUpBloc bloc) => bloc.state.lastName!));
 
     return TextField(
       decoration: InputDecoration(
-        labelText: localizations.lastName,
+        labelText: _localizations.lastName,
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: FSColors.red),
         ),
@@ -159,12 +159,12 @@ class _EmailTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
     final email = context.select(((SignUpBloc bloc) => bloc.state.email!));
 
     return TextField(
       decoration: InputDecoration(
-        labelText: localizations.email,
+        labelText: _localizations.email,
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: FSColors.red),
         ),
@@ -182,14 +182,14 @@ class _PasswordTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
     final password =
         context.select(((SignUpBloc bloc) => bloc.state.password!));
 
     return TextField(
       obscureText: true,
       decoration: InputDecoration(
-        labelText: localizations.password,
+        labelText: _localizations.password,
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: FSColors.red),
         ),
@@ -209,14 +209,14 @@ class _PasswordConfirmationTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
     final passwordConfirmation =
         context.select(((SignUpBloc bloc) => bloc.state.password!));
 
     return TextField(
       obscureText: true,
       decoration: InputDecoration(
-        labelText: localizations.passwordConfirmation,
+        labelText: _localizations.passwordConfirmation,
         errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: FSColors.red),
         ),
@@ -238,7 +238,7 @@ class _SignUpTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
     final status = context.select((SignUpBloc bloc) => bloc.state.status);
 
     return FSTextButton(
@@ -248,7 +248,7 @@ class _SignUpTextButton extends StatelessWidget {
               context.read<SignUpBloc>().add(const SignUpRequested());
             },
       child: Text(
-        localizations.createAccount,
+        _localizations.createAccount,
         style: TextStyle(
           color: status != SignUpStatus.valid ? FSColors.grey : FSColors.blue,
         ),

@@ -1,8 +1,8 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
+import 'package:firebasestarter/l10n/l10n.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/user_profile/user_profile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserInfoSection extends StatelessWidget {
   const UserInfoSection({Key? key, required this.user}) : super(key: key);
@@ -11,7 +11,7 @@ class UserInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     return SizedBox(
       width: double.infinity,
@@ -23,17 +23,17 @@ class UserInfoSection extends StatelessWidget {
           UserProfileImage(image: user.imageUrl),
           const SizedBox(height: 43.0),
           _UserInfoItem(
-            title: localizations.firstName,
+            title: _localizations.firstName,
             data: user.firstName,
           ),
           const SizedBox(height: 10.0),
           _UserInfoItem(
-            title: localizations.lastName,
+            title: _localizations.lastName,
             data: user.lastName,
           ),
           const SizedBox(height: 10.0),
           _UserInfoItem(
-            title: localizations.email,
+            title: _localizations.email,
             data: user.email,
           ),
         ],

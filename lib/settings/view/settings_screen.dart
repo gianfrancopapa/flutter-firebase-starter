@@ -1,12 +1,12 @@
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/app/app.dart';
 import 'package:firebasestarter/gen/assets.gen.dart';
+import 'package:firebasestarter/l10n/l10n.dart';
 import 'package:firebasestarter/login/login.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:firebasestarter/settings/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -26,10 +26,10 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _localizedStrings = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     return Scaffold(
-      appBar: CustomAppBar(title: _localizedStrings.settings),
+      appBar: CustomAppBar(title: _localizations.settings),
       body: Container(
         alignment: Alignment.center,
         height: MediaQuery.of(context).size.height,
@@ -49,7 +49,7 @@ class SettingsScreen extends StatelessWidget {
                   context.read<AppBloc>().add(const AppLogoutRequsted());
                 },
                 child: Text(
-                  _localizedStrings.logout,
+                  _localizations.logout,
                   style: const TextStyle(color: FSColors.white),
                 ),
               ),
@@ -76,7 +76,7 @@ class _DeleteAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _localizedStrings = AppLocalizations.of(context)!;
+    final AppLocalizations _localizations = context.l10n;
     final _loginMethod = context.read<LoginBloc>().state.method;
 
     return FSTextButton(
@@ -92,7 +92,7 @@ class _DeleteAccount extends StatelessWidget {
         );
       },
       child: Text(
-        _localizedStrings.deleteAccount,
+        _localizations.deleteAccount,
         style: const TextStyle(color: FSColors.white),
       ),
     );
@@ -104,20 +104,20 @@ class _DialogDeleteAccountEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _localizedStrings = AppLocalizations.of(context)!;
+    final AppLocalizations _localizations = context.l10n;
     return AlertDialog(
-      title: Text(_localizedStrings.deleteAccount),
+      title: Text(_localizations.deleteAccount),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(_localizedStrings.deleteAccountConfirmation),
+          Text(_localizations.deleteAccountConfirmation),
           TextField(
             obscureText: true,
             decoration: InputDecoration(
-              labelText: _localizedStrings.password,
+              labelText: _localizations.password,
               errorText:
                   context.watch<AppBloc>().state.status == AppStatus.failure
-                      ? _localizedStrings.wrongPasswordReauthentication
+                      ? _localizations.wrongPasswordReauthentication
                       : null,
             ),
             onChanged: (value) {
@@ -129,14 +129,14 @@ class _DialogDeleteAccountEmail extends StatelessWidget {
       actions: <Widget>[
         FSTextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(_localizedStrings.cancel),
+          child: Text(_localizations.cancel),
         ),
         FSTextButton(
           onPressed: () {
             context.read<AppBloc>().add(const AppDeleteRequested());
           },
           child: Text(
-            _localizedStrings.delete,
+            _localizations.delete,
             style: const TextStyle(color: FSColors.red),
           ),
         ),
@@ -152,20 +152,20 @@ class _DialogDeleteAccountSocialMedia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AppLocalizations _localizedStrings = AppLocalizations.of(context)!;
+    final AppLocalizations _localizations = context.l10n;
     final _loginMethod = context.read<LoginBloc>().state.method;
     return AlertDialog(
-      title: Text(_localizedStrings.deleteAccount),
+      title: Text(_localizations.deleteAccount),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(_localizedStrings.deleteAccountConfirmationSocialMedia),
+          Text(_localizations.deleteAccountConfirmationSocialMedia),
         ],
       ),
       actions: <Widget>[
         FSTextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(_localizedStrings.cancel),
+          child: Text(_localizations.cancel),
         ),
         FSTextButton(
           onPressed: () {
@@ -174,7 +174,7 @@ class _DialogDeleteAccountSocialMedia extends StatelessWidget {
                 .add(AppDeleteRequestedSocialMedia(_loginMethod!));
           },
           child: Text(
-            _localizedStrings.delete,
+            _localizations.delete,
             style: const TextStyle(color: FSColors.red),
           ),
         ),

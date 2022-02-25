@@ -1,9 +1,9 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/forgot_password/forgot_password.dart';
+import 'package:firebasestarter/l10n/l10n.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebasestarter/utils/dialog.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,11 +23,11 @@ class ForgotPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
 
     return Scaffold(
       appBar: CustomAppBar(
-        title: localizations.forgotPassword,
+        title: _localizations.forgotPassword,
       ),
       body: BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
         listenWhen: (_, current) =>
@@ -36,8 +36,8 @@ class ForgotPasswordScreen extends StatelessWidget {
           if (state.status == ForgotPasswordStatus.success) {
             DialogHelper.showAlertDialog(
               context: context,
-              story: localizations.emailSent,
-              btnText: localizations.ok,
+              story: _localizations.emailSent,
+              btnText: _localizations.ok,
               btnAction: () => Navigator.pop(context),
             );
           }
@@ -105,7 +105,7 @@ class _ForgotPasswordTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+    final _localizations = context.l10n;
     final status =
         context.select((ForgotPasswordBloc bloc) => bloc.state.status);
     final isNotValid = status != ForgotPasswordStatus.valid;
@@ -124,7 +124,7 @@ class _ForgotPasswordTextButton extends StatelessWidget {
                   .add(const ForgotPasswordResetRequested());
             },
       child: Text(
-        localizations.send,
+        _localizations.send,
         style: const TextStyle(
           color: FSColors.white,
         ),
