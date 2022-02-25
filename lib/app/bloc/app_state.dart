@@ -6,18 +6,19 @@ enum AppStatus {
   authenticated,
   unauthenticated,
   failure,
+  requiresReauthenticate,
 }
 
 class AppState extends Equatable {
   const AppState({
     required this.status,
     this.user,
-    this.password,
+    password = '',
   });
 
   final AppStatus? status;
   final User? user;
-  final String? password;
+  final String password = '';
 
   AppState copyWith({AppStatus? status, User? user, String? password}) {
     return AppState(

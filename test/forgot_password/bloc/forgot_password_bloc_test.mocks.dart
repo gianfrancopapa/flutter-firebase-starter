@@ -74,6 +74,24 @@ class MockAuthService extends _i1.Mock implements _i2.AuthService {
               returnValue: Future<_i2.UserEntity?>.value())
           as _i3.Future<_i2.UserEntity?>);
   @override
+  _i3.Future<void> sendSignInLinkToEmail({String? email}) =>
+      (super.noSuchMethod(
+          Invocation.method(#sendSignInLinkToEmail, [], {#email: email}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<_i2.UserEntity?> signInWithEmailLink(
+          {dynamic email, dynamic emailLink}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #signInWithEmailLink, [], {#email: email, #emailLink: emailLink}),
+          returnValue:
+              Future<_i2.UserEntity?>.value()) as _i3.Future<_i2.UserEntity?>);
+  @override
+  bool isSignInWithEmailLink({String? emailLink}) => (super.noSuchMethod(
+      Invocation.method(#isSignInWithEmailLink, [], {#emailLink: emailLink}),
+      returnValue: false) as bool);
+  @override
   _i3.Future<void>? signOut() => (super.noSuchMethod(
       Invocation.method(#signOut, []),
       returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>?);

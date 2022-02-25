@@ -21,6 +21,7 @@ dependencies:
   firebase_analytics: ^9.0.4
   firebase_core: ^1.10.6
   firebase_crashlytics: ^2.4.4
+  firebase_dynamic_links: ^4.0.6
   firebase_messaging: ^11.2.4
   firebase_starter_ui:
     path: packages/firebase_starter_ui
@@ -79,3 +80,4 @@ dependency_overrides:
   firebase_storage_platform_interface: 4.0.14
   cloud_functions_platform_interface: 5.0.21
   firebase_analytics_platform_interface: 3.0.5
+  firebase_dynamic_links_platform_interface: 0.2.0+5 

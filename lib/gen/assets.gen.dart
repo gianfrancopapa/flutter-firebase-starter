@@ -55,6 +55,10 @@ class $PackagesFirebaseStarterUiAssetsImagesGen {
   AssetGenImage get googleLogo => const AssetGenImage(
       'packages/firebase_starter_ui/assets/images/google_logo.png');
 
+  /// File path: packages/firebase_starter_ui/assets/images/passwordless_logo.png
+  AssetGenImage get passwordlessLogo => const AssetGenImage(
+      'packages/firebase_starter_ui/assets/images/passwordless_logo.png');
+
   /// File path: packages/firebase_starter_ui/assets/images/setting.png
   AssetGenImage get setting => const AssetGenImage(
       'packages/firebase_starter_ui/assets/images/setting.png');
