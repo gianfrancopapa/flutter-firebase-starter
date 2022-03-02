@@ -126,7 +126,7 @@ class FirebaseAuthService implements AuthService {
   Future<void> sendSignInLinkToEmail({required String email}) async {
     try {
       final actionCodeSettings = ActionCodeSettings(
-        url: 'https://somnioboilerplate.page.link/kN5G',
+        url: 'https://somnioboilerplate.page.link/',
         androidMinimumVersion: '6',
         androidPackageName: 'com.somniosoftware.firebasestarter',
         iOSBundleId: 'com.somniosoftware.firebasestarter',
@@ -223,6 +223,20 @@ class FirebaseAuthService implements AuthService {
     } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }
+  }
+
+  @override
+  Future<void>? deletePasswordless(String link) async {
+    final link =
+        await MySharedPreferences().getValue<String>('passwordlessLink');
+
+    /*await MySharedPreferences()
+            .setValue(passwordlessLink, event.uri.toString());
+        final email =
+            await MySharedPreferences().getValue<String>('passwordlessEmail');
+        final user = await _authService.signInWithEmailLink(
+            email: email, emailLink: event.uri.toString());
+*/
   }
 
   AuthError _determineError(auth.FirebaseAuthException exception) {

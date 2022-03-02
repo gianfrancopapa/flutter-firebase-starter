@@ -91,7 +91,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
   Future<void> _mapAppDeleteRequestedToState(
       AppDeleteRequested event, Emitter<AppState> emit) async {
     try {
-      await _authService.deleteAccount(state.password);
+      await _authService.deleteAccount(state.password!);
       emit(state.copyWith(
         status: AppStatus.unauthenticated,
         user: User.empty,

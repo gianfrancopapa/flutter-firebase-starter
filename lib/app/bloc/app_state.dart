@@ -13,12 +13,12 @@ class AppState extends Equatable {
   const AppState({
     required this.status,
     this.user,
-    password = '',
+    this.password,
   });
 
   final AppStatus? status;
   final User? user;
-  final String password = '';
+  final String? password;
 
   AppState copyWith({AppStatus? status, User? user, String? password}) {
     return AppState(
