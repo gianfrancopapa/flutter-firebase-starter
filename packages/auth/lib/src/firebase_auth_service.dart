@@ -225,20 +225,6 @@ class FirebaseAuthService implements AuthService {
     }
   }
 
-  @override
-  Future<void>? deletePasswordless(String link) async {
-    final link =
-        await MySharedPreferences().getValue<String>('passwordlessLink');
-
-    /*await MySharedPreferences()
-            .setValue(passwordlessLink, event.uri.toString());
-        final email =
-            await MySharedPreferences().getValue<String>('passwordlessEmail');
-        final user = await _authService.signInWithEmailLink(
-            email: email, emailLink: event.uri.toString());
-*/
-  }
-
   AuthError _determineError(auth.FirebaseAuthException exception) {
     switch (exception.code) {
       case 'invalid-email':
