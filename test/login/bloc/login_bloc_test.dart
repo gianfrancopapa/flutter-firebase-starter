@@ -115,6 +115,7 @@ void main() {
             passwordlessEmail: Email.pure(),
             password: password,
             user: User.fromEntity(mockUser!),
+            method: AuthenticationMethod.email,
           ),
         ],
       );
@@ -243,7 +244,8 @@ void main() {
         expect: () => <LoginState>[
           LoginState.initial().copyWith(
               status: LoginStatus.loading, method: AuthenticationMethod.google),
-          LoginState.initial().copyWith(status: LoginStatus.loggedOut),
+          LoginState.initial().copyWith(
+              status: LoginStatus.loggedOut, method: AuthenticationMethod.none),
         ],
       );
 
