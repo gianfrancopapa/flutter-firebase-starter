@@ -109,7 +109,7 @@ class MockFirebaseAuthService extends _i1.Mock
           as _i4.Future<void>?);
   @override
   _i4.Future<_i3.UserEntity?> signInWithSocialMedia(
-          {_i3.SocialMediaMethod? method}) =>
+          {_i3.AuthenticationMethod? method}) =>
       (super.noSuchMethod(
               Invocation.method(#signInWithSocialMedia, [], {#method: method}),
               returnValue: Future<_i3.UserEntity?>.value())
@@ -141,7 +141,8 @@ class MockFirebaseAuthService extends _i1.Mock
       Invocation.method(#deleteAccount, [password]),
       returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>?);
   @override
-  _i4.Future<void>? deleteAccountSocialMedia(_i3.SocialMediaMethod? method) =>
+  _i4.Future<void>? deleteAccountSocialMedia(
+          _i3.AuthenticationMethod? method) =>
       (super.noSuchMethod(
               Invocation.method(#deleteAccountSocialMedia, [method]),
               returnValueForMissingStub: Future<void>.value())

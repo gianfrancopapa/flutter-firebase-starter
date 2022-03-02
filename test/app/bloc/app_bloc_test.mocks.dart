@@ -100,13 +100,8 @@ class MockAuthService extends _i1.Mock implements _i5.AuthService {
               returnValueForMissingStub: Future<void>.value())
           as _i4.Future<void>?);
   @override
-<<<<<<< HEAD
-  _i3.Future<_i4.UserEntity?> signInWithSocialMedia(
-          {_i4.AuthenticationMethod? method}) =>
-=======
   _i4.Future<_i5.UserEntity?> signInWithSocialMedia(
-          {_i5.SocialMediaMethod? method}) =>
->>>>>>> 54b399dccb6d95251eb3b8ebe7af8bbc9623a2e4
+          {_i5.AuthenticationMethod? method}) =>
       (super.noSuchMethod(
               Invocation.method(#signInWithSocialMedia, [], {#method: method}),
               returnValue: Future<_i5.UserEntity?>.value())
@@ -138,12 +133,8 @@ class MockAuthService extends _i1.Mock implements _i5.AuthService {
       Invocation.method(#deleteAccount, [password]),
       returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>?);
   @override
-<<<<<<< HEAD
-  _i3.Future<void>? deleteAccountSocialMedia(
-          _i4.AuthenticationMethod? method) =>
-=======
-  _i4.Future<void>? deleteAccountSocialMedia(_i5.SocialMediaMethod? method) =>
->>>>>>> 54b399dccb6d95251eb3b8ebe7af8bbc9623a2e4
+  _i4.Future<void>? deleteAccountSocialMedia(
+          _i5.AuthenticationMethod? method) =>
       (super.noSuchMethod(
               Invocation.method(#deleteAccountSocialMedia, [method]),
               returnValueForMissingStub: Future<void>.value())
@@ -158,10 +149,6 @@ class MockAppState extends _i1.Mock implements _i2.AppState {
     _i1.throwOnMissingStub(this);
   }
 
-  @override
-  String get password =>
-      (super.noSuchMethod(Invocation.getter(#password), returnValue: '')
-          as String);
   @override
   List<Object?> get props =>
       (super.noSuchMethod(Invocation.getter(#props), returnValue: <Object?>[])

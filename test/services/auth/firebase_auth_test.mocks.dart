@@ -337,12 +337,12 @@ class MockSignInServiceFactory extends _i1.Mock
   }
 
   @override
-  _i6.ISignInService? getService({_i6.SocialMediaMethod? method}) =>
+  _i6.ISignInService? getService({_i6.AuthenticationMethod? method}) =>
       (super.noSuchMethod(Invocation.method(#getService, [], {#method: method}))
           as _i6.ISignInService?);
   @override
   void addService(
-          {_i6.SocialMediaMethod? method,
+          {_i6.AuthenticationMethod? method,
           _i6.BuildSignInService? constructor}) =>
       super.noSuchMethod(
           Invocation.method(
