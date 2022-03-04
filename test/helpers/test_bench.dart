@@ -1,6 +1,6 @@
 import 'package:firebasestarter/app/app.dart';
 import 'package:firebasestarter/employees/employees.dart';
-import 'package:firebasestarter/login/login.dart';
+import 'package:firebasestarter/authentication/login/login.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

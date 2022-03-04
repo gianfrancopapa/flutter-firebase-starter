@@ -2,7 +2,7 @@
 
 import 'package:auth/auth.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebasestarter/forgot_password/forgot_password.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

@@ -1,6 +1,6 @@
 import 'package:firebasestarter/services/dynamic_links/firebase_dynamic_links_service.dart';
 import 'package:firebasestarter/app/app.dart';
-import 'package:firebasestarter/login/login.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebasestarter/onboarding/onboarding.dart';

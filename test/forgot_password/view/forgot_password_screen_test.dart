@@ -1,5 +1,5 @@
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebasestarter/forgot_password/forgot_password.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

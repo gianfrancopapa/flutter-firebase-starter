@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:firebasestarter/forgot_password/forgot_password.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:flutter_test/flutter_test.dart';
 

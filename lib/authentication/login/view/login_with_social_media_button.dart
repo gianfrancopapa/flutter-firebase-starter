@@ -2,7 +2,7 @@ import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
 import 'package:firebasestarter/gen/assets.gen.dart';
 import 'package:firebasestarter/l10n/l10n.dart';
-import 'package:firebasestarter/login/login.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -5,8 +5,9 @@
 import 'dart:async' as _i7;
 
 import 'package:firebasestarter/app/bloc/app_bloc.dart' as _i3;
+import 'package:firebasestarter/authentication/login/bloc/login_bloc.dart'
+    as _i4;
 import 'package:firebasestarter/employees/bloc/employees_bloc.dart' as _i6;
-import 'package:firebasestarter/login/bloc/login_bloc.dart' as _i4;
 import 'package:firebasestarter/user/bloc/user_bloc.dart' as _i5;
 import 'package:flutter_bloc/flutter_bloc.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;

@@ -1,10 +1,8 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
-import 'package:firebasestarter/delete_account/bloc/delete_account_bloc.dart';
-import 'package:firebasestarter/delete_account/view/delete_account_button.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/gen/assets.gen.dart';
 import 'package:firebasestarter/l10n/l10n.dart';
-import 'package:firebasestarter/logout/view/view.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:firebasestarter/settings/settings.dart';

@@ -1,7 +1,7 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebasestarter/employees/employees.dart';
-import 'package:firebasestarter/login/login.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/app/app.dart';
 import 'package:firebasestarter/services/analytics/analyitics.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';

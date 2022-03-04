@@ -1,6 +1,6 @@
 import 'package:auth/auth.dart';
 import 'package:bloc_test/bloc_test.dart';
-import 'package:firebasestarter/delete_account/bloc/delete_account_bloc.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';

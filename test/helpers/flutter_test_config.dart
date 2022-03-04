@@ -1,10 +1,7 @@
 import 'dart:async';
 import 'package:firebasestarter/app/app.dart';
-import 'package:firebasestarter/edit_profile/edit_profile.dart';
 import 'package:firebasestarter/employees/employees.dart';
-import 'package:firebasestarter/forgot_password/forgot_password.dart';
-import 'package:firebasestarter/login/login.dart';
-import 'package:firebasestarter/sign_up/sign_up.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/user/user.dart';
 import 'package:flutter_test/flutter_test.dart';
 

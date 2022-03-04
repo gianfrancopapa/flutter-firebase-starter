@@ -1,6 +1,6 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
-import 'package:firebasestarter/edit_profile/edit_profile.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/l10n/l10n.dart';
 import 'package:firebasestarter/services/image_picker/image_picker.dart';
 import 'package:firebasestarter/services/storage/firebase_storage_service.dart';

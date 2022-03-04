@@ -3,7 +3,7 @@
 import 'dart:io';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebasestarter/edit_profile/edit_profile.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/forms/forms.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:firebasestarter/services/image_picker/image_picker.dart';

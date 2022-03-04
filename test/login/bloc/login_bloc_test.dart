@@ -1,6 +1,6 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:firebasestarter/forms/forms.dart';
-import 'package:firebasestarter/login/login.dart';
+import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/models/user.dart';
 import 'package:auth/auth.dart';
 import 'package:firebasestarter/services/analytics/analyitics.dart';
