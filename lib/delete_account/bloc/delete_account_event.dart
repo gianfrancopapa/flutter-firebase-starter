@@ -7,8 +7,8 @@ abstract class DeleteAccountEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class DeleteAccountRequested extends DeleteAccountEvent {
-  const DeleteAccountRequested();
+class DeleteAccountRequestedEmail extends DeleteAccountEvent {
+  const DeleteAccountRequestedEmail();
 }
 
 class DeleteAccountRequestedSocialMedia extends DeleteAccountEvent {

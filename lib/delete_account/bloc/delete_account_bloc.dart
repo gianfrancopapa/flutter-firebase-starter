@@ -11,29 +11,32 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
     required AuthService authService,
   })  : _authService = authService,
         super(const DeleteAccountState()) {
-    on<DeleteAccountRequested>(_mapAppDeleteRequestedToState);
+    on<DeleteAccountRequestedEmail>(_mapDeleteAccountEmailRequestedToState);
     on<DeleteAccountPasswordReauthentication>(
-        _mapAppPasswordReauthenticationToState);
+        _mapDeleteAccountPasswordReauthenticationToState);
     on<DeleteAccountRequestedSocialMedia>(
-        _mapAppDeleteRequestedSocialMediaToState);
+        _mapDeleteAccountRequestedSocialMediaToState);
   }
 
   final AuthService _authService;
 
-  Future<void> _mapAppDeleteRequestedToState(
-      DeleteAccountRequested event, Emitter<DeleteAccountState> emit) async {
+  Future<void> _mapDeleteAccountEmailRequestedToState(
+      DeleteAccountRequestedEmail event,
+      Emitter<DeleteAccountState> emit) async {
     try {
-      await _authService.deleteAccountEmail(state.password!);
+      final String password = state.password ?? '';
+      await _authService.deleteAccountEmail(password);
       emit(state.copyWith(
         user: User.empty,
         password: '',
+        status: DeleteAccountStatus.success,
       ));
     } on AuthError {
-      emit(state.copyWith());
+      emit(state.copyWith(status: DeleteAccountStatus.error));
     }
   }
 
-  Future<void> _mapAppDeleteRequestedSocialMediaToState(
+  Future<void> _mapDeleteAccountRequestedSocialMediaToState(
       DeleteAccountRequestedSocialMedia event,
       Emitter<DeleteAccountState> emit) async {
     try {
@@ -43,11 +46,11 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
         password: '',
       ));
     } on AuthError {
-      emit(state.copyWith());
+      emit(state.copyWith(status: DeleteAccountStatus.error));
     }
   }
 
-  Future<void> _mapAppPasswordReauthenticationToState(
+  Future<void> _mapDeleteAccountPasswordReauthenticationToState(
       DeleteAccountPasswordReauthentication event,
       Emitter<DeleteAccountState> emit) async {
     emit(state.copyWith(password: event.password));

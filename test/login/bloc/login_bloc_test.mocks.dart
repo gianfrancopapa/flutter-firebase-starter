@@ -137,8 +137,8 @@ class MockFirebaseAuthService extends _i1.Mock
       Invocation.method(#signOut, []),
       returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>?);
   @override
-  _i4.Future<void>? deleteAccount(String? password) => (super.noSuchMethod(
-      Invocation.method(#deleteAccount, [password]),
+  _i4.Future<void>? deleteAccountEmail(String? password) => (super.noSuchMethod(
+      Invocation.method(#deleteAccountEmail, [password]),
       returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>?);
   @override
   _i4.Future<void>? deleteAccountSocialMedia(

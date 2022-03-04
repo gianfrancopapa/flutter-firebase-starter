@@ -1,6 +1,6 @@
 part of 'delete_account_bloc.dart';
 
-enum DeleteAccountStatus { initial, loading, success, failure, valid, invalid }
+enum DeleteAccountStatus { initial, loading, error, success }
 
 class DeleteAccountState extends Equatable {
   const DeleteAccountState({

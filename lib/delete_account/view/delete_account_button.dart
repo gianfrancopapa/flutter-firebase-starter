@@ -59,7 +59,7 @@ class _DialogDeleteAccountEmail extends StatelessWidget {
             decoration: InputDecoration(
               labelText: _localizations.password,
               errorText: context.watch<DeleteAccountBloc>().state.status ==
-                      DeleteAccountStatus.failure
+                      DeleteAccountStatus.error
                   ? _localizations.wrongPasswordReauthentication
                   : null,
             ),
@@ -80,7 +80,7 @@ class _DialogDeleteAccountEmail extends StatelessWidget {
           onPressed: () {
             context
                 .read<DeleteAccountBloc>()
-                .add(const DeleteAccountRequested());
+                .add(const DeleteAccountRequestedEmail());
           },
           child: Text(
             _localizations.delete,

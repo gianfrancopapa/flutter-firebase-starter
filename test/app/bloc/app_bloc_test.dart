@@ -10,7 +10,7 @@ import 'package:mockito/mockito.dart';
 
 import 'app_bloc_test.mocks.dart';
 
-@GenerateMocks([LocalPersistanceService, AuthService, AppState])
+@GenerateMocks([LocalPersistanceService, AuthService])
 void main() {
   group('AppBloc', () {
     late LocalPersistanceService mockLocalPersistanceService;

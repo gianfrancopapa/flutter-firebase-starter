@@ -96,8 +96,8 @@ class MockAuthService extends _i1.Mock implements _i2.AuthService {
       Invocation.method(#signOut, []),
       returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>?);
   @override
-  _i3.Future<void>? deleteAccount(String? password) => (super.noSuchMethod(
-      Invocation.method(#deleteAccount, [password]),
+  _i3.Future<void>? deleteAccountEmail(String? password) => (super.noSuchMethod(
+      Invocation.method(#deleteAccountEmail, [password]),
       returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>?);
   @override
   _i3.Future<void>? deleteAccountSocialMedia(
