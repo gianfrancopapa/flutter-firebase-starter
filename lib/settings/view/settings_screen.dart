@@ -1,9 +1,10 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
-import 'package:firebasestarter/app/app.dart';
+import 'package:firebasestarter/delete_account/bloc/delete_account_bloc.dart';
+import 'package:firebasestarter/delete_account/view/delete_account_button.dart';
 import 'package:firebasestarter/gen/assets.gen.dart';
 import 'package:firebasestarter/l10n/l10n.dart';
-import 'package:firebasestarter/login/login.dart';
+import 'package:firebasestarter/logout/view/view.dart';
 import 'package:firebasestarter/services/app_info/app_info_service.dart';
 import 'package:firebasestarter/widgets/app_bar.dart';
 import 'package:firebasestarter/settings/settings.dart';
@@ -16,10 +17,18 @@ class SettingsScreen extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute<void>(
-      builder: (_) => BlocProvider(
-        create: (context) =>
-            AppVersionCubit(appInfo: context.read<AppInfoService>())
-              ..appVersion(),
+      builder: (_) => MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) =>
+                AppVersionCubit(appInfo: context.read<AppInfoService>())
+                  ..appVersion(),
+          ),
+          BlocProvider(
+            create: (context) => DeleteAccountBloc(
+                authService: context.read<FirebaseAuthService>()),
+          ),
+        ],
         child: const SettingsScreen(),
       ),
     );
@@ -42,19 +51,8 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.25,
               ),
-              FSTextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(FSColors.blue),
-                ),
-                onPressed: () {
-                  context.read<AppBloc>().add(const AppLogoutRequsted());
-                },
-                child: Text(
-                  _localizations.logout,
-                  style: const TextStyle(color: FSColors.white),
-                ),
-              ),
-              const _DeleteAccount(),
+              const Logout(),
+              const DeleteAccount(),
               const SizedBox(height: 200.0),
               const AppVersion(),
               const SizedBox(height: 20.45),
@@ -66,120 +64,6 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _DeleteAccount extends StatelessWidget {
-  const _DeleteAccount({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final AppLocalizations _localizations = context.l10n;
-    final _loginMethod = context.read<LoginBloc>().state.method;
-
-    return FSTextButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(FSColors.blue),
-      ),
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (context) => _loginMethod == AuthenticationMethod.email
-              ? const _DialogDeleteAccountEmail()
-              : const _DialogDeleteAccountSocialMedia(),
-        );
-      },
-      child: Text(
-        _localizations.deleteAccount,
-        style: const TextStyle(color: FSColors.white),
-      ),
-    );
-  }
-}
-
-class _DialogDeleteAccountEmail extends StatelessWidget {
-  const _DialogDeleteAccountEmail({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final AppLocalizations _localizations = context.l10n;
-    return AlertDialog(
-      title: Text(_localizations.deleteAccount),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(_localizations.deleteAccountConfirmation),
-          TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: _localizations.password,
-              errorText:
-                  context.watch<AppBloc>().state.status == AppStatus.failure
-                      ? _localizations.wrongPasswordReauthentication
-                      : null,
-            ),
-            onChanged: (value) {
-              context.read<AppBloc>().add(AppPasswordReauthentication(value));
-            },
-          ),
-        ],
-      ),
-      actions: <Widget>[
-        FSTextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(_localizations.cancel),
-        ),
-        FSTextButton(
-          onPressed: () {
-            context.read<AppBloc>().add(const AppDeleteRequested());
-          },
-          child: Text(
-            _localizations.delete,
-            style: const TextStyle(color: FSColors.red),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _DialogDeleteAccountSocialMedia extends StatelessWidget {
-  const _DialogDeleteAccountSocialMedia({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final AppLocalizations _localizations = context.l10n;
-    final _loginMethod = context.read<LoginBloc>().state.method;
-    return AlertDialog(
-      title: Text(_localizations.deleteAccount),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(_localizations.deleteAccountConfirmationSocialMedia),
-        ],
-      ),
-      actions: <Widget>[
-        FSTextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(_localizations.cancel),
-        ),
-        FSTextButton(
-          onPressed: () {
-            context
-                .read<AppBloc>()
-                .add(AppDeleteRequestedSocialMedia(_loginMethod!));
-          },
-          child: Text(
-            _localizations.delete,
-            style: const TextStyle(color: FSColors.red),
-          ),
-        ),
-      ],
     );
   }
 }

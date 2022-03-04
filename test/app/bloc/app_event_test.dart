@@ -24,7 +24,7 @@ void main() {
 
     group('AppLogoutRequsted', () {
       test('supports value comparison', () {
-        expect(AppLogoutRequsted(), equals(AppLogoutRequsted()));
+        expect(AppLogoutRequested(), equals(AppLogoutRequested()));
       });
     });
   });

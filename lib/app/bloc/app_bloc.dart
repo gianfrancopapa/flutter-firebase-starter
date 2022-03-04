@@ -19,10 +19,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     _userSubscription = _authService.onAuthStateChanged.listen(_onUserChanged);
     on<AppIsFirstTimeLaunched>(_mapAppIsFirstTimeLaunchedToState);
     on<AppUserChanged>(_mapAppUserChangedToState);
-    on<AppLogoutRequsted>(_mapAppLogoutRequstedToState);
-    on<AppDeleteRequested>(_mapAppDeleteRequestedToState);
-    on<AppPasswordReauthentication>(_mapAppPasswordReauthenticationToState);
-    on<AppDeleteRequestedSocialMedia>(_mapAppDeleteRequestedSocialMediaToState);
+    on<AppLogoutRequested>(_mapAppLogoutRequestedToState);
   }
 
   static const String _isFirstTime = 'is_first_time';
@@ -74,8 +71,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     ));
   }
 
-  Future<void> _mapAppLogoutRequstedToState(
-      AppLogoutRequsted event, Emitter<AppState> emit) async {
+  Future<void> _mapAppLogoutRequestedToState(
+      AppLogoutRequested event, Emitter<AppState> emit) async {
     try {
       await _authService.signOut();
 
@@ -86,39 +83,6 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     } on AuthError {
       emit(state.copyWith(status: AppStatus.failure));
     }
-  }
-
-  Future<void> _mapAppDeleteRequestedToState(
-      AppDeleteRequested event, Emitter<AppState> emit) async {
-    try {
-      await _authService.deleteAccount(state.password!);
-      emit(state.copyWith(
-        status: AppStatus.unauthenticated,
-        user: User.empty,
-        password: '',
-      ));
-    } on AuthError {
-      emit(state.copyWith(status: AppStatus.failure));
-    }
-  }
-
-  Future<void> _mapAppDeleteRequestedSocialMediaToState(
-      AppDeleteRequestedSocialMedia event, Emitter<AppState> emit) async {
-    try {
-      await _authService.deleteAccountSocialMedia(event.method);
-      emit(state.copyWith(
-        status: AppStatus.unauthenticated,
-        user: User.empty,
-        password: '',
-      ));
-    } on AuthError {
-      emit(state.copyWith(status: AppStatus.failure));
-    }
-  }
-
-  Future<void> _mapAppPasswordReauthenticationToState(
-      AppPasswordReauthentication event, Emitter<AppState> emit) async {
-    emit(state.copyWith(password: event.password));
   }
 
   @override

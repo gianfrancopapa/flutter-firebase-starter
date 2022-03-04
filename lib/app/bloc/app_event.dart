@@ -20,20 +20,6 @@ class AppUserChanged extends AppEvent {
   List<Object> get props => [user];
 }
 
-class AppLogoutRequsted extends AppEvent {
-  const AppLogoutRequsted();
-}
-
-class AppDeleteRequested extends AppEvent {
-  const AppDeleteRequested();
-}
-
-class AppDeleteRequestedSocialMedia extends AppEvent {
-  final AuthenticationMethod method;
-  const AppDeleteRequestedSocialMedia(this.method);
-}
-
-class AppPasswordReauthentication extends AppEvent {
-  final String password;
-  const AppPasswordReauthentication(this.password);
+class AppLogoutRequested extends AppEvent {
+  const AppLogoutRequested();
 }

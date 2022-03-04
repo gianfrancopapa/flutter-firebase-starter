@@ -41,7 +41,7 @@ abstract class AuthService {
     String? photoURL,
   });
 
-  Future<void>? deleteAccount(String password);
+  Future<void>? deleteAccountEmail(String password);
 
   Future<void>? deleteAccountSocialMedia(AuthenticationMethod method);
 }
