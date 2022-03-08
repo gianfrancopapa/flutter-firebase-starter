@@ -33,6 +33,8 @@ abstract class AuthService {
 
   bool isSignInWithEmailLink({required String emailLink});
 
+  bool isEmailVerified();
+
   Future<void>? signOut();
 
   Future<bool>? changeProfile({
@@ -40,6 +42,8 @@ abstract class AuthService {
     String? lastName,
     String? photoURL,
   });
+
+  Future<void>? sendEmailVerification();
 
   Future<void>? deleteAccountEmail(String password);
 

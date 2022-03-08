@@ -92,8 +92,16 @@ class MockAuthService extends _i1.Mock implements _i2.AuthService {
       Invocation.method(#isSignInWithEmailLink, [], {#emailLink: emailLink}),
       returnValue: false) as bool);
   @override
+  bool isEmailVerified() =>
+      (super.noSuchMethod(Invocation.method(#isEmailVerified, []),
+          returnValue: false) as bool);
+  @override
   _i3.Future<void>? signOut() => (super.noSuchMethod(
       Invocation.method(#signOut, []),
+      returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>?);
+  @override
+  _i3.Future<void>? sendEmailVerification() => (super.noSuchMethod(
+      Invocation.method(#sendEmailVerification, []),
       returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>?);
   @override
   _i3.Future<void>? deleteAccountEmail(String? password) => (super.noSuchMethod(

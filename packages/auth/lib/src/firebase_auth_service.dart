@@ -161,6 +161,15 @@ class FirebaseAuthService implements AuthService {
   }
 
   @override
+  bool isEmailVerified() {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return user.emailVerified;
+    }
+    return false;
+  }
+
+  @override
   Future<void>? signOut() async {
     try {
       final service = _signInServiceFactory.signInMethod;
@@ -188,6 +197,22 @@ class FirebaseAuthService implements AuthService {
         await user.updatePhotoURL(photoURL);
       }
       return true;
+    } on auth.FirebaseAuthException catch (e) {
+      throw _determineError(e);
+    }
+  }
+
+  @override
+  Future<void>? sendEmailVerification() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    try {
+      if (user != null) {
+        user.reload();
+        if (!user.emailVerified) {
+          await user.sendEmailVerification();
+        }
+      }
     } on auth.FirebaseAuthException catch (e) {
       throw _determineError(e);
     }

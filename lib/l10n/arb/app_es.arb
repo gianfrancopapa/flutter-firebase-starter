@@ -179,5 +179,16 @@
 
   "sendLoginEmail" : "Enviar correo",
 
-  "expiredLink" : "Enlace expirado"
+  "expiredLink" : "Enlace expirado",
+
+  "verifyEmailLinkSent" : "Email de verificacion enviado exitosamente",
+
+  "verifyEmailLinkSentDescription" : "Enlace de verifcacion ha sido enviado a tu email. Por favor ingresa y sigue el enlace para verificar tu email",
+
+  "verifyEmailErrorTitle" : "Ha ocurrido un error",
+
+  "verifyEmailPleaseTryAgain"  : "Por favor, intente de nuevo",
+
+  "verifyEmail"  : "Verificar Email"
+
 }

@@ -133,8 +133,16 @@ class MockFirebaseAuthService extends _i1.Mock
       Invocation.method(#isSignInWithEmailLink, [], {#emailLink: emailLink}),
       returnValue: false) as bool);
   @override
+  bool isEmailVerified() =>
+      (super.noSuchMethod(Invocation.method(#isEmailVerified, []),
+          returnValue: false) as bool);
+  @override
   _i4.Future<void>? signOut() => (super.noSuchMethod(
       Invocation.method(#signOut, []),
+      returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>?);
+  @override
+  _i4.Future<void>? sendEmailVerification() => (super.noSuchMethod(
+      Invocation.method(#sendEmailVerification, []),
       returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>?);
   @override
   _i4.Future<void>? deleteAccountEmail(String? password) => (super.noSuchMethod(

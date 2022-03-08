@@ -1,5 +1,6 @@
 import 'package:auth/auth.dart';
 import 'package:firebase_starter_ui/firebase_starter_ui.dart';
+import 'package:firebasestarter/app/app.dart';
 import 'package:firebasestarter/authentication/authentication.dart';
 import 'package:firebasestarter/gen/assets.gen.dart';
 import 'package:firebasestarter/l10n/l10n.dart';
@@ -24,7 +25,13 @@ class SettingsScreen extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => DeleteAccountBloc(
-                authService: context.read<FirebaseAuthService>()),
+              authService: context.read<FirebaseAuthService>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => VerifiyEmailBloc(
+              authService: context.read<FirebaseAuthService>(),
+            ),
           ),
         ],
         child: const SettingsScreen(),
@@ -49,8 +56,10 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.25,
               ),
+              const VerifyEmail(),
               const Logout(),
-              const DeleteAccount(),
+              if (context.read<AppBloc>().state.status != AppStatus.firstTime)
+                const DeleteAccount(),
               const SizedBox(height: 200.0),
               const AppVersion(),
               const SizedBox(height: 20.45),

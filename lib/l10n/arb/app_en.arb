@@ -439,6 +439,31 @@
   "cancel"  : "Cancel",
   "@cancel" : {
       "description" : ""
+  },
+
+  "verifyEmailLinkSent"  : "Verification email sent succesfully",
+  "@verifyEmailLinkSent" : {
+      "description" : ""
+  },
+
+"verifyEmailLinkSentDescription"  : "A verification link has been sent to your email account. Please follow the link to verify your email",
+  "@verifyEmailLinkSentDescription" : {
+      "description" : ""
+  },
+
+  "verifyEmailErrorTitle"  : "An error has ocurred",
+  "@verifyEmailErrorTitle" : {
+      "description" : ""
+  },
+
+  "verifyEmailPleaseTryAgain"  : "Please try again",
+  "@verifyEmailPleaseTryAgain" : {
+      "description" : ""
+  },
+
+  "verifyEmail"  : "Verify Email",
+  "@verifyEmail" : {
+      "description" : ""
   }
 
 }

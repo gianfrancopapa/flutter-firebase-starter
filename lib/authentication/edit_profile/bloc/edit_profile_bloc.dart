@@ -50,14 +50,16 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       final lastName = LastName.dirty(user?.lastName);
       final image = user?.imageUrl;
 
-      emit(state.copyWith(
-        user: _toUser(user!),
-        firstName: firstName,
-        lastName: lastName,
-        imageURL: image,
-        status:
-            _status(firstName: firstName, lastName: lastName, imageURL: image),
-      ));
+      emit(
+        state.copyWith(
+          user: _toUser(user!),
+          firstName: firstName,
+          lastName: lastName,
+          imageURL: image,
+          status: _status(
+              firstName: firstName, lastName: lastName, imageURL: image),
+        ),
+      );
     } on Exception {
       emit(state.copyWith(status: EditProfileStatus.failure));
     }

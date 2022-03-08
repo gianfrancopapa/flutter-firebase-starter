@@ -47,6 +47,10 @@ class $PackagesFirebaseStarterUiAssetsImagesGen {
   AssetGenImage get confluenceLogo => const AssetGenImage(
       'packages/firebase_starter_ui/assets/images/confluence_logo.png');
 
+  /// File path: packages/firebase_starter_ui/assets/images/email_delivered.png
+  AssetGenImage get emailDelivered => const AssetGenImage(
+      'packages/firebase_starter_ui/assets/images/email_delivered.png');
+
   /// File path: packages/firebase_starter_ui/assets/images/facebook_logo.png
   AssetGenImage get facebookLogo => const AssetGenImage(
       'packages/firebase_starter_ui/assets/images/facebook_logo.png');
